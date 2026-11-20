@@ -413,6 +413,7 @@ On the phone, a bottom tab bar holds **Today · Pantry · Library · Guides · S
 - Office days, overrides and away periods.
 - The notification times, notifications on or off, and a test push.
 - The cooldown and the default cups.
+- Light or dark: a switch (decision of 2026-11-20).
 - Export (JSON and CSV).
 
 **Diagnostics**

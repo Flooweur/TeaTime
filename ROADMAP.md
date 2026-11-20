@@ -26,6 +26,7 @@ Asked of the owner and answered, newest first. The SPEC states each as a rule.
 ### 2026-11-20: the look (phase 0)
 - **Direction:** of three Today mockups (A · Warm journal, B · Calm minimal, C · Ink & washi), the owner picked **A · Warm journal**, as shown, with nothing mixed in from B or C: cream paper and tea-brown ink, Alegreya for the names and stories, Alegreya Sans for the rest, amber for the running timer.
 - **Tokens:** its colours in both modes, fonts, type scale, radii and spacing are in [docs/design/README.md](docs/design/README.md), ready to become the Tailwind 4 `@theme` in phase 6.
+- **Light / dark:** a switch in Settings chooses. What it starts on, before the owner first sets it, is still to be asked (phase 6).
 
 ### 2026-11-20: the build plan (Q&A before phase 1)
 **Platform and hosting**

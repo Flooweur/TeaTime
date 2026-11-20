@@ -21,7 +21,7 @@
 ## Tokens (A · Warm journal)
 
 ### Colours
-The dark values apply when the device is in dark mode (`prefers-color-scheme: dark`). In dark mode the primary action turns from tea brown to amber, since a dark brown button would vanish on the dark page.
+A switch in Settings chooses light or dark (decision of 2026-11-20); the dark values apply under `:root[data-theme="dark"]`. What the switch starts on, before it is first set, is still to be asked (phase 6). In dark mode the primary action turns from tea brown to amber, since a dark brown button would vanish on the dark page.
 
 | Token | Role | Light | Dark |
 |---|---|---|---|
@@ -156,31 +156,30 @@ The dark values apply when the device is in dark mode (`prefers-color-scheme: da
   --shadow-card: 0 1px 0 var(--color-line), 0 14px 28px -20px var(--color-shadow);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #17120d;
-    --color-surface: #211a13;
-    --color-sunk: #2b2219;
-    --color-fg: #f2e7d5;
-    --color-muted: #bca88f;
-    --color-line: #3a2e22;
-    --color-control: #8c7458;
-    --color-accent: #e2a65a;
-    --color-on-accent: #1e150d;
-    --color-highlight: #e2a65a;
-    --color-on-highlight: #1e150d;
-    --color-highlight-ink: #edb872;
-    --color-documented: #a3c892;
-    --color-attested: #98bce2;
-    --color-legend: #e7b068;
-    --color-margin: #6b4823;
-    --color-shadow: #00000073;
-    --color-focus: #edb872;
-    color-scheme: dark;
-  }
+/* The light / dark switch in Settings sets data-theme on <html>. */
+:root[data-theme="dark"] {
+  --color-bg: #17120d;
+  --color-surface: #211a13;
+  --color-sunk: #2b2219;
+  --color-fg: #f2e7d5;
+  --color-muted: #bca88f;
+  --color-line: #3a2e22;
+  --color-control: #8c7458;
+  --color-accent: #e2a65a;
+  --color-on-accent: #1e150d;
+  --color-highlight: #e2a65a;
+  --color-on-highlight: #1e150d;
+  --color-highlight-ink: #edb872;
+  --color-documented: #a3c892;
+  --color-attested: #98bce2;
+  --color-legend: #e7b068;
+  --color-margin: #6b4823;
+  --color-shadow: #00000073;
+  --color-focus: #edb872;
+  color-scheme: dark;
 }
 ```
-Tailwind's utilities read these variables, so the dark block switches the whole app without `dark:` variants.
+Tailwind's utilities read these variables, so the dark block switches the whole app without `dark:` variants. Where a `dark:` variant is still wanted, `@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));` ties it to the same switch.
 
 ## Motifs
 What makes the screen a journal, as drawn in the page's `.j-*` styles:
