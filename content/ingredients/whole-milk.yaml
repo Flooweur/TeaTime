@@ -4,7 +4,7 @@ category: dairy
 unit: ml
 perishable: true
 shelf_life_days: 3
-storage: "In the fridge; a few days once opened."
+storage: "In the fridge; a few days once opened. For an unopened UHT carton, set its opened date only when you open it."
 quality: "Full-fat milk (lait entier), fresh or UHT."
 shops:
   - shop: monoprix-lyon-republique

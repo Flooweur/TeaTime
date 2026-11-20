@@ -163,6 +163,29 @@ describe("compileContent refuses", () => {
     );
   });
 
+  it("a piece of gear with an ingredient's id (the self-review of phase 4)", () => {
+    const found = problemsAfter((f) => f.gear.push({ ...(f.gear[0] as object), id: "ceylon-black" }));
+    expect(found).toContain('gear/ceylon-black.yaml: the id "ceylon-black" is already an ingredient\'s');
+  });
+
+  it("an unused ingredient even when a gear file can't be read (the self-review of phase 4)", () => {
+    const files = filesOf(fixture());
+    const spare = {
+      path: "ingredients/spare-peel.yaml",
+      text: files.ingredients[1]!.text.replace(/^id: .*$/m, "id: spare-peel"),
+    };
+    const broken = { path: "gear/thermometer.yaml", text: "id: thermometer\n" };
+    const found = compileContent({
+      ...files,
+      ingredients: [...files.ingredients, spare],
+      gear: [files.gear[0]!, broken],
+    }).problems.map((p) => `${p.file}: ${p.message}`);
+    expect(found).toContain(
+      "ingredients/spare-peel.yaml: no blend uses it: remove it, or retire it if it was published (SPEC §5.2)",
+    );
+    expect(found.some((m) => m.startsWith("shops.yaml"))).toBe(false);
+  });
+
   it("a safe blend that needs gear (optional gear is fine)", () => {
     expect(
       problemsAfter((f) => (field<Record<string, unknown>[]>(blend(f, 0), "gear")[0]!.optional = false)),

@@ -151,7 +151,7 @@ Text, with [links](https://…) or [to a chapter](#bergamot).
 - a file name that isn't the blend's code and slug, or a code or slug used twice;
 - no primary source, or a source with neither a URL nor a reference;
 - an ingredient that doesn't exist (or is retired, in a blend still in use), a quantity in another unit than its ingredient's, an ingredient twice, or every ingredient optional;
-- gear that doesn't exist (or is retired, in a blend still in use), or twice; a blend made in a gaiwan, kyusu or chawan that doesn't need it as gear;
+- gear that doesn't exist (or is retired, in a blend still in use), or twice; a blend made in a gaiwan, kyusu or chawan that doesn't need it as gear; a piece of gear with an ingredient's id (the pantry holds both by id);
 - `per-cup` without `serves` or with `session_max`, and `per-session` the other way round;
 - `prep: evening` without an evening step, an evening step without it, or an evening step after one of the day;
 - anything but exactly one infusions step, or a timer on it (its times are `brew.infusions_s`);

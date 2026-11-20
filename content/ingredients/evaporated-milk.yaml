@@ -4,7 +4,7 @@ category: dairy
 unit: ml
 perishable: false
 shelf_life_days: 3
-storage: "Unopened, in the cupboard. Once opened, in a closed container in the fridge for 3 days, or frozen."
+storage: "Unopened, in the cupboard: set its opened date only when you open a tin. Once opened, in a closed container in the fridge for 3 days, or frozen."
 quality: "Unsweetened evaporated milk (lait concentré non sucré), whole if you can find it; never sweetened condensed milk."
 shops:
   - shop: auchan-lyon-felix-faure

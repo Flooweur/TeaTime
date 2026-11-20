@@ -11,7 +11,8 @@
  *   quantity in another unit than its ingredient's, an ingredient twice in a blend, or a blend
  *   whose every ingredient is optional;
  * - the same for gear: gear no gear file defines (or retired, in a blend in use), or twice in a
- *   blend; and a blend made in a gaiwan, kyusu or chawan that doesn't need it as gear;
+ *   blend; a blend made in a gaiwan, kyusu or chawan that doesn't need it as gear; and a piece of
+ *   gear with an ingredient's id, since the pantry holds both by id;
  * - `per-cup` without `serves` or with `session_max`, and `per-session` the other way round;
  * - `prep: evening` without an evening step, an evening step without it, or an evening step after
  *   a step of the day;
@@ -523,6 +524,12 @@ export function compileContent(files: ContentFiles): Compiled {
   const teaTypes = compileTeaTypes(files.teaTypes, problems);
   const { ingredients, unreadable } = compileIngredients(files.ingredients, shops, problems);
   const { gear, unreadable: unreadableGear } = compileGear(files.gear, shops, problems);
+  // The pantry holds ingredients and gear under one id each (SPEC §3.6): they can't share one.
+  for (const id of gear.keys()) {
+    if (ingredients.has(id) || unreadable.has(id)) {
+      problems.push({ file: `gear/${id}.yaml`, message: `the id "${id}" is already an ingredient's` });
+    }
+  }
 
   const guides = new Map<string, Guide>();
   let guidesReadable = true;
@@ -561,20 +568,25 @@ export function compileContent(files: ContentFiles): Compiled {
   }
 
   // What nothing uses: only said when every blend could be read, or it would be said wrongly.
-  if (blendsReadable && !unreadable.size && !unreadableGear.size) {
-    const inUse = [...blends.values()].filter((b) => !b.retired);
-    const unused = (folder: string, items: Iterable<{ id: string; retired: boolean }>, used: Set<string>) => {
-      for (const item of items) {
-        if (!item.retired && !used.has(item.id)) {
-          problems.push({
-            file: `${folder}/${item.id}.yaml`,
-            message: "no blend uses it: remove it, or retire it if it was published (SPEC §5.2)",
-          });
-        }
+  const inUse = [...blends.values()].filter((b) => !b.retired);
+  const unused = (folder: string, items: Iterable<{ id: string; retired: boolean }>, used: Set<string>) => {
+    for (const item of items) {
+      if (!item.retired && !used.has(item.id)) {
+        problems.push({
+          file: `${folder}/${item.id}.yaml`,
+          message: "no blend uses it: remove it, or retire it if it was published (SPEC §5.2)",
+        });
       }
-    };
+    }
+  };
+  if (blendsReadable && !unreadable.size) {
     unused("ingredients", ingredients.values(), new Set(inUse.flatMap((b) => b.ingredients.map((i) => i.id))));
+  }
+  if (blendsReadable && !unreadableGear.size) {
     unused("gear", gear.values(), new Set(inUse.flatMap((b) => b.gear.map((g) => g.id))));
+  }
+  // A shop is in use if an ingredient or a piece of gear names it: every one of them must be read.
+  if (blendsReadable && !unreadable.size && !unreadableGear.size) {
     const shopsInUse = new Set(
       [...ingredients.values(), ...gear.values()].flatMap((item) => item.shops.map((s) => s.shop)),
     );

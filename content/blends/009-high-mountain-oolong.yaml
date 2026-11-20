@@ -81,6 +81,6 @@ brew:
   infusions_s: [60, 30, 40, 50, 65, 80, 100, 120]
 steps:
   - text: "Bring fresh water to a full boil. Warm the gaiwan, a small jug and three small cups with it, then pour it away."
-  - text: "Put the leaves in the hot, empty gaiwan, put the lid on and smell them after a few seconds. A rinse is up to you: Taiwanese houses differ. If you rinse, fill the gaiwan and pour it away at once."
+  - text: "The leaves are for a 150 ml gaiwan; for another size, keep the same strength: 5 g in a 100 ml gaiwan, 8 g in a 170 ml one. Put the leaves in the hot, empty gaiwan, put the lid on and smell them after a few seconds. A rinse is up to you: Taiwanese houses differ. If you rinse, fill the gaiwan and pour it away at once."
   - text: "For each infusion, bring the water back to the boil, fill the gaiwan to the rim and put the lid on. When the time is up, pour all of it into the jug, draining the gaiwan, and share it among the three cups. Stop when the taste fades."
     infusions: true

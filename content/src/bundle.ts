@@ -1413,7 +1413,7 @@ export const BUNDLE: ContentBundle = {
           "stage": "day"
         },
         {
-          "text": "Put the leaves in the hot, empty gaiwan, put the lid on and smell them after a few seconds. A rinse is up to you: Taiwanese houses differ. If you rinse, fill the gaiwan and pour it away at once.",
+          "text": "The leaves are for a 150 ml gaiwan; for another size, keep the same strength: 5 g in a 100 ml gaiwan, 8 g in a 170 ml one. Put the leaves in the hot, empty gaiwan, put the lid on and smell them after a few seconds. A rinse is up to you: Taiwanese houses differ. If you rinse, fill the gaiwan and pour it away at once.",
           "infusions": false,
           "stage": "day"
         },
@@ -1799,7 +1799,7 @@ export const BUNDLE: ContentBundle = {
       "unit": "ml",
       "perishable": false,
       "shelfLifeDays": 3,
-      "storage": "Unopened, in the cupboard. Once opened, in a closed container in the fridge for 3 days, or frozen.",
+      "storage": "Unopened, in the cupboard: set its opened date only when you open a tin. Once opened, in a closed container in the fridge for 3 days, or frozen.",
       "quality": "Unsweetened evaporated milk (lait concentré non sucré), whole if you can find it; never sweetened condensed milk.",
       "shops": [
         {
@@ -2161,7 +2161,7 @@ export const BUNDLE: ContentBundle = {
       "unit": "ml",
       "perishable": true,
       "shelfLifeDays": 3,
-      "storage": "In the fridge; a few days once opened.",
+      "storage": "In the fridge; a few days once opened. For an unopened UHT carton, set its opened date only when you open it.",
       "quality": "Full-fat milk (lait entier), fresh or UHT.",
       "shops": [
         {
@@ -2208,11 +2208,11 @@ export const BUNDLE: ContentBundle = {
     {
       "id": "gaiwan",
       "name": "Gaiwan",
-      "quality": "Glazed white porcelain, with its lid and saucer, about 150 ml. A 100–170 ml one works too: use about 4.5 g of leaves per 100 ml.",
+      "quality": "Glazed white porcelain, with its lid and saucer, about 150 ml. A 100–170 ml one works too, with the leaves scaled to it: 5 g for 100 ml, 8 g for 170 ml.",
       "shops": [
         {
           "shop": "palais-des-thes-lyon",
-          "why": "Blanc de Chine porcelain from Dehua; 100 ml, so take 4.5 g of leaves.",
+          "why": "Blanc de Chine porcelain from Dehua; 100 ml, so take 5 g of leaves.",
           "price": "€28.00",
           "url": "https://www.palaisdesthes.com/fr/le-gaiwan-10cl.html",
           "checked": "2026-11-21"
@@ -2572,5 +2572,5 @@ export const BUNDLE: ContentBundle = {
     }
   ],
   "guides": [],
-  "hash": "de89866a59854abfb9dd790828566884f681c2f07677a39af9a18d5378064448"
+  "hash": "f8011c4646268ec1b6b5a6e45c126f33b0bd0e0e111fd3023c6a06cd77a6c03d"
 };
