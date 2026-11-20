@@ -1,0 +1,75 @@
+code: "010"
+slug: tibetan-butter-tea
+name: Tibetan butter tea (po cha)
+mode: experimental
+family: household
+trust: attested
+source_type: grandmother
+origin: Tibet
+story: >
+  Traditionally, Tibetan tea is boiled: pieces crumbled from a brick simmer for hours into a dark
+  brew, the chaku, which then goes into a tall wooden churn, the chandong, with butter and salt.
+  Bricks for Tibet came mainly from Ya'an, in Sichuan, along the Tea Horse Road. Po cha is drunk
+  through the day, for warmth at altitude, and served at Losar, the New Year. Its butter comes from
+  the dri, the female yak; outside Tibet, Tibetan cooks use cow's butter, and a blender for the churn.
+difficulty: 3
+flavours: [savoury, buttery, salty]
+caffeine: medium
+scaling: per-cup
+serves: 4
+sources:
+  - title: "Butter Tea: Recipe to Make Tibetan Tea, Po Cha"
+    author: "Lobsang Wangdu, YoWangdu"
+    url: https://www.yowangdu.com/tibetan-food/butter-tea
+    lang: en
+    primary: true
+    supports: [recipe, story]
+    note: "For two people, two cups each: four cups of water brought to the boil; two heaping tablespoons of loose tea, boiled a couple of minutes, or 5 to 10 minutes more for brick tea; a heaping quarter teaspoon of salt; a third to a half cup of milk; two tablespoons of butter; churn, blend or shake 2–3 minutes. Pu-erh bricks or plain pu-erh will do; traditionally the tea is boiled for hours and kept as chaku."
+  - title: "Tibetan tea: the secret is butter and salt"
+    author: "Yasmin Noone, SBS Food, with Tsering Wangchuk (Wild Yak restaurant) and Tenzin Wangyal"
+    url: https://www.sbs.com.au/food/article/tibetan-tea-the-secret-is-butter-and-salt/35s8cjvgi
+    lang: en
+    primary: true
+    supports: [story]
+    note: "A brick-tea concentrate, chaku, steeped for hours; a churn about half a person's height; butter from the dri, cow's butter abroad; drunk several times a day for warmth, and at Losar."
+  - title: "Butter tea"
+    author: Wikipedia
+    url: https://en.wikipedia.org/wiki/Butter_tea
+    lang: en
+    supports: [story]
+    note: "Pu-erh leaves boiled for half a day; churned in a dongmo; cow's butter and a blender increasingly used."
+  - title: "Compressed tea"
+    author: Wikipedia
+    url: https://en.wikipedia.org/wiki/Compressed_tea
+    lang: en
+    supports: [story]
+    note: "Tea bricks for Tibet were mainly produced around Ya'an, broken into small pieces and boiled."
+  - title: "Tea Horse Road"
+    author: Wikipedia
+    url: https://en.wikipedia.org/wiki/Tea_Horse_Road
+    lang: en
+    supports: [story]
+    note: "The road starts from Ya'an, the tea-producing area of Yazhou."
+ingredients:
+  - { id: pu-erh, qty: 10, unit: g, role: base }
+  - { id: whole-milk, qty: 100, unit: ml, role: base }
+  - { id: unsalted-butter, qty: 28, unit: g, role: base }
+  - { id: salt, qty: 2, unit: g, role: accent }
+gear:
+  - { id: blender, optional: true }
+brew:
+  water: tap
+  temp_c: 100
+  ratio_g_per_100ml: 1.1
+  water_ml: 950
+  vessel: saucepan
+  preheat: false
+  infusions_s: [600]
+steps:
+  - text: "Break about 10 g of tea from the brick into small pieces (or two heaping tablespoons of loose pu-erh). Bring 950 ml of water to the boil in a saucepan."
+  - text: "Add the tea and keep it at a low boil. Tibetans boil it for hours; ten minutes makes a good home brew."
+    infusions: true
+  - text: "Add the salt (a heaping quarter teaspoon), strain out the leaves, add the milk (a third to half a cup) and take the pan off the heat."
+  - text: "Churn it with the butter (two tablespoons): with a stick blender in a tall jug, or shaken hard in a big jar with the lid held down in a cloth. The longer it is churned, the better, Tibetans say."
+    timer_s: 180
+  - text: "Serve at once, very hot."

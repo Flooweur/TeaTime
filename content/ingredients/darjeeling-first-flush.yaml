@@ -1,0 +1,25 @@
+id: darjeeling-first-flush
+name: First-flush Darjeeling
+category: tea
+unit: g
+tea_type: black
+perishable: false
+shelf_life_days: 180
+storage: "An opaque airtight tin in a cool, dark place, away from strong smells. Best in the months after its harvest."
+quality: "This year's first flush (the spring picking) from a named estate, grade FTGFOP1 or finer, with its harvest date on the pack."
+shops:
+  - shop: palais-des-thes-lyon
+    why: "Singbulli DJ 4, a 2026 first flush (\"primeur\")."
+    price: "€38.00 / 100 g"
+    url: https://www.palaisdesthes.com/fr/singbulli-dj-4.html
+    checked: 2026-11-21
+  - shop: dammann-freres-lyon
+    why: "Phuguri FTGFOP, 2026 first flush picked on 29–30 March."
+    price: "€38 / 100 g"
+    url: https://www.dammann.fr/en/tea-from-india-darjeeling-1st-flush-phuguri-ftgfop-2026.html
+    checked: 2026-11-21
+  - shop: jardins-de-gaia
+    why: "Golden Spring FTGFOP1, 2026 first flush."
+    price: "€21.70 / 60 g"
+    url: https://www.jardinsdegaia.com/en/black-teas/1069-1407-golden-spring-ftgfop1-ff.html
+    checked: 2026-11-21

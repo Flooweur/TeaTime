@@ -345,6 +345,7 @@ The content comes in batches, each reviewed by the owner before it goes in. The 
   - *attested*: a chef, a tea master or a tea house;
   - *legend*: a good story that can't be proven. "The king drank this" without a source is a legend, and the app says so.
 - **Brewing parameters** are checked against a tea-master reference for that type of tea. When sources disagree, the blend stores the range and the value chosen.
+- **A cup** is a 250 ml mug for Western-style teas; sencha and gongfu teas keep their small traditional cups (decision of 2026-11-21). A quantity the sources give only in spoons or cups is converted to the ingredient's unit, and the step gives the spoon measure too.
 - **Shops:** at least 2 per ingredient and per piece of gear, with a Lyon shop wherever one exists. No ingredient or gear is listed that no blend uses.
 - **Gear** is what a kitchen may lack: a gaiwan, a cloth filter, a blender, a thermometer (decision of 2026-11-20).
   - A blend lists the gear it needs. Gear it needs that the owner lacks keeps it out of the draw (§2.3); optional gear never does.

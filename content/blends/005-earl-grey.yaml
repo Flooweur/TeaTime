@@ -1,0 +1,86 @@
+code: "005"
+slug: earl-grey
+name: Earl Grey, the classic
+mode: safe
+family: earl-grey
+trust: legend
+source_type: tea-house
+origin: England
+story: >
+  Earl Grey is named after Charles, 2nd Earl Grey, Prime Minister from 1830 to 1834. How it began is
+  a legend: Twinings tells of a Chinese mandarin's gift and says it has blended the tea since 1831;
+  the Greys' Howick Hall says a mandarin made it to suit the lime in their water. Neither is proven.
+  The paper trail is plainer: in 1824 a newspaper named oil of bergamot as a flavouring for tea,
+  Charlton & Co sold a "Grey mixture" in 1867, and "Earl Grey's Mixture" first appears in a Charlton
+  advert of 1884.
+difficulty: 1
+flavours: [citrus, bergamot]
+caffeine: medium
+scaling: per-cup
+serves: 2
+sources:
+  - title: "Thé des Lords"
+    author: Palais des Thés
+    url: https://www.palaisdesthes.com/fr/the-des-lords-471.html
+    lang: fr
+    primary: true
+    supports: [recipe, parameters]
+    note: "6 g of leaves for 30 cl, 95 °C, 4 minutes; black tea from India and Africa with 2% bergamot flavouring."
+  - title: "How to brew Earl Grey tea"
+    author: "Claire Carson, The Tea Makers of London"
+    url: https://www.theteamakers.co.uk/blogs/how-to-brew-tea-hub/how-to-brew-earl-grey-tea
+    lang: en
+    primary: true
+    supports: [recipe, parameters]
+    note: "3 to 4 g per 200 ml, 100 °C, 3 to 5 min; warm the teaware first; best without milk."
+  - title: "Should you put milk in Earl Grey tea?"
+    author: "Stefanie Stolzel, The Tea Haus"
+    url: https://theteahaus.com/teajournal1/post/should-you-put-milk-in-earl-grey-tea.html
+    lang: en
+    supports: [recipe]
+    note: "In England mostly taken with sugar and lemon; water just below boiling, 3–5 minutes."
+  - title: "History of Twinings"
+    author: Twinings
+    url: https://twinings.co.uk/blogs/news/history-of-twinings
+    lang: en
+    primary: true
+    supports: [story]
+    note: "Twinings' own claim, under its heading 'The Legend of Earl Grey': an envoy saves a mandarin, and in 1831 Grey asks Twinings to reproduce the tea."
+  - title: "Earl Grey and the Grey family"
+    author: Howick Hall Gardens
+    url: https://howickhallgardens.com/history-of-howick-hall-and-gardens/earl-grey-and-the-earl-grey-family/
+    lang: en
+    supports: [story]
+    note: "The family's claim: a mandarin blended it for the water at Howick, with bergamot to offset the lime. No dates, no sources."
+  - title: "Earl Grey Tea"
+    author: "Glyn Hughes, Foods of England"
+    url: https://foodsofengland.info/earlgreytea.html
+    lang: en
+    supports: [story]
+    note: "Newspaper evidence: Lancaster Gazette 1824 (bergamot to flavour tea), John Bull 1867 (Charlton's 'Celebrated Grey Mixture'), Morning Post 1884 ('Earl Grey's Mixture'); the tea houses' claims appear only in the 20th century."
+  - title: "Curious Questions: who was Earl Grey, and why are we drinking his tea?"
+    author: "Martin Fone, Country Life"
+    url: https://www.countrylife.co.uk/food-drink/curious-questions-who-was-earl-grey-and-why-are-we-drinking-his-tea-212511
+    lang: en
+    supports: [story]
+    note: "Confirms the 1824, 1837, 1867 and 1884 newspapers, and finds no certain link between the family and the tea's invention."
+ingredients:
+  - { id: earl-grey, qty: 7.5, unit: g, role: base }
+  - { id: lemon, qty: 2, unit: pieces, role: garnish, optional: true }
+brew:
+  water: tap
+  temp_c: 95
+  temp_range: [85, 100]
+  ratio_g_per_100ml: 1.5
+  water_ml: 500
+  vessel: teapot
+  preheat: true
+  infusions_s: [240]
+steps:
+  - text: "Boil fresh water. Warm the teapot with a swirl of it and pour it away."
+    office: "Set the kettle to 95 °C. Warm the teapot with a swirl of hot water and pour it away."
+  - text: "Put the leaves in the teapot, pour the water and put the lid on."
+    office: "Put the leaves in the teapot, pour the water and put the lid on."
+    infusions: true
+  - text: "Pour into the cups. A thin slice of lemon in each, or plain; a splash of milk softens it, though the classic is without."
+    office: "Pour into the two mugs, with a lemon slice in each if you packed one."

@@ -1,0 +1,19 @@
+id: fresh-ginger
+name: Fresh ginger
+category: spice
+unit: g
+perishable: true
+shelf_life_days: 21
+storage: "Unpeeled, in the fridge."
+quality: "A firm root with smooth, tight skin."
+shops:
+  - shop: monoprix-lyon-republique
+    why: "Fresh ginger root."
+    price: "€2.20 / 200 g"
+    url: https://courses.monoprix.fr/products/natoora-gingembre-200g/MPX_6574794
+    checked: 2026-11-21
+  - shop: monoprix-lyon-guillotiere
+    why: "The same chain in La Guillotière; no other shop showed fresh ginger online."
+    price: "€2.99 / 250 g"
+    url: https://courses.monoprix.fr/products/gingembre-barquette-250g/MPX_6854648
+    checked: 2026-11-21

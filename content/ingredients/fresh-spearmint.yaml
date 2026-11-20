@@ -1,0 +1,19 @@
+id: fresh-spearmint
+name: Fresh spearmint (sprigs)
+category: herb
+unit: pieces
+perishable: true
+shelf_life_days: 7
+storage: "In a glass of water, or wrapped in plastic, in the fridge: up to a week."
+quality: "Nanah spearmint (menthe verte) if you can find it: firm stems and plenty of bright green leaves."
+shops:
+  - shop: monoprix-lyon-republique
+    why: "Fresh mint; not labelled spearmint or nanah."
+    price: "€1.29 / 40 g"
+    url: https://courses.monoprix.fr/products/natoora-menthe-fraiche-40g/MPX_4124216
+    checked: 2026-11-21
+  - shop: auchan-lyon-felix-faure
+    why: "Spearmint (menthe verte), a small pack."
+    price: "€1.95 / 11 g"
+    url: https://www.auchan.fr/les-crudettes-menthe-verte/pr-C1567822
+    checked: 2026-11-21

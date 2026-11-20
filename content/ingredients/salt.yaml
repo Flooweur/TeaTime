@@ -1,0 +1,19 @@
+id: salt
+name: Fine salt
+category: other
+unit: g
+perishable: false
+shelf_life_days: 3650
+storage: "Dry, closed."
+quality: "Fine sea salt."
+shops:
+  - shop: monoprix-lyon-republique
+    why: "Fine sea salt."
+    price: "€0.59 / 500 g"
+    url: https://courses.monoprix.fr/products/la-baleine-sel-de-mer-fin-iod%C3%A9-%C3%A9tui-carton-500g/MPX_2008425
+    checked: 2026-11-21
+  - shop: auchan-lyon-felix-faure
+    why: "Fine sea salt."
+    price: "€0.64 / 250 g"
+    url: https://www.auchan.fr/la-baleine-sel-de-mer-fin-iode/pr-C1240922
+    checked: 2026-11-21

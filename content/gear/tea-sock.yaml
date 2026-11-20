@@ -1,0 +1,14 @@
+id: tea-sock
+name: Cotton tea sock
+quality: "A white cotton filter bag on a ring, about 9 cm across, that fits over a jug: Hong Kong's \"silk stocking\". Never nylon."
+shops:
+  - shop: dammann-freres-lyon
+    why: "A 100% cotton sock, 9 cm across, for 4 cups."
+    price: "€3.00"
+    url: https://www.dammann.fr/en/filtre-textile-4-tasses.html
+    checked: 2026-11-21
+  - shop: jardins-de-gaia
+    why: "A reusable 9 cm cotton filter."
+    price: "€2.50"
+    url: https://www.jardinsdegaia.com/en/filters-tea-timer-kettle/390-9-cm-cotton-filter.html
+    checked: 2026-11-21

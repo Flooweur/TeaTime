@@ -1,0 +1,14 @@
+id: blender
+name: Stick blender
+quality: "A stick (immersion) blender with a tall beaker, to churn butter tea. Safer with hot tea than a jug blender, whose lid can blow off."
+shops:
+  - shop: boulanger-lyon-cordeliers
+    why: "Moulinex Quickchef+ DD673810, 1000 W, sold by Boulanger."
+    price: "€59.99"
+    url: https://www.boulanger.com/ref/1206428
+    checked: 2026-11-21
+  - shop: auchan-lyon-felix-faure
+    why: "Bosch MSM24500, sold by Auchan, in-store pickup."
+    price: "€39.99 (Black Friday; €49.99 before)"
+    url: https://www.auchan.fr/bosch-mixeur-plongeant-msm24500-blanc/pr-C1891492
+    checked: 2026-11-21

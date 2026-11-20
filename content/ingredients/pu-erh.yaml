@@ -1,0 +1,25 @@
+id: pu-erh
+name: Pu-erh (dark tea)
+category: tea
+unit: g
+tea_type: dark
+perishable: false
+shelf_life_days: 730
+storage: "Dry and away from smells: damp ruins it."
+quality: "A ripe pu-erh, loose or a brick. The Tibetan tradition is brick tea from Ya'an, in Sichuan, when you can find it."
+shops:
+  - shop: palais-des-thes-lyon
+    why: "Pu Erh Impérial, a dark tea, loose."
+    price: "€14.50 / 100 g"
+    url: https://www.palaisdesthes.com/fr/pu-erh-imperial-174.html
+    checked: 2026-11-21
+  - shop: jardins-de-gaia
+    why: "Pu'er Harmonie, a brick from 2008: break pieces off it as Tibetans do."
+    price: "€17.11 / 100 g brick"
+    url: https://www.jardinsdegaia.com/en/dark-teas/537-pu-er-harmonie-brick.html
+    checked: 2026-11-21
+  - shop: teaspring
+    why: "Chun Jian Zang, Tibetan brick tea from Ya'an: the traditional one. Priced in US dollars, shipped from abroad."
+    price: "$20.10 / 70 g brick"
+    url: https://www.teaspring.com/70g-Chun-Jian-Zang.asp
+    checked: 2026-11-21

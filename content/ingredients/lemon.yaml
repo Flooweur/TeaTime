@@ -1,0 +1,19 @@
+id: lemon
+name: Lemon (in slices)
+category: citrus
+unit: pieces
+perishable: true
+shelf_life_days: 14
+storage: "Whole, in the fridge. Slice it on the day, or the evening before for the office, in a closed box."
+quality: "Counted in thin slices: a lemon gives about 8. Unwaxed (non traité après récolte) is best, since the slice goes in the cup; otherwise scrub it in hot water."
+shops:
+  - shop: monoprix-lyon-republique
+    why: "Seedless lemons; the page lists post-harvest treatments, so scrub them."
+    price: "€3.49 / 500 g"
+    url: https://courses.monoprix.fr/products/citron-jaune-sans-p%C3%A9pin-cat%C3%A9gorie-1-calibre-4-5-500g/MPX_3858876
+    checked: 2026-11-21
+  - shop: auchan-lyon-felix-faure
+    why: "Lemons from Spain; treatment not stated."
+    price: "€1.49 / 500 g"
+    url: https://www.auchan.fr/citrons-jaunes/pr-C1350760
+    checked: 2026-11-21

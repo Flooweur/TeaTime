@@ -1,0 +1,85 @@
+code: "004"
+slug: first-flush-darjeeling
+name: First-flush Darjeeling
+mode: safe
+family: tea-master
+trust: documented
+source_type: tea-house
+origin: Darjeeling, India
+story: >
+  First flush is Darjeeling's spring picking: the first shoots after the bushes' winter rest, plucked
+  from late February or March into April. The leaves are only lightly oxidised, so tea houses brew
+  them cooler and shorter than other black teas, and serve them without milk. The name is protected:
+  in 2004 Darjeeling tea became the first product registered under India's Geographical Indications
+  Act, from some 87 registered gardens in the hills of Darjeeling district.
+difficulty: 2
+seasons: [spring, summer]
+flavours: [floral, fruity, muscat]
+caffeine: medium
+scaling: per-cup
+serves: 2
+sources:
+  - title: "Bien préparer son thé (table d'infusion)"
+    author: Palais des Thés
+    url: https://www.palaisdesthes.com/fr/blog/conseils-et-astuces/bien-preparer-son-the/
+    lang: fr
+    primary: true
+    supports: [recipe, parameters]
+    note: "Spring Darjeeling: 85 °C, 3'30–3'45, 6 to 8 g for 30 cl; other Darjeeling harvests 90 °C, 4–5 min."
+  - title: "Darjeeling 1st flush Phuguri FTGFOP 2026"
+    author: Dammann Frères
+    url: https://www.dammann.fr/en/tea-from-india-darjeeling-1st-flush-phuguri-ftgfop-2026.html
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "85 °C, 3 to 3½ min; picked on 29 and 30 March."
+  - title: "Tea appreciation: tasting the 2018 Darjeeling first flush"
+    author: "Rachel Tan, Michelin Guide (the TWG Tea method)"
+    url: https://guide.michelin.com/en/article/features/tea-appreciation-tasting-the-2018-darjeeling-first-flush
+    lang: en
+    supports: [parameters, story]
+    note: "Warm the pot; water at about 90–95 °C; exactly 3 minutes; first flush is the first growth after winter dormancy, late February to mid-April."
+  - title: "The World's Best Tea: Darjeeling"
+    author: Whittard of Chelsea
+    url: https://www.whittard.com/blogs/tea/the-worlds-best-tea-darjeeling
+    lang: en
+    primary: true
+    supports: [parameters, story]
+    note: "2–3 minutes, against 3–5 for black teas in general; drunk without milk."
+  - title: "Darjeeling first flush"
+    author: Max Falkowitz (Leafhopper)
+    url: https://leafhopper.substack.com/p/darjeeling-first-flush
+    lang: en
+    supports: [parameters, story]
+    note: "90 °C is a good start, 3 g in a 150 ml pot; lightly oxidised leaves that oversteep easily."
+  - title: "Geographical Indications in India: Case Study on Darjeeling Tea"
+    author: "Tarit Kumar Datta, IIM Calcutta (FAO–EC seminar)"
+    url: https://www.fao.org/fileadmin/templates/olq/documents/Bangkok/11June/Datta%20Darjeeling%20tea.pdf
+    lang: en
+    supports: [story]
+    note: "Spring flush late February to mid-April; the first product registered under India's GI Act, in 2004; 87 gardens."
+  - title: "How do I know when the water temperature is right?"
+    author: DAVIDsTEA
+    url: https://help.davidstea.com/en-US/how-do-i-know-when-the-water-temperature-is-right-775458
+    lang: en
+    supports: [parameters]
+    note: "Boiled water with the kettle lid open: about 1–3 minutes to fall to 95–90 °C."
+ingredients:
+  - { id: darjeeling-first-flush, qty: 10, unit: g, role: base }
+gear:
+  - { id: thermometer, optional: true }
+brew:
+  water: tap
+  temp_c: 90
+  temp_range: [85, 100]
+  ratio_g_per_100ml: 2
+  water_ml: 500
+  vessel: teapot
+  preheat: true
+  infusions_s: [180]
+steps:
+  - text: "Boil fresh water, then leave the kettle open for about 2 minutes: it falls to about 90 °C. Meanwhile warm the teapot with a swirl of hot water and pour it away."
+    office: "Set the kettle to 90 °C. Warm the teapot with a swirl of hot water and pour it away."
+  - text: "Put the leaves in the teapot, pour the water and put the lid on. When the time is up, pour all of it into the cups so the leaves don't keep steeping. No milk."
+    office: "Put the leaves in the teapot, pour the water and put the lid on. When the time is up, pour all of it into the two mugs. No milk."
+    infusions: true

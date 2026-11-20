@@ -1,0 +1,80 @@
+code: "002"
+slug: sencha
+name: Sencha, brewed right
+mode: safe
+family: tea-master
+trust: documented
+source_type: tea-master
+origin: Japan
+story: >
+  Sencha as Japan drinks it is said to start in 1738 at Ujitawara, near Kyoto, where Nagatani Sōen
+  is credited with rolling the steamed leaves before drying them: a green, fragrant tea where there
+  had been a reddish one. Yamamotoyama, the Edo merchant, tells how its second Kahei bought his whole
+  lot on the spot. The way to brew it is written down by Japan's farm ministry and its tea
+  instructors: water cooled by pouring it through the cups, a short steep, and each cup poured in
+  turn, down to the last drop.
+difficulty: 2
+flavours: [vegetal, umami]
+caffeine: medium
+scaling: per-cup
+serves: 2
+sources:
+  - title: "茶の淹れ方マニュアル (How to brew tea)"
+    author: "Ministry of Agriculture, Forestry and Fisheries of Japan (MAFF)"
+    url: https://www.maff.go.jp/j/seisan/tokusan/cha/attach/pdf/tea_export-4.pdf
+    lang: ja
+    primary: true
+    supports: [recipe, parameters]
+    note: "2–3 g per 100 ml cup; 70 °C for high-grade sencha, 90 °C for mid-grade; each pour between vessels takes off 5–10 °C; 90 s, then about half for the second infusion, slightly hotter; pour to the last drop; soft water under 100 mg/L."
+  - title: "普通煎茶の淹れ方7ステップ (Seven steps to brew regular sencha)"
+    author: Yamamotoyama
+    url: https://ec.yamamotoyama.co.jp/blogs/column/%e6%99%ae%e9%80%9a%e7%85%8e%e8%8c%b6%e3%81%ae%e6%b7%b9%e3%82%8c%e6%96%b95%e3%82%b9%e3%83%86%e3%83%83%e3%83%97-%e9%87%8d%e8%a6%81%e3%81%aa%e3%83%9d%e3%82%a4%e3%83%b3%e3%83%88%e3%81%af3%e3%81%a4%e3%81%a0%e3%81%91-%e6%89%8b%e8%bb%bd%e3%81%ab%e3%81%a7%e3%81%8d%e3%82%8b
+    lang: ja
+    primary: true
+    supports: [recipe, parameters]
+    note: "150 ml at 70–75 °C and 3–4 g per person, 1.5–2 min; two transfers bring boiling water to 80–85 °C, the third to about 75 °C; pour to the last drop and leave the lid ajar."
+  - title: "Standard Sencha Brew"
+    author: Ippodo Tea
+    url: https://ippodotea.com/blogs/recipes-to-brew-japanese-tea/standard-sencha-brew
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "80 °C, 60 s; without a thermometer, pour boiling water into the cups, then from the cups into the pot; pour out every last drop."
+  - title: "おいしいお茶の入れ方 (How to make good tea)"
+    author: "Shizuoka Prefecture, Tea Promotion Division"
+    url: https://www.pref.shizuoka.jp/kensei/introduction/soshiki/1002123/1041029/chanomiyako/1040637/1027281.html
+    lang: ja
+    primary: true
+    supports: [parameters]
+    note: "Cool the water in the cups; high-grade sencha 70 °C, about 60 s (fukamushi 30 s); a second infusion takes a fraction of the time."
+  - title: "京都府景観資産 24: 緑茶のふるさと・宇治田原湯屋谷 (Ujitawara Yuyadani, home of green tea)"
+    author: Kyoto Prefecture
+    url: https://www.pref.kyoto.jp/keikan-sisan/sisan024k.html
+    lang: ja
+    supports: [story]
+    note: "Birthplace of Nagatani Sōen, who is said to have developed the aosei sencha method: rolling the leaves before drying."
+  - title: "山本山の歴史 (History)"
+    author: Yamamotoyama
+    url: https://yamamotoyama.co.jp/about/
+    lang: ja
+    supports: [story]
+    note: "The house's own account: in 1738 Nagatani Sōen's sencha reached Edo, and the second Yamamoto Kahei bought it all."
+ingredients:
+  - { id: sencha, qty: 6, unit: g, role: base }
+gear:
+  - { id: thermometer, optional: true }
+brew:
+  water: soft-bottled
+  temp_c: 75
+  temp_range: [70, 80]
+  ratio_g_per_100ml: 2.5
+  water_ml: 240
+  vessel: teapot
+  preheat: true
+  infusions_s: [60, 30]
+steps:
+  - text: "Boil the water. Pour 240 ml into the empty teapot to warm it, then from the teapot into the two cups: each pour takes off 5–10 °C."
+    office: "Set the kettle to 80 °C. Pour about 120 ml into each mug: it warms them, and the water comes down to about 75 °C."
+  - text: "Put the leaves in the warm teapot and pour the water from the cups over them: this third pour brings it to about 75 °C. Leave the pot still while it infuses. Then pour into the cups in turns, a little at a time, down to the last drop, and leave the lid ajar. The second infusion takes water a little hotter: two pours from the boil instead of three."
+    office: "Put the leaves in the office teapot and pour the water from the mugs over them. Then pour into the two mugs in turns, down to the last drop. For the second infusion, pour straight from the kettle at 80 °C."
+    infusions: true

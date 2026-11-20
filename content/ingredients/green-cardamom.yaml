@@ -1,0 +1,19 @@
+id: green-cardamom
+name: Green cardamom (pods)
+category: spice
+unit: pieces
+perishable: false
+shelf_life_days: 365
+storage: "Whole, in an airtight jar; crush them just before use."
+quality: "Whole green pods, plump and green rather than pale."
+shops:
+  - shop: bahadourian-lyon
+    why: "Whole green cardamom from Guatemala."
+    price: "€7.95 / 50 g"
+    url: https://www.bahadourian.com/racines-gousses-ou-batons-de-3a-cannelle-vanille/cardamome-verte-entiere-2485.html
+    checked: 2026-11-21
+  - shop: ile-aux-epices
+    why: "Green cardamom by the bag; check you are getting whole pods."
+    price: "from €5.30 (bags of 50 to 250 g)"
+    url: https://ileauxepices.com/epices/16-cardamome.html
+    checked: 2026-11-21

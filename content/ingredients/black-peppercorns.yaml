@@ -1,0 +1,19 @@
+id: black-peppercorns
+name: Black peppercorns
+category: spice
+unit: pieces
+perishable: false
+shelf_life_days: 730
+storage: "Whole, in an airtight jar."
+quality: "Whole black peppercorns."
+shops:
+  - shop: auchan-lyon-felix-faure
+    why: "Black peppercorns."
+    price: "€2.58 / 100 g"
+    url: https://www.auchan.fr/auchan-grains-de-poivre-noir/pr-C1228063
+    checked: 2026-11-21
+  - shop: bahadourian-lyon
+    why: "Whole black pepper from Madagascar."
+    price: "€4.95 / 100 g"
+    url: https://www.bahadourian.com/poivres/poivre-noir-entier-de-madagascar-4119.html
+    checked: 2026-11-21

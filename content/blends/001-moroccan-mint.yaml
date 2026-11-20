@@ -1,0 +1,86 @@
+code: "001"
+slug: moroccan-mint
+name: Moroccan mint tea
+mode: safe
+family: household
+trust: documented
+source_type: tea-house
+origin: Morocco
+story: >
+  Moroccan atay is Chinese green tea, fresh spearmint and sugar. Tea reached Morocco through European
+  trade in the 17th and 18th centuries, then poured in during the 19th: when the Crimean War
+  (1853–1856) cost British merchants their Slavic markets, they shipped it to Mogador (Essaouira) and
+  Tangier. Gunpowder, first rolled in Zhejiang, is still the base, and Morocco is the largest market
+  for China's high-grade gunpowder. Rinsing the leaves, breaking the sugar and pouring from high to
+  raise a foam make it Morocco's gesture of hospitality.
+difficulty: 1
+flavours: [minty, sweet]
+caffeine: medium
+scaling: per-cup
+serves: 2
+sources:
+  - title: "Recette thé à la menthe"
+    author: Fauchon
+    url: https://www.fauchon.com/blogs/news/recette-the-a-la-menthe-fauchon
+    lang: fr
+    primary: true
+    supports: [recipe, parameters, story]
+    note: "A teapot-only method: rinse the leaves in hot water for 30 s and throw it away, steep 2–3 minutes in simmering water (beyond 3 minutes bitterness dominates), mint pushed under the water, sugar to taste, poured from high into a glass and back several times; nanah mint; filtered or low-mineral water."
+  - title: "Moroccan mint tea"
+    author: "Hassan M'Souli, SBS Food (Feast magazine)"
+    url: https://www.sbs.com.au/food/recipe/moroccan-mint-tea/xjy4j2jl7
+    lang: en
+    primary: true
+    supports: [recipe, story]
+    note: "A Casablanca-born chef's recipe: gunpowder rinsed in boiling water, one minute over the flame, one more with the mint, 165 g sugar for 8 serves, poured into a glass and back three times, then from high for froth."
+  - title: "Moroccan Mint Tea"
+    author: "Nargisse Benkabbou, My Moroccan Food"
+    url: https://www.mymoroccanfood.com/home/2015/4/27/moroccan-mint-tea
+    lang: en
+    primary: true
+    supports: [recipe]
+    note: "A chef's own recipe: 1 heaped teaspoon of gunpowder, 500 ml boiling water, 3 tablespoons of caster sugar (about 36 g), 7 mint sprigs."
+  - title: "Gunpowder Grade 1"
+    author: Thés & Traditions
+    url: https://www.thes-traditions.com/en/green-tea/gunpowder-grade-1
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "12 to 15 g of pearls per litre, low-mineral water, 2 to 3 minutes; enjoy within 18 months."
+  - title: "Thé vert à la menthe, l'incarnation d'un métissage culturel entre la Chine et le Maroc"
+    author: "Maroc.ma (MAP), 28 January 2026"
+    url: https://maroc.ma/fr/actualites/vert-la-menthe-lincarnation-dun-metissage-culturel-entre-la-chine-et-le-maroc
+    lang: fr
+    supports: [story]
+    note: "Tea introduced in the 17th and 18th centuries; after the Crimean War (1853–1856) the British East India Company shipped it to Mogador and Tangier; the ritual from rinsing the leaves and breaking the sugar to pouring from high."
+  - title: "外销高档珠茶的品质控制技术要点 (Quality control of high-grade export gunpowder)"
+    author: "Liu Xiangji, China Tea Processing 2022 (4): 18–23"
+    url: https://www.sciopen.com/local/article_pdf/10.15905/j.cnki.33-1157/ts.2022.04.010.pdf
+    lang: zh
+    supports: [story]
+    note: "Gunpowder originated around Shaoxing, Zhejiang; Morocco is the largest market for China's high-grade gunpowder; grades from special 3505 down to 9375."
+ingredients:
+  - { id: gunpowder-green, qty: 7, unit: g, role: base }
+  - { id: fresh-spearmint, qty: 7, unit: pieces, role: base }
+  - { id: sugar, qty: 36, unit: g, role: accent, optional: true }
+brew:
+  water: filtered
+  temp_c: 90
+  temp_range: [70, 100]
+  ratio_g_per_100ml: 1.4
+  water_ml: 500
+  vessel: teapot
+  preheat: false
+  infusions_s: [120]
+steps:
+  - text: "Put the tea in the teapot and pour in a little hot water, about 125 ml. After 30 seconds pour it away, keeping the leaves: this washes the tea."
+    office: "Put the tea in the office teapot and pour in a little water from the kettle, about 125 ml. After 30 seconds pour it away, keeping the leaves."
+    timer_s: 30
+  - text: "Pour 500 ml of water just off the boil (about 90 °C) over the leaves and put the lid on."
+    office: "Set the kettle to 90 °C, pour 500 ml over the leaves and put the lid on."
+    infusions: true
+  - text: "Add the mint, pushing it right under the water so no leaf floats, and the sugar if you take it (3 tablespoons of caster sugar, or lumps of the same weight)."
+    office: "Add the mint, pushed right under the water, and the sugar if you packed it."
+    timer_s: 60
+  - text: "Pour a glass and tip it back into the pot, three times, to mix. Then serve from high, lowering the pot at the end to raise a foam, and leave a few centimetres at the top of each glass."
+    office: "Pour a mug and tip it back into the pot, three times, then pour into the two mugs from as high as you safely can, over the sink."

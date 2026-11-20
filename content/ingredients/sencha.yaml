@@ -1,0 +1,20 @@
+id: sencha
+name: Sencha
+category: tea
+unit: g
+tea_type: green
+perishable: false
+shelf_life_days: 30
+storage: "Airtight, cool and dark, away from smells. At room temperature rather than in the fridge, where it takes on damp."
+quality: "An everyday futsu-mushi (regular-steamed) Japanese sencha from this year's spring picking. Buy small amounts: it is best within a month of opening."
+shops:
+  - shop: palais-des-thes-lyon
+    why: "Organic Japanese sencha, loose."
+    price: "€10.50 / 100 g"
+    url: https://www.palaisdesthes.com/fr/sencha-superieur-bio.html
+    checked: 2026-11-21
+  - shop: dammann-freres-lyon
+    why: "Sencha Fukuyu, a summer-harvest Japanese sencha."
+    price: "€17.40 / 100 g"
+    url: https://www.dammann.fr/fr/the-du-japon-sencha-fukuyu.html
+    checked: 2026-11-21

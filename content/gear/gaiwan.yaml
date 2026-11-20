@@ -1,0 +1,14 @@
+id: gaiwan
+name: Gaiwan
+quality: "Glazed white porcelain, with its lid and saucer, about 150 ml. A 100–170 ml one works too: use about 4.5 g of leaves per 100 ml."
+shops:
+  - shop: palais-des-thes-lyon
+    why: "Blanc de Chine porcelain from Dehua; 100 ml, so take 4.5 g of leaves."
+    price: "€28.00"
+    url: https://www.palaisdesthes.com/fr/le-gaiwan-10cl.html
+    checked: 2026-11-21
+  - shop: jardins-de-gaia
+    why: "White Jingdezhen porcelain, 170 ml."
+    price: "€29.00"
+    url: https://www.jardinsdegaia.com/en/range-porcelain-china-jingdezhen/346-gaiwan.html
+    checked: 2026-11-21

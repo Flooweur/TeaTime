@@ -1,0 +1,91 @@
+code: "008"
+slug: hong-kong-milk-tea
+name: Hong Kong milk tea
+mode: experimental
+family: household
+trust: documented
+source_type: tea-master
+origin: Hong Kong
+story: >
+  Hong Kong came under British rule in 1842, and the English brought their tea: fine Ceylon tea with
+  milk and sugar, still an elite habit in the early 1900s. It became truly local only after the
+  Second World War, when street stalls and ice cafés fed a booming city: lower-grade leaves for
+  strength, and a fine cotton strainer for a smoother cup. Stained by the tea, the white bag looks like
+  a silk stocking, hence "silk stocking milk tea"; Lan Fong Yuen, a stall opened in Central in 1952,
+  says dockworkers coined the name. In 2017 the technique joined Hong Kong's first list of
+  intangible cultural heritage.
+difficulty: 3
+flavours: [strong, milky, smooth]
+caffeine: high
+scaling: per-cup
+serves: 1
+sources:
+  - title: "港式奶茶做法｜师傅教6步骤加奶先？ (Hong Kong milk tea: a master's six steps)"
+    author: "HK01, with Master Tse Chung-tak (謝忠德), runner-up Hong Kong Milk Tea King"
+    url: https://global.hk01.com/教煮/60387207/港式奶茶做法-师傅教6步骤加奶先-奶茶比例-1只匙羹代替撞茶
+    lang: zh
+    primary: true
+    supports: [recipe, parameters]
+    note: "12 g black tea, 250 ml water brought to the boil then off; 1 minute on low heat, off, 6 minutes covered; the traditional way pulls the tea 4 times, or stir 6–8 turns in the bag; reheat to the boil; 60 ml evaporated milk in the cup first, tea to 90%: about 7 tea to 3 milk; usually Ceylon teas, coarse, medium and fine grades; a white cotton bag."
+  - title: "The secret life of Hong Kong milk tea"
+    author: "Celia Hu, A Foodie World, with tea master Donald Tse"
+    url: https://www.afoodieworld.com/celia-hu/2019-01-07-the-secret-life-of-hong-kong-milk-tea
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "Water around 98 °C; 70% tea, 30% evaporated milk; it shouldn't be poured too many times; white cotton bags; BOP, BOPF and dust; served hot in a thick cup."
+  - title: "Hong Kong-style Milk Tea Making Technique"
+    author: "Intangible Cultural Heritage Office, Hong Kong"
+    url: https://www.icho.hk/en_US/web/icho/representative_list_milk_tea.html
+    lang: en
+    supports: [story]
+    note: "Blending the leaves, boiling, pulling, keeping hot, and pulling into the milk; evolved over a century from English milk tea."
+  - title: "Ingredients, Utensils and Brewing Process"
+    author: "Hong Kong Memory (Leisure and Cultural Services Department)"
+    url: https://www.hkmemory.hk/en/collections-ichhk_ii-hong_kong_style_milk_tea_making_technique-ingredients_utensils_and_brewing_process.html
+    lang: en
+    supports: [recipe]
+    note: "Black teas of several grades and brands, evaporated milk; boil several minutes, too long turns it bitter; pour through the strainer from high at least three times; reheat one to two minutes."
+  - title: "The History of Hong Kong-style Milk Tea"
+    author: "Hong Kong Memory (Leisure and Cultural Services Department)"
+    url: https://www.hkmemory.hk/en/collections-ichhk_ii-hong_kong_style_milk_tea_making_technique-history_hong_kong_style_milk_tea.html
+    lang: en
+    supports: [story]
+    note: "Fine Ceylon tea, milk and sugar under British rule from 1842; localised only after the Second World War; lower-grade leaves for strength, a fine cotton strainer for a smoother tea; the stained strainer looks like silk stockings."
+  - title: "Hongkong Post special stamps on intangible cultural heritage"
+    author: "Hong Kong government press release, 10 July 2023"
+    url: https://www.info.gov.hk/gia/general/202307/10/P2023070700453.htm
+    lang: en
+    supports: [story]
+    note: "Inscribed onto the first Representative List in 2017; the white cloth bag is stained with the colour of tea."
+  - title: "蘭芳園 (Lan Fong Yuen)"
+    author: "Lin Yi-chun, Mirror Media, with the second-generation owner"
+    url: https://www.mirrormedia.mg/story/20260827food002
+    lang: zh
+    supports: [story]
+    note: "The house's own account: a 1940s stall where dockworkers ordered 'silk stocking milk tea'; opened as Lan Fong Yuen in Central in 1952; a blend of six black teas."
+ingredients:
+  - { id: ceylon-black, qty: 12, unit: g, role: base }
+  - { id: evaporated-milk, qty: 60, unit: ml, role: base }
+  - { id: sugar, qty: 7.5, unit: g, role: accent, optional: true }
+gear:
+  - { id: tea-sock }
+brew:
+  water: tap
+  temp_c: 98
+  temp_range: [98, 100]
+  ratio_g_per_100ml: 4.8
+  water_ml: 250
+  vessel: saucepan
+  preheat: true
+  infusions_s: [360]
+steps:
+  - text: "Warm a thick cup with hot water. Bring 250 ml of water to the boil in a small saucepan, then turn off the heat."
+  - text: "Put the tea in the cotton sock and the sock in the pan, and set it on a low heat."
+    timer_s: 60
+  - text: "Heat off, lid on: let it steep."
+    infusions: true
+  - text: "Pull the tea four times: lift the sock over a second jug and pour the tea from high through it, then back into the pan. No more than four, or it turns harsh. Master Tse's home shortcut: stir the tea in the sock, clockwise, 6 to 8 turns."
+  - text: "Reheat to the first boil."
+    timer_s: 60
+  - text: "Pour the evaporated milk into the cup first, then the tea up to nine-tenths: about 7 parts tea to 3 of milk. Sugar to taste, and drink it hot."

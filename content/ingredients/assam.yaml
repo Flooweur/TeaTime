@@ -1,0 +1,20 @@
+id: assam
+name: Assam black tea
+category: tea
+unit: g
+tea_type: black
+perishable: false
+shelf_life_days: 180
+storage: "Airtight, away from light and smells."
+quality: "A strong Assam that takes milk. CTC (the small granules Indian chai is made with) is best for chai; a broken or whole leaf works too."
+shops:
+  - shop: palais-des-thes-lyon
+    why: "Assam Jungle, organic, full-bodied, good with milk."
+    price: "€9.70 / 100 g"
+    url: https://www.palaisdesthes.com/fr/assam-jungle-bio.html
+    checked: 2026-11-21
+  - shop: dammann-freres-lyon
+    why: "Assam supérieur GFOP, whole leaf; takes milk."
+    price: "€9.10 / 100 g"
+    url: https://www.dammann.fr/fr/assam-superieur-gfop.html
+    checked: 2026-11-21

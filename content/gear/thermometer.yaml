@@ -1,0 +1,14 @@
+id: thermometer
+name: Kitchen thermometer
+quality: "A probe that reads 0–100 °C. Always optional: every step says how to reach its temperature without one."
+shops:
+  - shop: ikea
+    why: "FANTAST, a digital probe thermometer and timer."
+    price: "€9.99"
+    url: https://www.ikea.com/fr/fr/p/fantast-thermometre-minuteur-numerique-noir-20103016/
+    checked: 2026-11-21
+  - shop: jardins-de-gaia
+    why: "A tea thermometer, −10 to 100 °C."
+    price: "€15.90"
+    url: https://www.jardinsdegaia.com/en/filters-tea-timer-kettle/297-plastic-thermometer.html
+    checked: 2026-11-21

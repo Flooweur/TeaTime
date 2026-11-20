@@ -1,0 +1,19 @@
+id: evaporated-milk
+name: Evaporated milk, unsweetened
+category: dairy
+unit: ml
+perishable: false
+shelf_life_days: 3
+storage: "Unopened, in the cupboard. Once opened, in a closed container in the fridge for 3 days, or frozen."
+quality: "Unsweetened evaporated milk (lait concentré non sucré), whole if you can find it; never sweetened condensed milk."
+shops:
+  - shop: auchan-lyon-felix-faure
+    why: "Régilait whole unsweetened evaporated milk."
+    price: "€2.25 / 410 g"
+    url: https://www.auchan.fr/regilait-lait-concentre-non-sucre-entier/pr-C1265830
+    checked: 2026-11-21
+  - shop: monoprix-lyon-republique
+    why: "Régilait unsweetened evaporated milk, semi-skimmed."
+    price: "€1.65 / 410 g"
+    url: https://courses.monoprix.fr/products/r%C3%A9gilait-lait-concentr%C3%A9-non-sucr%C3%A9-demi-%C3%A9cr%C3%A9m%C3%A9-410g/MPX_3280989
+    checked: 2026-11-21

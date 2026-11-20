@@ -1,0 +1,69 @@
+code: "006"
+slug: russian-zavarka
+name: Russian zavarka
+mode: safe
+family: household
+trust: documented
+source_type: grandmother
+origin: Russia
+story: >
+  Tea first reached Russia in 1638, when the envoy Vasily Starkov brought it from Mongolia as a gift
+  for the tsar; by the end of the 19th century it was most Russians' everyday drink. The Russian way
+  was to brew it very strong in a small teapot, the zavarka, and dilute it in the glass with boiling
+  water from the samovar, a pot of tea and a pot of hot water served as a pair. William Pokhlebkin,
+  author of the classic Russian book on tea, called the habit a child of thrift, and lemon in tea a
+  purely Russian invention of the 1880s and 1890s.
+difficulty: 1
+flavours: [malty, citrus]
+caffeine: high
+scaling: per-cup
+serves: 2
+sources:
+  - title: "Чай, его история, свойства и употребление (Tea: its history, properties and use), chapters 8, 12 and 13"
+    author: "William Pokhlebkin (В. В. Похлёбкин)"
+    url: https://vkus.narod.ru/chai/chai_04.htm
+    lang: ru
+    primary: true
+    supports: [recipe, parameters, story]
+    note: "Rinse the pot 3–4 times with boiling water; a teaspoon a glass plus one for the pot; water just at the boil, boiled once; fill the pot halfway, then top up; best steep for good black tea 3.5–4 minutes, never over 5 for leaf tea, 4 for small-leaf; drink within a quarter of an hour. He names Indian (C.T.C.) and Ceylon teas, and writes that diluting the brew with boiling water came from saving tea ('пара чаю'), and that lemon in tea is a Russian invention."
+  - title: "Tea Time in Russia"
+    author: "Russian Life, 1 February 2000"
+    url: https://russianlife.com/stories/online/tea-time-in-russia/
+    lang: en
+    supports: [recipe]
+    note: "Zavarka is the dark, concentrated brew; a little is poured into each cup and topped up with hot water; a dark loose tea from India; sweetened with sugar, jam or honey, or a spoonful of jam with each sip."
+  - title: "Чай в России (Tea in Russia)"
+    author: Wikipedia (ru)
+    url: https://ru.wikipedia.org/wiki/%D0%A7%D0%B0%D0%B9_%D0%B2_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8
+    lang: ru
+    supports: [recipe, story]
+    note: "Brewed very strong and diluted in the cup with boiling water from the samovar, strength to taste; served in pairs; lemon in thin slices on a saucer, sugar served separately, jam in small dishes, usually eaten alongside rather than stirred in; 1638."
+  - title: "What is the water temperature for tea?"
+    author: Fauchon
+    url: https://fauchon.com/en/blogs/news/what-is-the-water-temperature-for-tea
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "Black teas 4 minutes at 85–90 °C, broken leaves 2 to 3 minutes."
+ingredients:
+  - { id: assam, qty: 10, unit: g, role: base }
+  - { id: lemon, qty: 2, unit: pieces, role: garnish, optional: true }
+  - { id: sugar, qty: 8, unit: g, role: accent, optional: true }
+  - { id: jam, qty: 30, unit: g, role: accent, optional: true }
+brew:
+  water: tap
+  temp_c: 100
+  temp_range: [85, 100]
+  ratio_g_per_100ml: 4
+  water_ml: 250
+  vessel: teapot
+  preheat: true
+  infusions_s: [240]
+steps:
+  - text: "Bring fresh water to the boil, once. Rinse the teapot three or four times with it and pour it away."
+    office: "Boil the kettle. Rinse the office teapot two or three times with it and pour it away."
+  - text: "Put in the tea and pour 250 ml of water just come to the boil: the pot should be about half full. Put the lid on, and a clean cloth over the lid and spout if you have one."
+    office: "Put in the tea, pour 250 ml from the kettle and put the lid on."
+    infusions: true
+  - text: "Pour the zavarka into the glasses, about half each, and top them up with hot water from the kettle: Russians set the strength to taste, so start half and half. Lemon slices on a saucer, sugar on the side, and jam in a small dish, eaten from a spoon between sips. Drink it within a quarter of an hour."
+    office: "Pour about half a mug of zavarka each and top up with hot water from the kettle, to taste. A lemon slice, sugar or a spoonful of jam on the side, if you packed them."

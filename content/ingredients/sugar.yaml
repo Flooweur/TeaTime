@@ -1,0 +1,19 @@
+id: sugar
+name: White sugar
+category: sweetener
+unit: g
+perishable: false
+shelf_life_days: 730
+storage: "Dry, in a closed jar."
+quality: "White sugar: lumps for Moroccan tea, caster or granulated otherwise."
+shops:
+  - shop: monoprix-lyon-republique
+    why: "White sugar lumps."
+    price: "€1.89 / 1 kg"
+    url: https://courses.monoprix.fr/products/monoprix-sucre-en-morceaux-1kg/MPX_6795124
+    checked: 2026-11-21
+  - shop: auchan-lyon-felix-faure
+    why: "White sugar, half lumps."
+    price: "€2.08 / 1 kg"
+    url: https://www.auchan.fr/auchan-sucre-blanc-en-demi-morceaux/pr-C1776157
+    checked: 2026-11-21

@@ -1,0 +1,19 @@
+id: jam
+name: Cherry or raspberry jam
+category: sweetener
+unit: g
+perishable: false
+shelf_life_days: 30
+storage: "In the fridge once opened."
+quality: "Cherry (griotte) or raspberry jam, or Russian varenye from an Eastern European grocer."
+shops:
+  - shop: monoprix-lyon-republique
+    why: "Morello cherry jam (confiture extra de cerises griottes)."
+    price: "€2.25 / 370 g"
+    url: https://courses.monoprix.fr/products/monoprix-confiture-extra-de-cerises-griottes-370g/MPX_2549207
+    checked: 2026-11-21
+  - shop: auchan-lyon-felix-faure
+    why: "Bonne Maman morello cherry jam."
+    price: "€3.95 / 370 g"
+    url: https://www.auchan.fr/bonne-maman-confiture-de-cerises-griottes/pr-C1274475
+    checked: 2026-11-21

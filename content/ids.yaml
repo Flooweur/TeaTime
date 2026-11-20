@@ -1,5 +1,40 @@
 # Every blend, ingredient and piece of gear ever published (SPEC §5.2): ids are forever. Written
 # by npm run content:build; content:check refuses a removal or a rename. Never edit by hand.
-blends: []
-ingredients: []
-gear: []
+blends:
+  - "001 moroccan-mint"
+  - "002 sencha"
+  - "003 mizudashi"
+  - "004 first-flush-darjeeling"
+  - "005 earl-grey"
+  - "006 russian-zavarka"
+  - "007 masala-chai"
+  - "008 hong-kong-milk-tea"
+  - "009 high-mountain-oolong"
+  - "010 tibetan-butter-tea"
+ingredients:
+  - assam
+  - black-peppercorns
+  - ceylon-black
+  - cinnamon-stick
+  - cloves
+  - darjeeling-first-flush
+  - earl-grey
+  - evaporated-milk
+  - fresh-ginger
+  - fresh-spearmint
+  - green-cardamom
+  - gunpowder-green
+  - high-mountain-oolong
+  - jam
+  - lemon
+  - pu-erh
+  - salt
+  - sencha
+  - sugar
+  - unsalted-butter
+  - whole-milk
+gear:
+  - blender
+  - gaiwan
+  - tea-sock
+  - thermometer
