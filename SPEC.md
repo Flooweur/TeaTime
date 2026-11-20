@@ -239,7 +239,7 @@ A refusal has a `code`: `duplicate`, `future_date`, `unknown_tea`, `unknown_blen
 - **The status table** in core (`PICK_MOVES`) lists every allowed change of a pick's status; a brew has none, it is logged once and removed once. Logging a brew for a pick already made answers `already_made`. A brew for a pending pick is accepted whatever its tea, since the real cup wins: the pick keeps the tea it drew, its brew the one made, and the answer notes `different_tea`.
 - **`pantry.set`, `blend.marked` and `brew.rated` are last-writer-wins, field by field,** by the command's time against each field's last change.
 - **A deduction** applies only to amounts last measured before the brew's time: a later measurement already includes it. A deduction doesn't count as a measurement.
-- **A measurement that arrives after a later brew** still has that brew's share taken off, so the order things reach the server never changes the result.
+- **A measurement that reaches the server after a brew made later than it** still has that brew's share taken off, so the order things reach the server never changes the result.
 - **An undo** puts amounts back only where nothing was measured since; it says so where it can't.
 - **The reducer returns the keys it touched,** so the server writes only those rows; a touched key gone from the new state is a row to delete.
 - **A command time more than a day ahead of the server's clock** is taken as the server's time.
