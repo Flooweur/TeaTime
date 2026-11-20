@@ -149,9 +149,12 @@ export function brew(code: string, date: string, overrides: Partial<BrewRecord> 
   };
 }
 
+/** The tests' own week, whatever the owner's default: office on Monday to Wednesday, home on Thursday and Friday. */
+export const TEST_OFFICE_DAYS = [1, 2, 3] as const;
+
 export function state(parts: Partial<Omit<State, "settings">> & { settings?: Partial<Settings> } = {}): State {
   const { settings, ...rest } = parts;
-  return { ...initialState({ ...DEFAULT_SETTINGS, ...settings }), ...rest };
+  return { ...initialState({ ...DEFAULT_SETTINGS, officeDays: TEST_OFFICE_DAYS, ...settings }), ...rest };
 }
 
 /** Brews keyed by id, as the state holds them. */

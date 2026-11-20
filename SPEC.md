@@ -37,7 +37,7 @@ Each date has a **day type**, decided in this order:
 1. A **Saturday or Sunday** has no tea of the day. Saturday holds the weekly review (§2.8); Sunday is free. The pantry and the library stay open.
 2. A date inside an **away period** (Settings: "away from … to …") has no tea and no notification.
 3. Otherwise a per-date **override** ("tomorrow I'm home", "tomorrow I'm at the office") decides.
-4. Otherwise the weekday is an **office day** if it is one of the owner's office days (a setting: Monday to Wednesday by default), and a **home day** if not.
+4. Otherwise the weekday is an **office day** if it is one of the owner's office days (a setting: Monday, Tuesday and Thursday by default), and a **home day** if not.
 
 A weekday that isn't away is a **tea day**.
 

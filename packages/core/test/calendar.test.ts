@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { type Week, dayOf, inSeason, poolOf, seasonOf, teaDayType } from "../src/index.js";
+import { DEFAULT_SETTINGS, type Week, dayOf, inSeason, poolOf, seasonOf, teaDayType } from "../src/index.js";
 
 // 2026-11-23 is a Monday.
 const week: Week = { officeDays: [1, 2, 3], overrides: {}, away: [] };
@@ -65,5 +65,15 @@ describe("seasons", () => {
 
   it("refuses what isn't a date", () => {
     expect(() => seasonOf("2026-13-01")).toThrow(RangeError);
+  });
+});
+
+describe("the owner's default week", () => {
+  it("is office on Monday, Tuesday and Thursday (decision of 2026-11-20)", () => {
+    expect(DEFAULT_SETTINGS.officeDays).toEqual([1, 2, 4]);
+    const week: Week = { officeDays: DEFAULT_SETTINGS.officeDays, overrides: {}, away: [] };
+    expect(
+      ["2026-11-23", "2026-11-24", "2026-11-25", "2026-11-26", "2026-11-27"].map((d) => teaDayType(d, week)),
+    ).toEqual(["office", "office", "home", "office", "home"]);
   });
 });

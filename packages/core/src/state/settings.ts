@@ -29,7 +29,7 @@ export interface Settings {
 
 export const DEFAULT_SETTINGS: Settings = {
   timeZone: "Europe/Paris",
-  officeDays: [1, 2, 3],
+  officeDays: [1, 2, 4],
   eveningTime: "20:30",
   morningTime: "08:00",
   reviewTime: "10:00",

@@ -23,6 +23,12 @@ Phase 4 depends only on phase 1, so it can run alongside phases 3, 5 and 6. Late
 ## Decisions log
 Asked of the owner and answered, newest first. The SPEC states each as a rule.
 
+### 2026-11-20: the core rules (phase 3)
+- **Office days:** Monday, Tuesday and Thursday, the default in Settings.
+- **★ against a low rating:** a blend last rated 1–2 stays out of the draw even when starred; only *make again* brings it back.
+- **The evening push when away:** it still goes the evening before a tea day, even when that evening is away (coming back on Sunday for a Monday office day).
+- **Rounding:** a needed quantity never rounds to nothing: at least 0.1 g, 5 ml or one piece.
+
 ### 2026-11-20: the look (phase 0)
 - **Direction:** of three Today mockups (A · Warm journal, B · Calm minimal, C · Ink & washi), the owner picked **A · Warm journal**, as shown, with nothing mixed in from B or C: cream paper and tea-brown ink, Alegreya for the names and stories, Alegreya Sans for the rest, amber for the running timer.
 - **Tokens:** its colours in both modes, fonts, type scale, radii and spacing are in [docs/design/README.md](docs/design/README.md), ready to become the Tailwind 4 `@theme` in phase 6.
