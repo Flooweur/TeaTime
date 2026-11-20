@@ -1,0 +1,14 @@
+{
+  // The production build: src/ only, with @teatime/core from its compiled dist/ (build it first),
+  // not its sources (packages/README.md).
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "declaration": true,
+    "sourceMap": true,
+    "types": [],
+    "customConditions": []
+  },
+  "include": ["src"]
+}
