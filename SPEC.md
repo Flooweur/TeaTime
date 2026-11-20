@@ -377,6 +377,8 @@ Experimental blends can use a gaiwan, precise temperatures, butter or salt, unus
 ---
 
 ## 7. Screens
+**The look** is *A · Warm journal* (decision of 2026-11-20): cream paper, tea-brown ink, Alegreya and Alegreya Sans. Its colours in both modes, fonts, type scale, radii and spacing are in [docs/design/README.md](docs/design/README.md), and become the app's Tailwind `@theme`.
+
 On the phone, a bottom tab bar holds **Today · Pantry · Library · Guides · Settings**; **Review** joins it on weekends.
 
 **Today**
@@ -411,6 +413,7 @@ On the phone, a bottom tab bar holds **Today · Pantry · Library · Guides · S
 - Office days, overrides and away periods.
 - The notification times, notifications on or off, and a test push.
 - The cooldown and the default cups.
+- Light or dark: a switch (decision of 2026-11-20).
 - Export (JSON and CSV).
 
 **Diagnostics**

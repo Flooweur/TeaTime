@@ -1,0 +1,2550 @@
+<title>TeaTime Today Directions</title>
+<meta name="claude:viewport-fit-sides" content="cover" />
+<meta name="description" content="Three visual directions for TeaTime's Today screen, in light and dark." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..700;1,400..600&family=Alegreya+Sans:wght@400;500;700&family=Geist:wght@300..700&family=Geist+Mono:wght@300..500&family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap"
+/>
+<style>
+  /*
+   * Layout: a neutral board holding three 390 px phone frames, side by side from 1280 px and one at a time below
+   * (full-bleed on a phone, so the screen shows at its real size). Each direction scopes the same token names on
+   * its own class (.d-journal, .d-minimal, .d-ink), in the shape Tailwind 4's @theme takes: --color-*, --font-*,
+   * --radius-*. The chosen direction's light values become @theme; its dark values override them under
+   * prefers-color-scheme: dark.
+   */
+
+  /* ---------- The board (neutral, so the directions carry the identity) ---------- */
+  :root {
+    --board-bg: #e8e7e3;
+    --board-raised: #f4f3f0;
+    --board-fg: #1b1b19;
+    --board-muted: #5c5b56;
+    --board-line: #cccac3;
+    --board-control: #858378;
+    --board-frame: #bdbbb3;
+    --board-shadow: #2a28203d;
+    --board-island: #0a0a0a;
+    --board-font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --board-bg: #0d0d0e;
+      --board-raised: #19191b;
+      --board-fg: #ecebe8;
+      --board-muted: #a3a29d;
+      --board-line: #2a2a2c;
+      --board-control: #727069;
+      --board-frame: #343437;
+      --board-shadow: #000000a0;
+      --board-island: #000000;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --board-bg: #0d0d0e;
+    --board-raised: #19191b;
+    --board-fg: #ecebe8;
+    --board-muted: #a3a29d;
+    --board-line: #2a2a2c;
+    --board-control: #727069;
+    --board-frame: #343437;
+    --board-shadow: #000000a0;
+    --board-island: #000000;
+    color-scheme: dark;
+  }
+
+  /* ---------- A · Warm journal ---------- */
+  .d-journal {
+    --color-bg: #f3ebdd;
+    --color-surface: #fbf6ec;
+    --color-sunk: #efe4d1;
+    --color-fg: #2a1c12;
+    --color-muted: #6b5644;
+    --color-line: #e2d4bd;
+    --color-control: #9a7b5c;
+    --color-accent: #6e3f1e;
+    --color-on-accent: #fbf6ec;
+    --color-highlight: #b8781c;
+    --color-on-highlight: #2a1c12;
+    --color-highlight-ink: #8a560f;
+    --color-documented: #3f6b3a;
+    --color-attested: #2f5a85;
+    --color-legend: #8f5410;
+    --color-margin: #dda15e;
+    --color-shadow: #5a3a1c2e;
+    --color-focus: #6e3f1e;
+    --font-display: "Alegreya", Georgia, "Times New Roman", serif;
+    --font-sans: "Alegreya Sans", "Segoe UI", system-ui, sans-serif;
+    --radius-card: 18px;
+    --radius-control: 12px;
+    --texture: none;
+    --icon-stroke: 1.7;
+    --screen-pad: 20px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .d-journal {
+      --color-bg: #17120d;
+      --color-surface: #211a13;
+      --color-sunk: #2b2219;
+      --color-fg: #f2e7d5;
+      --color-muted: #bca88f;
+      --color-line: #3a2e22;
+      --color-control: #8c7458;
+      --color-accent: #e2a65a;
+      --color-on-accent: #1e150d;
+      --color-highlight: #e2a65a;
+      --color-on-highlight: #1e150d;
+      --color-highlight-ink: #edb872;
+      --color-documented: #a3c892;
+      --color-attested: #98bce2;
+      --color-legend: #e7b068;
+      --color-margin: #6b4823;
+      --color-shadow: #00000073;
+      --color-focus: #edb872;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] .d-journal {
+    --color-bg: #17120d;
+    --color-surface: #211a13;
+    --color-sunk: #2b2219;
+    --color-fg: #f2e7d5;
+    --color-muted: #bca88f;
+    --color-line: #3a2e22;
+    --color-control: #8c7458;
+    --color-accent: #e2a65a;
+    --color-on-accent: #1e150d;
+    --color-highlight: #e2a65a;
+    --color-on-highlight: #1e150d;
+    --color-highlight-ink: #edb872;
+    --color-documented: #a3c892;
+    --color-attested: #98bce2;
+    --color-legend: #e7b068;
+    --color-margin: #6b4823;
+    --color-shadow: #00000073;
+    --color-focus: #edb872;
+    color-scheme: dark;
+  }
+
+  /* ---------- B · Calm minimal ---------- */
+  .d-minimal {
+    --color-bg: #fafaf8;
+    --color-surface: #ffffff;
+    --color-sunk: #f1f3ef;
+    --color-fg: #141614;
+    --color-muted: #5d625d;
+    --color-line: #e3e6e1;
+    --color-control: #8a908a;
+    --color-accent: #2d6a44;
+    --color-on-accent: #ffffff;
+    --color-highlight: #2d6a44;
+    --color-on-highlight: #ffffff;
+    --color-highlight-ink: #2d6a44;
+    --color-documented: #141614;
+    --color-attested: #141614;
+    --color-legend: #5d625d;
+    --color-shadow: #0000001f;
+    --color-focus: #2d6a44;
+    --font-display: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-sans: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "Geist Mono", ui-monospace, "SF Mono", Consolas, monospace;
+    --radius-card: 0px;
+    --radius-control: 10px;
+    --texture: none;
+    --icon-stroke: 1.4;
+    --screen-pad: 24px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .d-minimal {
+      --color-bg: #0e100f;
+      --color-surface: #141715;
+      --color-sunk: #1a1e1b;
+      --color-fg: #eceeea;
+      --color-muted: #a0a69f;
+      --color-line: #252a26;
+      --color-control: #6e766f;
+      --color-accent: #7cc495;
+      --color-on-accent: #0b1a10;
+      --color-highlight: #7cc495;
+      --color-on-highlight: #0b1a10;
+      --color-highlight-ink: #8ed1a5;
+      --color-documented: #eceeea;
+      --color-attested: #eceeea;
+      --color-legend: #a0a69f;
+      --color-shadow: #00000080;
+      --color-focus: #8ed1a5;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] .d-minimal {
+    --color-bg: #0e100f;
+    --color-surface: #141715;
+    --color-sunk: #1a1e1b;
+    --color-fg: #eceeea;
+    --color-muted: #a0a69f;
+    --color-line: #252a26;
+    --color-control: #6e766f;
+    --color-accent: #7cc495;
+    --color-on-accent: #0b1a10;
+    --color-highlight: #7cc495;
+    --color-on-highlight: #0b1a10;
+    --color-highlight-ink: #8ed1a5;
+    --color-documented: #eceeea;
+    --color-attested: #eceeea;
+    --color-legend: #a0a69f;
+    --color-shadow: #00000080;
+    --color-focus: #8ed1a5;
+    color-scheme: dark;
+  }
+
+  /* ---------- C · Ink & washi ---------- */
+  .d-ink {
+    --color-bg: #ece7dc;
+    --color-surface: #f4f0e7;
+    --color-sunk: #e2dccf;
+    --color-fg: #1b1a17;
+    --color-muted: #5a564e;
+    --color-line: #cec7b7;
+    --color-control: #878071;
+    --color-accent: #1b1a17;
+    --color-on-accent: #f4f0e7;
+    --color-highlight: #a3372a;
+    --color-on-highlight: #f7f2e8;
+    --color-highlight-ink: #a3372a;
+    --color-documented: #1b1a17;
+    --color-attested: #1b1a17;
+    --color-legend: #5a564e;
+    --color-shadow: #1b1a1726;
+    --color-focus: #1b1a17;
+    --font-display: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
+    --font-sans: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic UI", system-ui, sans-serif;
+    --radius-card: 2px;
+    --radius-control: 2px;
+    --texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.018 .16' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .11 0 0 0 0 .1 0 0 0 0 .08 .2 0 0 0 -.09'/%3E%3C/filter%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='9'/%3E%3CfeColorMatrix values='0 0 0 0 .11 0 0 0 0 .1 0 0 0 0 .08 .16 0 0 0 -.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    --icon-stroke: 1.6;
+    --screen-pad: 22px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .d-ink {
+      --color-bg: #141412;
+      --color-surface: #1c1b18;
+      --color-sunk: #252420;
+      --color-fg: #ece6d8;
+      --color-muted: #aba493;
+      --color-line: #35332e;
+      --color-control: #7f796c;
+      --color-accent: #ece6d8;
+      --color-on-accent: #141412;
+      --color-highlight: #d2624b;
+      --color-on-highlight: #141412;
+      --color-highlight-ink: #e07a63;
+      --color-documented: #ece6d8;
+      --color-attested: #ece6d8;
+      --color-legend: #aba493;
+      --color-shadow: #00000080;
+      --color-focus: #ece6d8;
+      --texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.018 .16' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .93 0 0 0 0 .9 0 0 0 0 .84 .1 0 0 0 -.05'/%3E%3C/filter%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='9'/%3E%3CfeColorMatrix values='0 0 0 0 .93 0 0 0 0 .9 0 0 0 0 .84 .08 0 0 0 -.025'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] .d-ink {
+    --color-bg: #141412;
+    --color-surface: #1c1b18;
+    --color-sunk: #252420;
+    --color-fg: #ece6d8;
+    --color-muted: #aba493;
+    --color-line: #35332e;
+    --color-control: #7f796c;
+    --color-accent: #ece6d8;
+    --color-on-accent: #141412;
+    --color-highlight: #d2624b;
+    --color-on-highlight: #141412;
+    --color-highlight-ink: #e07a63;
+    --color-documented: #ece6d8;
+    --color-attested: #ece6d8;
+    --color-legend: #aba493;
+    --color-shadow: #00000080;
+    --color-focus: #ece6d8;
+    --texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.018 .16' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .93 0 0 0 0 .9 0 0 0 0 .84 .1 0 0 0 -.05'/%3E%3C/filter%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='9'/%3E%3CfeColorMatrix values='0 0 0 0 .93 0 0 0 0 .9 0 0 0 0 .84 .08 0 0 0 -.025'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    color-scheme: dark;
+  }
+
+  /* ---------- Base ---------- */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  body {
+    background: var(--board-bg);
+    color: var(--board-fg);
+    font: 15px/1.5 var(--board-font);
+    -webkit-text-size-adjust: 100%;
+  }
+  h1,
+  h2,
+  h3,
+  p,
+  ul,
+  ol {
+    margin: 0;
+  }
+  ul,
+  ol {
+    padding: 0;
+    list-style: none;
+  }
+  button {
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  :focus-visible {
+    outline: 2.5px solid var(--color-focus, var(--board-fg));
+    outline-offset: 2px;
+  }
+  .gutter {
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .ic {
+    width: 22px;
+    height: 22px;
+    flex: none;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: var(--icon-stroke, 1.6);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .tnum {
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+
+  /* ---------- Board header and controls ---------- */
+  .board-head {
+    max-width: 1290px;
+    margin-inline: auto;
+    padding-block: 28px 8px;
+    display: grid;
+    gap: 14px;
+  }
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--board-muted);
+  }
+  .board-head h1 {
+    font-size: clamp(26px, 4vw, 34px);
+    line-height: 1.15;
+    font-weight: 650;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+  .lead {
+    max-width: 62ch;
+    font-size: 16px;
+    color: var(--board-fg);
+  }
+  .fine {
+    max-width: 70ch;
+    font-size: 14px;
+    color: var(--board-muted);
+  }
+  .picked {
+    justify-self: start;
+    padding: 8px 14px;
+    border: 1px solid var(--board-control);
+    border-radius: 12px;
+    background: var(--board-raised);
+    font-size: 15px;
+  }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    align-items: center;
+    padding-top: 6px;
+  }
+  .control-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .control-label {
+    font-size: 13px;
+    color: var(--board-muted);
+  }
+  .seg {
+    display: inline-flex;
+    border: 1px solid var(--board-control);
+    border-radius: 12px;
+    background: var(--board-raised);
+    padding: 3px;
+    gap: 2px;
+  }
+  .seg button {
+    min-height: 44px;
+    min-width: 44px;
+    padding-inline: 14px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    font-size: 15px;
+    font-weight: 550;
+    color: var(--board-muted);
+  }
+  .seg button[aria-pressed="true"] {
+    background: var(--board-fg);
+    color: var(--board-bg);
+  }
+  .seg button:focus-visible {
+    outline-color: var(--board-fg);
+  }
+
+  /* ---------- The directions ---------- */
+  .dirs {
+    padding-block: 24px 64px;
+  }
+  .dir {
+    display: grid;
+    gap: 22px;
+    max-width: 390px;
+    margin-inline: auto;
+    align-content: start;
+  }
+  .dir-body {
+    display: grid;
+    gap: 26px;
+    align-content: start;
+  }
+  .intro {
+    display: grid;
+    gap: 10px;
+    align-content: start;
+  }
+  .intro-k {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--board-muted);
+  }
+  .intro-name {
+    font-family: var(--font-display);
+    font-size: 28px;
+    line-height: 1.1;
+    font-weight: 600;
+  }
+  .intro-line {
+    font-size: 15px;
+    color: var(--board-fg);
+  }
+  .intro-type {
+    font-size: 14px;
+    color: var(--board-muted);
+  }
+  .intro-type b {
+    font-weight: 600;
+    color: var(--board-fg);
+  }
+  .swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    padding-top: 2px;
+  }
+  .swatches li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--board-muted);
+  }
+  .swatches i {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px var(--board-line);
+  }
+  .dir-next {
+    justify-self: center;
+    min-height: 48px;
+    padding-inline: 20px;
+    border: 1px solid var(--board-control);
+    border-radius: 12px;
+    background: var(--board-raised);
+    font-size: 15px;
+    font-weight: 550;
+  }
+  .extra-title {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--board-muted);
+    padding-bottom: 10px;
+  }
+
+  /* ---------- Phone frame, status bar, tab bar ---------- */
+  .frame {
+    position: relative;
+    width: 390px;
+    max-width: 100%;
+    margin-inline: auto;
+    background-color: var(--color-bg);
+    background-image: var(--texture);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    border-radius: 50px;
+    overflow: clip;
+    box-shadow:
+      0 0 0 1px var(--board-frame),
+      0 40px 70px -40px var(--board-shadow);
+    --tab-bottom: 30px;
+  }
+  .statusbar {
+    position: relative;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 30px 0 40px;
+    font:
+      600 16px/1 system-ui,
+      -apple-system,
+      "Segoe UI",
+      sans-serif;
+    color: var(--color-fg);
+  }
+  .island {
+    position: absolute;
+    top: 11px;
+    left: 50%;
+    width: 122px;
+    height: 35px;
+    border-radius: 20px;
+    background: var(--board-island);
+    transform: translateX(-50%);
+  }
+  .statusbar svg {
+    width: 70px;
+    height: 13px;
+    fill: currentColor;
+  }
+  .screen {
+    padding-block: 8px 36px;
+    padding-left: max(var(--screen-pad), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--screen-pad), env(safe-area-inset-right, 0px));
+  }
+  .tabbar {
+    position: relative;
+    z-index: 3;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 4px max(6px, env(safe-area-inset-right, 0px)) var(--tab-bottom) max(6px, env(safe-area-inset-left, 0px));
+    background: var(--tab-bg, var(--color-surface));
+    border-top: 1px solid var(--color-line);
+  }
+  .tabbar.is-sticky {
+    position: sticky;
+    bottom: 0;
+  }
+  .tabbar::after {
+    content: "";
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    width: 134px;
+    height: 5px;
+    border-radius: 3px;
+    background: var(--color-fg);
+    transform: translateX(-50%);
+  }
+  .tab {
+    position: relative;
+    min-height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    border: 0;
+    background: none;
+    color: var(--color-muted);
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .tab .ic {
+    width: 24px;
+    height: 24px;
+  }
+  .tab[aria-current="page"] {
+    color: var(--tab-active, var(--color-accent));
+  }
+
+  @media (max-width: 599.98px) {
+    .dir {
+      max-width: none;
+    }
+    .frame {
+      width: 100%;
+      border-radius: 0;
+      box-shadow: none;
+      --tab-bottom: max(10px, env(safe-area-inset-bottom, 0px));
+    }
+    .statusbar,
+    .tabbar::after {
+      display: none;
+    }
+    .screen {
+      padding-top: 18px;
+    }
+  }
+  @media (max-width: 1279.98px) {
+    .dirs[data-show="journal"] > .dir:not(.d-journal),
+    .dirs[data-show="minimal"] > .dir:not(.d-minimal),
+    .dirs[data-show="ink"] > .dir:not(.d-ink) {
+      display: none;
+    }
+  }
+  @media (min-width: 1280px) {
+    .dirs {
+      display: grid;
+      grid-template-columns: repeat(3, 390px);
+      grid-template-rows: auto auto;
+      justify-content: center;
+      column-gap: 44px;
+    }
+    .dir {
+      grid-row: span 2;
+      grid-template-rows: subgrid;
+      max-width: none;
+      margin: 0;
+    }
+    .intro.gutter {
+      padding-inline: 4px;
+    }
+    .dir-next,
+    .only-narrow {
+      display: none;
+    }
+  }
+
+  /* A panel in the direction's own colours (badges, notes) */
+  .panel {
+    background-color: var(--color-bg);
+    background-image: var(--texture);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    border-radius: 28px;
+    padding: 18px max(20px, env(safe-area-inset-right, 0px)) 20px max(20px, env(safe-area-inset-left, 0px));
+    box-shadow: 0 0 0 1px var(--board-frame);
+    display: grid;
+    gap: 14px;
+  }
+  .panel-row {
+    display: grid;
+    grid-template-columns: 132px 1fr;
+    gap: 12px;
+    align-items: center;
+    font-size: 14px;
+    color: var(--color-muted);
+  }
+  @media (max-width: 599.98px) {
+    .panel {
+      border-radius: 0;
+      box-shadow: none;
+    }
+  }
+
+  /* ================= A · Warm journal ================= */
+  .d-journal .tabbar {
+    --tab-bg: var(--color-surface);
+  }
+  .j {
+    display: grid;
+    gap: 24px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .j-date {
+    font-size: 16px;
+    font-weight: 500;
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.07em;
+    color: var(--color-muted);
+  }
+  .j-page {
+    position: relative;
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
+    padding: 22px 20px 20px 36px;
+    box-shadow:
+      0 1px 0 var(--color-line),
+      0 14px 28px -20px var(--color-shadow);
+  }
+  .j-page::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 22px;
+    width: 1.5px;
+    background: var(--color-margin);
+  }
+  .j-ribbon {
+    position: absolute;
+    top: -6px;
+    right: 22px;
+    width: 26px;
+    height: 58px;
+    background: var(--color-highlight);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+  }
+  .j-code {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-highlight-ink);
+  }
+  .j-name {
+    font-family: var(--font-display);
+    font-size: 34px;
+    line-height: 1.05;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+    padding-right: 30px;
+  }
+  .j-meta {
+    margin-top: 6px;
+    font-size: 14px;
+    color: var(--color-muted);
+  }
+  .j-story {
+    margin-top: 14px;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 18px;
+    line-height: 28px;
+    background-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 23px,
+      var(--color-line) 23px,
+      var(--color-line) 24.5px,
+      transparent 24.5px
+    );
+    background-size: 100% 28px;
+  }
+  .j-trust {
+    margin-top: 16px;
+    display: grid;
+    gap: 6px;
+    justify-items: start;
+  }
+  .j-trust p {
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--color-muted);
+  }
+  .j-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 28px;
+    padding: 2px 11px 2px 8px;
+    border-radius: 999px;
+    border: 1.5px solid currentColor;
+    font-size: 16px;
+    font-weight: 700;
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.08em;
+  }
+  .j-badge .ic {
+    width: 17px;
+    height: 17px;
+  }
+  .j-badge.is-documented {
+    color: var(--color-documented);
+  }
+  .j-badge.is-attested {
+    color: var(--color-attested);
+  }
+  .j-badge.is-legend {
+    color: var(--color-legend);
+    border-style: dashed;
+  }
+  .j-h {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.2;
+    padding-bottom: 6px;
+  }
+  .j-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .j-label {
+    font-size: 16px;
+    font-weight: 500;
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.07em;
+    color: var(--color-muted);
+  }
+  .j-circles {
+    display: flex;
+    gap: 10px;
+  }
+  .j-circles button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-control);
+    background: var(--color-surface);
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    font-variant-numeric: lining-nums;
+  }
+  .j-circles button[aria-checked="true"] {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+  .j-ingr li {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding-block: 7px;
+  }
+  .j-ingr .n small {
+    display: block;
+    font-size: 14px;
+    color: var(--color-muted);
+  }
+  .j-ingr .dots {
+    flex: 1;
+    min-width: 16px;
+    border-bottom: 2px dotted var(--color-control);
+    opacity: 0.55;
+    transform: translateY(-5px);
+  }
+  .j-ingr .q {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    font-variant-numeric: lining-nums tabular-nums;
+    white-space: nowrap;
+  }
+  .j-water {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 14px 12px;
+    border-radius: 14px;
+    background: var(--color-sunk);
+  }
+  .j-water > div {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 2px;
+  }
+  .j-water .ic {
+    color: var(--color-highlight-ink);
+    margin-bottom: 2px;
+  }
+  .j-water small {
+    font-size: 16px;
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.07em;
+    color: var(--color-muted);
+  }
+  .j-water b {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.25;
+  }
+  .j-steps {
+    display: grid;
+    gap: 20px;
+  }
+  .j-step {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 12px;
+  }
+  .j-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-control);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    font-variant-numeric: lining-nums;
+  }
+  .j-step.is-done .j-num {
+    color: var(--color-muted);
+    border-style: dotted;
+  }
+  .j-step.is-running .j-num {
+    background: var(--color-highlight);
+    border-color: var(--color-highlight);
+    color: var(--color-on-highlight);
+  }
+  .j-st {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.25;
+    padding-top: 3px;
+  }
+  .j-sx {
+    margin-top: 2px;
+  }
+  .j-step.is-done .j-sx,
+  .j-step.is-done .j-st {
+    color: var(--color-muted);
+  }
+  .j-tdone {
+    margin-top: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--color-muted);
+  }
+  .j-tdone .ic {
+    width: 18px;
+    height: 18px;
+  }
+  .j-timer {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 10px 10px 14px;
+    border-radius: 14px;
+    background: var(--color-surface);
+    box-shadow:
+      0 0 0 1.5px var(--color-highlight),
+      0 10px 22px -18px var(--color-shadow);
+  }
+  .j-tval {
+    display: grid;
+    line-height: 1;
+  }
+  .j-tval span {
+    font-size: 28px;
+    font-weight: 700;
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  .j-tval small {
+    margin-top: 4px;
+    font-size: 14px;
+    color: var(--color-muted);
+  }
+  .j-bar {
+    height: 6px;
+    border-radius: 3px;
+    /* A 2 px rule as the track, so the amber fill reads against the surface (3.4:1), not the rule. */
+    background: linear-gradient(var(--color-line), var(--color-line)) center / 100% 2px no-repeat;
+    overflow: hidden;
+  }
+  .j-bar i {
+    display: block;
+    height: 100%;
+    width: calc(var(--p, 0) * 100%);
+    background: var(--color-highlight);
+    border-radius: inherit;
+  }
+  .j-btn {
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: var(--radius-control);
+    border: 1.5px solid var(--color-control);
+    background: var(--color-surface);
+    font-size: 16px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .j-next {
+    margin-top: 10px;
+    border-style: dashed;
+    background: transparent;
+  }
+  .j-next .ic {
+    width: 16px;
+    height: 16px;
+  }
+  .j-hint {
+    margin-top: 6px;
+    font-size: 14px;
+    color: var(--color-muted);
+  }
+  .j-actions {
+    display: grid;
+    gap: 16px;
+    padding-top: 22px;
+    border-top: 1.5px solid var(--color-line);
+  }
+  .j-made {
+    min-height: 54px;
+    border: 0;
+    border-radius: 14px;
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .j-rate {
+    display: grid;
+    gap: 10px;
+  }
+  .j-rate .j-circles {
+    justify-content: space-between;
+  }
+  .j-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .j-pair .j-btn {
+    min-height: 50px;
+  }
+  .j-pair small {
+    font-weight: 500;
+    color: var(--color-muted);
+  }
+  .j-link {
+    justify-self: center;
+    min-height: 44px;
+    padding-inline: 12px;
+    border: 0;
+    background: none;
+    color: var(--color-muted);
+    font-size: 16px;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+  .j-journal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 12px 12px 16px;
+    border-radius: 14px;
+    border: 1.5px dashed var(--color-control);
+  }
+  .j-journal b {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 22px;
+    line-height: 1.15;
+    font-weight: 600;
+    font-variant-numeric: lining-nums;
+  }
+  .j-envelope {
+    position: relative;
+    display: grid;
+    gap: 12px;
+    justify-items: start;
+    padding: 64px 22px 22px;
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
+    box-shadow:
+      0 1px 0 var(--color-line),
+      0 14px 28px -20px var(--color-shadow);
+    overflow: hidden;
+  }
+  .j-flap {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 52px;
+    background: var(--color-sunk);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+  }
+  .j-wax {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin-left: -20px;
+    border-radius: 50%;
+    background: var(--color-highlight);
+    color: var(--color-on-highlight);
+    display: grid;
+    place-items: center;
+  }
+  .j-wax .ic {
+    width: 20px;
+    height: 20px;
+  }
+  .j-tz {
+    padding-top: 6px;
+    font-family: var(--font-display);
+    font-size: 28px;
+    line-height: 1.15;
+    font-weight: 600;
+    text-wrap: balance;
+  }
+  .j-note {
+    font-size: 16px;
+    color: var(--color-muted);
+  }
+
+  /* ================= B · Calm minimal ================= */
+  .d-minimal .tabbar {
+    --tab-bg: color-mix(in srgb, var(--color-bg) 90%, transparent);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+  .m {
+    display: grid;
+    gap: 44px;
+    font-size: 16px;
+    line-height: 1.55;
+    padding-top: 14px;
+  }
+  .m-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: var(--color-muted);
+  }
+  .m-code {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    color: var(--color-muted);
+  }
+  .m-name {
+    margin-top: 8px;
+    font-size: 34px;
+    line-height: 1.08;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+  .m-meta {
+    margin-top: 8px;
+    font-size: 15px;
+    color: var(--color-muted);
+  }
+  .m-story {
+    margin-top: 22px;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .m-trust {
+    margin-top: 18px;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 2px 8px;
+    font-size: 14px;
+    color: var(--color-muted);
+  }
+  .m-trust b {
+    font-weight: 600;
+    color: var(--color-fg);
+  }
+  .m-dot {
+    flex: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1.5px solid currentColor;
+    align-self: center;
+  }
+  .m-dot.is-documented {
+    background: currentColor;
+    color: var(--color-documented);
+  }
+  .m-dot.is-attested {
+    background: linear-gradient(90deg, currentColor 50%, transparent 50%);
+    color: var(--color-attested);
+  }
+  .m-dot.is-legend {
+    color: var(--color-legend);
+  }
+  .m-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-muted);
+  }
+  .m-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .m-seg {
+    display: inline-grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 54px;
+    border: 1px solid var(--color-control);
+    border-radius: var(--radius-control);
+    overflow: hidden;
+  }
+  .m-seg.is-wide {
+    display: grid;
+    grid-auto-columns: 1fr;
+  }
+  .m-seg button {
+    min-height: 44px;
+    border: 0;
+    background: transparent;
+    font-family: var(--font-mono);
+    font-size: 16px;
+  }
+  .m-seg button + button {
+    border-left: 1px solid var(--color-control);
+  }
+  .m-seg button[aria-checked="true"] {
+    background: var(--color-fg);
+    color: var(--color-bg);
+  }
+  .m-list {
+    margin-top: 10px;
+    border-top: 1px solid var(--color-line);
+  }
+  .m-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding-block: 14px;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .m-list small {
+    color: var(--color-muted);
+    font-size: 14px;
+  }
+  .m-list .q {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    white-space: nowrap;
+  }
+  .m .u {
+    margin-left: 0.3em;
+  }
+  .m .u:empty {
+    margin-left: 0.2em;
+  }
+  .m-params {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .m-params div {
+    display: grid;
+    gap: 4px;
+  }
+  .m-params b {
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 1.25;
+  }
+  .m-params .mono {
+    font-family: var(--font-mono);
+    font-weight: 400;
+  }
+  .m-steps {
+    margin-top: 16px;
+    display: grid;
+    gap: 28px;
+  }
+  .m-step {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    column-gap: 10px;
+  }
+  .m-n {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-muted);
+    padding-top: 2px;
+  }
+  .m-st {
+    font-weight: 600;
+  }
+  .m-step.is-done .m-st,
+  .m-step.is-done .m-sx {
+    color: var(--color-muted);
+  }
+  .m-tdone {
+    margin-top: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-muted);
+  }
+  .m-tdone .ic {
+    width: 16px;
+    height: 16px;
+  }
+  .m-timer {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 12px;
+  }
+  .m-tval span {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 46px;
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    color: var(--color-highlight-ink);
+  }
+  .m-tval small {
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--color-muted);
+  }
+  .m-bar {
+    grid-column: 1 / -1;
+    height: 2px;
+    background: var(--color-line);
+  }
+  .m-bar i {
+    display: block;
+    height: 100%;
+    width: calc(var(--p, 0) * 100%);
+    background: var(--color-highlight);
+  }
+  .m-btn {
+    min-height: 44px;
+    padding-inline: 18px;
+    border: 1px solid var(--color-control);
+    border-radius: var(--radius-control);
+    background: transparent;
+    font-size: 16px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .m-next {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .m-next .mono {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--color-muted);
+  }
+  .m-next p {
+    font-size: 13px;
+    color: var(--color-muted);
+    line-height: 1.35;
+  }
+  .m-actions {
+    display: grid;
+    gap: 14px;
+  }
+  .m-made {
+    min-height: 54px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .m-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .m-pair small {
+    color: var(--color-muted);
+    font-size: 14px;
+  }
+  .m-link {
+    justify-self: start;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: 15px;
+    color: var(--color-muted);
+  }
+  .m-journal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 18px;
+    border-top: 1px solid var(--color-line);
+  }
+  .m-journal b {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 22px;
+    font-weight: 400;
+  }
+  .m-clock {
+    display: block;
+    margin-top: 6px;
+    font-family: var(--font-mono);
+    font-size: 72px;
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: -0.04em;
+    color: var(--color-highlight-ink);
+  }
+  .m-tz {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  .m-note {
+    font-size: 15px;
+    color: var(--color-muted);
+  }
+
+  /* ================= C · Ink & washi ================= */
+  .d-ink .tabbar {
+    --tab-bg: var(--color-bg);
+    --tab-active: var(--color-fg);
+    background-image: var(--texture);
+    border-top: 1.5px solid var(--color-fg);
+  }
+  .d-ink .tab[aria-current="page"]::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    width: 6px;
+    height: 6px;
+    background: var(--color-highlight);
+  }
+  .d-ink .ic {
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+  }
+  .k {
+    display: grid;
+    gap: 30px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .k-hero {
+    position: relative;
+    padding-right: 34px;
+    padding-top: 6px;
+  }
+  .k-seal {
+    width: 66px;
+    height: 66px;
+    display: grid;
+    place-items: center;
+    background: var(--color-highlight);
+    color: var(--color-on-highlight);
+    border-radius: 3px;
+    box-shadow:
+      inset 0 0 0 4px var(--color-highlight),
+      inset 0 0 0 5.5px var(--color-on-highlight);
+    font-family: var(--font-display);
+    font-size: 23px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    transform: rotate(-3deg);
+  }
+  .k-vert {
+    position: absolute;
+    top: 4px;
+    right: 0;
+    writing-mode: vertical-rl;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .k-meta {
+    margin-top: 22px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .k-name {
+    margin-top: 6px;
+    font-family: var(--font-display);
+    font-size: 34px;
+    line-height: 1.2;
+    font-weight: 600;
+    text-wrap: balance;
+  }
+  .k-story {
+    margin-top: 14px;
+    font-family: var(--font-display);
+    font-size: 16.5px;
+    line-height: 1.85;
+    font-weight: 500;
+  }
+  .k-trust {
+    margin-top: 16px;
+    display: grid;
+    gap: 6px;
+  }
+  .k-trust p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-muted);
+  }
+  .k-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .k-mark {
+    flex: none;
+    width: 13px;
+    height: 13px;
+    border: 1.5px solid currentColor;
+  }
+  .k-badge.is-documented {
+    color: var(--color-documented);
+  }
+  .k-badge.is-documented .k-mark {
+    background: currentColor;
+  }
+  .k-badge.is-attested {
+    color: var(--color-attested);
+  }
+  .k-badge.is-legend {
+    color: var(--color-legend);
+  }
+  .k-badge.is-legend .k-mark {
+    border-style: dashed;
+    border-radius: 50%;
+  }
+  .k-rule {
+    height: 4px;
+    background: var(--color-fg);
+    clip-path: polygon(0 70%, 3% 25%, 30% 10%, 70% 0, 100% 45%, 96% 75%, 60% 100%, 5% 95%);
+    opacity: 0.9;
+  }
+  .k-label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .k-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .k-squares {
+    display: flex;
+    gap: 8px;
+  }
+  .k-squares button {
+    width: 50px;
+    height: 50px;
+    border: 1.5px solid var(--color-control);
+    border-radius: var(--radius-control);
+    background: transparent;
+    font-family: var(--font-display);
+    font-size: 21px;
+    font-weight: 600;
+  }
+  .k-squares button[aria-checked="true"] {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+  .k-tray {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1.5px solid var(--color-fg);
+    border-bottom: 1.5px solid var(--color-fg);
+  }
+  .k-tray li {
+    padding: 14px 10px 14px 12px;
+    display: grid;
+    align-content: start;
+    gap: 4px;
+  }
+  .k-tray li + li {
+    border-left: 1px solid var(--color-line);
+  }
+  .k-tray b {
+    font-family: var(--font-display);
+    font-size: 30px;
+    line-height: 1;
+    font-weight: 600;
+    font-variant-numeric: lining-nums;
+  }
+  .k-tray b small {
+    font-size: 16px;
+    margin-left: 0.2em;
+  }
+  .k-tray span {
+    font-size: 14px;
+    line-height: 1.35;
+  }
+  .k-tray em {
+    font-style: normal;
+    font-size: 12.5px;
+    color: var(--color-muted);
+  }
+  .k-params {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 0;
+    font-size: 15px;
+  }
+  .k-params li + li::before {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    margin: 0 12px 3px;
+    background: var(--color-fg);
+    vertical-align: middle;
+  }
+  .k-steps {
+    margin-top: 14px;
+  }
+  .k-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 14px;
+    padding-bottom: 26px;
+  }
+  .k-step:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    left: 15.25px;
+    top: 34px;
+    bottom: 2px;
+    width: 1.5px;
+    background: var(--color-line);
+  }
+  .k-node {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border: 1.5px solid var(--color-fg);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .k-step.is-done .k-node {
+    background: var(--color-fg);
+    color: var(--color-bg);
+  }
+  .k-step.is-running .k-node {
+    border-width: 3px;
+  }
+  .k-st {
+    font-family: var(--font-display);
+    font-size: 19px;
+    line-height: 1.3;
+    font-weight: 600;
+    padding-top: 2px;
+  }
+  .k-sx {
+    margin-top: 2px;
+  }
+  .k-step.is-done .k-st,
+  .k-step.is-done .k-sx {
+    color: var(--color-muted);
+  }
+  .k-tdone {
+    margin-top: 6px;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    color: var(--color-muted);
+  }
+  .k-timer {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .k-ring {
+    position: relative;
+    width: 92px;
+    height: 92px;
+    flex: none;
+  }
+  .k-ring svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+  .k-ring .trk {
+    fill: none;
+    stroke: var(--color-line);
+    stroke-width: 2;
+  }
+  .k-ring .arc {
+    fill: none;
+    stroke: var(--color-fg);
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-dasharray: 238.76px;
+    stroke-dashoffset: calc((1 - var(--p, 0)) * 238.76px);
+  }
+  .k-ring span {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  .k-tside {
+    display: grid;
+    gap: 8px;
+    justify-items: start;
+  }
+  .k-tside small {
+    font-size: 13px;
+    color: var(--color-muted);
+    letter-spacing: 0.04em;
+  }
+  .k-btn {
+    min-height: 44px;
+    padding-inline: 16px;
+    border: 1.5px solid var(--color-control);
+    border-radius: var(--radius-control);
+    background: transparent;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .k-next {
+    margin-top: 12px;
+    padding-left: 8px;
+    letter-spacing: 0.08em;
+  }
+  .k-next i {
+    width: 34px;
+    height: 34px;
+    border: 1.5px dashed var(--color-fg);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-style: normal;
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0;
+  }
+  .k-hint {
+    margin-top: 6px;
+    font-size: 14px;
+    color: var(--color-muted);
+  }
+  .k-actions {
+    display: grid;
+    gap: 16px;
+  }
+  .k-made {
+    min-height: 56px;
+    border: 0;
+    border-radius: var(--radius-control);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .k-rate .k-squares {
+    margin-top: 10px;
+    justify-content: space-between;
+  }
+  .k-rate .k-squares button[aria-checked="true"] {
+    background: var(--color-highlight);
+    border-color: var(--color-highlight);
+    color: var(--color-on-highlight);
+  }
+  .k-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .k-pair .k-btn {
+    min-height: 50px;
+  }
+  .k-pair small {
+    font-size: 12px;
+    color: var(--color-muted);
+    letter-spacing: 0.08em;
+  }
+  .k-link {
+    justify-self: center;
+    min-height: 44px;
+    padding-inline: 12px;
+    border: 0;
+    background: none;
+    font-size: 14px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .k-journal {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 18px;
+    border-top: 1px solid var(--color-line);
+  }
+  .k-journal .k-seal {
+    width: 46px;
+    height: 46px;
+    font-size: 16px;
+    box-shadow:
+      inset 0 0 0 3px var(--color-highlight),
+      inset 0 0 0 4.5px var(--color-on-highlight);
+    flex: none;
+  }
+  .k-journal p {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--color-muted);
+  }
+  .k-journal p b {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 17px;
+    color: var(--color-fg);
+  }
+  .k-enso {
+    position: relative;
+    width: 120px;
+    height: 120px;
+  }
+  .k-enso svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-70deg);
+  }
+  .k-enso circle {
+    fill: none;
+    stroke: var(--color-fg);
+    stroke-width: 7;
+    stroke-linecap: round;
+    stroke-dasharray: 280px 400px;
+  }
+  .k-enso span {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 600;
+  }
+  .k-tz {
+    font-family: var(--font-display);
+    font-size: 26px;
+    line-height: 1.3;
+    font-weight: 600;
+    text-wrap: balance;
+  }
+  .k-note {
+    font-size: 14px;
+    color: var(--color-muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<header class="board-head gutter">
+  <p class="eyebrow">TeaTime · Phase 0 · Design directions</p>
+  <h1>Three looks for Today</h1>
+  <p class="lead">
+    The same Today screen drawn three ways, each in light and dark. Pick the one TeaTime should become, or tell me what
+    to mix from each.
+  </p>
+  <p class="picked">Picked on 20 November 2026: <b>A · Warm journal</b>. B and C stay here as the record.</p>
+  <p class="fine">
+    Everything on the screens is an illustrative sample: #017 Moroccan mint, its story and its quantities are
+    placeholders, not sourced content yet. The screens respond: change the cups, tap a rating, pause the timer, or peek
+    at tomorrow's tea.
+  </p>
+  <p class="fine">
+    All three keep SPEC §3.8: every tap target is 44 px or more, control borders reach 3:1 against their surface, button
+    text is 16 px (the tab bar's captions aside), and the layout keeps clear of the safe areas.
+  </p>
+  <div class="controls">
+    <div class="control-group only-narrow">
+      <span class="control-label" id="dir-label">Direction</span>
+      <div class="seg" role="group" aria-labelledby="dir-label" id="dir-switch">
+        <button type="button" data-show="journal" aria-pressed="true">A · Journal</button>
+        <button type="button" data-show="minimal" aria-pressed="false">B · Minimal</button>
+        <button type="button" data-show="ink" aria-pressed="false">C · Ink</button>
+      </div>
+    </div>
+    <div class="control-group">
+      <span class="control-label" id="theme-label">Mode</span>
+      <div class="seg" role="group" aria-labelledby="theme-label" id="theme-switch">
+        <button type="button" data-theme-set="light" aria-pressed="true">Light</button>
+        <button type="button" data-theme-set="dark" aria-pressed="false">Dark</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="dirs" id="dirs" data-show="journal">
+  <section class="dir d-journal" id="dir-journal" aria-labelledby="journal-name">
+    <div class="intro gutter">
+      <p class="intro-k">Direction A</p>
+      <h2 class="intro-name" id="journal-name">Warm journal</h2>
+      <p class="intro-line">
+        Cream paper and tea-brown ink, with Alegreya for the names and stories. It reads like the notebook the codes go
+        into: a margin rule, a ribbon, and the story written on the lines.
+      </p>
+      <p class="intro-type">
+        <b style="font-family: var(--font-display)">Alegreya</b> for names and stories,
+        <b style="font-family: var(--font-sans)">Alegreya Sans</b> for the rest.
+      </p>
+      <ul class="swatches" aria-label="Palette">
+        <li><i style="background: var(--color-bg)"></i>Paper</li>
+        <li><i style="background: var(--color-surface)"></i>Page</li>
+        <li><i style="background: var(--color-fg)"></i>Ink</li>
+        <li><i style="background: var(--color-accent)"></i>Made it (tea; amber in dark)</li>
+        <li><i style="background: var(--color-highlight)"></i>Amber</li>
+      </ul>
+    </div>
+    <div class="dir-body" data-slot="journal"></div>
+  </section>
+
+  <section class="dir d-minimal" id="dir-minimal" aria-labelledby="minimal-name">
+    <div class="intro gutter">
+      <p class="intro-k">Direction B</p>
+      <h2 class="intro-name" id="minimal-name">Calm minimal</h2>
+      <p class="intro-line">
+        Near-white and near-black, Geist throughout, and one leaf green kept for what is happening now: the running
+        timer and Made it. Hairlines instead of boxes, and room to breathe.
+      </p>
+      <p class="intro-type">
+        <b style="font-family: var(--font-sans)">Geist</b> for text,
+        <b style="font-family: var(--font-mono)">Geist Mono</b> for numbers and timers.
+      </p>
+      <ul class="swatches" aria-label="Palette">
+        <li><i style="background: var(--color-bg)"></i>Ground</li>
+        <li><i style="background: var(--color-line)"></i>Hairline</li>
+        <li><i style="background: var(--color-muted)"></i>Muted</li>
+        <li><i style="background: var(--color-fg)"></i>Ink</li>
+        <li><i style="background: var(--color-accent)"></i>Leaf</li>
+      </ul>
+    </div>
+    <div class="dir-body" data-slot="minimal"></div>
+  </section>
+
+  <section class="dir d-ink" id="dir-ink" aria-labelledby="ink-name">
+    <div class="intro gutter">
+      <p class="intro-k">Direction C</p>
+      <h2 class="intro-name" id="ink-name">Ink &amp; washi</h2>
+      <p class="intro-line">
+        Washi paper, sumi-black ink and a red seal for the blend's number, after a Japanese tea house. Square edges, a
+        brushed ensō for the running timer, and the seal used nowhere else.
+      </p>
+      <p class="intro-type">
+        <b style="font-family: var(--font-display)">Shippori Mincho</b> for names and stories,
+        <b style="font-family: var(--font-sans)">Zen Kaku Gothic</b> for the rest.
+      </p>
+      <ul class="swatches" aria-label="Palette">
+        <li><i style="background: var(--color-bg)"></i>Washi</li>
+        <li><i style="background: var(--color-sunk)"></i>Shade</li>
+        <li><i style="background: var(--color-muted)"></i>Grey ink</li>
+        <li><i style="background: var(--color-fg)"></i>Sumi</li>
+        <li><i style="background: var(--color-highlight)"></i>Seal</li>
+      </ul>
+    </div>
+    <div class="dir-body" data-slot="ink"></div>
+  </section>
+</main>
+
+<script>
+  // Illustrative sample content, the same in all three directions. Not a real, sourced blend.
+  const S = {
+    date: "Friday 20 November",
+    short: "Fri 20 Nov",
+    day: "Home day",
+    code: "017",
+    name: "Moroccan mint",
+    meta: "Household tradition · Morocco",
+    story:
+      "The story goes that British merchants, cut off from the Baltic by the Crimean War, sold their green tea in Tangier instead. Spearmint and sugar made it Moroccan.",
+    trust: "legend",
+    trustNote: "A good story nobody has proven. (Sample: a real blend lists its 2+ sources here.)",
+    cups: 2,
+    ingredients: [
+      { name: "Gunpowder green tea", per: 2, unit: "g" },
+      { name: "Fresh spearmint", per: 6, unit: "g", note: "a few sprigs" },
+      { name: "Sugar", per: 8, unit: "g", note: "optional" },
+    ],
+    waterPer: 250,
+    temp: "90 °C",
+    vessel: "Teapot",
+    vesselNote: "warmed",
+    steps: [
+      { title: "Warm the pot", text: "Rinse the teapot with hot water and pour it out." },
+      {
+        title: "Wake the tea",
+        text: "Add the tea, cover it with a little hot water, swirl, and pour that water away.",
+        timer: 20,
+        state: "done",
+      },
+      {
+        title: "First round",
+        text: "Add the mint and sugar, fill the pot and steep. Pour a glass back into the pot twice, then serve from high.",
+        timer: 180,
+        state: "running",
+        left: 107,
+      },
+      {
+        title: "Second round",
+        text: "Top the pot up with hot water for a stronger second pour.",
+        timer: 240,
+        state: "queued",
+      },
+    ],
+  };
+  const TRUST = {
+    documented: { label: "Documented", meaning: "A written source" },
+    attested: { label: "Attested", meaning: "A chef, tea master or tea house" },
+    legend: { label: "Legend", meaning: "A good story, not proven" },
+  };
+  const TABS = [
+    ["today", "Today"],
+    ["pantry", "Pantry"],
+    ["library", "Library"],
+    ["guides", "Guides"],
+    ["settings", "Settings"],
+  ];
+  const ICONS = {
+    today:
+      '<path d="M5 10h11v3.5a5.5 5.5 0 0 1-5.5 5.5A5.5 5.5 0 0 1 5 13.5z"/><path d="M16 11.5h1.25a2.25 2.25 0 0 1 0 4.5H15.5"/><path d="M9 3.5c-.8 1 .8 2 0 3.5M12.5 3.5c-.8 1 .8 2 0 3.5"/>',
+    pantry:
+      '<path d="M8.5 3.5h7v3h-7z"/><path d="M7.5 6.5h9A1.5 1.5 0 0 1 18 8v11a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V8a1.5 1.5 0 0 1 1.5-1.5z"/><path d="M9 12.5h6"/>',
+    library: '<path d="M4 4.5h3.5v15H4zM9 4.5h3.5v15H9z"/><path d="m14.2 5.4 3.3-.8 3.4 14-3.3.8z"/>',
+    guides:
+      '<path d="M3.5 5.5c3-1.3 6-1.1 8.5.8 2.5-1.9 5.5-2.1 8.5-.8v13c-3-1.3-6-1.1-8.5.8-2.5-1.9-5.5-2.1-8.5-.8z"/><path d="M12 6.3v13.5"/>',
+    settings:
+      '<path d="M4 7.5h9M17 7.5h3M4 16.5h3M11 16.5h9"/><circle cx="15" cy="7.5" r="2"/><circle cx="9" cy="16.5" r="2"/>',
+    drop: '<path d="M12 3.5c3.2 4.1 5.5 7 5.5 10a5.5 5.5 0 0 1-11 0c0-3 2.3-5.9 5.5-10z"/>',
+    temp: '<path d="M10 5a2 2 0 0 1 4 0v8.6a4 4 0 1 1-4 0z"/><path d="M12 10v6.5"/>',
+    pot: '<path d="M5.5 11h11v2.5a5.5 5.5 0 0 1-11 0z"/><path d="M16.5 12h1a2 2 0 0 1 0 4h-1.5M5.5 12.5 3 10M8.5 11a2.5 2.5 0 0 1 5 0M11 7v1.5"/>',
+    check: '<path d="m5 12.5 4.2 4.2L19 7"/>',
+    doc: '<path d="M7 3.5h6.5l4 4v13H7z"/><path d="M13.5 3.5v4h4M9.5 12h5M9.5 15.5h5"/>',
+    person: '<circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c1-3.8 3.8-5.5 7-5.5s6 1.7 7 5.5"/>',
+    story: '<path d="M4.5 5.5h15v10h-9l-4 3.5v-3.5h-2z"/>',
+    copy: '<rect x="8.5" y="8.5" width="11" height="11" rx="1.5"/><path d="M15.5 8.5V6A1.5 1.5 0 0 0 14 4.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"/>',
+    play: '<path d="M8 5.5v13l10-6.5z"/>',
+  };
+  const TRUST_ICON = { documented: "doc", attested: "person", legend: "story" };
+
+  const icon = (n) => `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]}</svg>`;
+  const mmss = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+  // SPEC §2.4 rounding: grams to 0.5 g (0.1 g under 2 g), millilitres to 5 ml.
+  const grams = (g) => (g < 2 ? Math.round(g * 10) / 10 : Math.round(g * 2) / 2);
+  const num = (n) => (Number.isInteger(n) ? String(n) : n.toFixed(1));
+  const qty = (i, cups) => num(grams(i.per * cups));
+  const water = (cups) => Math.round((S.waterPer * cups) / 5) * 5;
+  const radios = (values, attr, checked) =>
+    values
+      .map(
+        (v) =>
+          `<button type="button" role="radio" aria-checked="${v === checked}" ${attr}="${v}" aria-label="${v}">${v}</button>`,
+      )
+      .join("");
+
+  const statusbar = (time) => `
+    <div class="statusbar" aria-hidden="true">
+      <span>${time}</span><span class="island"></span>
+      <svg viewBox="0 0 70 13"><rect x="0" y="8" width="3" height="5" rx="1"/><rect x="5" y="6" width="3" height="7" rx="1"/><rect x="10" y="3.5" width="3" height="9.5" rx="1"/><rect x="15" y="1" width="3" height="12" rx="1"/><path d="M30 3.2a10 10 0 0 1 13 0l-1.5 1.6a7.8 7.8 0 0 0-10 0zM32.6 6a6.2 6.2 0 0 1 7.8 0l-1.5 1.6a4 4 0 0 0-4.8 0zM35.2 8.8a2.4 2.4 0 0 1 2.6 0L36.5 10.4z"/><rect x="47" y="1" width="20" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1" opacity=".5"/><rect x="49" y="3" width="13" height="7" rx="1.5"/><rect x="68" y="4.5" width="1.5" height="4" rx=".7" opacity=".5"/></svg>
+    </div>`;
+  const tabbar = (sticky) => `
+    <nav class="tabbar${sticky ? " is-sticky" : ""}" aria-label="Tabs">
+      ${TABS.map(([k, l], i) => `<button type="button" class="tab"${i === 0 ? ' aria-current="page"' : ""}>${icon(k)}<span>${l}</span></button>`).join("")}
+    </nav>`;
+  const timerAttrs = (s) =>
+    `data-timer data-total="${s.timer}" data-left="${s.left}" style="--p:${1 - s.left / s.timer}"`;
+
+  /* ---------- A · Warm journal ---------- */
+  const jBadge = (level) => `<span class="j-badge is-${level}">${icon(TRUST_ICON[level])}${TRUST[level].label}</span>`;
+  function jTimer(s) {
+    if (s.state === "done") return `<p class="j-tdone">${icon("check")}${mmss(s.timer)} · done</p>`;
+    if (s.state === "running")
+      return `<div class="j-timer" ${timerAttrs(s)}>
+          <div class="j-tval"><span data-left-text>${mmss(s.left)}</span><small>left of ${mmss(s.timer)}</small></div>
+          <div class="j-bar"><i></i></div>
+          <button type="button" class="j-btn" data-pause>Pause</button>
+        </div>`;
+    if (s.state === "queued")
+      return `<button type="button" class="j-btn j-next">${icon("play")}Start ${mmss(s.timer)}</button>
+        <p class="j-hint">Up next when the first round ends. It starts with a tap.</p>`;
+    return "";
+  }
+  function journal() {
+    return `
+    <div class="frame">
+      ${statusbar("8:02")}
+      <div class="screen j">
+        <p class="j-date">${S.date} · ${S.day}</p>
+        <article class="j-page">
+          <span class="j-ribbon" aria-hidden="true"></span>
+          <p class="j-code">#${S.code}</p>
+          <h3 class="j-name">${S.name}</h3>
+          <p class="j-meta">${S.meta}</p>
+          <p class="j-story">${S.story}</p>
+          <div class="j-trust">${jBadge(S.trust)}<p>${S.trustNote}</p></div>
+        </article>
+        <div class="j-row">
+          <span class="j-label" id="j-cups">Cups</span>
+          <div class="j-circles" role="radiogroup" aria-labelledby="j-cups">${radios([1, 2, 3], "data-cups", S.cups)}</div>
+        </div>
+        <section>
+          <h4 class="j-h">Ingredients</h4>
+          <ul class="j-ingr">
+            ${S.ingredients
+              .map(
+                (i, n) =>
+                  `<li><span class="n">${i.name}${i.note ? `<small>${i.note}</small>` : ""}</span><span class="dots"></span><span class="q"><span data-q="${n}">${qty(i, S.cups)}</span> ${i.unit}</span></li>`,
+              )
+              .join("")}
+          </ul>
+        </section>
+        <div class="j-water">
+          <div>${icon("drop")}<small>Water</small><b><span data-water>${water(S.cups)}</span> ml</b></div>
+          <div>${icon("temp")}<small>Heat</small><b>${S.temp}</b></div>
+          <div>${icon("pot")}<small>Vessel</small><b>${S.vessel}, ${S.vesselNote}</b></div>
+        </div>
+        <section>
+          <h4 class="j-h">Method</h4>
+          <ol class="j-steps">
+            ${S.steps
+              .map(
+                (s, i) => `<li class="j-step is-${s.state || "plain"}">
+                <span class="j-num">${i + 1}</span>
+                <div><p class="j-st">${s.title}</p><p class="j-sx">${s.text}</p>${jTimer(s)}</div>
+              </li>`,
+              )
+              .join("")}
+          </ol>
+        </section>
+        <section class="j-actions" aria-label="When you've made it">
+          <button type="button" class="j-made" data-made>${icon("check")}Made it</button>
+          <div class="j-rate">
+            <span class="j-label" id="j-rate">How was it? Rate it now or on Saturday</span>
+            <div class="j-circles" role="radiogroup" aria-labelledby="j-rate">${radios([1, 2, 3, 4, 5], "data-rate", 0)}</div>
+          </div>
+          <div class="j-pair">
+            <button type="button" class="j-btn">Skip</button>
+            <button type="button" class="j-btn">Swap <small>1 left</small></button>
+          </div>
+          <div class="j-journal">
+            <div><span class="j-label">For your notebook</span><b>#${S.code} ${S.name}</b></div>
+            <button type="button" class="j-btn" data-copy="#${S.code} ${S.name}">${icon("copy")}Copy</button>
+          </div>
+          <button type="button" class="j-link">Not for me</button>
+        </section>
+      </div>
+      ${tabbar(true)}
+    </div>
+    <div class="panel">
+      <p class="extra-title" style="color: var(--color-muted); padding: 0">Trust badges</p>
+      ${Object.keys(TRUST)
+        .map((l) => `<div class="panel-row"><span>${jBadge(l)}</span><span>${TRUST[l].meaning}</span></div>`)
+        .join("")}
+    </div>
+    <div>
+      <p class="extra-title gutter">The evening before a home day</p>
+      <div class="frame">
+        ${statusbar("21:14")}
+        <div class="screen j">
+          <p class="j-date">Thursday 19 November · Evening</p>
+          <div class="j-envelope">
+            <span class="j-flap" aria-hidden="true"></span>
+            <span class="j-wax" aria-hidden="true">${icon("today")}</span>
+            <p class="j-tz">Tomorrow's tea arrives at 8:00</p>
+            <p class="j-note" data-peek-hide>Friday is a home day. Its tea is drawn, and stays a surprise until then.</p>
+            <p class="j-note" data-peek-show hidden>It's <b>#${S.code} ${S.name}</b>. Act surprised at 8:00.</p>
+            <button type="button" class="j-btn" data-peek aria-expanded="false">Peek</button>
+          </div>
+          <p class="j-note">Nothing to start tonight.</p>
+        </div>
+        ${tabbar(false)}
+      </div>
+    </div>
+    <button type="button" class="dir-next" data-go="minimal">Next: B · Calm minimal</button>`;
+  }
+
+  /* ---------- B · Calm minimal ---------- */
+  const mTrust = (level, note) =>
+    `<span class="m-dot is-${level}" aria-hidden="true"></span><b>${TRUST[level].label}</b>${note ? `<span>${note}</span>` : ""}`;
+  function mTimer(s) {
+    if (s.state === "done") return `<p class="m-tdone">${icon("check")}${mmss(s.timer)} done</p>`;
+    if (s.state === "running")
+      return `<div class="m-timer" ${timerAttrs(s)}>
+          <div class="m-tval"><span data-left-text>${mmss(s.left)}</span><small>left of ${mmss(s.timer)}</small></div>
+          <button type="button" class="m-btn" data-pause>Pause</button>
+          <div class="m-bar"><i></i></div>
+        </div>`;
+    if (s.state === "queued")
+      return `<div class="m-next">
+          <p><span class="mono">${mmss(s.timer)}</span><br>Up next. Starts with a tap.</p>
+          <button type="button" class="m-btn">Start</button>
+        </div>`;
+    return "";
+  }
+  function minimal() {
+    return `
+    <div class="frame">
+      ${statusbar("8:02")}
+      <div class="screen m">
+        <div class="m-top"><span>${S.short}</span><span>${S.day}</span></div>
+        <section>
+          <p class="m-code">#${S.code}</p>
+          <h3 class="m-name">${S.name}</h3>
+          <p class="m-meta">${S.meta}</p>
+          <p class="m-story">${S.story}</p>
+          <p class="m-trust">${mTrust(S.trust, S.trustNote)}</p>
+        </section>
+        <section>
+          <div class="m-row">
+            <span class="m-label" id="m-cups">Cups</span>
+            <div class="m-seg" role="radiogroup" aria-labelledby="m-cups">${radios([1, 2, 3], "data-cups", S.cups)}</div>
+          </div>
+          <ul class="m-list" aria-label="Ingredients">
+            ${S.ingredients
+              .map(
+                (i, n) =>
+                  `<li><span>${i.name}${i.note ? ` <small>${i.note}</small>` : ""}</span><span class="q"><span data-q="${n}">${qty(i, S.cups)}</span><span class="u">${i.unit}</span></span></li>`,
+              )
+              .join("")}
+          </ul>
+        </section>
+        <div class="m-params">
+          <div><span class="m-label">Water</span><b class="mono"><span data-water>${water(S.cups)}</span><span class="u">ml</span></b></div>
+          <div><span class="m-label">Temperature</span><b class="mono">${S.temp.replace(" ", '<span class="u"></span>')}</b></div>
+          <div><span class="m-label">Vessel</span><b>${S.vessel}, ${S.vesselNote}</b></div>
+        </div>
+        <section>
+          <h4 class="m-label">Method</h4>
+          <ol class="m-steps">
+            ${S.steps
+              .map(
+                (s, i) => `<li class="m-step is-${s.state || "plain"}">
+                <span class="m-n">${String(i + 1).padStart(2, "0")}</span>
+                <div><p class="m-st">${s.title}</p><p class="m-sx">${s.text}</p>${mTimer(s)}</div>
+              </li>`,
+              )
+              .join("")}
+          </ol>
+        </section>
+        <section class="m-actions" aria-label="When you've made it">
+          <button type="button" class="m-made" data-made>Made it</button>
+          <div>
+            <span class="m-label" id="m-rate">Rating, now or on Saturday</span>
+            <div class="m-seg is-wide" role="radiogroup" aria-labelledby="m-rate" style="margin-top: 8px">${radios([1, 2, 3, 4, 5], "data-rate", 0)}</div>
+          </div>
+          <div class="m-pair">
+            <button type="button" class="m-btn">Skip</button>
+            <button type="button" class="m-btn">Swap <small>1 left</small></button>
+          </div>
+          <button type="button" class="m-link">Not for me</button>
+          <div class="m-journal">
+            <div><span class="m-label">Journal code</span><b>#${S.code}</b></div>
+            <button type="button" class="m-btn" data-copy="#${S.code} ${S.name}">${icon("copy")}Copy</button>
+          </div>
+        </section>
+      </div>
+      ${tabbar(true)}
+    </div>
+    <div class="panel">
+      <p class="m-label">Trust levels</p>
+      ${Object.keys(TRUST)
+        .map((l) => `<p class="m-trust" style="margin: 0">${mTrust(l, `· ${TRUST[l].meaning}`)}</p>`)
+        .join("")}
+    </div>
+    <div>
+      <p class="extra-title gutter">The evening before a home day</p>
+      <div class="frame">
+        ${statusbar("21:14")}
+        <div class="screen m" style="gap: 28px">
+          <div class="m-top"><span>Thu 19 Nov</span><span>Evening</span></div>
+          <div style="display: grid; gap: 14px; justify-items: start">
+            <p class="m-tz">Tomorrow's tea arrives at <span class="m-clock">8:00</span></p>
+            <p class="m-note" data-peek-hide>Friday is a home day. Its tea is drawn, and stays a surprise until then.</p>
+            <p class="m-note" data-peek-show hidden>It's <b>#${S.code} ${S.name}</b>. Act surprised at 8:00.</p>
+            <button type="button" class="m-btn" data-peek aria-expanded="false">Peek</button>
+          </div>
+          <p class="m-note">Nothing to start tonight.</p>
+        </div>
+        ${tabbar(false)}
+      </div>
+    </div>
+    <button type="button" class="dir-next" data-go="ink">Next: C · Ink &amp; washi</button>`;
+  }
+
+  /* ---------- C · Ink & washi ---------- */
+  const kBadge = (level) =>
+    `<span class="k-badge is-${level}"><span class="k-mark" aria-hidden="true"></span>${TRUST[level].label}</span>`;
+  function kTimer(s) {
+    if (s.state === "done") return `<p class="k-tdone">${mmss(s.timer)} · done</p>`;
+    if (s.state === "running")
+      return `<div class="k-timer" ${timerAttrs(s)}>
+          <div class="k-ring"><svg viewBox="0 0 92 92" aria-hidden="true"><circle class="trk" cx="46" cy="46" r="38"/><circle class="arc" cx="46" cy="46" r="38"/></svg><span data-left-text>${mmss(s.left)}</span></div>
+          <div class="k-tside"><small>Left of ${mmss(s.timer)}</small><button type="button" class="k-btn" data-pause>Pause</button></div>
+        </div>`;
+    if (s.state === "queued")
+      return `<button type="button" class="k-btn k-next"><i>${mmss(s.timer)}</i>Start</button>
+        <p class="k-hint">Up next when the first round ends. It starts with a tap.</p>`;
+    return "";
+  }
+  function ink() {
+    return `
+    <div class="frame">
+      ${statusbar("8:02")}
+      <div class="screen k">
+        <section class="k-hero">
+          <div class="k-seal" aria-label="Blend ${S.code}">${S.code}</div>
+          <p class="k-vert">${S.short} · ${S.day}</p>
+          <p class="k-meta">${S.meta}</p>
+          <h3 class="k-name">${S.name}</h3>
+          <p class="k-story">${S.story}</p>
+          <div class="k-trust">${kBadge(S.trust)}<p>${S.trustNote}</p></div>
+        </section>
+        <div class="k-rule" aria-hidden="true"></div>
+        <section>
+          <div class="k-row">
+            <span class="k-label" id="k-cups">Cups</span>
+            <div class="k-squares" role="radiogroup" aria-labelledby="k-cups">${radios([1, 2, 3], "data-cups", S.cups)}</div>
+          </div>
+          <ul class="k-tray" aria-label="Ingredients">
+            ${S.ingredients
+              .map(
+                (i, n) =>
+                  `<li><b><span data-q="${n}">${qty(i, S.cups)}</span><small>${i.unit}</small></b><span>${i.name}</span>${i.note ? `<em>${i.note}</em>` : ""}</li>`,
+              )
+              .join("")}
+          </ul>
+        </section>
+        <ul class="k-params" aria-label="Water and vessel">
+          <li><span data-water>${water(S.cups)}</span> ml water</li>
+          <li>${S.temp}</li>
+          <li>${S.vessel}, ${S.vesselNote}</li>
+        </ul>
+        <section>
+          <h4 class="k-label">Method</h4>
+          <ol class="k-steps">
+            ${S.steps
+              .map(
+                (s, i) => `<li class="k-step is-${s.state || "plain"}">
+                <span class="k-node">${s.state === "done" ? icon("check") : i + 1}</span>
+                <div><p class="k-st">${s.title}</p><p class="k-sx">${s.text}</p>${kTimer(s)}</div>
+              </li>`,
+              )
+              .join("")}
+          </ol>
+        </section>
+        <section class="k-actions" aria-label="When you've made it">
+          <button type="button" class="k-made" data-made>Made it</button>
+          <div class="k-rate">
+            <span class="k-label" id="k-rate">How was it · now or on Saturday</span>
+            <div class="k-squares" role="radiogroup" aria-labelledby="k-rate">${radios([1, 2, 3, 4, 5], "data-rate", 0)}</div>
+          </div>
+          <div class="k-pair">
+            <button type="button" class="k-btn">Skip</button>
+            <button type="button" class="k-btn">Swap <small>1 left</small></button>
+          </div>
+          <div class="k-journal">
+            <div class="k-seal" aria-hidden="true">${S.code}</div>
+            <p><b>#${S.code} ${S.name}</b>Seal it in your journal.</p>
+            <button type="button" class="k-btn" data-copy="#${S.code} ${S.name}">Copy</button>
+          </div>
+          <button type="button" class="k-link">Not for me</button>
+        </section>
+      </div>
+      ${tabbar(true)}
+    </div>
+    <div class="panel">
+      <p class="k-label">Trust</p>
+      ${Object.keys(TRUST)
+        .map((l) => `<div class="panel-row"><span>${kBadge(l)}</span><span>${TRUST[l].meaning}</span></div>`)
+        .join("")}
+    </div>
+    <div>
+      <p class="extra-title gutter">The evening before a home day</p>
+      <div class="frame">
+        ${statusbar("21:14")}
+        <div class="screen k" style="gap: 22px">
+          <p class="k-label">Thu 19 Nov · Evening</p>
+          <div class="k-enso"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50"/></svg><span>8:00</span></div>
+          <p class="k-tz">Tomorrow's tea arrives at 8:00</p>
+          <p class="k-note" data-peek-hide>Friday is a home day. Its tea is drawn, and stays a surprise until then.</p>
+          <p class="k-note" data-peek-show hidden>It's <b>#${S.code} ${S.name}</b>. Act surprised at 8:00.</p>
+          <button type="button" class="k-btn" data-peek aria-expanded="false" style="justify-self: start">Peek</button>
+          <p class="k-note">Nothing to start tonight.</p>
+        </div>
+        ${tabbar(false)}
+      </div>
+    </div>
+    <button type="button" class="dir-next" data-go="journal">Back to A · Warm journal</button>`;
+  }
+
+  /* ---------- Mount and behaviour ---------- */
+  const DIRS = { journal, minimal, ink };
+  for (const [d, render] of Object.entries(DIRS)) document.querySelector(`[data-slot="${d}"]`).innerHTML = render();
+
+  document.addEventListener("click", (e) => {
+    const t = e.target.closest("button");
+    if (!t) return;
+    const frame = t.closest(".frame");
+    if (t.dataset.cups) {
+      const cups = Number(t.dataset.cups);
+      frame.querySelectorAll("[data-cups]").forEach((b) => b.setAttribute("aria-checked", String(b === t)));
+      frame.querySelectorAll("[data-q]").forEach((el) => (el.textContent = qty(S.ingredients[el.dataset.q], cups)));
+      frame.querySelectorAll("[data-water]").forEach((el) => (el.textContent = water(cups)));
+    } else if (t.dataset.rate) {
+      t.parentElement.querySelectorAll("[data-rate]").forEach((b) => b.setAttribute("aria-checked", String(b === t)));
+    } else if ("pause" in t.dataset) {
+      const timer = t.closest("[data-timer]");
+      timer.toggleAttribute("data-paused");
+      t.textContent = timer.hasAttribute("data-paused") ? "Resume" : "Pause";
+    } else if ("peek" in t.dataset) {
+      const open = t.getAttribute("aria-expanded") !== "true";
+      const box = t.closest(".screen");
+      t.setAttribute("aria-expanded", String(open));
+      t.textContent = open ? "Hide" : "Peek";
+      box.querySelector("[data-peek-show]").hidden = !open;
+      box.querySelector("[data-peek-hide]").hidden = open;
+    } else if ("made" in t.dataset) {
+      const made = t.toggleAttribute("data-done");
+      const cups = frame.querySelector('[data-cups][aria-checked="true"]').dataset.cups;
+      t.lastChild.textContent = made ? `Made · ${cups} ${cups === "1" ? "cup" : "cups"} logged` : "Made it";
+    } else if (t.dataset.copy) {
+      const label = t.lastChild;
+      const say = (text) => {
+        label.textContent = text;
+        setTimeout(() => (label.textContent = "Copy"), 1600);
+      };
+      const failed = () => say("Can't copy");
+      try {
+        navigator.clipboard.writeText(t.dataset.copy).then(() => say("Copied"), failed);
+      } catch {
+        failed();
+      }
+    } else if (t.dataset.go) {
+      show(t.dataset.go, true);
+    }
+  });
+
+  // The running timers count down for real, and start the round again when they reach 0.
+  setInterval(() => {
+    document.querySelectorAll("[data-timer]:not([data-paused])").forEach((el) => {
+      const total = Number(el.dataset.total);
+      let left = Number(el.dataset.left) - 1;
+      if (left < 0) left = total;
+      el.dataset.left = left;
+      el.style.setProperty("--p", String(1 - left / total));
+      el.querySelector("[data-left-text]").textContent = mmss(left);
+    });
+  }, 1000);
+
+  // Direction switcher (below 1280 px) and the #journal / #minimal / #ink links.
+  const dirs = document.getElementById("dirs");
+  function show(d, scroll) {
+    if (!(d in DIRS)) return;
+    dirs.dataset.show = d;
+    document
+      .querySelectorAll("#dir-switch button")
+      .forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.show === d)));
+    if (location.hash !== `#${d}`) location.hash = d;
+    if (scroll) dirs.scrollIntoView({ block: "start" });
+  }
+  document
+    .querySelectorAll("#dir-switch button")
+    .forEach((b) => b.addEventListener("click", () => show(b.dataset.show)));
+  addEventListener("hashchange", () => show(location.hash.slice(1)));
+  if (location.hash) show(location.hash.slice(1));
+
+  // Light / dark: follows the system until a button is pressed.
+  const root = document.documentElement;
+  const darkQuery = matchMedia("(prefers-color-scheme: dark)");
+  const theme = () => root.dataset.theme || (darkQuery.matches ? "dark" : "light");
+  const syncTheme = () =>
+    document
+      .querySelectorAll("#theme-switch button")
+      .forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.themeSet === theme())));
+  document.querySelectorAll("#theme-switch button").forEach((b) =>
+    b.addEventListener("click", () => {
+      root.dataset.theme = b.dataset.themeSet;
+      syncTheme();
+    }),
+  );
+  darkQuery.addEventListener("change", syncTheme);
+  new MutationObserver(syncTheme).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+  syncTheme();
+</script>

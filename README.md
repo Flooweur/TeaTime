@@ -15,7 +15,7 @@ The rest of the week works like this:
 It is a personal app: a PWA installed on an iPhone, served from a PC at home through Tailscale.
 
 ## Status
-**Phase 1, the foundation, is in review:** the workspaces, the tooling and CI, the docs, and the content's schemas, checks and build. See [ROADMAP.md](ROADMAP.md) for what comes next.
+**Phases 0 and 1 are done:** the look (*A · Warm journal*, with its tokens) and the foundation (the workspaces, the tooling and CI, the docs, and the content's schemas, checks and build). See [ROADMAP.md](ROADMAP.md) for what comes next.
 
 ## Read next
 | Document | What |
@@ -23,6 +23,7 @@ It is a personal app: a PWA installed on an iPhone, served from a PC at home thr
 | [SPEC.md](SPEC.md) | The rules, the architecture, the content and the conventions (the source of truth) |
 | [ROADMAP.md](ROADMAP.md) | The phases, and the decisions log |
 | [content/README.md](content/README.md) | The content's format and its checks |
+| [docs/design/README.md](docs/design/README.md) | The look, and its tokens in both modes |
 | [SERVICES.md](SERVICES.md) | Outside services, and what they learn |
 | [docs/original-plan.md](docs/original-plan.md) | The plan this project started from |
 
