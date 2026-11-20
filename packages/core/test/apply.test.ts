@@ -18,7 +18,7 @@ import {
   canMove,
   parseCommand,
 } from "../src/index.js";
-import { at, blend, catalog, command, have, pick, state, uuid } from "./fixtures.js";
+import { at, blend, catalog, command, have, ingredient, pick, state, uuid } from "./fixtures.js";
 
 const MONDAY = "2026-11-23";
 const content = catalog([
@@ -125,6 +125,18 @@ describe("brew.logged: Made it and I made this", () => {
       logged({ pick: undefined, tea: { kind: "plain", tea: "black-tea" }, cups: 1 }),
     );
     expect(after.brews[uuid(1)]?.takes).toEqual([{ id: "black-tea", qty: 2.5, emptied: false }]);
+  });
+
+  it("refuses a plain tea that can't be brewed plain, instead of throwing (self-review of phase 3)", () => {
+    const bags = catalog(
+      [blend("001")],
+      [
+        ingredient("black-tea", { category: "tea", teaType: "black" }),
+        ingredient("tea-bags", { category: "tea", teaType: "black", unit: "pieces" }),
+      ],
+    );
+    const command = logged({ pick: undefined, tea: { kind: "plain", tea: "tea-bags" }, cups: 1 });
+    expect(applyCommand(before, command, bags, command.at).result).toEqual({ ok: false, code: "unknown_tea" });
   });
 
   it("refuses a used brew id, an unknown tea and a date after the day it was logged", () => {

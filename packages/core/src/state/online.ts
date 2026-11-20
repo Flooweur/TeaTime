@@ -25,6 +25,8 @@ export type OnlineRefusal =
   | { readonly code: "not_a_tea_day" }
   /** Tomorrow's tea can be drawn from 17:00 (or the evening time). */
   | { readonly code: "too_early" }
+  /** Before the evening time, only an office kit can be drawn early (SPEC §2.2). */
+  | { readonly code: "not_office" }
   /** Only today, and tomorrow from 17:00, can be drawn on demand. */
   | { readonly code: "not_drawable" }
   | { readonly code: "no_pick" }
@@ -102,8 +104,9 @@ export function drawDue(state: State, catalog: Catalog, now: number): { state: S
 }
 
 /**
- * The app's draw (`POST picks/:date/draw`): today, or tomorrow from 17:00 ("Draw tomorrow's tea
- * now"). Idempotent: a date that has a pick keeps it.
+ * The app's draw (`POST picks/:date/draw`): today; tomorrow's office kit from 17:00 ("Draw
+ * tomorrow's tea now"); and any tea day tomorrow once the evening time has come, like the notifier.
+ * Idempotent: a date that has a pick keeps it.
  */
 export function drawNow(state: State, catalog: Catalog, now: number, date: string): OnlineResult {
   if (!isDate(date)) return refused({ code: "invalid", problems: ["date: must be a date, YYYY-MM-DD"] });
@@ -113,8 +116,10 @@ export function drawNow(state: State, catalog: Catalog, now: number, date: strin
   const type = teaDayType(date, weekOf(state));
   if (type === null) return refused({ code: "not_a_tea_day" });
   if (state.picks[date]) return { ok: true, state, touched: NOTHING_TOUCHED };
-  if (date !== today) {
-    const { eveningTime, timeZone } = state.settings;
+  const { eveningTime, timeZone } = state.settings;
+  if (date !== today && now < instantAt(today, minutesOf(eveningTime), timeZone)) {
+    // Before the evening draw, only an office kit can be drawn early, from 17:00.
+    if (type !== "office") return refused({ code: "not_office" });
     const from = Math.min(minutesOf(EARLY_DRAW_TIME), minutesOf(eveningTime));
     if (now < instantAt(today, from, timeZone)) return refused({ code: "too_early" });
   }
@@ -205,7 +210,8 @@ function recheck(before: State, after: State, catalog: Catalog, now: number, con
     } else if (pick.status === "pending" && pick.type !== day.type) {
       const timing = date > today ? "evening" : "same-day";
       const attempt = pick.attempt + 1;
-      const outcome = drawPick(state, catalog, today, { date, type: day.type, timing, reason: "first", attempt });
+      // A redraw, not a first draw: the evening draw wasn't missed, so it is no missed kit.
+      const outcome = drawPick(state, catalog, today, { date, type: day.type, timing, reason: "redraw", attempt });
       state = {
         ...state,
         picks: { ...state.picks, [date]: storeOutcome(pick, date, day.type, outcome, attempt, now) },
@@ -271,25 +277,25 @@ export function setOverride(
   return recheck(state, { ...state, overrides }, catalog, now, confirm);
 }
 
-/** `POST away`: an away period from today or later. Its pending picks are cancelled. */
-export function addAway(
-  state: State,
-  catalog: Catalog,
-  now: number,
-  period: AwayPeriod,
-  confirm = false,
-): OnlineResult {
-  const problems: string[] = [];
-  if (typeof period.id !== "string" || period.id.length === 0 || period.id.length > 64) {
+/** `POST away`: an away period from today or later, as the request's body. Its pending picks are cancelled. */
+export function addAway(state: State, catalog: Catalog, now: number, raw: unknown, confirm = false): OnlineResult {
+  if (typeof raw !== "object" || raw === null || Array.isArray(raw)) {
+    return refused({ code: "invalid", problems: ["away: must be an object with id, from and to"] });
+  }
+  const { id, from, to, ...extra } = raw as Record<string, unknown>;
+  const problems = Object.keys(extra).map((key) => `${key}: unknown field`);
+  if (typeof id !== "string" || id.length === 0 || id.length > 64) {
     problems.push("id: must be a string of 1 to 64 characters");
-  } else if (state.away.some((other) => other.id === period.id)) problems.push("id: already used");
-  if (!isDate(period.from)) problems.push("from: must be a date, YYYY-MM-DD");
-  if (!isDate(period.to)) problems.push("to: must be a date, YYYY-MM-DD");
-  else if (isDate(period.from) && period.to < period.from) problems.push("to: must not be before from");
+  } else if (state.away.some((other) => other.id === id)) problems.push("id: already used");
+  const fromOk = typeof from === "string" && isDate(from);
+  const toOk = typeof to === "string" && isDate(to);
+  if (!fromOk) problems.push("from: must be a date, YYYY-MM-DD");
+  if (!toOk) problems.push("to: must be a date, YYYY-MM-DD");
+  else if (fromOk && to < from) problems.push("to: must not be before from");
   if (problems.length) return refused({ code: "invalid", problems });
+  const period: AwayPeriod = { id: id as string, from: from as string, to: to as string };
   if (period.from < localNow(state, now).date) return refused({ code: "past_date" });
-  const away = [...state.away, { id: period.id, from: period.from, to: period.to }];
-  return recheck(state, { ...state, away }, catalog, now, confirm);
+  return recheck(state, { ...state, away: [...state.away, period] }, catalog, now, confirm);
 }
 
 /** `DELETE away/:id`: its days become tea days again, from today on. */

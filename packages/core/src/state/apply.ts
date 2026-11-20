@@ -115,10 +115,16 @@ function stamp<T>(current: Stamped<T>, value: T | undefined, at: number): Stampe
   return value === undefined || at < current.at ? current : { value, at };
 }
 
+/** A blend the content has, or a tea that can be brewed plain: counted in grams, with a known tea type. */
 function knownTea(tea: Tea, catalog: Catalog): boolean {
   if (tea.kind === "blend") return catalog.blendByCode.has(tea.code);
   const ingredient = catalog.ingredientById.get(tea.tea);
-  return ingredient?.category === "tea" && ingredient.teaType !== undefined;
+  return (
+    ingredient?.category === "tea" &&
+    ingredient.unit === "g" &&
+    ingredient.teaType !== undefined &&
+    catalog.teaTypeByName.has(ingredient.teaType)
+  );
 }
 
 /**

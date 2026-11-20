@@ -186,15 +186,20 @@ interface TeaOption {
   readonly left: number | null;
 }
 
-/** Use soon first, then the most left (an untracked amount after every tracked one), then by id. */
-function byPlainTeaOrder(a: TeaOption, b: TeaOption): number {
-  if (a.useSoon !== b.useSoon) return a.useSoon ? -1 : 1;
-  if (a.left !== b.left) {
-    if (a.left === null) return 1;
-    if (b.left === null) return -1;
-    return b.left - a.left;
-  }
-  return compareText(a.id, b.id);
+/**
+ * Use soon first, then the most left (an untracked amount after every tracked one), then by id.
+ * The office's stock isn't tracked, so a missed kit's tea skips the amounts (`byAmount` false).
+ */
+function plainTeaOrder(byAmount: boolean) {
+  return (a: TeaOption, b: TeaOption): number => {
+    if (a.useSoon !== b.useSoon) return a.useSoon ? -1 : 1;
+    if (byAmount && a.left !== b.left) {
+      if (a.left === null) return 1;
+      if (b.left === null) return -1;
+      return b.left - a.left;
+    }
+    return compareText(a.id, b.id);
+  };
 }
 
 /** The teas that could be brewed plain, in the fallback's order (SPEC §2.5). */
@@ -202,6 +207,7 @@ function plainTeas(
   stock: Stock,
   cups: number,
   usable: (tea: Ingredient, entry: PantryEntry, recipe: Recipe) => boolean,
+  byAmount = true,
 ): string[] {
   const options: TeaOption[] = [];
   for (const ingredient of stock.catalog.ingredients) {
@@ -217,7 +223,7 @@ function plainTeas(
       left: amount === null ? null : amount - (stock.reserved?.get(ingredient.id) ?? 0),
     });
   }
-  return options.sort(byPlainTeaOrder).map((option) => option.id);
+  return options.sort(plainTeaOrder(byAmount)).map((option) => option.id);
 }
 
 /**
@@ -232,9 +238,10 @@ export function drawPick(state: State, catalog: Catalog, today: string, request:
   if (request.reason === "first" && request.timing === "same-day" && request.type === "office") {
     // The kit was never packed: only a tea kept at the office can be made (SPEC §2.5).
     const [tea] = plainTeas(
-      { ...stock, reserved: new Map() },
+      stock,
       cups,
       (tea, entry) => entry.atOffice.value && !(tea.perishable && freshnessOf(entry, tea, stock.on) === "stale"),
+      false,
     );
     return { kind: "no-kit", tea: tea ?? null };
   }

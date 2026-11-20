@@ -95,6 +95,11 @@ describe("drawNow: Draw tomorrow's tea now", () => {
     expect(again).toMatchObject({ ok: true, state: drawn });
   });
 
+  it("draws a home day early only once the evening time has come (self-review of phase 3)", () => {
+    expect(drawNow(stocked, content, at("2026-11-25", "18:00"), THURSDAY)).toEqual({ ok: false, code: "not_office" });
+    expect(ok(drawNow(stocked, content, at("2026-11-25", "20:30"), THURSDAY)).picks[THURSDAY]?.type).toBe("home");
+  });
+
   it("refuses the past, days further ahead, and days without tea", () => {
     expect(drawNow(stocked, content, at(MONDAY), SUNDAY)).toEqual({ ok: false, code: "past_date" });
     expect(drawNow(stocked, content, at(SUNDAY, "18:00"), TUESDAY)).toEqual({ ok: false, code: "not_drawable" });
@@ -199,6 +204,14 @@ describe("changing the days re-checks the pending picks (SPEC §2.4)", () => {
     expect(back.picks[MONDAY]).toMatchObject({ type: "office", attempt: 2 });
   });
 
+  it("redraws today as a safe blend, not a missed kit, when the day turns into an office day (self-review of phase 3)", () => {
+    const home = drawDue(stocked, content, at("2026-11-25", "20:30")).state;
+    expect(home.picks[THURSDAY]?.type).toBe("home");
+    const office = ok(setOverride(home, content, at(THURSDAY, "07:00"), THURSDAY, "office"));
+    expect(office.picks[THURSDAY]).toMatchObject({ type: "office", source: "draw" });
+    expect(["001", "002", "003"]).toContain(blendOf(office, THURSDAY));
+  });
+
   it("asks before throwing away a packed kit, and does it with confirm", () => {
     const packed = {
       ...drawn,
@@ -241,6 +254,13 @@ describe("changing the days re-checks the pending picks (SPEC §2.4)", () => {
       problems: ["id: must be a string of 1 to 64 characters", "to: must not be before from"],
     });
     expect(removeAway(drawn, content, at(SUNDAY), "nope")).toEqual({ ok: false, code: "unknown_away" });
+    // A malformed body is refused, never thrown on (self-review of phase 3).
+    expect(addAway(drawn, content, at(SUNDAY), null)).toMatchObject({ ok: false, code: "invalid" });
+    expect(addAway(drawn, content, at(SUNDAY), { id: "x", from: MONDAY, to: MONDAY, colour: "red" })).toEqual({
+      ok: false,
+      code: "invalid",
+      problems: ["colour: unknown field"],
+    });
   });
 
   it("re-checks the pending picks when the office days change", () => {

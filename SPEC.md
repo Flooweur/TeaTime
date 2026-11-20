@@ -135,7 +135,8 @@ In detail:
   - The card also names **the purchase that would unlock the most blends** of that pool.
   - With no tea in the pantry at all, the card says what to buy.
 - **An office day whose kit was never packed** because the evening draw was missed → the card says so, and offers a plain tea from the teas marked **kept at the office** in the pantry, or nothing.
-  - The office's stock isn't tracked: a tea kept there counts whatever the pantry at home says, unless it is perishable and stale.
+  - The office's stock isn't tracked: a tea kept there counts whatever the pantry at home says, unless it is perishable and stale. One to use soon comes first, then by id.
+  - Only a first draw makes this card. A pick redrawn on the day, because its day turned into an office day, draws a safe blend as usual.
 
 ### 2.6 Pantry
 - **Each ingredient has:**
@@ -253,7 +254,7 @@ A refusal has a `code`: `duplicate`, `future_date`, `unknown_tea`, `unknown_blen
 ### 3.4 API
 All routes are under `/api`, and bodies are JSON only. A write must come from the app's origin (`PUBLIC_ORIGIN`), and errors are `{error, code}`.
 - `GET health`, `GET state`, `POST commands`
-- `POST picks/:date/draw`: idempotent; only for today, or for tomorrow from 17:00 (or the evening time, if earlier).
+- `POST picks/:date/draw`: idempotent; only for today, for tomorrow's office kit from 17:00 (or the evening time, if earlier), or for any tea day tomorrow once the evening time has come. An early home day is refused (`not_office`).
 - `POST picks/:date/swap`: carries the current blend, so a retry after a lost answer returns the current pick.
 - `PUT settings`, `PUT overrides/:date`, `POST|DELETE away`
 - `GET push/key`, `POST|DELETE push/subscriptions`, `POST push/test`

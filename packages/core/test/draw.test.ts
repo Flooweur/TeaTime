@@ -268,6 +268,15 @@ describe("the fallbacks (SPEC §2.5)", () => {
       kind: "no-kit",
       tea: null,
     });
+    // The office's stock isn't tracked: its tea is chosen by id, whatever is left at home (self-review of phase 3).
+    const shelf = { ...have(0), atOffice: { value: true, at: 1 } };
+    const both = state({
+      pantry: {
+        "green-tea": { ...shelf, amount: { value: 5, at: 1 } },
+        oolong: { ...shelf, amount: { value: 200, at: 1 } },
+      },
+    });
+    expect(drawPick(both, content, MONDAY, sameDay)).toEqual({ kind: "no-kit", tea: "green-tea" });
     // A swap or a redraw on the day isn't a missed kit: it draws as usual.
     const plain = catalog([blend("003")]);
     expect(drawPick(s, plain, MONDAY, { ...sameDay, reason: "redraw", attempt: 1 })).toMatchObject({ code: "003" });
