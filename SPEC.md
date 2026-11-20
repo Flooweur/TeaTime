@@ -351,6 +351,7 @@ The content comes in batches, each reviewed by the owner before it goes in. The 
   - A blend lists the gear it needs. Gear it needs that the owner lacks keeps it out of the draw (§2.3); optional gear never does.
   - A blend made in a gaiwan, kyusu or chawan needs it as gear, under the vessel's name. A kettle, mugs, a teapot, a saucepan and a sieve are taken as owned.
   - A thermometer is always optional: every step says how to reach its temperature without one.
+  - A piece of gear never takes an ingredient's id: the pantry holds both by id.
 - **Ids are forever:**
   - a blend's code (`017`) always names the same blend;
   - a published blend, ingredient or piece of gear is never removed, only retired (`retired: true`);
