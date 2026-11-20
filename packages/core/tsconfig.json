@@ -1,0 +1,11 @@
+{
+  // The boundary, enforced by the compiler: no DOM and no Node (SPEC §4.2). Tests have their own config.
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2023"],
+    "types": []
+  },
+  "include": ["src"]
+}
