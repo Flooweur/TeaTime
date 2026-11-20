@@ -1,0 +1,4 @@
+# Every blend and ingredient ever published (SPEC §5.2): ids are forever. Written by
+# npm run content:build; content:check refuses a removal or a rename. Never edit by hand.
+blends: []
+ingredients: []

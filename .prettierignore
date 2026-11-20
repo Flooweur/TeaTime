@@ -1,0 +1,12 @@
+dist
+node_modules
+package-lock.json
+# Prose and content data keep their hand-written layout: content:check validates the YAML.
+*.md
+content/**/*.yaml
+# Written by npm run content:build, and checked by content:check.
+content/src/bundle.ts
+# Throwaway spike code (docs/spikes/).
+spikes
+# Claude Code's local files.
+.claude

@@ -1,0 +1,13 @@
+{
+  // The schemas, the checks and the built bundle (src/), the scripts that read the files from disk
+  // and write the bundle (scripts/), and the tests. src/ itself does no I/O: the scripts and the
+  // tests pass the files in.
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2023"],
+    "types": ["node"]
+  },
+  "include": ["src", "scripts", "test", "vitest.config.ts"]
+}

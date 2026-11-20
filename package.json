@@ -1,0 +1,32 @@
+{
+  "name": "teatime",
+  "private": true,
+  "type": "module",
+  "description": "TeaTime: one sourced tea blend a weekday, made from your own pantry (SPEC.md).",
+  "workspaces": [
+    "packages/core",
+    "content"
+  ],
+  "engines": {
+    "node": ">=22.18 <23"
+  },
+  "scripts": {
+    "content:build": "npm run content:build -w content",
+    "content:check": "npm run content:check -w content",
+    "build": "npm run build -w packages/core && npm run build -w content",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "npm run test --workspaces --if-present",
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm run content:check && npm test"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.14.0",
+    "globals": "^17.14.0",
+    "prettier": "^3.9.10",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.72.1"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  // Shared compiler settings. Each workspace sets its module system, libs and types on top.
+  // "source": workspace packages resolve to their TypeScript sources while developing and
+  // type-checking (packages/README.md); production builds use their compiled dist/.
+  "compilerOptions": {
+    "target": "ES2023",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "exactOptionalPropertyTypes": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "customConditions": ["source"]
+  }
+}

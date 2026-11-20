@@ -1,0 +1,3 @@
+# How a plain tea of each type is brewed, at home and with an office kettle (content/README.md):
+# the plain-tea fallback brews by these (SPEC §2.5). Every tea ingredient's tea_type is here.
+tea_types: []

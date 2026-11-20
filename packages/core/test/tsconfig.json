@@ -1,0 +1,8 @@
+{
+  // Tests may use Node and Vitest; the sources under ../src stay under the strict config.
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": [".", "../src"]
+}
