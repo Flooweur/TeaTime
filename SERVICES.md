@@ -12,6 +12,10 @@ The accounts belong to the owner. Secrets (the VAPID keys, from phase 7) live in
 | **npm** | Packages at install time | `package-lock.json` | Nothing personal | Free |
 | **Docker Hub** | The base image of the daily container, pinned (phase 7) | The Dockerfile | Image pulls from the PC and from CI (their IPs) | Free |
 
+## Used for the design, not by the app
+- **Claude Artifacts** (claude.ai) hosts the design page, [docs/design/today-directions.html](docs/design/today-directions.html), private to the owner. It learns the page, which holds only illustrative sample content.
+- **Google Fonts** serves that page's typefaces, and learns the viewer's IP and which fonts were asked for. The app serves its own fonts (Alegreya and Alegreya Sans, [docs/design/README.md](docs/design/README.md)) and makes no font request outside.
+
 ## Used for the content, not by the app
 - **The web pages and books cited as sources** (SPEC §5.2) are read when researching a batch. The app never calls them; its links open in the browser only when the owner taps them.
 - **The shops' sites** are checked for prices and pages when researching. Each ingredient keeps the date its shops were last checked.
