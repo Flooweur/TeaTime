@@ -181,23 +181,41 @@ describe("compileContent refuses", () => {
     expect(found).toContain(
       "blends/001-test-grey.yaml: brew.vessel: a safe blend is made in a mug, teapot, glass, jar, bottle, not a gaiwan",
     );
-    expect(found).toContain("blends/001-test-grey.yaml: steps[0]: every step of a safe blend has its office text");
+    expect(found).toContain(
+      "blends/001-test-grey.yaml: steps[0]: every step of a safe blend on the day has its office text",
+    );
     expect(found).toContain(
       "blends/001-test-grey.yaml: steps: 330 s of waiting on the day; a safe blend takes 300 s at most",
     );
   });
 
-  it("counts only the day's waiting for a safe overnight blend", () => {
+  it("counts only the day's waiting for a safe overnight blend, and asks no office text of its evening steps", () => {
+    // The evening steps happen at home (the self-review of phase 1).
     const found = problemsAfter((f) => {
       const grey = blend(f, 0);
       grey.prep = "evening";
       field<Record<string, unknown>>(grey, "brew").infusions_s = [36_000];
       field<Record<string, unknown>>(grey, "brew").vessel = "bottle";
       const steps = field<Record<string, unknown>[]>(grey, "steps");
-      for (const step of steps) step.stage = "evening";
+      for (const step of steps) {
+        step.stage = "evening";
+        delete step.office;
+      }
       steps.push({ text: "Pour over ice.", office: "Pour into a glass." });
     });
     expect(found).toEqual([]);
+  });
+
+  it("an unreadable shops.yaml or tea-types.yaml once, without the references it would have checked", () => {
+    // Its references aren't reported as missing too (the self-review of phase 1).
+    const files = filesOf(fixture());
+    const found = compileContent({
+      ...files,
+      shops: { path: "shops.yaml", text: "shops: [" },
+      teaTypes: { path: "tea-types.yaml", text: "tea_types: nope\n" },
+    });
+    expect(found.bundle).toBeNull();
+    expect(found.problems.map((p) => p.file)).toEqual(["shops.yaml", "tea-types.yaml"]);
   });
 
   it("an unused ingredient and an unused shop", () => {

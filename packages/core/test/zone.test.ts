@@ -35,6 +35,8 @@ describe("instantAt in Europe/Paris", () => {
     expect(() => instantAt("2026-11-23", 1440, PARIS)).toThrow(RangeError);
     expect(() => instantAt("2026-11-23", -1, PARIS)).toThrow(RangeError);
     expect(() => instantAt("23/11/2026", 480, PARIS)).toThrow(RangeError);
+    // A date that doesn't exist is refused, never rolled over to March 2 (the self-review of phase 1).
+    expect(() => instantAt("2026-02-30", 480, PARIS)).toThrow(RangeError);
   });
 
   it("throws on an unknown time zone instead of guessing UTC", () => {

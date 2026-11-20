@@ -64,7 +64,7 @@ brew:
   infusions_s: [180]        # each infusion, in order
 steps:
   - text: "Rinse the tea with a little hot water and pour it away."
-    office: "Rinse the tea in the mug and pour the water away."    # every step of a safe blend has one
+    office: "Rinse the tea in the mug and pour the water away."    # every day step of a safe blend has one
   - text: "Add the mint and sugar, pour, infuse."
     office: "Add the mint, pour from the kettle, infuse."
     infusions: true         # exactly one step: where the infusions' timers run
@@ -141,7 +141,7 @@ Text, with [links](https://…) or [to a chapter](#bergamot).
 - anything but exactly one infusions step, or a timer on it (its times are `brew.infusions_s`);
 - a temperature outside its own `temp_range`;
 - a guide link to no guide or chapter;
-- **a safe blend that breaks the safe rules** (SPEC §5.3): a vessel other than a mug, teapot, glass, jar or bottle, a step without its office text, or more than 300 s of waiting on the day.
+- **a safe blend that breaks the safe rules** (SPEC §5.3): a vessel other than a mug, teapot, glass, jar or bottle, a step of the day without its office text (evening steps happen at home), or more than 300 s of waiting on the day.
 
 **Ingredients and shops:**
 - an ingredient whose id isn't its file's name;

@@ -17,7 +17,7 @@
  * - a temperature outside its own range;
  * - a guide link to no guide or chapter;
  * - a safe blend that breaks the safe rules (SPEC §5.3): a vessel other than a mug, teapot, glass,
- *   jar or bottle, a step without its office text, or more than 5 minutes on the day;
+ *   jar or bottle, a step of the day without its office text, or more than 5 minutes on the day;
  * - an ingredient no blend in use uses, a shop no ingredient uses, an ingredient's shop that isn't
  *   in shops.yaml or is named twice, a Lyon shop without an address, an online one without a URL;
  * - a `tea` ingredient without a tea type, another with one, and a tea type tea-types.yaml lacks.
@@ -175,10 +175,12 @@ function rangeProblems(file: string, at: string, tempC: number, pair: readonly [
   return [];
 }
 
-function compileShops(file: ContentFile, problems: Problem[]): Map<string, Shop> {
+/** The shops by id, or null when shops.yaml can't be read (its problems added). */
+function compileShops(file: ContentFile, problems: Problem[]): Map<string, Shop> | null {
   const shops = new Map<string, Shop>();
   const data = load<ShopsFile>(file, ShopsFile, problems);
-  for (const [i, shop] of (data?.shops ?? []).entries()) {
+  if (!data) return null;
+  for (const [i, shop] of data.shops.entries()) {
     const at = `shops[${i}]`;
     if (shops.has(shop.id))
       problems.push({ file: file.path, message: `${at}: the shop id "${shop.id}" is used twice` });
@@ -204,10 +206,12 @@ function shopFromFile(shop: ShopFile): Shop {
   };
 }
 
-function compileTeaTypes(file: ContentFile, problems: Problem[]): Map<string, TeaType> {
+/** The tea types by type, or null when tea-types.yaml can't be read (its problems added). */
+function compileTeaTypes(file: ContentFile, problems: Problem[]): Map<string, TeaType> | null {
   const types = new Map<string, TeaType>();
   const data = load<TeaTypesFile>(file, TeaTypesFile, problems);
-  for (const [i, type] of (data?.tea_types ?? []).entries()) {
+  if (!data) return null;
+  for (const [i, type] of data.tea_types.entries()) {
     const at = `tea_types[${i}]`;
     if (types.has(type.type))
       problems.push({ file: file.path, message: `${at}: the tea type "${type.type}" is twice` });
@@ -235,7 +239,8 @@ function teaTypeFromFile(type: TeaTypeFile): TeaType {
 
 function compileIngredients(
   files: readonly ContentFile[],
-  shops: ReadonlyMap<string, Shop>,
+  /** Null when shops.yaml can't be read: the references then go unchecked, so its problem isn't repeated. */
+  shops: ReadonlyMap<string, Shop> | null,
   problems: Problem[],
 ): { ingredients: Map<string, Ingredient>; unreadable: Set<string> } {
   const ingredients = new Map<string, Ingredient>();
@@ -255,7 +260,7 @@ function compileIngredients(
     if (data.category !== "tea" && data.tea_type !== undefined) add("only a tea has a tea_type");
     const named = new Set<string>();
     for (const [i, ref] of data.shops.entries()) {
-      if (!shops.has(ref.shop)) add(`shops[${i}]: no shop "${ref.shop}" in shops.yaml`);
+      if (shops && !shops.has(ref.shop)) add(`shops[${i}]: no shop "${ref.shop}" in shops.yaml`);
       if (named.has(ref.shop)) add(`shops[${i}]: the shop "${ref.shop}" is named twice`);
       named.add(ref.shop);
     }
@@ -360,8 +365,11 @@ function safeRuleProblems(file: string, data: BlendFile): Problem[] {
   if (!(SAFE_VESSELS as readonly string[]).includes(data.brew.vessel)) {
     add(`brew.vessel: a safe blend is made in a ${SAFE_VESSELS.join(", ")}, not a ${data.brew.vessel}`);
   }
+  // An evening step happens at home: only the day's steps are done at the office.
   for (const [i, step] of data.steps.entries()) {
-    if (step.office === undefined) add(`steps[${i}]: every step of a safe blend has its office text`);
+    if ((step.stage ?? "day") === "day" && step.office === undefined) {
+      add(`steps[${i}]: every step of a safe blend on the day has its office text`);
+    }
   }
   const daySeconds = data.steps
     .filter((step) => (step.stage ?? "day") === "day")
@@ -485,14 +493,14 @@ export function compileContent(files: ContentFiles): Compiled {
       }
     }
     const shopsInUse = new Set([...ingredients.values()].flatMap((i) => i.shops.map((s) => s.shop)));
-    for (const shop of shops.values()) {
+    for (const shop of shops?.values() ?? []) {
       if (!shopsInUse.has(shop.id)) {
         problems.push({ file: files.shops.path, message: `no ingredient names the shop "${shop.id}"` });
       }
     }
   }
   for (const ingredient of ingredients.values()) {
-    if (ingredient.teaType !== undefined && !teaTypes.has(ingredient.teaType)) {
+    if (teaTypes && ingredient.teaType !== undefined && !teaTypes.has(ingredient.teaType)) {
       problems.push({
         file: `ingredients/${ingredient.id}.yaml`,
         message: `tea_type: tea-types.yaml has no "${ingredient.teaType}" (the plain-tea fallback brews by it)`,
@@ -500,7 +508,7 @@ export function compileContent(files: ContentFiles): Compiled {
     }
   }
 
-  if (problems.length) return { bundle: null, problems };
+  if (problems.length || !shops || !teaTypes) return { bundle: null, problems };
   const byText =
     <T>(key: (item: T) => string) =>
     (a: T, b: T) =>

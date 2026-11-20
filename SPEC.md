@@ -353,7 +353,7 @@ The content comes in batches, each reviewed by the owner before it goes in. The 
 - It works with a plain boiling kettle, or with a simple way to cool the water.
 - It needs no special equipment: it is made in a mug, teapot, glass, jar or bottle, never a gaiwan, kyusu, chawan or saucepan.
 - It takes at most 5 minutes of waiting on the day. An overnight cold brew's night doesn't count, since it happens at home the evening before.
-- Its dry ingredients can be packed the night before. Every step has its office text: the same step with an office kettle and mugs.
+- Its dry ingredients can be packed the night before. Every step of the day has its office text: the same step with an office kettle and mugs. An overnight blend's evening steps happen at home and need none.
 - Most people would enjoy it.
 
 Experimental blends can use a gaiwan, precise temperatures, butter or salt, unusual spices and longer rituals.

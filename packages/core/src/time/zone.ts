@@ -4,6 +4,8 @@
  * `plan/week.ts#instantOnDate`, without its 04:00 day start: a TeaTime day is the calendar day.
  */
 
+import { isDate } from "./dates.js";
+
 const MINUTE_MS = 60_000;
 const HOUR_MS = 3_600_000;
 const DAY_MINUTES = 1440;
@@ -90,8 +92,9 @@ function offsetAt(at: number, timeZone: string): number {
  * the night they go back), as the first.
  */
 export function instantAt(date: string, minutes: number, timeZone: string): number {
+  // A real calendar date only: Date.UTC would quietly roll 2026-02-30 over to March 2.
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
-  if (!match) throw new RangeError(`Not a date: ${JSON.stringify(date)}`);
+  if (!match || !isDate(date)) throw new RangeError(`Not a date: ${JSON.stringify(date)}`);
   if (!Number.isInteger(minutes) || minutes < 0 || minutes >= DAY_MINUTES) {
     throw new RangeError(`Not a time of day in minutes: ${minutes}`);
   }
