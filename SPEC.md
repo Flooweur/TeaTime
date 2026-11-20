@@ -59,6 +59,7 @@ The draw is a pure, deterministic function of the date, the day type, the conten
 - isn't marked **Not for me**;
 - is **makeable**:
   - every ingredient that isn't optional is *have*;
+  - every piece of gear it needs that isn't optional is *have* (§5.2);
   - when its amount is tracked, there is enough for the default cups, once the quantities held by other pending picks are set aside;
   - a perishable ingredient past its shelf life counts as missing;
 - isn't held by another pending pick;
@@ -137,6 +138,7 @@ In detail:
 - Turning *have* on sets the opened date to today.
 - **Freshness** compares the opened date with the ingredient's shelf life: *fresh*, *use soon* (75 % of it gone), or *stale*. A perishable ingredient that is stale counts as missing for the draw.
 - **Unlock count:** how many blends that can't be made now would become makeable if this one ingredient were added. An ingredient that is *have* but too low counts as missing. The weekly review lists the 3 purchases with the highest counts.
+- **Gear** (§5.2) is *have* or *don't have*, and nothing else: no amount, no opened date, never deducted. A piece of gear the owner lacks counts like a missing ingredient, in the draw and in the unlock count, so a gaiwan can be the purchase that unlocks the most.
 
 ### 2.7 Notifications
 | Kind | When | Sent when | Grace window |
@@ -185,7 +187,7 @@ In detail:
 ### 3.2 Layout and boundaries
 ```
 packages/core/  pure TypeScript, zero I/O: time (dates, time zones), the content's model, the rules of §2
-content/        blends/, ingredients/, shops.yaml, tea-types.yaml, guides/, ids.yaml; src/ (schemas, compiler, checks),
+content/        blends/, ingredients/, gear/, shops.yaml, tea-types.yaml, guides/, ids.yaml; src/ (schemas, compiler, checks),
                 scripts/ (build, check), and the generated src/bundle.ts
 backend/        Fastify, Drizzle and SQLite, the jobs (phase 5)
 frontend/       the PWA (phase 6)
@@ -251,7 +253,7 @@ The database is a file in a named Docker volume, opened with `journal_mode=WAL`,
 |---|---|
 | `settings` | Every setting by key, as JSON, checked against a registry of schemas and defaults |
 | `day_overrides`, `away_periods` | §2.1 |
-| `pantry` | One row per ingredient: have, amount left (nullable), opened on, kept at the office, a change time per field |
+| `pantry` | One row per ingredient or piece of gear: have, amount left (nullable; always null for gear), opened on, kept at the office, a change time per field |
 | `picks` | One per date: the day type, the blend or plain tea, how it was drawn, what it was swapped from and when, the status, packed at and packed cups, the brew |
 | `brews` | Each cup made: id, date, time, the blend or plain tea, cups, ratings, the deduction, and its pick's date, unique when set |
 | `blend_marks` | ★, *make again*, Not for me |
@@ -343,15 +345,19 @@ The content comes in batches, each reviewed by the owner before it goes in. The 
   - *attested*: a chef, a tea master or a tea house;
   - *legend*: a good story that can't be proven. "The king drank this" without a source is a legend, and the app says so.
 - **Brewing parameters** are checked against a tea-master reference for that type of tea. When sources disagree, the blend stores the range and the value chosen.
-- **Shops:** at least 2 per ingredient, with a Lyon shop wherever one exists. No ingredient is listed that no blend uses.
+- **Shops:** at least 2 per ingredient and per piece of gear, with a Lyon shop wherever one exists. No ingredient or gear is listed that no blend uses.
+- **Gear** is what a kitchen may lack: a gaiwan, a cloth filter, a blender, a thermometer (decision of 2026-11-20).
+  - A blend lists the gear it needs. Gear it needs that the owner lacks keeps it out of the draw (§2.3); optional gear never does.
+  - A blend made in a gaiwan, kyusu or chawan needs it as gear, under the vessel's name. A kettle, mugs, a teapot, a saucepan and a sieve are taken as owned.
+  - A thermometer is always optional: every step says how to reach its temperature without one.
 - **Ids are forever:**
   - a blend's code (`017`) always names the same blend;
-  - a published blend or ingredient is never removed, only retired (`retired: true`);
+  - a published blend, ingredient or piece of gear is never removed, only retired (`retired: true`);
   - `ids.yaml` lists every one ever published, and the check refuses a removal or a rename.
 
 ### 5.3 What makes a blend safe
 - It works with a plain boiling kettle, or with a simple way to cool the water.
-- It needs no special equipment: it is made in a mug, teapot, glass, jar or bottle, never a gaiwan, kyusu, chawan or saucepan.
+- It needs no special equipment: it is made in a mug, teapot, glass, jar or bottle, never a gaiwan, kyusu, chawan or saucepan, and needs no gear (optional gear, such as a thermometer, is fine).
 - It takes at most 5 minutes of waiting on the day. An overnight cold brew's night doesn't count, since it happens at home the evening before.
 - Its dry ingredients can be packed the night before. Every step of the day has its office text: the same step with an office kettle and mugs. An overnight blend's evening steps happen at home and need none.
 - Most people would enjoy it.
@@ -401,6 +407,7 @@ On the phone, a bottom tab bar holds **Today · Pantry · Library · Guides · S
 **Pantry**
 - **Each ingredient:** have or don't have, the amount left, freshness, and kept at the office.
 - **Opening one** shows its 2+ shops (online or in Lyon), how many blends use it, and how many it would unlock.
+- **Gear:** have or don't have, with the same page: its shops, the blends that need it, and how many it would unlock. It is the shopping list for what the owner doesn't have yet.
 
 **Library**
 - **All the blends**, filtered by pool, made or not yet, can make now, origin, flavour and caffeine.

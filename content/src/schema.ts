@@ -76,6 +76,14 @@ export const BlendIngredientFile = Type.Object(
   closed,
 );
 
+export const BlendGearFile = Type.Object(
+  {
+    id: Slug,
+    optional: Type.Optional(Type.Boolean()),
+  },
+  closed,
+);
+
 export const BrewFile = Type.Object(
   {
     water: Type.Enum(WATERS),
@@ -128,6 +136,8 @@ export const BlendFile = Type.Object(
     retired: Type.Optional(Type.Boolean()),
     sources: Type.Array(SourceFile, { minItems: 2 }),
     ingredients: Type.Array(BlendIngredientFile, { minItems: 1 }),
+    /** Left out when a kettle and a kitchen's usual things are enough. */
+    gear: Type.Optional(Type.Array(BlendGearFile, { minItems: 1 })),
     brew: BrewFile,
     steps: Type.Array(StepFile, { minItems: 1 }),
   },
@@ -145,6 +155,7 @@ export const ShopRefFile = Type.Object(
   },
   closed,
 );
+export type ShopRefFile = Static<typeof ShopRefFile>;
 
 export const IngredientFile = Type.Object(
   {
@@ -164,6 +175,20 @@ export const IngredientFile = Type.Object(
   closed,
 );
 export type IngredientFile = Static<typeof IngredientFile>;
+
+/** A piece of gear: bought once, then have or don't have (SPEC §5.2). */
+export const GearFile = Type.Object(
+  {
+    id: Slug,
+    name: Words,
+    quality: Words,
+    /** At least 2, with a Lyon shop wherever one exists, as for an ingredient. */
+    shops: Type.Array(ShopRefFile, { minItems: 2 }),
+    retired: Type.Optional(Type.Boolean()),
+  },
+  closed,
+);
+export type GearFile = Static<typeof GearFile>;
 
 export const ShopFile = Type.Object(
   {
@@ -212,11 +237,13 @@ export type TeaTypesFile = Static<typeof TeaTypesFile>;
 /** `017 moroccan-mint`: a blend's code and slug, as ids.yaml keeps them. */
 export const ID_LOCK_BLEND_PATTERN = `^${bare(BLEND_CODE_PATTERN)} ${bare(SLUG_PATTERN)}$`;
 
-/** ids.yaml: every blend and ingredient ever published, which are never renamed or reused. */
+/** ids.yaml: every blend, ingredient and piece of gear ever published, never renamed or reused. */
 export const IdsFile = Type.Object(
   {
     blends: Type.Array(Type.String({ pattern: ID_LOCK_BLEND_PATTERN }), { uniqueItems: true }),
     ingredients: Type.Array(Slug, { uniqueItems: true }),
+    /** Optional so an ids.yaml written before gear came in still reads; the build always writes it. */
+    gear: Type.Optional(Type.Array(Slug, { uniqueItems: true })),
   },
   closed,
 );

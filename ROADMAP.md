@@ -20,8 +20,16 @@ Each phase is a branch and a pull request, merged only after the owner's yes. Ea
 
 Phase 4 depends only on phase 1, so it can run alongside phases 3, 5 and 6. Later content batches (the other 80 blends, then the two guides) follow the same review, in batches of 15.
 
+**Gear** (decision of 2026-11-20) is in the content from batch 1. Core's pantry and draw learn it in a small PR once phase 3 is merged, so phase 3's PR isn't reopened.
+
 ## Decisions log
 Asked of the owner and answered, newest first. The SPEC states each as a rule.
+
+### 2026-11-20: gear (phase 4)
+- **What the owner has:** no gaiwan, kitchen thermometer, blender or milk frother at home. They will buy what the blends need, from a list in the app.
+- **Gear counts like an ingredient:** each blend names the gear it needs; the pantry holds it as *have* or *don't have*, with 2+ shops each. A blend whose gear is missing isn't drawn, and a piece of gear can be the purchase that unlocks the most (SPEC §2.3, §2.6, §5.2).
+- **When:** the content model, its checks and the SPEC now (content batch 1); core's draw and pantry after phase 3 is merged.
+- **The thermometer** is optional, never required: every step says how to reach its temperature without one.
 
 ### 2026-11-20: the look (phase 0)
 - **Direction:** of three Today mockups (A · Warm journal, B · Calm minimal, C · Ink & washi), the owner picked **A · Warm journal**, as shown, with nothing mixed in from B or C: cream paper and tea-brown ink, Alegreya for the names and stories, Alegreya Sans for the rest, amber for the running timer.

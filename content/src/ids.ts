@@ -1,8 +1,9 @@
 /**
  * Ids are forever (SPEC §5.2): the owner's picks and brews name blends by code, and the pantry
- * names ingredients by id, so a published code always means the same blend, and no published
- * blend or ingredient disappears (it is retired instead). ids.yaml lists every one ever published;
- * the build adds the new ones, and the check refuses a removal or a rename.
+ * names ingredients and gear by id, so a published code always means the same blend, and no
+ * published blend, ingredient or piece of gear disappears (it is retired instead). ids.yaml lists
+ * every one ever published; the build adds the new ones, and the check refuses a removal or a
+ * rename.
  */
 import { compareText } from "@teatime/core";
 import { parse } from "yaml";
@@ -12,13 +13,13 @@ import { IdsFile } from "./schema.js";
 
 export interface IdsCheck {
   readonly problems: readonly Problem[];
-  /** "017 moroccan-mint" and ingredient ids, new since ids.yaml was last written. */
+  /** "017 moroccan-mint", ingredient ids and gear ids, new since ids.yaml was last written. */
   readonly added: readonly string[];
   /** ids.yaml as the build writes it. */
   readonly text: string;
 }
 
-const EMPTY: IdsFile = { blends: [], ingredients: [] };
+const EMPTY: IdsFile = { blends: [], ingredients: [], gear: [] };
 
 function readLock(file: ContentFile, problems: Problem[]): IdsFile {
   let data: unknown;
@@ -57,36 +58,43 @@ export function checkIds(file: ContentFile, bundle: UnhashedBundle): IdsCheck {
     }
   }
   const ingredientIds = new Set(bundle.ingredients.map((ingredient) => ingredient.id));
-  for (const id of lock.ingredients) {
-    if (!ingredientIds.has(id)) {
-      problems.push({
-        file: file.path,
-        message: `the ingredient "${id}" was published: keep its file and set retired: true instead of removing it`,
-      });
+  const gearIds = new Set(bundle.gear.map((piece) => piece.id));
+  const lockedGear = lock.gear ?? [];
+  const gone = (published: readonly string[], now: ReadonlySet<string>, what: string) => {
+    for (const id of published) {
+      if (!now.has(id)) {
+        problems.push({
+          file: file.path,
+          message: `${what} "${id}" was published: keep its file and set retired: true instead of removing it`,
+        });
+      }
     }
-  }
+  };
+  gone(lock.ingredients, ingredientIds, "the ingredient");
+  gone(lockedGear, gearIds, "the gear");
 
   const blends = [...new Set([...lock.blends, ...bundle.blends.map((blend) => `${blend.code} ${blend.slug}`)])].sort(
     compareText,
   );
   const ingredients = [...new Set([...lock.ingredients, ...ingredientIds])].sort(compareText);
+  const gear = [...new Set([...lockedGear, ...gearIds])].sort(compareText);
   const added = [
     ...bundle.blends.filter((blend) => !lockedCodes.has(blend.code)).map((blend) => `${blend.code} ${blend.slug}`),
     ...[...ingredientIds].filter((id) => !lock.ingredients.includes(id)),
+    ...[...gearIds].filter((id) => !lockedGear.includes(id)),
   ];
-  return { problems, added, text: lockText({ blends, ingredients }) };
+  return { problems, added, text: lockText({ blends, ingredients, gear }) };
 }
 
-function lockText(lock: IdsFile): string {
-  const list = (items: readonly string[], quote: boolean) =>
-    items.length ? items.map((item) => `  - ${quote ? `"${item}"` : item}`).join("\n") : "  []";
+function lockText(lock: Required<IdsFile>): string {
+  const section = (key: string, items: readonly string[], quote: boolean) =>
+    items.length ? [`${key}:`, ...items.map((item) => `  - ${quote ? `"${item}"` : item}`)] : [`${key}: []`];
   return [
-    "# Every blend and ingredient ever published (SPEC §5.2): ids are forever. Written by",
-    "# npm run content:build; content:check refuses a removal or a rename. Never edit by hand.",
-    `blends:${lock.blends.length ? "" : " []"}`,
-    ...(lock.blends.length ? [list(lock.blends, true)] : []),
-    `ingredients:${lock.ingredients.length ? "" : " []"}`,
-    ...(lock.ingredients.length ? [list(lock.ingredients, false)] : []),
+    "# Every blend, ingredient and piece of gear ever published (SPEC §5.2): ids are forever. Written",
+    "# by npm run content:build; content:check refuses a removal or a rename. Never edit by hand.",
+    ...section("blends", lock.blends, true),
+    ...section("ingredients", lock.ingredients, false),
+    ...section("gear", lock.gear, false),
     "",
   ].join("\n");
 }

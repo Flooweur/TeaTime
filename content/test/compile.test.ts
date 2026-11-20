@@ -33,7 +33,20 @@ describe("compileContent on valid content", () => {
     expect(grey!.sources[0]!.primary).toBe(true);
     expect(grey!.sources[1]!.primary).toBe(false);
     expect(oolong!.scaling).toEqual({ kind: "per-session", sessionMax: 3 });
+    expect(grey!.gear).toEqual([{ id: "thermometer", optional: true }]);
+    expect(oolong!.gear).toEqual([
+      { id: "gaiwan", optional: false },
+      { id: "thermometer", optional: true },
+    ]);
     expect(bundle!.ingredients.map((i) => i.id)).toEqual(["ceylon-black", "dried-bergamot", "high-mountain-oolong"]);
+    expect(bundle!.gear.map((g) => g.id)).toEqual(["gaiwan", "thermometer"]);
+    expect(bundle!.gear[0]).toMatchObject({ name: "Gaiwan", retired: false });
+    expect(bundle!.gear[0]!.shops[0]).toEqual({
+      shop: "online-tea",
+      why: "Fresh stock",
+      price: "€8 / 100 g",
+      checked: "2026-11-20",
+    });
     expect(bundle!.teaTypes.map((t) => t.type)).toEqual(["oolong", "black"]);
     expect(bundle!.teaTypes[1]!.tempRange).toEqual({ min: 90, max: 100 });
     expect(bundle!.guides[0]!.chapters).toEqual([
@@ -49,8 +62,19 @@ describe("compileContent on valid content", () => {
     expect("tempRange" in bundle!.blends[0]!.brew).toBe(false);
   });
 
+  it("gives a blend that names no gear an empty list", () => {
+    const f = fixture();
+    // Without its thermometer, which nothing else needs.
+    delete blend(f, 0).gear;
+    blend(f, 1).gear = [{ id: "gaiwan" }];
+    f.gear.splice(1, 1);
+    const { bundle, problems } = compileContent(filesOf(f));
+    expect(problems).toEqual([]);
+    expect(bundle!.blends[0]!.gear).toEqual([]);
+  });
+
   it("accepts empty content", () => {
-    const empty: Fixture = { blends: [], ingredients: [], shops: [], teaTypes: [], guides: {} };
+    const empty: Fixture = { blends: [], ingredients: [], gear: [], shops: [], teaTypes: [], guides: {} };
     expect(compileContent(filesOf(empty)).problems).toEqual([]);
   });
 });
@@ -122,6 +146,43 @@ describe("compileContent refuses", () => {
       for (const item of field<Record<string, unknown>[]>(blend(f, 0), "ingredients")) item.optional = true;
     });
     expect(allOptional).toContain("blends/001-test-grey.yaml: ingredients: at least one isn't optional");
+  });
+
+  it("unknown gear, gear twice, retired gear, and a gaiwan blend that doesn't need its gaiwan", () => {
+    const found = problemsAfter((f) => {
+      const gear = field<Record<string, unknown>[]>(blend(f, 1), "gear");
+      gear.push({ id: "tea-sock" }, { id: "thermometer" });
+      gear[0]!.optional = true;
+      f.gear[1]!.retired = true;
+    });
+    expect(found).toContain('blends/002-test-oolong.yaml: gear[2]: no gear "tea-sock" (gear/tea-sock.yaml)');
+    expect(found).toContain('blends/002-test-oolong.yaml: gear[3]: "thermometer" is in the blend twice');
+    expect(found).toContain('blends/001-test-grey.yaml: gear[0]: "thermometer" is retired');
+    expect(found).toContain(
+      "blends/002-test-oolong.yaml: gear: a blend made in a gaiwan needs it as gear: { id: gaiwan }",
+    );
+  });
+
+  it("a safe blend that needs gear (optional gear is fine)", () => {
+    expect(
+      problemsAfter((f) => (field<Record<string, unknown>[]>(blend(f, 0), "gear")[0]!.optional = false)),
+    ).toContain(
+      'blends/001-test-grey.yaml: gear[0]: a safe blend needs no special equipment; "thermometer" can only be optional',
+    );
+  });
+
+  it("gear with fewer than 2 shops, a shop not in shops.yaml, or an id that isn't its file's name", () => {
+    const found = problemsAfter((f) => {
+      f.gear[0]!.shops = [field<unknown[]>(f.gear[0], "shops")[0]];
+      field<Record<string, unknown>[]>(f.gear[1], "shops")[1]!.shop = "ghost";
+    });
+    expect(found).toContain("gear/gaiwan.yaml: shops: must not have fewer than 2 items");
+    expect(found).toContain('gear/thermometer.yaml: shops[1]: no shop "ghost" in shops.yaml');
+    const files = filesOf(fixture());
+    const moved = { ...files, gear: [{ ...files.gear[0]!, path: "gear/pot.yaml" }, files.gear[1]!] };
+    expect(compileContent(moved).problems.map((p) => `${p.file}: ${p.message}`)).toContain(
+      `gear/pot.yaml: its id "gaiwan" isn't its file's name "pot"`,
+    );
   });
 
   it("scaling without its number, or with the other one", () => {
@@ -218,15 +279,29 @@ describe("compileContent refuses", () => {
     expect(found.problems.map((p) => p.file)).toEqual(["shops.yaml", "tea-types.yaml"]);
   });
 
-  it("an unused ingredient and an unused shop", () => {
+  it("an unused ingredient, unused gear and an unused shop", () => {
     const found = problemsAfter((f) => {
       f.ingredients.push({ ...(f.ingredients[1] as object), id: "spare-peel" });
+      f.gear.push({ ...(f.gear[0] as object), id: "spare-pot" });
+      f.gear.push({ ...(f.gear[0] as object), id: "old-pot", retired: true });
       f.shops.push({ id: "nobody", name: "Nobody", kind: "online", url: "https://example.com/n" });
     });
     expect(found).toContain(
       "ingredients/spare-peel.yaml: no blend uses it: remove it, or retire it if it was published (SPEC §5.2)",
     );
-    expect(found).toContain('shops.yaml: no ingredient names the shop "nobody"');
+    expect(found).toContain(
+      "gear/spare-pot.yaml: no blend uses it: remove it, or retire it if it was published (SPEC §5.2)",
+    );
+    expect(found.some((m) => m.startsWith("gear/old-pot.yaml"))).toBe(false);
+    expect(found).toContain('shops.yaml: no ingredient or gear names the shop "nobody"');
+  });
+
+  it("counts a shop that only gear names as in use", () => {
+    const found = problemsAfter((f) => {
+      f.shops.push({ id: "pottery", name: "Pottery", kind: "online", url: "https://example.com/p" });
+      field<Record<string, unknown>[]>(f.gear[0], "shops")[1]!.shop = "pottery";
+    });
+    expect(found).toEqual([]);
   });
 
   it("a retired ingredient in a blend still in use, but not an unused retired one", () => {

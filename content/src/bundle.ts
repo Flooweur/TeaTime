@@ -3,11 +3,12 @@
 import type { ContentBundle } from "@teatime/core";
 
 export const BUNDLE: ContentBundle = {
-  "format": 1,
+  "format": 2,
   "blends": [],
   "ingredients": [],
+  "gear": [],
   "shops": [],
   "teaTypes": [],
   "guides": [],
-  "hash": "3375d33c112f9fa50c195c0728f0b870668fbd8d8c62123a1b9b03ffbbc83783"
+  "hash": "da8a9bb1ce4bc725a5446c9947d42b8806ef17eadaf65baef851026b43f90acf"
 };

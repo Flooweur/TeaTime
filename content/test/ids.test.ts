@@ -15,10 +15,25 @@ describe("checkIds", () => {
       "ceylon-black",
       "dried-bergamot",
       "high-mountain-oolong",
+      "gaiwan",
+      "thermometer",
     ]);
     expect(result.text).toContain(
       'blends:\n  - "001 test-grey"\n  - "002 test-oolong"\ningredients:\n  - ceylon-black\n',
     );
+    expect(result.text).toContain("\ngear:\n  - gaiwan\n  - thermometer\n");
+  });
+
+  it("refuses published gear that's gone, and reads a lock written before gear", () => {
+    const messages = checkIds(lock("blends: []\ningredients: []\ngear:\n  - old-pot\n"), bundle()).problems.map(
+      (p) => p.message,
+    );
+    expect(messages).toEqual([
+      'the gear "old-pot" was published: keep its file and set retired: true instead of removing it',
+    ]);
+    const before = checkIds(lock("blends: []\ningredients: []\n"), bundle());
+    expect(before.problems).toEqual([]);
+    expect(before.added).toContain("gaiwan");
   });
 
   it("writes a file it then reads back with nothing to add", () => {

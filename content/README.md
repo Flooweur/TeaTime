@@ -1,14 +1,15 @@
 # content
 
-The blends, their ingredients, the shops, the tea types and the guides: data, checked and compiled into one bundle that the app and the server both import (`@teatime/content/bundle`). The rules behind the content are SPEC §5 (sourcing, trust, ids, safe blends) and §6 (guides).
+The blends, their ingredients and gear, the shops, the tea types and the guides: data, checked and compiled into one bundle that the app and the server both import (`@teatime/content/bundle`). The rules behind the content are SPEC §5 (sourcing, trust, gear, ids, safe blends) and §6 (guides).
 
 ```
 blends/NNN-slug.yaml       one file per blend: blends/017-moroccan-mint.yaml
 ingredients/<id>.yaml      one file per ingredient: ingredients/gunpowder-green.yaml
-shops.yaml                 the shops the ingredients name
+gear/<id>.yaml             one file per piece of gear a kitchen may lack: gear/gaiwan.yaml
+shops.yaml                 the shops the ingredients and gear name
 tea-types.yaml             a plain tea of each type, brewed well: the plain-tea fallback (SPEC §2.5)
 guides/<id>.md             the guides (SPEC §6)
-ids.yaml                   every blend and ingredient ever published (written by the build)
+ids.yaml                   every blend, ingredient and piece of gear ever published (written by the build)
 src/                       the schemas (schema.ts), the compiler and its checks, the generated bundle.ts
 scripts/                   content:build and content:check
 ```
@@ -53,6 +54,8 @@ ingredients:
   - { id: gunpowder-green, qty: 6, unit: g, role: base }       # unit = the ingredient's own unit
   - { id: fresh-spearmint, qty: 8, unit: g, role: base }
   - { id: sugar, qty: 10, unit: g, role: accent, optional: true }
+gear:                       # optional: what a kitchen may lack; left out when a kettle is enough
+  - { id: thermometer, optional: true }   # optional gear helps, and is never needed for the draw
 brew:
   water: soft-bottled       # tap | soft-bottled | filtered
   temp_c: 90
@@ -91,6 +94,18 @@ shops:                      # 2 or more, a Lyon shop wherever one exists
     price: "€8 / 100 g"
     url: https://…          # optional: the product's own page
     checked: 2026-11-20     # when the price and page were last checked
+retired: false              # optional
+```
+
+## A piece of gear
+Bought once, then *have* or *don't have* in the pantry, never an amount. A blend that needs it isn't drawn until the owner has it, unless it is optional (SPEC §5.2).
+
+```yaml
+id: gaiwan                  # a gaiwan, kyusu or chawan takes the vessel's own name
+name: Gaiwan
+quality: "Thin white porcelain, 100–150 ml, with a saucer."
+shops:                      # 2 or more, a Lyon shop wherever one exists, as for an ingredient
+  - { shop: some-lyon-shop, why: "…", price: "€25", checked: 2026-11-21 }
 retired: false              # optional
 ```
 
@@ -136,17 +151,18 @@ Text, with [links](https://…) or [to a chapter](#bergamot).
 - a file name that isn't the blend's code and slug, or a code or slug used twice;
 - no primary source, or a source with neither a URL nor a reference;
 - an ingredient that doesn't exist (or is retired, in a blend still in use), a quantity in another unit than its ingredient's, an ingredient twice, or every ingredient optional;
+- gear that doesn't exist (or is retired, in a blend still in use), or twice; a blend made in a gaiwan, kyusu or chawan that doesn't need it as gear;
 - `per-cup` without `serves` or with `session_max`, and `per-session` the other way round;
 - `prep: evening` without an evening step, an evening step without it, or an evening step after one of the day;
 - anything but exactly one infusions step, or a timer on it (its times are `brew.infusions_s`);
 - a temperature outside its own `temp_range`;
 - a guide link to no guide or chapter;
-- **a safe blend that breaks the safe rules** (SPEC §5.3): a vessel other than a mug, teapot, glass, jar or bottle, a step of the day without its office text (evening steps happen at home), or more than 300 s of waiting on the day.
+- **a safe blend that breaks the safe rules** (SPEC §5.3): a vessel other than a mug, teapot, glass, jar or bottle, gear that isn't optional, a step of the day without its office text (evening steps happen at home), or more than 300 s of waiting on the day.
 
-**Ingredients and shops:**
-- an ingredient whose id isn't its file's name;
-- an ingredient no blend in use uses;
-- fewer than 2 shops for an ingredient, a shop not in `shops.yaml` or named twice, or a shop no ingredient names;
+**Ingredients, gear and shops:**
+- an ingredient or a piece of gear whose id isn't its file's name;
+- an ingredient or a piece of gear no blend in use uses;
+- fewer than 2 shops for an ingredient or a piece of gear, a shop not in `shops.yaml` or named twice, or a shop neither names;
 - a Lyon shop without an address, or an online one without a URL;
 - a tea without a tea type, another category with one, or a tea type `tea-types.yaml` lacks.
 
@@ -155,6 +171,6 @@ Text, with [links](https://…) or [to a chapter](#bergamot).
 - a chapter without its `{#id}`, or an id twice;
 - raw HTML, an image, or a link that is neither `https://` nor `#a-chapter` of the same guide.
 
-**Ids** (`src/ids.ts`): a published blend or ingredient removed, or a code given to another slug. Retire it instead.
+**Ids** (`src/ids.ts`): a published blend, ingredient or piece of gear removed, or a code given to another slug. Retire it instead.
 
 **The output:** a bundle or `ids.yaml` that isn't what the build would write.
