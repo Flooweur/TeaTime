@@ -13,10 +13,10 @@ Pure TypeScript, zero I/O (SPEC §4.2): the code both the app and the server run
 | `src/rng.ts` | `randomFrom(seed)` (mulberry32, ported from EagleEye), `randomInt`, `pickOne` |
 | `src/json.ts` | `canonicalJson` (RFC 8785's rules), which the content's hash rests on; `compareText` |
 | `src/content.ts` | The content's vocabulary (pools, families, trust levels, units…) and the bundle's model, which `content/` compiles its YAML into |
-| `src/catalog.ts` | `catalogOf(bundle)`: the content indexed by code and id, which every rule reads |
+| `src/catalog.ts` | `catalogOf(bundle)`: the content indexed by code and id (blends, ingredients, gear, tea types), which every rule reads |
 | `src/calendar.ts` | The week (SPEC §2.1): `dayOf` (weekend, away, override, office days), `poolOf`, and the seasons |
 | `src/recipe.ts` | Scaling to the cups and SPEC §2.4's rounding: `scaleRecipe`, `plainTeaRecipe`, `roundQty` |
-| `src/pantry.ts` | SPEC §2.6: freshness, `shortfallsOf` (what stops a recipe), `plannedTakes` (what Made it deducts), unlock counts |
+| `src/pantry.ts` | SPEC §2.6: freshness, `shortfallsOf` (what stops a recipe: an ingredient, or a piece of gear the owner lacks), `plannedTakes` (what Made it deducts, never gear), unlock counts |
 | `src/history.ts` | Each blend's last made date and last rating, from the brews |
 | `src/draw.ts` | The draw (SPEC §2.3) and its fallbacks (§2.5): `drawPick`, deterministic and seeded by the date and the attempt |
 | `src/notifications.ts` | SPEC §2.7: `dueNotifications` (what to push now, with its window and text), and `revealsAt` for the home-day surprise |

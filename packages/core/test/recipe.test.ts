@@ -99,6 +99,7 @@ describe("plainTeaRecipe (SPEC §2.5)", () => {
     expect(plainTeaRecipe(tea, black!, 1)).toMatchObject({
       waterMl: 250,
       ingredients: [{ id: "black-tea", qty: 2.5 }],
+      gear: [],
     });
     expect(plainTeaRecipe(tea, black!, 2)).toMatchObject({ waterMl: 500, ingredients: [{ qty: 5 }] });
   });

@@ -52,7 +52,10 @@ export type PickUnskipped = CommandOf<"pick.unskipped", { readonly date: string 
 /** The office kit is packed, for these cups. */
 export type PickPacked = CommandOf<"pick.packed", { readonly date: string; readonly cups: number }>;
 
-/** Some of an ingredient's fields, each merged last-writer-wins. `amount` is a measurement: what is left. */
+/**
+ * Some of an ingredient's fields, each merged last-writer-wins. `amount` is a measurement: what is
+ * left. `ingredient` may also name a piece of gear, which takes `have` alone (SPEC §2.6).
+ */
 export type PantrySet = CommandOf<
   "pantry.set",
   {
@@ -102,6 +105,7 @@ const RATING = field(isRating, "a rating from 1 to 5");
 const BOOLEAN = field((v) => typeof v === "boolean", "true or false");
 const BLEND = field((v) => typeof v === "string" && CODE.test(v), "a blend's code, like 017");
 const INGREDIENT = field((v) => typeof v === "string" && SLUG.test(v), "an ingredient's id");
+const PANTRY_ITEM = field((v) => typeof v === "string" && SLUG.test(v), "an ingredient's or a piece of gear's id");
 const AMOUNT = field(
   (v) => typeof v === "number" && Number.isFinite(v) && v >= 0 && v <= MAX_AMOUNT,
   `an amount from 0 to ${MAX_AMOUNT}`,
@@ -139,7 +143,7 @@ const PAYLOADS: {
   "pick.packed": { fields: { date: DATE, cups: CUPS } },
   "pantry.set": {
     fields: {
-      ingredient: INGREDIENT,
+      ingredient: PANTRY_ITEM,
       have: optional(BOOLEAN),
       amount: optional(orNull(AMOUNT)),
       openedOn: optional(orNull(DATE)),

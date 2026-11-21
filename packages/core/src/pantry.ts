@@ -1,6 +1,6 @@
 /**
  * The pantry's rules (SPEC §2.6): freshness, whether a recipe can be made, what Made it takes, and
- * which purchase would unlock the most blends.
+ * which purchase would unlock the most blends. The pantry holds the ingredients and the gear, by id.
  */
 import type { Catalog } from "./catalog.js";
 import type { Ingredient } from "./content.js";
@@ -48,16 +48,25 @@ export interface Stock {
 
 export type ShortfallReason = "missing" | "stale" | "low";
 
-/** A required ingredient the recipe can't have: *don't have*, perishable and stale, or not enough left. */
-export interface Shortfall {
-  readonly id: string;
-  readonly reason: ShortfallReason;
-  readonly need: number;
-  /** What is left once the reserved quantities are set aside; null when the amount isn't tracked. */
-  readonly left: number | null;
-}
+/**
+ * What the recipe can't have: a required ingredient that is *don't have*, perishable and stale, or
+ * not enough; or a required piece of gear the owner doesn't have (SPEC §2.6).
+ */
+export type Shortfall =
+  | {
+      readonly kind: "ingredient";
+      readonly id: string;
+      readonly reason: ShortfallReason;
+      readonly need: number;
+      /** What is left once the reserved quantities are set aside; null when the amount isn't tracked. */
+      readonly left: number | null;
+    }
+  | { readonly kind: "gear"; readonly id: string; readonly reason: "missing" };
 
-/** What stops the recipe being made, ingredient by ingredient. An optional ingredient never does. */
+/**
+ * What stops the recipe being made, ingredient by ingredient, then piece of gear by piece of gear.
+ * An optional ingredient or piece of gear never does.
+ */
 export function shortfallsOf(recipe: Recipe, stock: Stock): Shortfall[] {
   const shortfalls: Shortfall[] = [];
   for (const item of recipe.ingredients) {
@@ -66,11 +75,24 @@ export function shortfallsOf(recipe: Recipe, stock: Stock): Shortfall[] {
     const entry = entryOf(stock.pantry, item.id);
     const amount = entry.amount.value;
     const left = amount === null ? null : amount - (stock.reserved?.get(item.id) ?? 0);
-    const shortfall = (reason: ShortfallReason): Shortfall => ({ id: item.id, reason, need: item.qty, left });
+    const shortfall = (reason: ShortfallReason): Shortfall => ({
+      kind: "ingredient",
+      id: item.id,
+      reason,
+      need: item.qty,
+      left,
+    });
     if (!ingredient || !entry.have.value) shortfalls.push(shortfall("missing"));
     else if (ingredient.perishable && freshnessOf(entry, ingredient, stock.on) === "stale") {
       shortfalls.push(shortfall("stale"));
     } else if (left !== null && left < item.qty - EPSILON) shortfalls.push(shortfall("low"));
+  }
+  // Gear is only have or don't have: never stale, never too little, and never held by another pick.
+  for (const item of recipe.gear) {
+    if (item.optional) continue;
+    if (!stock.catalog.gearById.has(item.id) || !entryOf(stock.pantry, item.id).have.value) {
+      shortfalls.push({ kind: "gear", id: item.id, reason: "missing" });
+    }
   }
   return shortfalls;
 }
@@ -93,8 +115,9 @@ export function plannedTakes(recipe: Recipe, pantry: Pantry): { readonly id: str
 }
 
 /**
- * For each ingredient, how many of these recipes can't be made now but could be if it alone were
- * added (SPEC §2.6). An ingredient that is *have* but too low or stale counts as missing.
+ * For each ingredient or piece of gear, how many of these recipes can't be made now but could be if
+ * it alone were added (SPEC §2.6). An ingredient that is *have* but too low or stale counts as
+ * missing. The two never share an id, so one map holds both.
  */
 export function unlockCounts(recipes: Iterable<Recipe>, stock: Stock): Map<string, number> {
   const counts = new Map<string, number>();

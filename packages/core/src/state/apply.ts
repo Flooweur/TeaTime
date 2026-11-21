@@ -43,7 +43,10 @@ export const REFUSALS = [
   "future_date",
   "unknown_tea",
   "unknown_blend",
+  /** No ingredient or piece of gear has that id. */
   "unknown_ingredient",
+  /** A piece of gear is only have or don't have: no amount, opened date or office (SPEC §2.6). */
+  "gear_have_only",
   /** No brew with that id. */
   "not_found",
   /** No pick on that date. */
@@ -315,7 +318,12 @@ function packPick(state: State, { payload: p }: PickPacked, at: number): Applied
 }
 
 function setPantry(state: State, { payload: p }: PantrySet, catalog: Catalog, at: number): Applied {
-  if (!catalog.ingredientById.has(p.ingredient)) return refuse(state, "unknown_ingredient");
+  const gear = catalog.gearById.has(p.ingredient);
+  if (!gear && !catalog.ingredientById.has(p.ingredient)) return refuse(state, "unknown_ingredient");
+  // Gear's amount and opened date stay null and it is never at the office: saying so again is fine.
+  if (gear && ((p.amount ?? null) !== null || (p.openedOn ?? null) !== null || p.atOffice === true)) {
+    return refuse(state, "gear_have_only");
+  }
   const before = entryOf(state.pantry, p.ingredient);
   let entry: PantryEntry = {
     ...before,
@@ -324,7 +332,8 @@ function setPantry(state: State, { payload: p }: PantrySet, catalog: Catalog, at
     atOffice: stamp(before.atOffice, p.atOffice, at),
   };
   // Turning *have* on sets the opened date to that day, unless the command sets one (SPEC §2.6).
-  if (entry.have.value && !before.have.value && p.openedOn === undefined) {
+  // Gear has no opened date.
+  if (!gear && entry.have.value && !before.have.value && p.openedOn === undefined) {
     entry = { ...entry, openedOn: stamp(entry.openedOn, wallClockAt(at, state.settings.timeZone).date, at) };
   }
   if (p.amount !== undefined && at >= before.amount.at) {
