@@ -154,3 +154,24 @@ describe("the self-review of phase 5", () => {
     expect(extra.status).toBe(400);
   });
 });
+
+describe("gear through the server (SPEC §2.3, §2.6)", () => {
+  it("draws the gongfu oolong on a home day only once the gaiwan is in the pantry", async () => {
+    // Tuesday 21:00: Wednesday, a home day, can be drawn.
+    const evening = at("2026-11-24", "21:00");
+    const without = await testApp({ now: evening });
+    await without.commands(have("high-mountain-oolong", evening - 3_600_000, 100));
+    const plain = pickOf((await without.call("POST", "/api/picks/2026-11-25/draw")).body, "2026-11-25");
+    expect(plain).toMatchObject({ type: "home", source: "fallback", unlock: "gaiwan" });
+
+    const t = await testApp({ now: evening });
+    await t.commands(
+      have("high-mountain-oolong", evening - 3_600_000, 100),
+      command("pantry.set", { ingredient: "gaiwan", have: true }, evening - 3_600_000),
+    );
+    const drawn = pickOf((await t.call("POST", "/api/picks/2026-11-25/draw")).body, "2026-11-25");
+    expect(drawn.tea).toEqual({ kind: "blend", code: "009" });
+    const snapshot = (await t.snapshot()).content;
+    expect(snapshot.gear.map((g) => g.id)).toEqual(["gaiwan"]);
+  });
+});

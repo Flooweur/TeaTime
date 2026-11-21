@@ -165,6 +165,16 @@ describe("swapPick (SPEC §2.4)", () => {
     });
   });
 
+  it("gives a free redraw to a pick whose gear the owner no longer has", () => {
+    const gaiwanOnly = catalog([blend("001", { gear: [{ id: "gaiwan", optional: false }] }), blend("002")]);
+    const s = state({
+      pantry: { "black-tea": have(), gaiwan: { ...have(), have: { value: false, at: 2 } } },
+      picks: { [MONDAY]: pick(MONDAY, { tea: { kind: "blend", code: "001" }, swappedFrom: "003" }) },
+    });
+    const redrawn = ok(swapPick(s, gaiwanOnly, at(SUNDAY, "21:00"), MONDAY, { kind: "blend", code: "001" }));
+    expect(redrawn.picks[MONDAY]).toMatchObject({ tea: { kind: "blend", code: "002" }, swappedFrom: "003" });
+  });
+
   it("redraws a plain-tea fallback for free once a blend can be made", () => {
     const s = state({
       pantry: { "black-tea": have() },

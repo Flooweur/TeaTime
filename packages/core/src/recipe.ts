@@ -2,7 +2,7 @@
  * Recipes scaled to the cups (SPEC §2.4): the quantities and water shown on Today, which are also
  * what Made it deducts. One rounding rule per unit, used for both.
  */
-import type { Blend, BlendIngredient, Ingredient, TeaType, Unit } from "./content.js";
+import type { Blend, BlendGear, BlendIngredient, Ingredient, TeaType, Unit } from "./content.js";
 
 /** The cups selector's range. */
 export const MIN_CUPS = 1;
@@ -49,6 +49,8 @@ export interface Recipe {
   readonly ingredients: readonly BlendIngredient[];
   /** Rounded to 5 ml. */
   readonly waterMl: number;
+  /** The blend's gear, whatever the cups: one gaiwan serves every session. None for a plain tea. */
+  readonly gear: readonly BlendGear[];
 }
 
 /**
@@ -56,7 +58,7 @@ export interface Recipe {
  * A `per-session` one shares a session's leaves among up to `sessionMax` people, so more people
  * make more sessions.
  */
-export function scaleRecipe(blend: Pick<Blend, "scaling" | "ingredients" | "brew">, cups: number): Recipe {
+export function scaleRecipe(blend: Pick<Blend, "scaling" | "ingredients" | "brew" | "gear">, cups: number): Recipe {
   checkCups(cups);
   const { scaling } = blend;
   const sessions = scaling.kind === "per-session" ? Math.ceil(cups / scaling.sessionMax) : null;
@@ -66,6 +68,7 @@ export function scaleRecipe(blend: Pick<Blend, "scaling" | "ingredients" | "brew
     sessions,
     ingredients: blend.ingredients.map((item) => ({ ...item, qty: roundQty(item.qty * factor, item.unit) })),
     waterMl: roundQty(blend.brew.waterMl * factor, "ml"),
+    gear: blend.gear,
   };
 }
 
@@ -83,5 +86,6 @@ export function plainTeaRecipe(tea: Ingredient, teaType: TeaType, cups: number):
     sessions: null,
     ingredients: [{ id: tea.id, qty: roundQty(grams, "g"), unit: "g", optional: false, role: "base" }],
     waterMl: roundQty(waterMl, "ml"),
+    gear: [],
   };
 }

@@ -47,7 +47,7 @@ describe("shortfallsOf", () => {
   it("names an ingredient the owner doesn't have", () => {
     const pantry = { "green-tea": have(50), mint: { ...have(), have: { value: false, at: 1 } } };
     expect(shortfallsOf(recipe, { catalog: content, pantry, on })).toEqual([
-      { id: "mint", reason: "missing", need: 4, left: null },
+      { kind: "ingredient", id: "mint", reason: "missing", need: 4, left: null },
     ]);
     expect(shortfallsOf(recipe, { catalog: content, pantry: { "green-tea": have(50) }, on })).toMatchObject([
       { id: "mint", reason: "missing" },
@@ -64,7 +64,7 @@ describe("shortfallsOf", () => {
     expect(shortfallsOf(recipe, { catalog: content, pantry, on })).toEqual([]);
     const reserved = new Map([["green-tea", 2.5]]);
     expect(shortfallsOf(recipe, { catalog: content, pantry, on, reserved })).toEqual([
-      { id: "green-tea", reason: "low", need: 3, left: 2.5 },
+      { kind: "ingredient", id: "green-tea", reason: "low", need: 3, left: 2.5 },
     ]);
   });
 
@@ -85,6 +85,7 @@ describe("plannedTakes (SPEC §2.4)", () => {
       { id: "sugar", qty: 5, unit: "g", optional: true, role: "accent" },
       { id: "lemon", qty: 1, unit: "pieces", optional: true, role: "garnish" },
     ],
+    gear: [{ id: "thermometer", optional: true }],
   };
 
   it("takes each tracked amount, and an optional one only when the owner has it", () => {
@@ -93,11 +94,73 @@ describe("plannedTakes (SPEC §2.4)", () => {
       milk: have(),
       sugar: have(200),
       lemon: { ...have(3), have: { value: false, at: 1 } },
+      thermometer: have(),
     };
     expect(plannedTakes(recipe, pantry)).toEqual([
       { id: "black-tea", qty: 2.5 },
       { id: "sugar", qty: 5 },
     ]);
+  });
+});
+
+describe("gear (SPEC §2.6)", () => {
+  const gongfu = blend("009", {
+    ingredients: [{ id: "oolong", qty: 5, unit: "g", optional: false, role: "base" }],
+    gear: [
+      { id: "gaiwan", optional: false },
+      { id: "thermometer", optional: true },
+    ],
+  });
+  const content = catalog([gongfu]);
+  const recipe = scaleRecipe(gongfu, 1);
+  const on = "2026-11-23";
+
+  it("names a piece of gear the owner doesn't have, after the ingredients", () => {
+    const pantry = { gaiwan: { ...have(), have: { value: false, at: 1 } } };
+    expect(shortfallsOf(recipe, { catalog: content, pantry, on })).toEqual([
+      { kind: "ingredient", id: "oolong", reason: "missing", need: 5, left: null },
+      { kind: "gear", id: "gaiwan", reason: "missing" },
+    ]);
+    expect(shortfallsOf(recipe, { catalog: content, pantry: { oolong: have() }, on })).toEqual([
+      { kind: "gear", id: "gaiwan", reason: "missing" },
+    ]);
+  });
+
+  it("is enough when it is have, and optional gear never stops a blend", () => {
+    expect(shortfallsOf(recipe, { catalog: content, pantry: { oolong: have(), gaiwan: have() }, on })).toEqual([]);
+  });
+
+  it("counts gear the content doesn't have as missing", () => {
+    const without = catalog([gongfu], undefined, []);
+    expect(shortfallsOf(recipe, { catalog: without, pantry: { oolong: have(), gaiwan: have() }, on })).toEqual([
+      { kind: "gear", id: "gaiwan", reason: "missing" },
+    ]);
+  });
+
+  it("keeps the same gear whatever the cups", () => {
+    expect(scaleRecipe(gongfu, 6).gear).toEqual(gongfu.gear);
+  });
+
+  it("is never taken off the pantry", () => {
+    expect(plannedTakes(recipe, { oolong: have(50), gaiwan: have() })).toEqual([{ id: "oolong", qty: 5 }]);
+  });
+
+  it("can be the purchase that unlocks the most", () => {
+    const content = catalog([
+      gongfu,
+      blend("010", {
+        ingredients: [{ id: "green-tea", qty: 3, unit: "g", optional: false, role: "base" }],
+        gear: [{ id: "gaiwan", optional: false }],
+      }),
+      blend("011", { ingredients: [{ id: "mint", qty: 4, unit: "g", optional: false, role: "base" }] }),
+    ]);
+    const pantry = { oolong: have(), "green-tea": have() };
+    const counts = unlockCounts(
+      content.blends.map((b) => scaleRecipe(b, 1)),
+      { catalog: content, pantry, on },
+    );
+    expect(Object.fromEntries(counts)).toEqual({ gaiwan: 2, mint: 1 });
+    expect(topUnlocks(counts, 1)).toEqual([{ id: "gaiwan", count: 2 }]);
   });
 });
 

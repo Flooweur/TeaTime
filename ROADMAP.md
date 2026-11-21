@@ -20,7 +20,7 @@ Each phase is a branch and a pull request, merged only after the owner's yes. Ea
 
 Phase 4 depends only on phase 1, so it can run alongside phases 3, 5 and 6. Later content batches (the other 80 blends, then the two guides) follow the same review, in batches of 15.
 
-**Gear** (decision of 2026-11-20) is in the content from batch 1. Core's pantry and draw learn it in a small PR once phase 3 is merged, so phase 3's PR isn't reopened.
+**Gear** (decision of 2026-11-20) is in the content from batch 1. Core's pantry and draw learned it in a small PR after phase 3 was merged: a blend whose required gear is missing isn't drawn, and gear counts among the purchases that unlock the most.
 
 ## Decisions log
 Asked of the owner and answered, newest first. The SPEC states each as a rule.
@@ -28,6 +28,9 @@ Asked of the owner and answered, newest first. The SPEC states each as a rule.
 ### 2026-11-21: the backend (phase 5)
 - **No command counts twice** without the snapshot listing the ids it holds, a list that would only grow: a phone with unsent commands syncs by sending them, and the answer has a result for each, a resend's included (SPEC §3.3).
 - **The CSV export:** one row per cup made, oldest first, with `date`, `time`, `tea`, `name`, `cups`, `place`, `rating` and `colleague_rating` (SPEC §3.4).
+
+### 2026-11-21: gear in core
+- **What gear can't hold is refused, not ignored:** `pantry.set` for a piece of gear with an amount, an opened date or *kept at the office* is refused with `gear_have_only`. Restating `null` or `false` is accepted (SPEC §3.3).
 
 ### 2026-11-21: content batch 1 (phase 4)
 - **The list** (approved on 2026-11-20), coded 001–010 in this order, forever:

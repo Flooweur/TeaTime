@@ -110,6 +110,20 @@ describe("the rules that always hold (SPEC §2.3, step 1)", () => {
     expect(drawn(withTea(), overnightOnly, { timing: "same-day", reason: "redraw" })).toBe("plain");
   });
 
+  it("never draws a blend whose gear the owner lacks, and names that gear as the purchase", () => {
+    const gongfu = blend("001", { mode: "experimental", gear: [{ id: "gaiwan", optional: false }] });
+    const content = catalog([gongfu]);
+    const home = { ...first, type: "home" } as const;
+    expect(drawPick(withTea(), content, TODAY, home)).toEqual({ kind: "plain", tea: "black-tea", unlock: "gaiwan" });
+    const bought = state({ pantry: { "black-tea": have(), gaiwan: have() } });
+    expect(drawn(bought, content, home)).toBe("001");
+  });
+
+  it("draws a blend whose optional gear the owner lacks", () => {
+    const content = catalog([blend("001", { gear: [{ id: "thermometer", optional: true }] })]);
+    expect(drawn(withTea(), content)).toBe("001");
+  });
+
   it("never draws the blend a swap replaces", () => {
     const content = catalog([blend("001"), blend("002")]);
     for (let attempt = 1; attempt < 10; attempt++) {

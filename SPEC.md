@@ -230,10 +230,10 @@ The owner's state is tiny: the pantry, picks, brews, marks and settings. So the 
 | `brew.removed` | `brew` | Undo: puts back what it took where it can, and reopens its pick |
 | `pick.skipped`, `pick.unskipped` | `date` | pending ⇄ skipped |
 | `pick.packed` | `date`, `cups` | An office kit packed for those cups |
-| `pantry.set` | `ingredient`, `have?`, `amount?`, `openedOn?`, `atOffice?` | Last writer wins, per field. `amount` is a measurement: what is left |
+| `pantry.set` | `ingredient` (an ingredient's or a piece of gear's id), `have?`, `amount?`, `openedOn?`, `atOffice?` | Last writer wins, per field. `amount` is a measurement: what is left. A piece of gear takes `have` alone (§2.6) |
 | `blend.marked` | `blend`, `favourite?`, `makeAgain?`, `notForMe?` | Last writer wins, per mark |
 
-A refusal has a `code`: `duplicate`, `future_date`, `unknown_tea`, `unknown_blend`, `unknown_ingredient`, `not_found`, `no_pick`, `already_made`, `cancelled`, `not_pending`, `not_office`, `nothing_to_pack`; `parseCommand`'s own are `invalid` and `unsupported_version`, with a `problem`, and the server's is `server_error`. An accepted command may carry notes: `no_change` (a more recent change won, or nothing was to do), `pick_gone`, `different_tea`, `not_restored` (with the ingredient).
+A refusal has a `code`: `duplicate`, `future_date`, `unknown_tea`, `unknown_blend`, `unknown_ingredient` (no ingredient or gear has that id), `gear_have_only` (an amount, an opened date or *kept at the office* for a piece of gear; null and false are fine), `not_found`, `no_pick`, `already_made`, `cancelled`, `not_pending`, `not_office`, `nothing_to_pack`; `parseCommand`'s own are `invalid` and `unsupported_version`, with a `problem`, and the server's is `server_error`. An accepted command may carry notes: `no_change` (a more recent change won, or nothing was to do), `pick_gone`, `different_tea`, `not_restored` (with the ingredient).
 
 **What needs the server** (`packages/core/src/state/online.ts`, pure too):
 - `drawDue` (the notifier's draws), `drawNow` (the app's), `swapPick`;

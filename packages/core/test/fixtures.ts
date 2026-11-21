@@ -5,6 +5,7 @@ import {
   type Catalog,
   type Command,
   DEFAULT_SETTINGS,
+  type Gear,
   type Ingredient,
   type PantryEntry,
   type PickRecord,
@@ -97,8 +98,18 @@ export const TEA_TYPES: readonly TeaType[] = [
   teaType("oolong", 2, 150),
 ];
 
-export function catalog(blends: readonly Blend[], ingredients: readonly Ingredient[] = INGREDIENTS): Catalog {
-  return catalogOf({ hash: "test", blends, ingredients, teaTypes: TEA_TYPES });
+export function gear(id: string, overrides: Partial<Gear> = {}): Gear {
+  return { id, name: id, quality: "Good.", shops: [], retired: false, ...overrides };
+}
+
+export const GEAR: readonly Gear[] = [gear("gaiwan", { name: "Gaiwan" }), gear("thermometer", { name: "Thermometer" })];
+
+export function catalog(
+  blends: readonly Blend[],
+  ingredients: readonly Ingredient[] = INGREDIENTS,
+  pieces: readonly Gear[] = GEAR,
+): Catalog {
+  return catalogOf({ hash: "test", blends, ingredients, gear: pieces, teaTypes: TEA_TYPES });
 }
 
 /** An ingredient the owner has: an amount, or untracked. Stamped at time 1, before any test's commands. */
