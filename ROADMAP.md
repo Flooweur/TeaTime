@@ -20,7 +20,7 @@ Each phase is a branch and a pull request, merged only after the owner's yes. Ea
 
 Phase 4 depends only on phase 1, so it can run alongside phases 3, 5 and 6. Later content batches (the other 80 blends, then the two guides) follow the same review, in batches of 15.
 
-**Gear** (decision of 2026-11-20) is in the content from batch 1. Core's pantry and draw learn it in a small PR once phase 3 is merged, so phase 3's PR isn't reopened.
+**Gear** (decision of 2026-11-20) is in the content from batch 1. Core's pantry and draw learned it in a small PR after phase 3 was merged: a blend whose required gear is missing isn't drawn, and gear counts among the purchases that unlock the most.
 
 ## Decisions log
 Asked of the owner and answered, newest first. The SPEC states each as a rule.

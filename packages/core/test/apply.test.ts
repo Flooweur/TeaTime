@@ -367,6 +367,29 @@ describe("pantry.set", () => {
       code: "unknown_ingredient",
     });
   });
+
+  it("sets a piece of gear to have or don't have, with no opened date (SPEC §2.6)", () => {
+    const bought = apply(state(), set({ have: true }, at(MONDAY), "gaiwan"));
+    expect(bought.result).toEqual({ ok: true, notes: [] });
+    expect(bought.touched.pantry).toEqual(["gaiwan"]);
+    expect(bought.state.pantry["gaiwan"]).toMatchObject({
+      have: { value: true },
+      amount: { value: null },
+      openedOn: { value: null },
+      atOffice: { value: false },
+    });
+    const broken = apply(bought.state, set({ have: false }, at("2026-11-24"), "gaiwan")).state;
+    expect(broken.pantry["gaiwan"]?.have.value).toBe(false);
+  });
+
+  it("refuses an amount, an opened date or the office for a piece of gear", () => {
+    for (const payload of [{ amount: 1 }, { amount: null }, { openedOn: MONDAY }, { atOffice: true }]) {
+      expect(apply(state(), set({ have: true, ...payload }, at(MONDAY), "gaiwan")).result).toEqual({
+        ok: false,
+        code: "gear_have_only",
+      });
+    }
+  });
 });
 
 describe("blend.marked", () => {

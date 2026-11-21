@@ -98,7 +98,10 @@ export interface Marks {
   readonly notForMe: Stamped<boolean>;
 }
 
-/** One ingredient in the pantry (SPEC §2.6). An ingredient without an entry is *don't have*. */
+/**
+ * One ingredient or piece of gear in the pantry (SPEC §2.6). Without an entry, it is *don't have*.
+ * Gear only uses *have*: its amount and opened date stay null, and it is never at the office.
+ */
 export interface PantryEntry {
   readonly have: Stamped<boolean>;
   /** What is left, in the ingredient's unit; null when it isn't tracked. */
@@ -114,7 +117,7 @@ export interface State {
   readonly overrides: Readonly<Record<string, DayType>>;
   /** In the order they were added. */
   readonly away: readonly AwayPeriod[];
-  /** By ingredient id. */
+  /** By ingredient or gear id. */
   readonly pantry: Readonly<Record<string, PantryEntry>>;
   /** By date. */
   readonly picks: Readonly<Record<string, PickRecord>>;
