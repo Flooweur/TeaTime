@@ -1,0 +1,25 @@
+id: hojicha
+name: Hojicha
+category: tea
+unit: g
+tea_type: green
+perishable: false
+shelf_life_days: 180
+storage: "Airtight, cool and dark; once opened, use it soon, and keep it out of the fridge."
+quality: "Roasted Japanese bancha or sencha, brown rather than green: leaves, or stems only (kuki hojicha, Kaga bōcha). It is bulky: 12 g is about 5 tablespoons."
+shops:
+  - shop: palais-des-thes-lyon
+    why: "Bancha Hojicha, organic, roasted Japanese green tea."
+    price: "€12.00 / 100 g"
+    url: https://www.palaisdesthes.com/fr/bancha-hojicha-bio.html
+    checked: 2026-11-21
+  - shop: dammann-freres-lyon
+    why: "Houjicha, roasted, made from bancha."
+    price: "€16.30 / 100 g"
+    url: https://www.dammann.fr/fr/the-du-japon-houjicha.html
+    checked: 2026-11-21
+  - shop: jardins-de-gaia
+    why: "Organic hojicha from Kirishima, Kagoshima."
+    price: "€18.25 / 100 g"
+    url: https://www.jardinsdegaia.com/en/green-tea/140-hojicha.html
+    checked: 2026-11-21

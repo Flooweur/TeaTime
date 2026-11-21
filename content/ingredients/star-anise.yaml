@@ -1,0 +1,24 @@
+id: star-anise
+name: Star anise
+category: spice
+unit: pieces
+perishable: false
+shelf_life_days: 730
+storage: "Airtight, dry and dark: whole stars keep for years."
+quality: "Whole, unbroken stars."
+shops:
+  - shop: bahadourian-lyon
+    why: "Whole star anise from Vietnam."
+    price: "€5.95 / 100 g"
+    url: https://www.bahadourian.com/racines-gousses-ou-batons-de-3a-cannelle-vanille/badiane-entiare-anis-etoila-108.html
+    checked: 2026-11-21
+  - shop: monoprix-lyon-republique
+    why: "Ducros star anise from Vietnam; the page doesn't say whole or ground."
+    price: "€3.29 / 25 g"
+    url: https://courses.monoprix.fr/products/ducros-badiane-anis-%C3%A9toil%C3%A9-25g/MPX_1805224
+    checked: 2026-11-21
+  - shop: ile-aux-epices
+    why: "Whole star anise from China."
+    price: "€2.80 / 25 g"
+    url: https://ileauxepices.com/epices/12-badiane-anis-etoile.html
+    checked: 2026-11-21

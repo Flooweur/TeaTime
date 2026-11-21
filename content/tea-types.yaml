@@ -25,6 +25,37 @@ tea_types:
         primary: true
         supports: [parameters]
         note: "Sencha 2–3 g per 100 ml, 70 °C high grade and 90 °C mid grade; pan-fired green tea takes somewhat hotter water."
+  - type: white
+    name: White tea
+    temp_c: 80
+    temp_range: [70, 80]
+    ratio_g_per_100ml: 2
+    water_ml: 250
+    infusions_s: [420]
+    office: { temp_c: 80, method: "Set the kettle to 80 °C and pour straight onto the leaves.", infusions_s: [420] }
+    notes: "A long Western steep: Palais des Thés gives white teas 5 to 10 minutes."
+    sources:
+      - title: "Thé blanc"
+        author: Palais des Thés
+        url: https://www.palaisdesthes.com/fr/thes/the-blanc/
+        lang: fr
+        primary: true
+        supports: [parameters]
+        note: "White teas at 70–80 °C, 2 g per cup, 5–10 minutes; low-mineral water."
+      - title: "Yin Zhen bio (Grand Cru)"
+        author: Palais des Thés
+        url: https://www.palaisdesthes.com/fr/yin-zhen-2025-fr.html
+        lang: fr
+        primary: true
+        supports: [parameters]
+        note: "In a teapot, 6 g per 30 cl at 80 °C for 7 minutes."
+      - title: "Yin Zhen Silverneedle"
+        author: Thés & Traditions
+        url: https://www.thes-traditions.com/en/rare-tea/yin-zhen-silverneedle
+        lang: en
+        primary: true
+        supports: [parameters]
+        note: "12–15 g per litre, 70–80 °C, low-mineral water."
   - type: oolong
     name: Oolong
     temp_c: 95

@@ -1,0 +1,114 @@
+code: "024"
+slug: silver-needle
+name: Silver needle
+mode: experimental
+family: tea-master
+trust: documented
+source_type: tea-house
+origin: China (Fuding, Fujian)
+story: >
+  Bai hao yin zhen, "white-down silver needle", is made only from the plump, unopened buds of the
+  Fuding Dabai or Dahao bushes, picked in early spring, then simply withered and dried, never fried or
+  rolled. Fuding's white tea has been a protected geographical indication since 2009 and its craft
+  national heritage since 2011. A Qing-era book on Fujian already praises the "green snow buds" of
+  Fuding's Taimu Mountain. Fuding says it first made silver needle in 1796; no document proves it, so
+  that date is a legend.
+difficulty: 2
+flavours: [floral, sweet, hay]
+caffeine: medium
+scaling: per-session
+session_max: 3
+sources:
+  - title: "Yin Zhen bio (Grand Cru)"
+    author: Palais des Thés
+    url: https://www.palaisdesthes.com/fr/yin-zhen-2025-fr.html
+    lang: fr
+    primary: true
+    supports: [parameters]
+    note: "Buds only; teapot 6 g per 30 cl at 80 °C, 7 minutes; gong fu in successive infusions of 30–40 seconds; this lot is from Yunnan, not Fujian."
+  - title: "Thé blanc"
+    author: Palais des Thés
+    url: https://www.palaisdesthes.com/fr/thes/the-blanc/
+    lang: fr
+    primary: true
+    supports: [parameters]
+    note: "White teas at 70–80 °C, 2 g per cup, 5–10 minutes; low-mineral water; in a gaiwan, several infusions; Yin Zhen is from Fujian, buds only."
+  - title: "Yin Zhen Silverneedle"
+    author: Thés & Traditions
+    url: https://www.thes-traditions.com/en/rare-tea/yin-zhen-silverneedle
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "From Fuding; 12–15 g per litre, 70–80 °C, low-mineral water; first steep 1.5–2 minutes, each later one a little longer; a gaiwan, glass or porcelain pot."
+  - title: "Bai Hao Yin Zhen brewing guide"
+    author: TeaSpring
+    url: https://www.teaspring.com/Bai-Hao-Yin-Zhen.asp?section=brew
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "2 g per 150 ml at 85–90 °C; warm the cup and pot first; the first and second infusions 1 minute, later ones longer."
+  - title: "What is Silver Needle White Tea?"
+    author: Oriarm
+    url: https://www.oriarm.com/blog/post/silver-needle-tea-famous-white-tea
+    lang: en
+    supports: [parameters]
+    note: "3 g in 150 ml at about 85 °C, in a porcelain gaiwan; infusions of 45, 60, 90, 105, 140 and 180 seconds."
+  - title: "Enjoy making a bowl of tea!"
+    author: Marukyu Koyamaen (Uji)
+    url: https://www.marukyu-koyamaen.co.jp/leaflet/enjoy_making_en.pdf
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "Water that has boiled, poured into a cup once, comes to 75–85 °C: the way to 80 °C without a thermometer."
+  - title: "About Silver Needle"
+    author: Seven Cups (Tucson)
+    url: https://sevencups.com/learn-about-tea/famous-chinese-tea/about-silver-needle/
+    lang: en
+    primary: true
+    supports: [story]
+    note: "Only Fuding and Zhenghe make it, from buds only; Fuding claims it was invented in 1796; forgiving to brew."
+  - title: "Technical specifications for registration of GI: Fuding Bai Cha"
+    author: "People's Government of Fuding City (EU GI register)"
+    url: https://ec.europa.eu/geographical-indications-register/eambrosia-public-api/api/v1/attachments/65621
+    lang: en
+    primary: true
+    supports: [story]
+    note: "Protected in China on 4 May 2009; native to Taimu Mountain; silver needle from the Fuding Dabai, Fuding Dahao and Gele cultivars, by withering and drying only."
+  - title: "福鼎白茶制作技艺 (The craft of Fuding white tea)"
+    author: "China Intangible Cultural Heritage Network, from China Arts News, 6 January 2023"
+    url: https://www.ihchina.cn/project_details/26422.html
+    lang: zh
+    primary: true
+    supports: [story]
+    note: "On the national heritage list since 2011; Qing-dynasty growers bred Fuding Dabai and Dahao; silver needle is their plump buds, naturally withered, never fried or rolled."
+  - title: "閩小記 (Min Xiao Ji)"
+    author: Zhou Lianggong, on Wikisource
+    url: https://zh.wikisource.org/wiki/%E9%96%A9%E5%B0%8F%E8%A8%98
+    lang: zh
+    supports: [story]
+    note: "Qing-era notes on Fujian; a poem praises Taimu's green snow buds; no date for silver needle."
+  - title: "福鼎白茶主要品质成分冷泡浸出规律研究 (Cold-brew extraction of Fuding white tea)"
+    author: "Song Dongxiao, China Tea Processing 2025(3)"
+    url: https://www.sciopen.com/local/article_pdf/10.15905/j.zgcyjg.2095-0306.2025.03.07.pdf
+    lang: zh
+    supports: [parameters]
+    note: "In a 5-minute boiling brew, silver needle gave 1.49% caffeine against white peony's 2.31%: whole buds extract more slowly."
+ingredients:
+  - { id: silver-needle, qty: 3, unit: g, role: base }
+gear:
+  - { id: gaiwan }
+  - { id: thermometer, optional: true }
+brew:
+  water: soft-bottled
+  temp_c: 80
+  temp_range: [70, 90]
+  ratio_g_per_100ml: 2
+  water_ml: 150
+  vessel: gaiwan
+  preheat: true
+  infusions_s: [45, 60, 90, 105, 140, 180]
+steps:
+  - text: "Heat soft water to 80 °C: without a thermometer, bring it to the boil and pour it once into a jug. Warm the gaiwan and a cup with hot water, then pour it away."
+  - text: "Put the buds in the warm gaiwan. A 150 ml gaiwan takes 3 g; for another size keep the same strength, 2 g per 100 ml."
+  - text: "For each infusion, fill the gaiwan with water at 80 °C (boiled, then poured once into the jug) and put the lid on. When the time is up, pour all of it into the cup, draining the gaiwan, and share it out. Stop when the taste fades."
+    infusions: true

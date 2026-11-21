@@ -1,0 +1,19 @@
+id: sweetened-condensed-milk
+name: Sweetened condensed milk
+category: dairy
+unit: g
+perishable: true
+shelf_life_days: 21
+storage: "Unopened, in the cupboard: set its opened date only when you open it. Once opened, in the fridge: a tube keeps 3 weeks (Régilait), a can 3 days (Nestlé) to 2 weeks (Auchan), so go by its label."
+quality: "Sweetened condensed whole milk (lait concentré sucré), never unsweetened evaporated milk. A tube keeps longest once opened."
+shops:
+  - shop: monoprix-lyon-republique
+    why: "Régilait sweetened condensed whole milk, in a tube."
+    price: "€1.99 / 300 g"
+    url: https://courses.monoprix.fr/products/r%C3%A9gilait-lait-concentr%C3%A9-sucr%C3%A9-entier-tube-300g/MPX_1118535
+    checked: 2026-11-21
+  - shop: auchan-lyon-felix-faure
+    why: "Sweetened condensed whole milk, in a can: 2 weeks in the fridge once opened."
+    price: "€1.67 / 397 g"
+    url: https://www.auchan.fr/auchan-lait-concentre-sucre/pr-C1274236
+    checked: 2026-11-21

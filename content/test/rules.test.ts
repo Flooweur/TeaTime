@@ -42,9 +42,19 @@ describe("the content's gear in core's rules", () => {
     expect(isMakeable(oolong, { catalog, pantry: pantryWith(["gaiwan"]), on })).toBe(true);
   });
 
+  it("keeps the matcha out until both the bowl and the whisk are bought", () => {
+    const matcha = scaleRecipe(catalog.blendByCode.get("023")!, 1);
+    expect(shortfallsOf(matcha, { catalog, pantry: pantryWith(["chawan"]), on })).toEqual([
+      { kind: "gear", id: "chasen", reason: "missing" },
+    ]);
+    expect(isMakeable(matcha, { catalog, pantry: pantryWith(["chawan", "chasen"]), on })).toBe(true);
+  });
+
   it("counts the required gear among the purchases, and never the optional gear", () => {
     const recipes = catalog.blends.map((blend) => scaleRecipe(blend, 1));
     const counts = unlockCounts(recipes, { catalog, pantry: pantryWith([]), on });
-    expect(Object.fromEntries(counts)).toEqual({ gaiwan: 1, "tea-sock": 1 });
+    // The gaiwan unlocks the oolong and the silver needle. The matcha needs the chawan and the
+    // chasen together, so neither alone unlocks anything.
+    expect(Object.fromEntries(counts)).toEqual({ gaiwan: 2, "tea-sock": 1 });
   });
 });

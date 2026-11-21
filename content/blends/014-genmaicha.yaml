@@ -1,0 +1,93 @@
+code: "014"
+slug: genmaicha
+name: Genmaicha
+mode: safe
+family: household
+trust: attested
+source_type: tea-house
+origin: Japan (Kyoto)
+story: >
+  Genmaicha is Japanese green tea, sencha or bancha, mixed with roasted rice, often half and half.
+  Hekisuien, a Kyoto tea house founded in 1867, says a former president, Horii Kishirō, created the
+  blend in the Taishō era and sold it from 1923 as Hanayanagi; of the several stories, the house says,
+  only his has a firm date. The older tale, households stretching costly tea with rice, is a legend
+  that no source dates. Japan's farm ministry brews it like bancha, with boiling water for about 30
+  seconds, for its toasty aroma.
+difficulty: 1
+flavours: [toasty, nutty]
+caffeine: low
+scaling: per-cup
+serves: 2
+sources:
+  - title: "The proper way to brew Nihoncha"
+    author: "Ministry of Agriculture, Forestry and Fisheries of Japan (MAFF)"
+    url: https://www.maff.go.jp/j/seisan/tokusan/cha/attach/pdf/tea_export-7.pdf
+    lang: en
+    primary: true
+    supports: [recipe, parameters]
+    note: "Bancha (genmaicha, houjicha): 2–3 g per 100 ml, boiling water, about 30 seconds; pour into each cup in turn, down to the last drop; a second infusion with boiling water, poured out at once; the leaves soak up about 4 times their weight; soft water."
+  - title: "Basic Bancha (Hojicha, Genmaicha, etc.)"
+    author: Ippodo Tea
+    url: https://global.ippodo-tea.co.jp/blogs/tea-recipe/basic-bancha-hojicha-genmaicha
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "10 g (genmaicha: 2 tablespoons) in 240 ml at 100 °C, boiling vigorously; serve 30 seconds after you start pouring."
+  - title: "Hojicha (how to brew)"
+    author: "World Green Tea Association (O-CHA NET, Shizuoka)"
+    url: https://www.o-cha.net/english/culture/Japanesetea-hojicha.html
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "3 g and about 130 ml per person, boiling water, about 30 seconds; warm the pot and cups first; bancha and genmaicha are brewed the same way."
+  - title: "Brewing – Genmaicha"
+    author: Hibiki-an (Ujitawara, Kyoto)
+    url: https://www.hibiki-an.com/contents.php/cnID/34
+    lang: en
+    supports: [parameters]
+    note: "For 2 cups, 7–8 g in 200 ml at 80 °C for 1 minute: the cooler outlier."
+  - title: "碧翆園 (Hekisuien)"
+    author: Hekisuien (Jōyō, Kyoto)
+    url: https://ujicha.co.jp/
+    lang: ja
+    primary: true
+    supports: [story]
+    note: "A former president, Horii Kishirō, created the tea-and-rice blend in the Taishō era; refused a patent as too simple, it was sold from 1923 under the trademark Hanayanagi; said to be the first genmaicha, the only theory with a clear date."
+  - title: "The Story of Genmaicha"
+    author: Chikiriya Tea House (Kyoto)
+    url: https://kyo-chikiriya.shop/blogs/chikiriya_blog_about_tea/the-story-of-genmaicha
+    lang: en
+    supports: [story]
+    note: "Three tales: households stretching costly tea with roasted rice (undated), a servant named Genmai (likely fictitious), a Kyoto merchant roasting leftover New Year mochi."
+  - title: "玄米茶 (Genmaicha)"
+    author: Wikipedia (ja)
+    url: https://ja.wikipedia.org/wiki/%E7%8E%84%E7%B1%B3%E8%8C%B6
+    lang: ja
+    supports: [story]
+    note: "Tea and rice in about equal parts; several theories of its origin, including Kyoto houses that claim the Taishō era."
+  - title: "カフェインの過剰摂取について (On excess caffeine)"
+    author: "MAFF, Food Safety Policy Division"
+    url: https://www.maff.go.jp/j/syouan/seisaku/risk_analysis/priority/hazard_chem/caffeine.html
+    lang: ja
+    primary: true
+    supports: [parameters]
+    note: "From Japan's food composition tables: genmaicha 10 mg of caffeine per 100 ml, sencha 20."
+ingredients:
+  - { id: genmaicha, qty: 12, unit: g, role: base }
+brew:
+  water: soft-bottled
+  temp_c: 100
+  temp_range: [80, 100]
+  ratio_g_per_100ml: 2.2
+  water_ml: 550
+  vessel: teapot
+  preheat: true
+  infusions_s: [30]
+steps:
+  - text: "Bring fresh water to a full boil. Rinse the teapot and the two mugs with a splash of it and empty them."
+    office: "Set the kettle to 100 °C. Rinse the teapot and the two mugs with a splash and empty them."
+  - text: "Put the leaves in the teapot and pour on all the water at a full boil: the time runs from the start of the pour. The extra 50 ml is what the leaves soak up."
+    office: "Put the leaves in the teapot and pour straight from the kettle at 100 °C."
+    infusions: true
+  - text: "Pour into the two mugs in turns, a little at a time, down to the last drop. For a second pot, pour boiling water on the same leaves and pour it out at once."
+    office: "Pour into the two mugs in turns, down to the last drop. For a second pot, refill from the kettle and pour it out at once."

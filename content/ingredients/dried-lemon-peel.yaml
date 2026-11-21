@@ -1,0 +1,19 @@
+id: dried-lemon-peel
+name: Dried lemon peel
+category: citrus
+unit: g
+perishable: false
+shelf_life_days: 365
+storage: "Airtight, dry and dark; it keeps a long time, but its scent fades."
+quality: "Dried lemon peel, cut, with nothing added: not candied."
+shops:
+  - shop: ile-aux-epices
+    why: "Dried lemon peel from Spain, no additives."
+    price: "€2.90 / 50 g"
+    url: https://ileauxepices.com/fruits-secs/397-ecorce-citron.html
+    checked: 2026-11-21
+  - shop: soin-et-nature
+    why: "Lemon peel, cut, from an herbalist's range."
+    price: "€11.92 / 100 g"
+    url: https://www.soin-et-nature.com/fr/5334-citron-ecorce-coupee-iphym-herboristerie-citrus-limonium.html
+    checked: 2026-11-21

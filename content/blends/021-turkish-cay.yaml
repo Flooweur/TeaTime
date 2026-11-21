@@ -1,0 +1,72 @@
+code: "021"
+slug: turkish-cay
+name: Turkish çay
+mode: experimental
+family: household
+trust: documented
+source_type: chef
+origin: Türkiye (Rize)
+story: >
+  Türkiye grows its own tea because the state set out to: a 1924 law covered tea growing around Rize,
+  on the eastern Black Sea, and the first leaf and the first dry tea came in 1938, by ÇAYKUR, the state
+  tea company. At home it is brewed strong in a two-tier pot, the tea steeping on top of the water
+  boiling below, and each glass is cut with hot water, dark (koyu) or light (açık). In 2022 UNESCO
+  listed the culture of çay, shared with Azerbaijan, as a mark of hospitality.
+difficulty: 1
+flavours: [brisk, clean]
+caffeine: medium
+scaling: per-cup
+serves: 2
+sources:
+  - title: "Çaykur'un Tarihçesi (ÇAYKUR's history)"
+    author: ÇAYKUR
+    url: https://www.caykur.gov.tr/Pages/Kurumsal/KurumHakkinda.aspx?ItemId=6
+    lang: tr
+    primary: true
+    supports: [story]
+    note: "Law No. 407 of 1924 covered tea, hazelnut and citrus growing in Rize and Borçka; seed from Batum from 1937; the first fresh leaf and the first dry tea in 1938."
+  - title: "Turkish Tea (Çay)"
+    author: "Ayla Clulee, Cooking Gorgeous, 2024 (updated 2026)"
+    url: https://cookingorgeous.com/blog/turkish-tea-cay/
+    lang: en
+    primary: true
+    supports: [recipe, parameters]
+    note: "A Cordon Bleu-trained chef: for 6, 3 tablespoons of loose black tea, about 500 ml of boiling water over the leaves, 10–15 minutes on low heat until the leaves sink; a third of a glass of tea, topped up with hot water; with a saucepan, set a heatproof teapot on it in place of its lid."
+  - title: "Tips on How to Make Turkish Tea"
+    author: Go Türkiye (Türkiye Tourism Promotion and Development Agency)
+    url: https://goturkiye.com/tips-on-how-to-make-turkish-tea
+    lang: en
+    supports: [recipe, parameters]
+    note: "Boiling water on the leaves in the top pot; stack the pots, wait for the bottom to boil again, brew on the lowest heat 10–15 minutes; a quarter glass of tea topped up with boiling water; sugar on the side."
+  - title: "Culture of Çay (tea), a symbol of identity, hospitality and social interaction"
+    author: UNESCO Intangible Cultural Heritage
+    url: https://ich.unesco.org/en/RL/01685
+    lang: en
+    supports: [story]
+    note: "Inscribed in 2022 for Azerbaijan and Türkiye; mainly black tea, served hot in pear-shaped glasses; a mark of hospitality."
+  - title: "Çay neden acı ve bulanık olur? (Why does tea turn bitter and cloudy?)"
+    author: "Erhan İmamoğlu, İşin Olsa, 29 October 2026"
+    url: https://www.isinolsa.com/cay-neden-aci-ve-bulanik-olur-tavsan-kani-dem-icin-5-puf-noktasi/
+    lang: tr
+    supports: [parameters]
+    note: "Reports ÇAYKUR's Rize Turist label: 2 teaspoons of tea per glass, limescale-free water, 13–15 minutes; the brew must not boil."
+  - title: "Tea in Turkey"
+    author: Wikipedia
+    url: https://en.wikipedia.org/wiki/Tea_in_Turkey
+    lang: en
+    supports: [story]
+    note: "Water from the bottom pot dilutes each serving: koyu is dark, açık light."
+ingredients:
+  - { id: rize-black-tea, qty: 6, unit: g, role: base }
+brew:
+  water: filtered
+  temp_c: 100
+  water_ml: 600
+  vessel: teapot
+  preheat: false
+  infusions_s: [720]
+steps:
+  - text: "Boil the water in a saucepan. Put the tea in a metal or heatproof teapot that sits steady on the pan."
+  - text: "Pour about a third of the boiling water over the leaves, set the teapot on the saucepan in place of its lid, and turn the heat to its lowest. Leave it until the leaves sink, never letting the top boil. If your teapot can't sit on the pan, put its own lid on and give it a few minutes longer."
+    infusions: true
+  - text: "Pour the tea into each glass or mug, a quarter to a third full, and top it up with boiling water from the saucepan: more tea for koyu, less for açık. Sugar on the side, if you like; try it plain first."

@@ -1,0 +1,82 @@
+code: "020"
+slug: london-fog
+name: London Fog
+mode: experimental
+family: earl-grey
+trust: legend
+source_type: tea-house
+origin: Canada (Vancouver)
+story: >
+  The London Fog, Earl Grey with steamed milk and vanilla, is said to come from Vancouver, though
+  Twinings calls its creator unknown. The usual account, a legend, credits Mary Loria: pregnant in the
+  1990s and off coffee, she asked the Buckwheat Café for Earl Grey with steamed milk, sweetened with
+  its vanilla sugar. She tells it herself, decades later, but doesn't know who named it, and grants
+  that others may have had the same idea. There are rival claims, and Murchie's archives from the
+  1990s show no London Fog.
+difficulty: 2
+flavours: [creamy, vanilla, bergamot]
+caffeine: medium
+scaling: per-cup
+serves: 1
+sources:
+  - title: "London Fog"
+    author: Twinings
+    url: https://twinings.co.uk/blogs/recipes/london-fog
+    lang: en
+    primary: true
+    supports: [recipe, story]
+    note: "1 Earl Grey bag in 100 ml of freshly boiled water, 2–3 minutes; vanilla syrup; topped with steamed milk; said to have originated in Vancouver, its creator unknown."
+  - title: "London Fog Tea Latte"
+    author: America's Test Kitchen
+    url: https://www.americastestkitchen.com/recipes/15570-london-fog-tea-latte
+    lang: en
+    supports: [recipe, parameters]
+    note: "1½ teaspoons of Earl Grey and a cracked cardamom pod in ½ cup of water at 208 °F, covered, 5 minutes; ½ cup of milk with ¼–½ teaspoon of vanilla extract heated to 140–155 °F, about 5 minutes; whisked hard off the heat for 2 minutes."
+  - title: "Earl Grey Lavender"
+    author: Rishi Tea
+    url: https://www.rishi-tea.com/products/organic-earl-grey-lavender-black-tea
+    lang: en
+    primary: true
+    supports: [recipe]
+    note: "For a London Fog: an extra-strong infusion, steamed milk and a touch of lavender honey."
+  - title: "The London Fog's history is anything but clear"
+    author: "Jennifer Billock, Imbibe, 20 January 2026"
+    url: https://imbibemagazine.com/history-of-the-london-fog-tea/
+    lang: en
+    supports: [story]
+    note: "Mary Loria, interviewed: Earl Grey with steamed milk and the café's vanilla sugar at the Buckwheat Café, mid-1990s; others may have invented it too; a rival claim from Langley, Washington; Murchie's 1990s archives show no London Fog."
+  - title: "What is a London Fog?"
+    author: "Liz Clayton, Sprudge, 13 March 2023"
+    url: https://sprudge.com/what-is-a-london-fog-202286.html
+    lang: en
+    supports: [story]
+    note: "Loria, off coffee while pregnant, asked for Earl Grey with steamed milk and vanilla sugar; who named it is a mystery."
+  - title: "London fog (drink)"
+    author: Wikipedia
+    url: https://en.wikipedia.org/wiki/London_fog_(drink)
+    lang: en
+    supports: [story]
+    note: "1990s, Vancouver, Mary Loria."
+ingredients:
+  - { id: earl-grey, qty: 3, unit: g, role: base }
+  - { id: whole-milk, qty: 120, unit: ml, role: base }
+  - { id: vanilla-extract, qty: 2, unit: ml, role: accent }
+  - { id: green-cardamom, qty: 1, unit: pieces, role: accent, optional: true }
+gear:
+  - { id: thermometer, optional: true }
+brew:
+  water: tap
+  temp_c: 98
+  temp_range: [95, 100]
+  ratio_g_per_100ml: 2.5
+  water_ml: 120
+  vessel: mug
+  preheat: false
+  infusions_s: [300]
+steps:
+  - text: "Put the leaves in a mug, with a cracked cardamom pod if you like. Pour the water just off the boil, cover, and steep: a strong brew, to stand up to the milk."
+    infusions: true
+  - text: "While it steeps, heat the milk with the vanilla in a small saucepan over medium heat until it steams, about 5 minutes: 60–68 °C, well short of the boil."
+  - text: "Off the heat, whisk the milk hard until it foams."
+    timer_s: 120
+  - text: "Take out the leaves, sweeten to taste if you like, pour the milk over the tea and spoon the foam on top."

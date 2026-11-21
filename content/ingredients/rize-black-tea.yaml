@@ -1,0 +1,20 @@
+id: rize-black-tea
+name: Turkish black tea (Rize)
+category: tea
+unit: g
+tea_type: black
+perishable: false
+shelf_life_days: 365
+storage: "Airtight, away from light and smells."
+quality: "Loose Turkish black tea from Rize on the Black Sea, such as ÇAYKUR Rize Turist; not tea bags. It is fine-cut and astringent, and a little makes a lot of brew."
+shops:
+  - shop: palamarket
+    why: "ÇAYKUR Rize Turist; no Lyon shop lists it online."
+    price: "€3.99 / 500 g"
+    url: https://www.palamarket.fr/the-de-touriste-caykur-rize-g
+    checked: 2026-11-21
+  - shop: epicerie-saint-brieuc
+    why: "ÇAYKUR Rize Turist; the page's description says 1 kg, its option 500 g."
+    price: "€4.49 / 500 g"
+    url: https://epicerie-saintbrieuc.fr/produit/the-caykur/
+    checked: 2026-11-21

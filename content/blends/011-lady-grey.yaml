@@ -1,0 +1,89 @@
+code: "011"
+slug: lady-grey
+name: Lady Grey
+mode: safe
+family: earl-grey
+trust: documented
+source_type: tea-house
+origin: England
+story: >
+  Lady Grey is Twinings' own blend and trademark: an Earl Grey with orange and lemon peel and only a
+  hint of bergamot. Twinings says it created it in the early 1990s for the Nordic market, which found
+  Earl Grey too strong; it went on sale in Norway in 1994 and in Britain in 1996. It is named after
+  Mary Elizabeth Grey, wife of the 2nd Earl Grey. No tea house gives a home share of peel, so the
+  peels here are an estimate, more than the blend's few percent: its citrus flavouring isn't in them.
+difficulty: 1
+flavours: [citrus, bergamot]
+caffeine: medium
+scaling: per-cup
+serves: 2
+sources:
+  - title: "Earl Grey Flavours from Twinings: Discover our Range"
+    author: Twinings
+    url: https://twinings.co.uk/blogs/news/earl-grey-flavours-twinings-discover-our-range
+    lang: en
+    primary: true
+    supports: [story]
+    note: "Created and trademarked by Twinings in the early 1990s for the Nordic market, which found Earl Grey too strong; first sold in Norway in 1994 and in Britain in 1996; Earl Grey with lemon and orange peel."
+  - title: "Lady Grey Loose Tea Caddy 100g"
+    author: Twinings
+    url: https://twinings.co.uk/products/lady-grey-loose-tea-caddy-100g
+    lang: en
+    primary: true
+    supports: [recipe, parameters, story]
+    note: "Black tea, orange peel 3%, lemon peel 2%, cornflowers, citrus flavouring; one heaped teaspoon per person, boiling water, 3–4 minutes; black, or with a slice of lemon or orange."
+  - title: "All about Earl Grey"
+    author: Twinings Australia
+    url: https://twinings.com.au/blogs/all-about-tea/all-about-earl-grey-1
+    lang: en
+    primary: true
+    supports: [story]
+    note: "A more delicate Earl Grey with a hint of bergamot; the lemon and orange peel give a soft citrus character."
+  - title: "How to make a cup of tea perfectly"
+    author: Twinings
+    url: https://twinings.co.uk/blogs/news/how-to-make-a-cup-of-tea-perfectly
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "About 1 teaspoon (2 g) of loose tea per person; freshly drawn water; warm the pot or cup first."
+  - title: "Darling Grey loose tea"
+    author: Whittard of Chelsea
+    url: https://www.whittard.com/products/darling-grey-loose-tea
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "A comparable Earl Grey with orange and lemon peel 2% each; 1 teaspoon per 200 ml, 95–98 °C, 3–5 minutes."
+  - title: "Lady Grey"
+    author: Tregothnan
+    url: https://tregothnan.co.uk/blogs/time-for-tea/lady-grey
+    lang: en
+    supports: [story, parameters]
+    note: "Created by Twinings in the 1990s with 3% orange peel; named for Mary Elizabeth Grey, wife of the 2nd Earl Grey; brewed below 90 °C, an outlier."
+  - title: "Lady Grey (tea)"
+    author: Wikipedia
+    url: https://en.wikipedia.org/wiki/Lady_Grey_(tea)
+    lang: en
+    supports: [story]
+    note: "The same dates; the name is a Twinings trademark."
+ingredients:
+  - { id: earl-grey, qty: 6, unit: g, role: base }
+  - { id: dried-orange-peel, qty: 1, unit: g, role: accent }
+  - { id: dried-lemon-peel, qty: 0.5, unit: g, role: accent }
+  - { id: lemon, qty: 2, unit: pieces, role: garnish, optional: true }
+brew:
+  water: tap
+  temp_c: 95
+  temp_range: [90, 100]
+  ratio_g_per_100ml: 1.2
+  water_ml: 500
+  vessel: teapot
+  preheat: true
+  infusions_s: [240]
+steps:
+  - text: "Boil fresh water. Warm the teapot with a swirl of it and pour it away."
+    office: "Set the kettle to 95 °C. Warm the teapot with a swirl of hot water and pour it away."
+  - text: "Put the leaves and both peels in the teapot, pour the water and put the lid on. The peels' weights are an estimate: taste, and adjust them next time."
+    office: "Put the leaves and the peels in the teapot, pour the water and put the lid on."
+    infusions: true
+  - text: "Pour into the cups, plain or with a thin slice of lemon in each, as Twinings serves it."
+    office: "Pour into the two mugs, with a lemon slice in each if you packed one."

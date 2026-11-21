@@ -1,0 +1,25 @@
+id: keemun
+name: Keemun black tea
+category: tea
+unit: g
+tea_type: black
+perishable: false
+shelf_life_days: 365
+storage: "Airtight, away from light and smells."
+quality: "Qimen gongfu black tea from Qimen County, Anhui: thin, tight, dark whole-leaf strands (Hao Ya, Mao Feng or F.O.P. grades). Avoid Keemun-style teas grown elsewhere, such as Hubei."
+shops:
+  - shop: dammann-freres-lyon
+    why: "Grand Keemun F.O.P., China, a superior grade."
+    price: "€11.70 / 100 g"
+    url: https://www.dammann.fr/fr/grand-keemun-fop.html
+    checked: 2026-11-21
+  - shop: teaspring
+    why: "Keemun Hao Ya A from Qimen County, spring 2026, a top grade."
+    price: "$10.50 / 25 g"
+    url: https://www.teaspring.com/Keemun-Hao-Ya-A.asp
+    checked: 2026-11-21
+  - shop: ile-aux-epices
+    why: "Keemun from China, the cheapest; the page doesn't name Qimen."
+    price: "€6.50 / 100 g"
+    url: https://ileauxepices.com/thes-noirs/157-the-noir-keemun.html
+    checked: 2026-11-21

@@ -1,0 +1,81 @@
+code: "025"
+slug: teh-tarik
+name: Teh tarik
+mode: experimental
+family: household
+trust: documented
+source_type: tea-house
+origin: Malaysia
+story: >
+  Teh tarik is Malay for "pulled tea": strong tea and condensed milk poured from one vessel to another,
+  the pouring hand raised high, to mix, cool and froth it. Its roots lie with the Indian Muslim
+  immigrants who ran food stalls in Malaya, forebears of today's mamak stalls. The popular account,
+  told as tradition, has post-war vendors using cheap tea dust, softened with condensed milk;
+  Singapore claims the drink too. In 2024 UNESCO named it the drink of Malaysia's breakfast culture.
+difficulty: 2
+flavours: [sweet, creamy, strong]
+caffeine: high
+scaling: per-cup
+serves: 1
+sources:
+  - title: "Celebrate Merdeka with the perfect cup of teh tarik"
+    author: BOH Plantations
+    url: https://bohtea.com/?p=26717
+    lang: en
+    primary: true
+    supports: [recipe, parameters]
+    note: "For 4–5: about 30 g of strong black tea in 1000 ml of freshly boiled water, about 10 minutes, strained; per 200 ml cup, 3 tablespoons of evaporated milk and 2 of condensed milk; poured between two cups over the sink, 3 times or until frothy."
+  - title: "Teh tarik: Malaysia's iconic art of 'pulled tea'"
+    author: "Kanyakumari Damodaran, Arab News, Kuala Lumpur, 31 January 2025"
+    url: https://www.arabnews.pk/node/2588529
+    lang: en
+    primary: true
+    supports: [story, recipe]
+    note: "From the Mamak community, descendants of Indian Muslims; tea master Senthil Kumar alternates short and long pulls; too much condensed milk makes it too dense to froth."
+  - title: "From tea hills to mamak stalls: Malaysia's story in every cup"
+    author: "Joseph Tek Choon Yee, The Star (Malaysia), 9 November 2026"
+    url: https://www.thestar.com.my/business/insight/2026/11/09/from-tea-hills-to-mamak-stalls-malaysias-story-in-every-cup
+    lang: en
+    supports: [story]
+    note: "Roots with Indian Muslim immigrants who ran food stalls in Malaya; pouring between two vessels blends, cools and froths it."
+  - title: "Breakfast culture in Malaysia: dining experience in a multi-ethnic society"
+    author: UNESCO Intangible Cultural Heritage
+    url: https://ich.unesco.org/en/RL/breakfast-culture-in-malaysia-dining-experience-in-a-multi-ethnic-society-02113
+    lang: en
+    supports: [story]
+    note: "Inscribed in 2024; names teh tarik as the drink, beside nasi lemak and roti canai."
+  - title: "Teh Tarik"
+    author: "Grace Teo, Nyonya Cooking"
+    url: https://www.nyonyacooking.com/recipes/teh-tarik~BJSmOwiDMqZ7
+    lang: en
+    supports: [recipe, parameters]
+    note: "3 teaspoons of Ceylon tea in 250 ml, 3 minutes; condensed milk; no more than 5 transfers or it goes cold; outside Malaysia, use Ceylon tea."
+  - title: "Teh tarik"
+    author: TheSmartLocal Malaysia, 3 March 2025
+    url: https://thesmartlocal.my/teh-tarik/
+    lang: en
+    supports: [story]
+    note: "Widely believed to date from just after the Second World War: stalls used cheap tea dust, with condensed milk to soften the bitterness."
+  - title: "Teh tarik"
+    author: Wikipedia
+    url: https://en.wikipedia.org/wiki/Teh_tarik
+    lang: en
+    supports: [story]
+    note: "Tea dust and condensed milk after the war; Singapore also claims it."
+ingredients:
+  - { id: ceylon-black, qty: 5, unit: g, role: base }
+  - { id: sweetened-condensed-milk, qty: 40, unit: g, role: base }
+  - { id: evaporated-milk, qty: 45, unit: ml, role: accent, optional: true }
+brew:
+  water: tap
+  temp_c: 100
+  ratio_g_per_100ml: 2.8
+  water_ml: 180
+  vessel: mug
+  preheat: false
+  infusions_s: [600]
+steps:
+  - text: "Steep the tea in 180 ml of just-boiled water, covered, until it is a deep red: BOH's long steep, made to stand up to the milk."
+    infusions: true
+  - text: "Put the condensed milk, and the evaporated milk if you use it, in a mug. Strain the tea onto it and stir."
+  - text: "Over the sink, pour it into a second, larger mug, raising the pouring hand as you go, then back again. Do it 3 to 5 times, mixing short and long pulls, until it froths: more and it goes cold. Drink it at once."

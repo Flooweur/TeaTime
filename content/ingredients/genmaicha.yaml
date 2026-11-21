@@ -1,0 +1,25 @@
+id: genmaicha
+name: Genmaicha
+category: tea
+unit: g
+tea_type: green
+perishable: false
+shelf_life_days: 180
+storage: "Airtight, cool and dark; once opened, use it soon, and keep it out of the fridge."
+quality: "Loose Japanese sencha or bancha with roasted rice, often half and half; golden-roasted rice gives more aroma than popped. Plain, not the matcha-dusted kind."
+shops:
+  - shop: palais-des-thes-lyon
+    why: "Genmaicha Yama, organic; the 100 g pouch is one of the page's options."
+    price: "€12.90 / 100 g"
+    url: https://www.palaisdesthes.com/fr/genmaicha-yama-bio.html
+    checked: 2026-11-21
+  - shop: dammann-freres-lyon
+    why: "Japanese green tea with roasted and puffed rice."
+    price: "€16.00 / 100 g"
+    url: https://www.dammann.fr/fr/the-du-japon-genmaicha.html
+    checked: 2026-11-21
+  - shop: jardins-de-gaia
+    why: "Organic genmaicha from Kirishima, Kagoshima."
+    price: "€17.40 / 100 g"
+    url: https://www.jardinsdegaia.com/en/green-tea/139-genmaicha.html
+    checked: 2026-11-21
