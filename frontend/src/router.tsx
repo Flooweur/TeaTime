@@ -6,6 +6,7 @@ import { type RouterHistory, createRootRoute, createRoute, createRouter } from "
 import { Shell } from "./components/Shell";
 import { Screen } from "./components/ui";
 import { BlendPage } from "./screens/BlendPage";
+import { Diagnostics } from "./screens/Diagnostics";
 import { Guides } from "./screens/Guides";
 import { Library } from "./screens/Library";
 import { Pantry } from "./screens/Pantry";
@@ -88,6 +89,7 @@ const routeTree = root.addChildren([
   blend,
   createRoute({ getParentRoute: () => root, path: "/guides", component: Guides }),
   createRoute({ getParentRoute: () => root, path: "/settings", component: Settings }),
+  createRoute({ getParentRoute: () => root, path: "/diag", component: Diagnostics }),
 ]);
 
 /** The app's router; a test passes a memory history. */

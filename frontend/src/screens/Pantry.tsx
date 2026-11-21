@@ -25,15 +25,18 @@ const CATEGORY_TITLES: Record<Category, string> = {
 export const FRESHNESS_TEXT = { fresh: null, "use-soon": "use soon", stale: "past its shelf life" } as const;
 
 function HaveSwitch({ id, name, have }: { id: string; name: string; have: boolean }) {
+  // The box is 24 px; its label around it gives the 44 px a tap needs (SPEC §3.8).
   return (
-    <input
-      type="checkbox"
-      role="switch"
-      aria-label={`Have ${name}`}
-      checked={have}
-      onChange={(e) => void send("pantry.set", { ingredient: id, have: e.target.checked })}
-      className="size-6 shrink-0 accent-[var(--color-accent)]"
-    />
+    <label className="-mr-2 flex size-tap shrink-0 items-center justify-center">
+      <input
+        type="checkbox"
+        role="switch"
+        aria-label={`Have ${name}`}
+        checked={have}
+        onChange={(e) => void send("pantry.set", { ingredient: id, have: e.target.checked })}
+        className="size-6 accent-[var(--color-accent)]"
+      />
+    </label>
   );
 }
 

@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@fastify/compress": "9.3.0",
-    "@fastify/static": "10.1.8",
+    "@fastify/static": "10.1.9",
     "@fastify/type-provider-typebox": "6.3.0",
     "@teatime/content": "*",
     "@teatime/core": "*",
