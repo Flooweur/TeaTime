@@ -6,7 +6,7 @@ import { BACKUPS_KEPT, backupName, listBackups, writeBackup } from "../src/db/ba
 import { openDb } from "../src/db/client.js";
 import { RestoreError, inspectDatabase, restoreBackup } from "../src/db/restore.js";
 import { backup } from "../src/jobs/backup.js";
-import { loadState } from "../src/state/rows.js";
+import { bumpRevision, loadState } from "../src/state/rows.js";
 import { at, have, testApp } from "./helpers.js";
 
 const dirs: string[] = [];
@@ -118,5 +118,23 @@ describe("restore (SPEC §3.7)", () => {
     ).toThrow(RestoreError);
     expect(existsSync(`${database}.restoring`)).toBe(false);
     expect(inspectDatabase(database).revision).toBe(0);
+  });
+});
+
+describe("restore and the phones (SPEC §3.3)", () => {
+  it("counts the restored state past the revision it replaces, so every phone takes it", async () => {
+    const dir = tempDir();
+    // A backup at revision 1.
+    const old = await testApp();
+    await old.commands(have("assam", at("2026-11-23", "08:00"), 120));
+    const { written } = backup(old.deps, dir);
+    // The database it replaces went on to revision 3.
+    const { file: database, db } = fileDb(tempDir());
+    for (let i = 0; i < 3; i++) bumpRevision(db);
+    db.$client.close();
+
+    const { report } = restoreBackup({ backup: written!, database, dryRun: false, now: new Date() });
+    expect(report.revision).toBe(4);
+    expect(inspectDatabase(database).revision).toBe(4);
   });
 });

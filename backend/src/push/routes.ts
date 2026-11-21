@@ -3,6 +3,8 @@
  * - `GET push/key`: the VAPID public key the app subscribes with, null when pushes are off;
  * - `POST push/subscriptions`, `{ endpoint, keys: { p256dh, auth } }`: this device's subscription;
  * - `DELETE push/subscriptions`, `{ endpoint }`: forgets it;
+ * - `POST push/check`, `{ endpoint }`: whether it is still on, so the app subscribes afresh once
+ *   its push service said it's gone (SPEC §3.8). A POST, so an endpoint never goes in a URL or a log;
  * - `POST push/test`: a test push to every device, now.
  */
 import type { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
@@ -10,7 +12,7 @@ import { Type } from "typebox";
 import type { Deps } from "../deps.js";
 import { HttpError } from "../lib/errors.js";
 import type { PushSender } from "./sender.js";
-import { sendToAll, subscribe, unsubscribe } from "./service.js";
+import { isOn, sendToAll, subscribe, unsubscribe } from "./service.js";
 
 const Endpoint = Type.String({ minLength: 1, maxLength: 1000 });
 
@@ -56,6 +58,12 @@ export const pushRoutes: FastifyPluginAsyncTypebox<{
       unsubscribe(deps.db, req.body.endpoint);
       return reply.code(204).send();
     },
+  );
+
+  app.post(
+    "/push/check",
+    { schema: { body: Type.Object({ endpoint: Endpoint }, { additionalProperties: false }) } },
+    async (req) => ({ on: isOn(deps.db, req.body.endpoint) }),
   );
 
   app.post("/push/test", async () => {

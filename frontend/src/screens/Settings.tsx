@@ -1,6 +1,6 @@
 /**
- * Settings (SPEC §7). For now: light or dark, this device's own (decision of 2026-11-21), and what
- * this app and the server are. The week, the notifications and the export join it in phase 8.
+ * Settings (SPEC §7). For now: this device's pushes, light or dark (this device's own: decision of
+ * 2026-11-21), and what this app and the server are. The week, the times and the export join it in phase 8.
  */
 import type { ReactNode } from "react";
 import appVersion from "../../../app-version.json";
@@ -8,6 +8,7 @@ import { Screen, Section } from "../components/ui";
 import { bundle } from "../lib/content";
 import { kept, syncStatus, useStore } from "../lib/store";
 import { type ThemeChoice, setTheme, useTheme } from "../lib/theme";
+import { Notifications } from "./Notifications";
 
 const THEMES: readonly (readonly [ThemeChoice, string])[] = [
   ["device", "As the device"],
@@ -30,6 +31,7 @@ export function Settings() {
   const sync = useStore(syncStatus);
   return (
     <Screen title="Settings">
+      <Notifications />
       <Section title="Light or dark">
         <div role="radiogroup" aria-label="Light or dark" className="grid grid-cols-3 gap-2">
           {THEMES.map(([value, label]) => (

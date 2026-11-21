@@ -6,8 +6,9 @@
  *    SQLite file whose integrity check passes, with every table and its migrations. The backup
  *    itself is only read.
  * 2. With `--dry-run`, the copy is removed and the report printed: nothing else changes.
- * 3. Otherwise the current database (with its `-wal` and `-shm`) is moved aside, to
- *    `<database>.before-restore-<time>`, and the copy takes its place.
+ * 3. Otherwise the copy's revision is set past the one of the database it replaces, so the phones,
+ *    which ignore a snapshot older than theirs, take the restored state. The current database (with its
+ *    `-wal` and `-shm`) is moved aside, to `<database>.before-restore-<time>`, and the copy takes its place.
  */
 import Database from "better-sqlite3";
 import { copyFileSync, existsSync, renameSync, rmSync } from "node:fs";
@@ -63,6 +64,22 @@ export function inspectDatabase(file: string): BackupReport {
   }
 }
 
+/** A database's revision, read without changing it; 0 when it has none or can't be read. */
+function revisionOf(file: string): number {
+  try {
+    const sqlite = new Database(file, { fileMustExist: true });
+    try {
+      const row = sqlite.prepare("select value from meta where key = 'revision'").get() as
+        { value: number } | undefined;
+      return row?.value ?? 0;
+    } finally {
+      sqlite.close();
+    }
+  } catch {
+    return 0;
+  }
+}
+
 export interface RestoreOutcome {
   readonly report: BackupReport;
   /** Where the database that was replaced went; null for a dry run, or when there was none. */
@@ -92,6 +109,22 @@ export function restoreBackup(options: {
     for (const file of [copy, `${copy}-wal`, `${copy}-shm`]) rmSync(file, { force: true });
     return { report, movedAside: null };
   }
+
+  // A phone ignores a snapshot older than its own (SPEC §3.3): the restored state counts from past the
+  // revision of the database it replaces, so every phone takes it.
+  const replaced = existsSync(database) ? revisionOf(database) : 0;
+  const revision = Math.max(replaced, report.revision) + 1;
+  const sqlite = new Database(copy);
+  try {
+    sqlite
+      .prepare(
+        "insert into meta (key, value) values ('revision', ?) on conflict(key) do update set value = excluded.value",
+      )
+      .run(revision);
+  } finally {
+    sqlite.close();
+  }
+  report = { ...report, revision };
 
   let movedAside: string | null = null;
   if (existsSync(database)) {

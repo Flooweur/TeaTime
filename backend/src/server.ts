@@ -19,6 +19,7 @@ const { app, deps } = await buildApp({
   push,
   pushKey: config.push?.publicKey ?? null,
   backupDir: config.backupDir,
+  staticDir: config.staticDir,
 });
 if (!push) app.log.warn("No VAPID keys (VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY): pushes are off; the draws still happen");
 

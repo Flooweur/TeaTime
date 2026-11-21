@@ -75,6 +75,16 @@ export function unsubscribe(db: Db, endpoint: string): void {
   db.delete(pushSubscriptions).where(eq(pushSubscriptions.endpoint, endpoint)).run();
 }
 
+/** Whether this endpoint's subscription is on: false once its push service said it's gone, or never stored. */
+export function isOn(conn: Conn, endpoint: string): boolean {
+  const row = conn
+    .select({ disabledAt: pushSubscriptions.disabledAt })
+    .from(pushSubscriptions)
+    .where(eq(pushSubscriptions.endpoint, endpoint))
+    .get();
+  return row !== undefined && row.disabledAt === null;
+}
+
 /** The subscriptions on. */
 export function activeSubscriptions(conn: Conn) {
   return conn.select().from(pushSubscriptions).where(isNull(pushSubscriptions.disabledAt)).all();

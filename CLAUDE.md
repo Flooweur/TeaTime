@@ -12,7 +12,7 @@ Read the relevant parts before changing anything, and update them in the same co
 - `content/`: the blends, ingredients, shops, tea types and guides as YAML and Markdown, their schemas, the compiler and its checks, and the generated `src/bundle.ts`. [README](content/README.md) has the format and every check.
 - `backend/`: the server: Fastify, SQLite, the jobs and push. It stores the state as rows and changes it only through core's rules. [README](backend/README.md).
 - `frontend/`: the PWA. It shows the server's snapshot with its unsent commands replayed through core's reducer. [README](frontend/README.md).
-- `docs/`: `original-plan.md`, and `design/`: the look (A · Warm journal) and its Tailwind tokens, in both modes, in its [README](docs/design/README.md). `spikes/` (phase 2) and `runbook.md` (phase 7) are still to come.
+- `docs/`: `original-plan.md`, [runbook.md](docs/runbook.md) (the daily stack: start, update, restore), and `design/`: the look (A · Warm journal) and its Tailwind tokens, in both modes, in its [README](docs/design/README.md). `spikes/` (phase 2) is still to come.
 - [SERVICES.md](SERVICES.md) lists every outside service and what it learns.
 - **Project EagleEye** (`D:\Git\Project_EagleEye`) is the owner's other app, and the model for TeaTime's patterns (push, PWA shell, content pipeline, tooling, workflow). Port its code, never import across repos.
   - When reading it, never open `packages/content/assessments/**`, `packages/content/src/bundle.ts` or any `dist/`: they are held out from its owner.
@@ -22,6 +22,7 @@ Read the relevant parts before changing anything, and update them in the same co
 - `npm run content:build`: after any change in `content/`. It writes `content/src/bundle.ts` and `ids.yaml`.
 - `npm run content:check`: what the build would refuse, and whether its output is up to date.
 - `npm run build`: compiles the packages to `dist/`.
+- `npm run daily:up`: builds and starts the daily container (docs/runbook.md). Deploying needs the owner's yes.
 - `npm run format`: Prettier on everything it covers. Markdown and the content's YAML keep their hand-written layout.
 
 ## Rules that bite

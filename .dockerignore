@@ -1,0 +1,13 @@
+# What the image's build never needs: installed and built files, local data and secrets.
+**/node_modules
+**/dist
+.git
+.github
+.claude
+data
+spikes
+*.sqlite
+*.sqlite-*
+.env
+.env.*
+!.env.example

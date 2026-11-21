@@ -6,6 +6,7 @@
 import { Link, Outlet } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { teaDb } from "../lib/db";
+import { usePushState } from "../lib/push";
 import { kept, syncStatus, useStore } from "../lib/store";
 import { syncNow } from "../lib/sync";
 import { useNow } from "../lib/time";
@@ -97,9 +98,20 @@ function Banners() {
   const { refused, storageError } = useStore(kept);
   const sync = useStore(syncStatus);
   const offline = sync.error?.code === "offline";
+  const push = usePushState();
+  // The installed iPhone, whose pushes are off (never turned on, or dropped by its push service).
+  const pushesOff = push.support === "ok" && Boolean(push.key) && push.on === false;
   const dismiss = () => void teaDb().refused.clear();
   return (
     <div className="mx-auto flex w-full max-w-[30rem] flex-col gap-2 px-screen pt-[max(0.75rem,env(safe-area-inset-top))] empty:hidden">
+      {pushesOff && (
+        <div role="status" className="flex items-center justify-between gap-3 rounded-well bg-sunk px-4 py-2 text-sm">
+          <span>Pushes are off on this iPhone: no 8:00 tea.</span>
+          <Link to="/settings" className="min-h-tap content-center font-bold text-accent">
+            Turn on
+          </Link>
+        </div>
+      )}
       {storageError && (
         <div role="alert" className="rounded-well border-[1.5px] border-legend bg-surface px-4 py-3 text-sm">
           This device couldn't keep a change: {storageError}

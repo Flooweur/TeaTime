@@ -89,7 +89,8 @@ describe("Today (SPEC §7)", () => {
       { ...initialState(), pantry: { "high-mountain-oolong": have(100), gaiwan: have(null) } },
       now,
     );
-    await openToday(state, now, "/?date=2026-11-25&blend=009&from=push");
+    // The link the server puts in the morning push (core's notifications.ts).
+    await openToday(state, now, "/today?date=2026-11-25&blend=009&from=push");
     expect(await screen.findByText("High-mountain oolong, gongfu style")).toBeTruthy();
   });
 

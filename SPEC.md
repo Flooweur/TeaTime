@@ -265,7 +265,7 @@ All routes are under `/api`, and bodies are JSON only (any other type is refused
 - `POST picks/:date/swap`, `{current}`: the pick's tea as the app shows it, so a retry after a lost answer returns the current pick.
 - `PUT settings` (a patch), `PUT overrides/:date` (`{type: "office" | "home" | null}`), `POST away` (`{id, from, to}`, the id made by the app: a resend of the same period answers the snapshot), `DELETE away/:id`. After `packed_kits`, the app sends the change again with `?confirm=true`.
 - **The online routes' refusals** are core's codes (§3.3): 400 `invalid` with its `problems`, 404 `no_pick` and `unknown_away`, 409 for the others, and `packed_kits` with its `dates`. A refusal changes nothing; a success answers the new snapshot.
-- `GET push/key` (null while pushes are off), `POST|DELETE push/subscriptions`, `POST push/test` (`{sent, failed, gone}`; 503 `push_off` without the VAPID keys). A subscription's endpoint must be a push service's (Apple's, Google's, Mozilla's or Microsoft's), against SSRF, and at most 10 are on at once.
+- `GET push/key` (null while pushes are off), `POST|DELETE push/subscriptions`, `POST push/check` (`{endpoint}` → `{on}`: whether the server still has it on; a POST, so an endpoint never goes in a URL or a log), `POST push/test` (`{sent, failed, gone}`; 503 `push_off` without the VAPID keys). A subscription's endpoint must be a push service's (Apple's, Google's, Mozilla's or Microsoft's), against SSRF, and at most 10 are on at once.
 - `GET export.json`: the snapshot, with the app's version. `GET export.csv`: one row per cup made, oldest first: `date`, `time` (the owner's), `tea` (`#code`, or the plain tea's id), `name`, `cups`, `place` (`office`, `home`, or empty for I made this), `rating`, `colleague_rating`. Both download as `teatime-<date>`.
 - `GET diag` (§3.8), `POST jobs/:name/run` (`notifier`, `backup`).
 
@@ -314,23 +314,31 @@ CHECK constraints keep ratings within 1–5, a pick or brew to exactly one of a 
 - **The daily backup:**
   - is the database serialized to a `.part` file in the bind-mounted `D:/TeaTime-backups`, synced to disk, then renamed to `teatime-YYYY-MM-DD.sqlite`, dated in the owner's time zone; a `.part` a crash left is removed by the next run;
   - keeps 30;
-  - is brought back by `npm run restore -w backend -- <backup> [--dry-run]`, with the server stopped. It copies the backup next to the database and checks the copy: SQLite's integrity check, every table, the migrations. A dry run stops there. Otherwise the database it replaces is moved aside (`<database>.before-restore-<time>`), never deleted.
+  - is brought back by `npm run restore -w backend -- <backup> [--dry-run]` (`npm run daily:restore` in the container), with the server stopped. It copies the backup next to the database and checks the copy: SQLite's integrity check, every table, the migrations. A dry run stops there. Otherwise the copy's revision is set past the replaced database's, so every phone takes the restored state (§3.3), and the database it replaces is moved aside (`<database>.before-restore-<time>`), never deleted.
 - **The ports** are clear of EagleEye's and WikiWar's.
+- **The image** (`Dockerfile`, `docker-compose.yml`; how to run it: [docs/runbook.md](docs/runbook.md)):
+  - a build stage compiles every workspace, the app included;
+  - a second installs the server's dependencies only, with the tools better-sqlite3 may need;
+  - the image holds those, the compiled code, the migrations and the built app, runs as the `node` user, and listens on 3200.
+  - The compose file publishes it on `127.0.0.1:8081` and passes the address, the backups' folder and the VAPID keys, from the repo-root `.env`.
+- **The server serves the built app** (`STATIC_DIR`, set in the image); in dev, Vite does.
 
 ### 3.8 Platform and iOS rules
 (Ported from EagleEye's spike and SPEC §3.12; the push spike on port 8443 confirms them for TeaTime.)
-- **Installing:** from Safari → Add to Home Screen. Push only works in the installed app, and permission is asked from a tap.
+- **Installing:** from Safari → Add to Home Screen. Push only works in the installed app, and permission is asked from a tap. The PC's browser gets no pushes (decision of 2026-11-20): its Settings sends the iPhone a test instead.
+- **Pushes off on the iPhone** (never turned on, or dropped by its push service) show a banner on every screen, checked at launch and when the app comes back to the front. Turning pushes on again forgets the old subscription at the server.
 - **The app's installed name is TeaTime,** which iOS prints above each push and keeps from the first install.
 - **Every push displays.** Payloads use the declarative format `{"web_push": 8030, "notification": {title, body, navigate, tag}}`, without `mutable`. iOS shows them itself, without running the service worker; Chromium's service worker shows the same JSON.
 - **A subscription is replaced when needed:** one made with another VAPID key, or one the server disabled after its push service said it's gone (404/410).
-- **Caching:** only `/assets/*` (hashed files) is cached as immutable. `index.html`, the manifest and the service worker are `no-cache`; the API answers `no-store`. A missing asset is a 404, never the app's HTML.
+- **Caching:** only `/assets/*` (hashed files) is cached as immutable. `index.html`, the manifest and the service worker are `no-cache`; the API answers `no-store`. A missing asset is a 404, never the app's HTML. Any other page load (GET, wanting HTML, outside `/api` and `/assets`) gets index.html, for the app's router. Answers are compressed with brotli or gzip.
+- **Push links** open `/today?date=…&from=push` (or `/review`): the app has a route for each. On the PC, the service worker opens one in the app's window, or a new one; it opens only the app's own addresses.
 - **Updates:** an update toast appears when a new service worker is waiting. The app looks for one when it comes back to the front, and every hour.
 - **Timers:**
   - they count from wall-clock time, and resume after a reload or a push tap;
   - a Wake Lock keeps the screen on while one runs;
   - a chime plays at the end, through `navigator.audioSession.type = "playback"` so the silent switch doesn't mute it.
 - **Taps and screens:** taps reach 44 px, a control's border has 3:1 contrast against its surface, the layout keeps clear of the safe areas, and inputs are 16 px so iOS doesn't zoom.
-- **Security headers** (EagleEye's Caddy headers, as a Fastify hook): CSP, `nosniff`, `Referrer-Policy: no-referrer`, `frame-ancestors 'none'`.
+- **Security headers** (EagleEye's Caddy headers, as a Fastify hook), on every answer: `nosniff`, `Referrer-Policy: no-referrer`, a one-day HSTS, a Permissions-Policy with no camera, microphone or location, and, while the server serves the app, a CSP: scripts from the app's origin only, plus index.html's one inline script (the light / dark choice before the first paint) by its hash, computed from the built file at start; `frame-ancestors 'none'`.
 - **Diagnostics:** a server clock more than 60 s off the device's is flagged, and so is when the jobs last ran.
 
 ---

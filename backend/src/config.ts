@@ -48,6 +48,8 @@ export const config = {
    * `MORE_ORIGINS` adds others; by default, Vite's preview in dev, and none elsewhere.
    */
   origins: [publicOrigin, ...list(env.MORE_ORIGINS ?? (environment === "dev" ? "http://localhost:5181" : ""))],
+  /** The built app (frontend/dist) the server serves: the daily stack's image sets it. Unset (dev), Vite serves the app. */
+  staticDir: env.STATIC_DIR ? path.resolve(env.STATIC_DIR) : null,
   /** The daily backups' folder (SPEC §3.7). Unset (dev, by default), the backup job doesn't run. */
   backupDir: env.BACKUP_DIR ? path.resolve(env.BACKUP_DIR) : null,
   /**
