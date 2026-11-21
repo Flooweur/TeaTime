@@ -1,0 +1,12 @@
+{
+  // The production build: src/ and scripts/, with the workspace packages from their compiled dist/
+  // (build them first), not their sources (packages/README.md).
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "dist",
+    "sourceMap": true,
+    "customConditions": []
+  },
+  "include": ["src", "scripts"]
+}

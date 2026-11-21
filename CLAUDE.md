@@ -10,7 +10,8 @@ Read the relevant parts before changing anything, and update them in the same co
 ## Map
 - `packages/core/`: pure TypeScript, zero I/O. Time (dates, time zones, DST), the content's model and vocabulary (`src/content.ts`), and from phase 3 the rules of SPEC §2. [README](packages/core/README.md).
 - `content/`: the blends, ingredients, shops, tea types and guides as YAML and Markdown, their schemas, the compiler and its checks, and the generated `src/bundle.ts`. [README](content/README.md) has the format and every check.
-- `backend/` (phase 5) and `frontend/` (phase 6) come later.
+- `backend/`: the server: Fastify, SQLite, the jobs and push. It stores the state as rows and changes it only through core's rules. [README](backend/README.md).
+- `frontend/` (phase 6) comes later.
 - `docs/`: `original-plan.md`, and `design/`: the look (A · Warm journal) and its Tailwind tokens, in both modes, in its [README](docs/design/README.md). `spikes/` (phase 2) and `runbook.md` (phase 7) are still to come.
 - [SERVICES.md](SERVICES.md) lists every outside service and what it learns.
 - **Project EagleEye** (`D:\Git\Project_EagleEye`) is the owner's other app, and the model for TeaTime's patterns (push, PWA shell, content pipeline, tooling, workflow). Port its code, never import across repos.

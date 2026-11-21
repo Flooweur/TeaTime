@@ -1,0 +1,12 @@
+{
+  // The server, its scripts and its tests, on Node. Workspace packages resolve to their sources
+  // (the "source" condition in tsconfig.base.json; packages/README.md).
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2023"],
+    "types": ["node"]
+  },
+  "include": ["src", "scripts", "test", "vitest.config.ts", "drizzle.config.ts"]
+}

@@ -200,7 +200,8 @@ In detail:
 packages/core/  pure TypeScript, zero I/O: time (dates, time zones), the content's model, the rules of §2
 content/        blends/, ingredients/, gear/, shops.yaml, tea-types.yaml, guides/, ids.yaml; src/ (schemas, compiler, checks),
                 scripts/ (build, check), and the generated src/bundle.ts
-backend/        Fastify, Drizzle and SQLite, the jobs (phase 5)
+backend/        Fastify, Drizzle and SQLite, the jobs: src/ (the app, the database, the state's rows, the routes, push,
+                the jobs), drizzle/ (the migrations), scripts/ (vapid, restore)
 frontend/       the PWA (phase 6)
 docs/           original-plan.md, design/, spikes/, runbook.md
 ```
@@ -212,10 +213,12 @@ docs/           original-plan.md, design/, spikes/, runbook.md
 The owner's state is tiny: the pantry, picks, brews, marks and settings. So the server always answers with **the whole state** and its `revision`, a counter.
 
 **Every change the owner makes is a command:** `{id (a UUID made by the device), v, at, type, payload}`. Core's `applyCommand(state, command, content)` is pure. It returns the new state and the keys it touched, and both sides use it:
-- **On the phone:** what it shows is the server's last snapshot, with its unsent commands replayed on top. The snapshot lists the ids it already holds, so no command counts twice. A snapshot older than the one the phone has is ignored.
+- **On the phone:** what it shows is the server's last snapshot, with its unsent commands replayed on top. A snapshot older than the one the phone has is ignored.
+  - **No command counts twice:** a phone with unsent commands syncs by sending them (`POST commands`), never by `GET state` alone. The answer has a result for every command sent, a resend's included, and the snapshot after them all, so the phone drops exactly those from its outbox and replays the rest.
 - **On the server:** a batch is applied one command at a time, inside one SQLite transaction with a savepoint each.
-  - Each command is accepted or refused with a `code`, and recorded in `applied_commands`, so a resend changes nothing.
-  - The answer gives a result per command, and the new snapshot.
+  - Each command is accepted or refused with a `code`, and recorded in `applied_commands`, so a resend changes nothing: it gets the same result, marked `repeat`. The same id twice in one batch is a resend too.
+  - Two are not recorded, so a resend tries again: a command from a newer app than the server (`unsupported_version`), and one whose rows couldn't be written (`server_error`, a bug: its savepoint is rolled back, and the batch goes on).
+  - The answer gives a result per command, in order, and the new snapshot. The batch counts one revision, if anything changed.
   - A refused command is shown on the phone; it never blocks the queue.
 
 **Offline commands** (`packages/core/src/state/commands.ts`; `parseCommand` checks one's shape, with no field missing or unknown):
@@ -230,7 +233,7 @@ The owner's state is tiny: the pantry, picks, brews, marks and settings. So the 
 | `pantry.set` | `ingredient`, `have?`, `amount?`, `openedOn?`, `atOffice?` | Last writer wins, per field. `amount` is a measurement: what is left |
 | `blend.marked` | `blend`, `favourite?`, `makeAgain?`, `notForMe?` | Last writer wins, per mark |
 
-A refusal has a `code`: `duplicate`, `future_date`, `unknown_tea`, `unknown_blend`, `unknown_ingredient`, `not_found`, `no_pick`, `already_made`, `cancelled`, `not_pending`, `not_office`, `nothing_to_pack`. An accepted command may carry notes: `no_change` (a more recent change won, or nothing was to do), `pick_gone`, `different_tea`, `not_restored` (with the ingredient).
+A refusal has a `code`: `duplicate`, `future_date`, `unknown_tea`, `unknown_blend`, `unknown_ingredient`, `not_found`, `no_pick`, `already_made`, `cancelled`, `not_pending`, `not_office`, `nothing_to_pack`; `parseCommand`'s own are `invalid` and `unsupported_version`, with a `problem`, and the server's is `server_error`. An accepted command may carry notes: `no_change` (a more recent change won, or nothing was to do), `pick_gone`, `different_tea`, `not_restored` (with the ingredient).
 
 **What needs the server** (`packages/core/src/state/online.ts`, pure too):
 - `drawDue` (the notifier's draws), `drawNow` (the app's), `swapPick`;
@@ -254,13 +257,16 @@ A refusal has a `code`: `duplicate`, `future_date`, `unknown_tea`, `unknown_blen
 - **Storage:** Dexie's transactions keep the snapshot and the outbox consistent. The app asks for persistent storage. A failed write shows a banner, never fails silently.
 
 ### 3.4 API
-All routes are under `/api`, and bodies are JSON only. A write must come from the app's origin (`PUBLIC_ORIGIN`), and errors are `{error, code}`.
-- `GET health`, `GET state`, `POST commands`
+All routes are under `/api`, and bodies are JSON only (any other type is refused, 415). Errors are `{error, code}`, with any details beside them. Answers are `no-store`.
+- **Same origin:** a write (any method but GET and HEAD) that names its `Origin` must name the app's: `PUBLIC_ORIGIN`, and in dev Vite's preview (`MORE_ORIGINS`). Otherwise it is refused, 403 `cross_origin`. Browsers always send `Origin` on a write, so a write without one isn't a page on another site: a script on the PC, which Tailscale already lets in.
+- `GET health`, `GET state`, `POST commands` (`{commands: [...]}`, at most 500).
 - `POST picks/:date/draw`: idempotent; only for today, for tomorrow's office kit from 17:00 (or the evening time, if earlier), or for any tea day tomorrow once the evening time has come. An early home day is refused (`not_office`).
-- `POST picks/:date/swap`: carries the current blend, so a retry after a lost answer returns the current pick.
-- `PUT settings`, `PUT overrides/:date`, `POST|DELETE away`
-- `GET push/key`, `POST|DELETE push/subscriptions`, `POST push/test`
-- `GET export.json`, `GET export.csv`, `GET diag`, `POST jobs/:name/run`
+- `POST picks/:date/swap`, `{current}`: the pick's tea as the app shows it, so a retry after a lost answer returns the current pick.
+- `PUT settings` (a patch), `PUT overrides/:date` (`{type: "office" | "home" | null}`), `POST away` (`{id, from, to}`, the id made by the app: a resend of the same period answers the snapshot), `DELETE away/:id`. After `packed_kits`, the app sends the change again with `?confirm=true`.
+- **The online routes' refusals** are core's codes (§3.3): 400 `invalid` with its `problems`, 404 `no_pick` and `unknown_away`, 409 for the others, and `packed_kits` with its `dates`. A refusal changes nothing; a success answers the new snapshot.
+- `GET push/key` (null while pushes are off), `POST|DELETE push/subscriptions`, `POST push/test` (`{sent, failed, gone}`; 503 `push_off` without the VAPID keys). A subscription's endpoint must be a push service's (Apple's, Google's, Mozilla's or Microsoft's), against SSRF, and at most 10 are on at once.
+- `GET export.json`: the snapshot, with the app's version. `GET export.csv`: one row per cup made, oldest first: `date`, `time` (the owner's), `tea` (`#code`, or the plain tea's id), `name`, `cups`, `place` (`office`, `home`, or empty for I made this), `rating`, `colleague_rating`. Both download as `teatime-<date>`.
+- `GET diag` (§3.8), `POST jobs/:name/run` (`notifier`, `backup`).
 
 ### 3.5 Jobs
 | Job | Every | Does |
@@ -268,21 +274,29 @@ All routes are under `/api`, and bodies are JSON only. A write must come from th
 | `notifier` | 30 s | Draws what is due (§2.2), then sends what is due (§2.7) |
 | `backup` | 1 h, written once a day | A copy of the database into `BACKUP_DIR`, 30 kept (§3.7) |
 
+**Sending a push** is at least once:
+- The notifier claims each push due (`sending`) in the transaction that draws, sends it outside it, then settles it: `sent` if a device took it, `failed` otherwise.
+- A `failed` push, or one left `sending` for 2 minutes (a crash), is claimed again on a later pass, until its grace window ends. The device shows a duplicate in place of the first (same tag).
+- Without the VAPID keys, or with no device subscribed, nothing is claimed; the draws still happen.
+- A device whose push service answers 404 or 410 is turned off for good; the app subscribes it afresh.
+
 ### 3.6 Database (SQLite)
 The database is a file in a named Docker volume, opened with `journal_mode=WAL`, `foreign_keys=ON`, `busy_timeout=5000` and `synchronous=NORMAL`. Drizzle migrations run at startup.
 
 | Table | Holds |
 |---|---|
-| `settings` | Every setting by key, as JSON, checked against a registry of schemas and defaults |
+| `settings` | Every setting by key, as JSON, checked by core's rules as it loads: a missing one, or one a later rule refuses, is its default (and the log says so) |
 | `day_overrides`, `away_periods` | §2.1 |
 | `pantry` | One row per ingredient or piece of gear: have, amount left (nullable; always null for gear), opened on, kept at the office, a change time per field |
 | `picks` | One per date: the day type, the blend or plain tea, how it was drawn, what it was swapped from and when, the status, packed at and packed cups, the brew |
 | `brews` | Each cup made: id, date, time, the blend or plain tea, cups, ratings, the deduction, and its pick's date, unique when set |
 | `blend_marks` | ★, *make again*, Not for me |
 | `push_subscriptions` | EagleEye's shape: endpoint (unique), keys, last success, failures, disabled at |
-| `notifications` | One row per kind and date: its status and attempts |
-| `applied_commands` | Every command's id and result |
+| `notifications` | One row per kind and date: its status (`sending`, `sent`, `failed`), attempts, and when |
+| `applied_commands` | Every command decided: its id, type, when it came, and its result |
 | `meta` | The state's revision |
+
+Each away period has its place in the list (`seq`), since the state keeps them in the order they were added. A brew's ingredients taken are stored as JSON, so an undo puts back exactly that.
 
 CHECK constraints keep ratings within 1–5, a pick or brew to exactly one of a blend or a plain tea, and statuses to their lists.
 
@@ -295,10 +309,11 @@ CHECK constraints keep ratings within 1–5, a pick or brew to exactly one of a 
 - **Coexisting with EagleEye:** EagleEye has 443 on the same Tailscale name, and its own ports (5433, 3100, 5174/5175, 8080). TeaTime never touches them, nor EagleEye's compose project or Tailscale setting.
 - **The container runs with `TZ=UTC`:** the owner's time zone is a setting.
 - **The database lives only in its named volume,** never on the Windows drive, where SQLite's locking isn't reliable.
+- **The dev database** is `data/teatime.sqlite` at the repo root, which git ignores (`DATABASE_PATH` moves it).
 - **The daily backup:**
-  - is the database serialized to a `.part` file in the bind-mounted `D:/TeaTime-backups`, synced to disk, then renamed;
+  - is the database serialized to a `.part` file in the bind-mounted `D:/TeaTime-backups`, synced to disk, then renamed to `teatime-YYYY-MM-DD.sqlite`, dated in the owner's time zone; a `.part` a crash left is removed by the next run;
   - keeps 30;
-  - is brought back by a `restore` script, which has a `--dry-run`.
+  - is brought back by `npm run restore -w backend -- <backup> [--dry-run]`, with the server stopped. It copies the backup next to the database and checks the copy: SQLite's integrity check, every table, the migrations. A dry run stops there. Otherwise the database it replaces is moved aside (`<database>.before-restore-<time>`), never deleted.
 - **The ports** are clear of EagleEye's and WikiWar's.
 
 ### 3.8 Platform and iOS rules

@@ -5,7 +5,8 @@
   "description": "TeaTime: one sourced tea blend a weekday, made from your own pantry (SPEC.md).",
   "workspaces": [
     "packages/core",
-    "content"
+    "content",
+    "backend"
   ],
   "engines": {
     "node": ">=22.18 <23"
@@ -13,7 +14,7 @@
   "scripts": {
     "content:build": "npm run content:build -w content",
     "content:check": "npm run content:check -w content",
-    "build": "npm run build -w packages/core && npm run build -w content",
+    "build": "npm run build -w packages/core && npm run build -w content && npm run build -w backend",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "lint": "eslint .",
     "format": "prettier --write .",
