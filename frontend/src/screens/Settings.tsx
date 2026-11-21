@@ -3,6 +3,7 @@
  * for every device, the cooldown and the cups; light or dark (this device's own: decision of
  * 2026-11-21); the export; and what this app and the server are.
  */
+import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import appVersion from "../../../app-version.json";
 import { Screen, Section } from "../components/ui";
@@ -70,6 +71,12 @@ export function Settings() {
               : "not yet"}
           </Row>
         </div>
+        <Link
+          to="/diag"
+          className="inline-flex min-h-tap items-center self-start font-bold text-accent underline underline-offset-4"
+        >
+          Diagnostics
+        </Link>
       </Section>
     </Screen>
   );
