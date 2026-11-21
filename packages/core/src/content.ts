@@ -204,6 +204,10 @@ export interface Ingredient {
   readonly unit: Unit;
   /** Set exactly when the category is `tea`. */
   readonly teaType?: TeaTypeName;
+  /** A tea never brewed plain, whatever its type: matcha is whisked, not steeped (SPEC §2.5). */
+  readonly plain?: false;
+  /** A tea brewed plain its own way rather than by its type's defaults: genmaicha takes boiling water. */
+  readonly plainBrew?: PlainBrew;
   /** Fresh mint, milk, a lemon: past its shelf life it counts as missing. */
   readonly perishable: boolean;
   /** How long it keeps once opened (or bought, when fresh). */
@@ -237,10 +241,8 @@ export interface Shop {
   readonly notes?: string;
 }
 
-/** A tea type's sourced defaults: how a plain tea of that type is brewed (SPEC §2.5's fallback). */
-export interface TeaType {
-  readonly type: TeaTypeName;
-  readonly name: string;
+/** How a tea is brewed plain, for one cup (SPEC §2.5's fallback): its type's defaults, or its own. */
+export interface PlainBrew {
   readonly tempC: number;
   readonly tempRange?: Range;
   readonly ratioGPer100ml: number;
@@ -251,6 +253,12 @@ export interface TeaType {
   readonly office: { readonly tempC: number; readonly method: string; readonly infusionsS: readonly number[] };
   readonly notes?: string;
   readonly sources: readonly Citation[];
+}
+
+/** A tea type's sourced defaults: how a plain tea of that type is brewed, unless it has its own. */
+export interface TeaType extends PlainBrew {
+  readonly type: TeaTypeName;
+  readonly name: string;
 }
 
 export interface GuideChapter {
@@ -266,8 +274,8 @@ export interface Guide {
   readonly html: string;
 }
 
-/** The bundle's format: raised when its shape changes (2: gear). */
-export const CONTENT_FORMAT = 2;
+/** The bundle's format: raised when its shape changes (2: gear; 3: a tea's own plain brew). */
+export const CONTENT_FORMAT = 3;
 
 export interface ContentBundle {
   readonly format: typeof CONTENT_FORMAT;

@@ -1,0 +1,19 @@
+id: baking-soda
+name: Baking soda
+category: other
+unit: g
+perishable: false
+shelf_life_days: 1095
+storage: "Closed, away from light, heat and damp."
+quality: "Food-grade sodium bicarbonate (bicarbonate alimentaire), from the baking aisle, not the cleaning kind."
+shops:
+  - shop: monoprix-lyon-republique
+    why: "Vahiné baking soda, food grade."
+    price: "€1.90 / 250 g"
+    url: https://courses.monoprix.fr/products/vahin%C3%A9-bicarbonate-de-soude-250g/MPX_3908204
+    checked: 2026-11-21
+  - shop: auchan-lyon-felix-faure
+    why: "Food-grade baking soda in a resealable bag."
+    price: "€2.15 / 400 g"
+    url: https://www.auchan.fr/auchan-bicarbonate-alimentaire/pr-C1230355
+    checked: 2026-11-21

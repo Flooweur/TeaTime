@@ -1,0 +1,19 @@
+id: vanilla-extract
+name: Vanilla extract
+category: spice
+unit: ml
+perishable: false
+shelf_life_days: 90
+storage: "Closed; Vahiné's extract goes in the fridge once opened, and is used within 3 months."
+quality: "A vanilla extract (extrait), from Bourbon or Madagascar vanilla, not a flavouring (arôme)."
+shops:
+  - shop: monoprix-lyon-republique
+    why: "Vahiné organic Bourbon vanilla extract."
+    price: "€6.95 / 20 ml"
+    url: https://courses.monoprix.fr/products/vahin%C3%A9-extrait-de-vanille-bourbon-bio-20ml/MPX_4124501
+    checked: 2026-11-21
+  - shop: bahadourian-lyon
+    why: "Ste Lucie liquid vanilla extract, 150 g of pods per kilo."
+    price: "€5.95 / 20 ml"
+    url: https://www.bahadourian.com/racines-gousses-ou-batons-de-3a-cannelle-vanille/extrait-de-vanille-liquide-453.html
+    checked: 2026-11-21

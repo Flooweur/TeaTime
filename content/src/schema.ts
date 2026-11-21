@@ -46,6 +46,8 @@ const Lang = Type.String({ pattern: "^[a-z]{2,3}$" });
 const Celsius = Type.Integer({ minimum: 0, maximum: 100 });
 /** A time in seconds, up to a day (a cold brew's night). */
 const Seconds = Type.Integer({ minimum: 1, maximum: 86_400 });
+/** Each infusion's time, in order. */
+const Infusions = Type.Array(Seconds, { minItems: 1, maxItems: 20 });
 /** `[min, max]`, both included. */
 const CelsiusRange = Type.Tuple([Celsius, Celsius]);
 
@@ -93,7 +95,7 @@ export const BrewFile = Type.Object(
     water_ml: Type.Integer({ minimum: 1, maximum: 5000 }),
     vessel: Type.Enum(VESSELS),
     preheat: Type.Boolean(),
-    infusions_s: Type.Array(Seconds, { minItems: 1, maxItems: 20 }),
+    infusions_s: Infusions,
   },
   closed,
 );
@@ -157,6 +159,22 @@ export const ShopRefFile = Type.Object(
 );
 export type ShopRefFile = Static<typeof ShopRefFile>;
 
+/** How a tea is brewed plain, for one cup: a tea type's defaults, or a tea's own `plain_brew`. */
+const plainBrewFields = {
+  temp_c: Celsius,
+  temp_range: Type.Optional(CelsiusRange),
+  ratio_g_per_100ml: Type.Number({ exclusiveMinimum: 0, maximum: 50 }),
+  /** For one cup. */
+  water_ml: Type.Integer({ minimum: 1, maximum: 1000 }),
+  infusions_s: Infusions,
+  office: Type.Object({ temp_c: Celsius, method: Words, infusions_s: Infusions }, closed),
+  notes: Type.Optional(Words),
+  sources: Type.Array(SourceFile, { minItems: 1 }),
+};
+
+export const PlainBrewFile = Type.Object(plainBrewFields, closed);
+export type PlainBrewFile = Static<typeof PlainBrewFile>;
+
 export const IngredientFile = Type.Object(
   {
     id: Slug,
@@ -164,6 +182,10 @@ export const IngredientFile = Type.Object(
     category: Type.Enum(CATEGORIES),
     unit: Type.Enum(UNITS),
     tea_type: Type.Optional(Type.Enum(TEA_TYPES)),
+    /** `false`: a tea never brewed plain, whatever its type (matcha is whisked, not steeped). */
+    plain: Type.Optional(Type.Literal(false)),
+    /** A tea brewed plain its own way rather than by its type's defaults (genmaicha: boiling water). */
+    plain_brew: Type.Optional(PlainBrewFile),
     perishable: Type.Boolean(),
     shelf_life_days: Type.Integer({ minimum: 1, maximum: 3650 }),
     storage: Words,
@@ -206,29 +228,7 @@ export type ShopFile = Static<typeof ShopFile>;
 export const ShopsFile = Type.Object({ shops: Type.Array(ShopFile) }, closed);
 export type ShopsFile = Static<typeof ShopsFile>;
 
-export const TeaTypeFile = Type.Object(
-  {
-    type: Type.Enum(TEA_TYPES),
-    name: Words,
-    temp_c: Celsius,
-    temp_range: Type.Optional(CelsiusRange),
-    ratio_g_per_100ml: Type.Number({ exclusiveMinimum: 0, maximum: 50 }),
-    /** For one cup. */
-    water_ml: Type.Integer({ minimum: 1, maximum: 1000 }),
-    infusions_s: Type.Array(Seconds, { minItems: 1, maxItems: 20 }),
-    office: Type.Object(
-      {
-        temp_c: Celsius,
-        method: Words,
-        infusions_s: Type.Array(Seconds, { minItems: 1, maxItems: 20 }),
-      },
-      closed,
-    ),
-    notes: Type.Optional(Words),
-    sources: Type.Array(SourceFile, { minItems: 1 }),
-  },
-  closed,
-);
+export const TeaTypeFile = Type.Object({ type: Type.Enum(TEA_TYPES), name: Words, ...plainBrewFields }, closed);
 export type TeaTypeFile = Static<typeof TeaTypeFile>;
 
 export const TeaTypesFile = Type.Object({ tea_types: Type.Array(TeaTypeFile) }, closed);

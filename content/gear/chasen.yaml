@@ -1,0 +1,19 @@
+id: chasen
+name: Chasen (matcha whisk)
+quality: "Carved from a single piece of bamboo, 80–120 tines for usucha. Soak the tines in hot water before use; rinse without soap, and dry it tines up or on a holder, as it moulds if left damp. It lasts a year or two; replace it when tines break."
+shops:
+  - shop: palais-des-thes-lyon
+    why: "Bamboo chasen, 120 tines."
+    price: "€26.00"
+    url: https://www.palaisdesthes.com/fr/fouet-the-matcha.html
+    checked: 2026-11-21
+  - shop: dammann-freres-lyon
+    why: "One-piece Chinese bamboo chasen, 5.8 × 11 cm."
+    price: "€30.30"
+    url: https://www.dammann.fr/fr/chasen-fouet-en-bambou-de-chine.html
+    checked: 2026-11-21
+  - shop: jardins-de-gaia
+    why: "Bamboo chasen, 120 tines, 100 mm high."
+    price: "€13.20"
+    url: https://www.jardinsdegaia.com/en/matcha-preparation/381-matcha-whisk.html
+    checked: 2026-11-21

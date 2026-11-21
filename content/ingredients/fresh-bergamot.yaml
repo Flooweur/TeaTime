@@ -1,0 +1,19 @@
+id: fresh-bergamot
+name: Fresh bergamot (in strips of zest)
+category: citrus
+unit: pieces
+perishable: true
+shelf_life_days: 14
+storage: "Whole, in the fridge: 2–3 weeks. Peel the strips on the day, or the evening before for the office, in a closed box in the fridge."
+quality: "Citrus bergamia, the Calabrian fruit, organic or untreated since the peel goes in the tea; not the herb bee balm, also called bergamot. Counted in strips of zest about 1.5 × 5 cm: half a fruit gives about 4. In season from late November, and sold fresh in France mostly until the end of December."
+shops:
+  - shop: jurassic-fruit
+    why: "Organic bergamots from Italy, about 5–7 fruits to 500 g; delivered from 2 December."
+    price: "€4.90 / 500 g"
+    url: https://www.jurassicfruit.com/fr/products/bergamote
+    checked: 2026-11-21
+  - shop: artigiano-in-fiera
+    why: "La Spina Santa's organic Calabrian bergamots, in season November to February; unavailable when checked."
+    price: "€15.21 / 5 kg"
+    url: https://artigianoinfiera.fr/artigiani/52824-LA-SPINA-SANTA-SRL/prodotti/66381-Bergamote-fruits-frais-de-Calabre-paquet-de-5kg
+    checked: 2026-11-21

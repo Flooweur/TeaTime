@@ -11,13 +11,14 @@ import {
   type Gear,
   type Ingredient,
   type PickRecord,
+  type PlainBrew,
   type Settings,
   type State,
-  type TeaType,
   addDays,
   dayOf,
   instantAt,
   minutesOf,
+  plainBrewOf,
   revealsAt,
   teaDayType,
   wallClockAt,
@@ -46,7 +47,7 @@ export type DayCard =
       readonly kind: "plain";
       readonly pick: PickRecord;
       readonly tea: Ingredient;
-      readonly teaType: TeaType;
+      readonly brew: PlainBrew;
       readonly unlock: Unlock | null;
     }
   /** No tea to make: what to buy, or (the missed kit) nothing kept at the office. */
@@ -98,9 +99,9 @@ export function cardOfPick(pick: PickRecord, state: State, catalog: Catalog, now
   if (tea.kind === "none") return { kind: "nothing", pick, unlock: unlockOf(pick.unlock, catalog) };
   if (tea.kind === "plain") {
     const ingredient = catalog.ingredientById.get(tea.tea);
-    const teaType = ingredient?.teaType ? catalog.teaTypeByName.get(ingredient.teaType) : undefined;
-    if (!ingredient || !teaType) return { kind: "unknown", pick };
-    return { kind: "plain", pick, tea: ingredient, teaType, unlock: unlockOf(pick.unlock, catalog) };
+    const brew = ingredient ? plainBrewOf(ingredient, catalog) : null;
+    if (!ingredient || !brew) return { kind: "unknown", pick };
+    return { kind: "plain", pick, tea: ingredient, brew, unlock: unlockOf(pick.unlock, catalog) };
   }
   const blend = catalog.blendByCode.get(tea.code);
   if (!blend) return { kind: "unknown", pick };

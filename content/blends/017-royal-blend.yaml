@@ -1,0 +1,72 @@
+code: "017"
+slug: royal-blend
+name: Fortnum & Mason's Royal Blend
+mode: safe
+family: court
+trust: attested
+source_type: tea-house
+origin: England (London)
+story: >
+  Fortnum & Mason says that in 1902 King Edward VII asked for the finest tea in the land, and that it
+  searched abroad and made him Royal Blend: Assam from India, lifted by a Flowery Pekoe from Sri Lanka,
+  for a smooth, honeyed cup. It is still the house's benchmark tea. Other accounts only retell its
+  story, and no document was found. The house names the teas but not their shares: the 3 to 2 of
+  Assam to Ceylon here is our own, the Assam as the body and the Ceylon the smaller part.
+difficulty: 1
+flavours: [malty, honeyed]
+caffeine: medium
+scaling: per-cup
+serves: 2
+sources:
+  - title: "Royal Blend, 125 g loose leaf caddy"
+    author: Fortnum & Mason
+    url: https://eu.fortnumandmason.com/royal-blend-125g-loose-leaf-decorative-caddy
+    lang: en
+    primary: true
+    supports: [story, recipe, parameters]
+    note: "First blended for King Edward in 1902; Assam with a Flowery Pekoe from Sri Lanka, which lifts the maltier Assam; no proportions; 1 rounded teaspoon (2 g), freshly boiled water, 3–5 minutes."
+  - title: "Our history timeline"
+    author: Fortnum & Mason
+    url: https://www.fortnumandmason.com/stories/our-history-timeline
+    lang: en
+    primary: true
+    supports: [story]
+    note: "1902: the king asked for the finest tea in the land; Fortnum's searched abroad and gave him the result, Assam and Flowery Pekoe, smooth and honey-like."
+  - title: "Royal Blend 250 g, pack label"
+    author: Fortnum & Mason Europe
+    url: https://eu.fortnumandmason.com/media/alergen-translations-pdf/2002657-Royal_Blend_250g.pdf
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "Freshly drawn water heated to 100 °C, 1 teaspoon per person, 5 minutes; best with a splash of milk."
+  - title: "Fortnum & Mason: how the queen's footman created London's legendary emporium"
+    author: "Afisha.London, 12 November 2025"
+    url: https://afisha.london/en/2025/11/12/fortnum-mason-how-the-queen-s-footman-created-london-s-legendary-emporium/
+    lang: en
+    supports: [story]
+    note: "Retells Fortnum & Mason's own account of 1902; cites nothing."
+  - title: "Royal Blend"
+    author: RateTea
+    url: https://ratetea.com/tea/fortnum-and-mason/royal-blend/6503/
+    lang: en
+    supports: [story]
+    note: "Listing copy: first blended in the summer of 1902; low-grown Ceylon Flowery Pekoe with the maltier Assam."
+ingredients:
+  - { id: assam, qty: 3, unit: g, role: base }
+  - { id: ceylon-black, qty: 2, unit: g, role: base }
+brew:
+  water: tap
+  temp_c: 100
+  ratio_g_per_100ml: 1
+  water_ml: 500
+  vessel: teapot
+  preheat: true
+  infusions_s: [240]
+steps:
+  - text: "Boil freshly drawn water. Warm the teapot with a swirl of it and pour it away."
+    office: "Set the kettle to 100 °C. Warm the teapot with a swirl of hot water and pour it away."
+  - text: "Put both teas in the teapot, pour the water and put the lid on."
+    office: "Put both teas in the teapot, pour the water and put the lid on."
+    infusions: true
+  - text: "Pour into the two cups, with a splash of milk, as the house serves it."
+    office: "Pour into the two mugs, with a splash of milk from the fridge."

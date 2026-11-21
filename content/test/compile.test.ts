@@ -10,6 +10,17 @@ function problemsAfter(change: (f: Fixture) => void): string[] {
 }
 
 const blend = (f: Fixture, i: number) => f.blends[i] as Record<string, unknown>;
+
+/** A tea's own plain brew, like a bancha's: boiling water, 30 seconds. */
+const plainBrew = (): Record<string, unknown> => ({
+  temp_c: 100,
+  temp_range: [90, 100],
+  ratio_g_per_100ml: 2.4,
+  water_ml: 250,
+  infusions_s: [30],
+  office: { temp_c: 100, method: "Pour at a full boil.", infusions_s: [30] },
+  sources: [{ title: "Bancha guide", url: "https://example.com/bancha", lang: "en", supports: ["parameters"] }],
+});
 const field = <T>(object: unknown, key: string) => (object as Record<string, T>)[key] as T;
 
 describe("compileContent on valid content", () => {
@@ -60,6 +71,26 @@ describe("compileContent on valid content", () => {
     const ingredient = bundle!.ingredients.find((i) => i.id === "dried-bergamot")!;
     expect("teaType" in ingredient).toBe(false);
     expect("tempRange" in bundle!.blends[0]!.brew).toBe(false);
+  });
+
+  it("carries a tea's own plain brew, and a tea marked never plain", () => {
+    const f = fixture();
+    f.ingredients[0]!.plain_brew = plainBrew();
+    f.ingredients[2]!.plain = false;
+    const { bundle, problems } = compileContent(filesOf(f));
+    expect(problems).toEqual([]);
+    const [ceylon, bergamot, oolong] = bundle!.ingredients;
+    expect(ceylon!.plainBrew).toEqual({
+      tempC: 100,
+      tempRange: { min: 90, max: 100 },
+      ratioGPer100ml: 2.4,
+      waterMl: 250,
+      infusionsS: [30],
+      office: { tempC: 100, method: "Pour at a full boil.", infusionsS: [30] },
+      sources: [expect.objectContaining({ title: "Bancha guide", primary: false })],
+    });
+    expect(oolong!.plain).toBe(false);
+    expect("plain" in ceylon! || "plainBrew" in bergamot! || "plainBrew" in oolong!).toBe(false);
   });
 
   it("gives a blend that names no gear an empty list", () => {
@@ -368,6 +399,40 @@ describe("compileContent refuses", () => {
     expect(found).toContain(
       'ingredients/high-mountain-oolong.yaml: tea_type: tea-types.yaml has no "oolong" (the plain-tea fallback brews by it)',
     );
+  });
+
+  it("a plain brew on anything but a tea in grams, both plain keys on one tea, or a plain brew out of its range", () => {
+    const found = problemsAfter((f) => {
+      f.ingredients[0]!.plain = false;
+      f.ingredients[0]!.plain_brew = plainBrew();
+      f.ingredients[1]!.plain_brew = plainBrew();
+      f.ingredients[2]!.plain_brew = {
+        ...plainBrew(),
+        temp_c: 80,
+        sources: [{ title: "Lost", lang: "en", supports: ["parameters"] }],
+      };
+    });
+    expect(found).toContain(
+      "ingredients/ceylon-black.yaml: plain_brew: a tea marked plain: false is never brewed plain",
+    );
+    expect(found).toContain(
+      "ingredients/dried-bergamot.yaml: plain, plain_brew: only a tea counted in grams is ever brewed plain",
+    );
+    expect(found).toContain(
+      "ingredients/high-mountain-oolong.yaml: plain_brew.temp_c: 80 °C is outside its temp_range [90, 100]",
+    );
+    expect(found).toContain(
+      "ingredients/high-mountain-oolong.yaml: plain_brew.sources[0]: a source needs a url, a ref (a book and its pages), or both",
+    );
+  });
+
+  it("plain set to anything but false, and a plain brew with a misspelt key", () => {
+    const found = problemsAfter((f) => {
+      f.ingredients[0]!.plain = true;
+      f.ingredients[2]!.plain_brew = { ...plainBrew(), infusion_s: [30] };
+    });
+    expect(found.some((p) => p.startsWith("ingredients/ceylon-black.yaml: plain:"))).toBe(true);
+    expect(found).toContain('ingredients/high-mountain-oolong.yaml: plain_brew: unknown key "infusion_s"');
   });
 
   it("an ingredient whose id isn't its file's name", () => {

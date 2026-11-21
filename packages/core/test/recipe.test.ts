@@ -1,7 +1,7 @@
 import fc from "fast-check";
 import { describe, expect, it } from "vitest";
-import { plainTeaRecipe, roundQty, scaleRecipe } from "../src/index.js";
-import { TEA_TYPES, blend, ingredient } from "./fixtures.js";
+import { type Ingredient, plainBrewOf, plainTeaRecipe, roundQty, scaleRecipe } from "../src/index.js";
+import { TEA_TYPES, blend, catalog, ingredient } from "./fixtures.js";
 
 describe("roundQty (SPEC §2.4)", () => {
   it("rounds grams to 0.5 g, or 0.1 g under 2 g, halves up", () => {
@@ -104,8 +104,32 @@ describe("plainTeaRecipe (SPEC §2.5)", () => {
     expect(plainTeaRecipe(tea, black!, 2)).toMatchObject({ waterMl: 500, ingredients: [{ qty: 5 }] });
   });
 
-  it("only brews a tea counted in grams", () => {
+  it("only brews a tea counted in grams, and never one marked plain: false", () => {
     const black = TEA_TYPES[0]!;
     expect(() => plainTeaRecipe(ingredient("sugar"), black, 1)).toThrow(RangeError);
+    const matcha = ingredient("matcha", { category: "tea", teaType: "green", plain: false });
+    expect(() => plainTeaRecipe(matcha, black, 1)).toThrow(RangeError);
+  });
+});
+
+describe("plainBrewOf (SPEC §2.5)", () => {
+  const content = catalog([]);
+  const own = { ...TEA_TYPES[1]!, tempC: 100, waterMl: 200, ratioGPer100ml: 3, infusionsS: [30] };
+
+  it("brews a tea by its own brew when it has one, else by its type's", () => {
+    const genmaicha = ingredient("genmaicha", { category: "tea", teaType: "green", plainBrew: own });
+    expect(plainBrewOf(genmaicha, content)).toBe(own);
+    expect(plainTeaRecipe(genmaicha, own, 2)).toMatchObject({ waterMl: 400, ingredients: [{ qty: 12 }] });
+    const sencha = ingredient("sencha", { category: "tea", teaType: "green" });
+    expect(plainBrewOf(sencha, content)).toBe(content.teaTypeByName.get("green"));
+  });
+
+  it("has none for matcha, a tea not in grams, anything but a tea, or a type the content lacks", () => {
+    const tea = (overrides: Partial<Ingredient>) =>
+      ingredient("tea", { category: "tea", teaType: "green", ...overrides });
+    expect(plainBrewOf(tea({ plain: false }), content)).toBeNull();
+    expect(plainBrewOf(tea({ unit: "pieces", plainBrew: own }), content)).toBeNull();
+    expect(plainBrewOf(ingredient("sugar"), content)).toBeNull();
+    expect(plainBrewOf(tea({ teaType: "white" }), content)).toBeNull();
   });
 });

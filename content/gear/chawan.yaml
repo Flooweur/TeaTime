@@ -1,0 +1,14 @@
+id: chawan
+name: Chawan (matcha bowl)
+quality: "A wide stoneware bowl, about 11–12 cm across, with room to whisk in; lead-free glaze; washed by hand and dried well. A café au lait bowl will stand in."
+shops:
+  - shop: palais-des-thes-lyon
+    why: "Chawan Sensai, handmade Japanese stoneware with a pouring lip, 12.5 cm."
+    price: "€35.00"
+    url: https://www.palaisdesthes.com/fr/chawan-sensai-bol-matcha.html
+    checked: 2026-11-21
+  - shop: dammann-freres-lyon
+    why: "Sora, stoneware, 39 cl, 11 × 7 cm."
+    price: "€32.30"
+    url: https://www.dammann.fr/fr/sora-bol-a-the-matcha.html
+    checked: 2026-11-21

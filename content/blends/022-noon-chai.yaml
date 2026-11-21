@@ -1,0 +1,83 @@
+code: "022"
+slug: noon-chai
+name: Kashmiri noon chai
+mode: experimental
+family: household
+trust: documented
+source_type: grandmother
+origin: Kashmir
+story: >
+  Noon is Kashmiri for salt, and noon chai is the salty pink tea Kashmiris drink all winter, poured from
+  a samovar with breads such as girda, and served at weddings and births. The pink is chemistry: long
+  boiling draws out the tea's polyphenols, which change colour with pH; baking soda pushes them to a
+  deep red, ice-cold water fixes it, and milk lightens it to pink. This method follows Maryam Jillani's
+  family recipe, from her aunt, and a Kashmiri cook's in Gulf News. That it came along the Silk Road
+  from Yarkand is a legend.
+difficulty: 3
+seasons: [winter]
+flavours: [salty, creamy]
+caffeine: medium
+scaling: per-cup
+serves: 2
+sources:
+  - title: "Kashmiri chai (pink tea)"
+    author: "Maryam Jillani, from Pakistan: Recipes and Stories from Home Kitchens (Hardie Grant), on SBS Food, 9 May 2025"
+    url: https://www.sbs.com.au/food/recipe/kashmiri-chai-pink-tea/lo7ialu2j
+    lang: en
+    primary: true
+    supports: [recipe, story]
+    note: "Her aunt's family method. For 6: 20 g of tea leaves, 4 cardamom pods and star anise in half of 960 ml of ice-cold water, reduced by half; ¼ teaspoon of baking soda, then aerated with a ladle 3 minutes; the rest of the ice water, 15 minutes more, until deep burgundy; with full-fat milk, salt; pistachios on top; drunk in winter and at weddings."
+  - title: "Recipe for Kashmiri noon chai or pink tea"
+    author: "Syed Faiq, Gulf News, updated 9 February 2022"
+    url: https://gulfnews.com/food/cooking-cuisines/recipe-for-kashmiri-noon-chai-or-pink-tea-1.1643711381882
+    lang: en
+    primary: true
+    supports: [recipe]
+    note: "A Kashmiri cook's recipe for 2: Kashmiri or green tea, ¼ teaspoon of baking soda, reduced and topped up with water 2–3 times until deep red-brown, then 1 part concentrate to 3 of milk, with salt; no sugar."
+  - title: "Cuisine: not a quick cuppa"
+    author: "Dr Mubashar Naqvi, Dawn, January 2018"
+    url: https://www.dawn.com/news/1381323
+    lang: en
+    supports: [recipe, story]
+    note: "For 2 cups: 2 cups of water, 2–3 teaspoons of green tea, 4 cardamoms, a pinch of baking soda, boiled about 20 minutes to half; 2 cups of cold water, 5–10 minutes more; milk; salt; nuts on top; noon means salt."
+  - title: "Be in the pink this winter with Kashmiri noon chai"
+    author: "Nasir Yousufi, Village Square, 2023"
+    url: https://villagesquare.in/?p=17390
+    lang: en
+    supports: [story]
+    note: "Drunk in winter, poured from a samovar, with breads such as girda; at births, weddings and visits to mourners; it probably came along the Silk Road."
+  - title: "Kashmir's noon chai is a pink, salty delight"
+    author: "Anahita Ahluwalia, Homegrown, 10 February 2025"
+    url: https://homegrown.co.in/homegrown-explore/kashmirs-noon-chai-is-a-pink-salty-delight-that-holds-centuries-of-heritage
+    lang: en
+    supports: [story]
+    note: "Gunpowder green tea; long boiling with soda raises the pH and turns it burgundy, like the indicator phenol red; cold water locks in the shade, milk makes it pink."
+  - title: "Noon chai"
+    author: Wikipedia
+    url: https://en.wikipedia.org/wiki/Noon_chai
+    lang: en
+    supports: [story]
+    note: "Gunpowder tea, traditionally boiled about an hour with soda; ice water, then aeration with a ladle; said to have come from Yarkand by the Silk Road."
+ingredients:
+  - { id: gunpowder-green, qty: 6, unit: g, role: base }
+  - { id: whole-milk, qty: 300, unit: ml, role: base }
+  - { id: baking-soda, qty: 0.5, unit: g, role: accent }
+  - { id: green-cardamom, qty: 2, unit: pieces, role: accent }
+  - { id: salt, qty: 1, unit: g, role: accent }
+  - { id: star-anise, qty: 1, unit: pieces, role: accent, optional: true }
+brew:
+  water: tap
+  temp_c: 100
+  water_ml: 600
+  vessel: saucepan
+  preheat: false
+  infusions_s: [1080]
+steps:
+  - text: "Put a third of the water in the fridge, or add a few ice cubes to it: it must be ice-cold later. Lightly crush the cardamom pods."
+  - text: "In a saucepan, simmer the leaves, the cardamom and the star anise, if you use it, in the other two thirds of the water, cold, until it has reduced by half: a smaller pan reduces faster, so watch it."
+    infusions: true
+  - text: "Stir in the baking soda (a pinch). When it foams, ladle the tea up and pour it back from a height, again and again."
+    timer_s: 180
+  - text: "Add the ice-cold water and keep simmering and ladling, until the tea turns a deep burgundy. Then strain it: about a third of the water you started with is left."
+    timer_s: 720
+  - text: "Heat the milk in the pan, stir in the concentrate, which turns it pink, and the salt, and bring it just to a simmer. Crushed pistachios or almonds on top, if you have some. The colour can fail: it still tastes right."

@@ -63,3 +63,33 @@ shops:
     kind: online
     url: https://www.teaspring.com
     notes: "Chinese teas, priced in US dollars, shipped worldwide; customs may apply."
+  - id: palamarket
+    name: Palamarket
+    kind: online
+    url: https://www.palamarket.fr
+    notes: "A Turkish and oriental grocery; its shop is in Andrézieux-Bouthéon, near Saint-Étienne."
+  - id: epicerie-saint-brieuc
+    name: Épicerie Saint-Brieuc
+    kind: online
+    url: https://epicerie-saintbrieuc.fr
+    notes: "A Turkish grocery in Saint-Brieuc; ships across Europe by Mondial Relay."
+  - id: soin-et-nature
+    name: Soin et Nature
+    kind: online
+    url: https://www.soin-et-nature.com
+    notes: "An online pharmacy and herbalist (Pharmacie de Mailloles, Perpignan)."
+  - id: greenweez
+    name: Greenweez
+    kind: online
+    url: https://www.greenweez.com
+    notes: "An organic marketplace; some products are sold by other shops through it."
+  - id: jurassic-fruit
+    name: Jurassic Fruit
+    kind: online
+    url: https://www.jurassicfruit.com
+    notes: "Fresh fruit by post; standard delivery in France €9.90."
+  - id: artigiano-in-fiera
+    name: Artigiano in Fiera
+    kind: online
+    url: https://artigianoinfiera.fr
+    notes: "A marketplace of Italian producers; seasonal products are often unavailable out of season."

@@ -1,0 +1,93 @@
+code: "015"
+slug: hojicha
+name: Hojicha
+mode: safe
+family: tea-master
+trust: attested
+source_type: tea-house
+origin: Japan (Kanazawa)
+story: >
+  Hojicha is Japanese green tea, sencha or bancha, roasted over high heat until it turns brown: the
+  roasting takes away the bitterness and leaves a toasty smell. Kyo Hayashiya, a tea house founded in
+  Kanazawa in 1753, says its third master, Hayashiya Shinbei, roasted discarded sencha stems in 1902
+  into bōcha, "stick tea", and taught the method to the town's tea trade. The better-known story,
+  Kyoto merchants roasting unsold tea in the 1920s, is a legend, only ever told "as the story goes".
+  Like genmaicha, it takes boiling water and about 30 seconds.
+difficulty: 1
+flavours: [roasted, toasty]
+caffeine: medium
+scaling: per-cup
+serves: 2
+sources:
+  - title: "The proper way to brew Nihoncha"
+    author: "Ministry of Agriculture, Forestry and Fisheries of Japan (MAFF)"
+    url: https://www.maff.go.jp/j/seisan/tokusan/cha/attach/pdf/tea_export-7.pdf
+    lang: en
+    primary: true
+    supports: [recipe, parameters]
+    note: "Bancha (genmaicha, houjicha): 2–3 g per 100 ml, boiling water, about 30 seconds; a second infusion with boiling water, poured out at once; soft water."
+  - title: "Basic Bancha (Hojicha, Genmaicha, etc.)"
+    author: Ippodo Tea
+    url: https://global.ippodo-tea.co.jp/blogs/tea-recipe/basic-bancha-hojicha-genmaicha
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "10 g (hojicha: 4 tablespoons, it is bulky) in 240 ml at 100 °C, boiling vigorously; serve 30 seconds after you start pouring."
+  - title: "Hojicha (how to brew)"
+    author: "World Green Tea Association (O-CHA NET, Shizuoka)"
+    url: https://www.o-cha.net/english/culture/Japanesetea-hojicha.html
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "3 g and about 130 ml per person, boiling water, about 30 seconds; warm the pot and cups first."
+  - title: "歴史 (History)"
+    author: Kyo Hayashiya (Kanazawa, founded 1753)
+    url: https://kyo-hayashiya.jp/history/
+    lang: ja
+    primary: true
+    supports: [story]
+    note: "In 1902 the third Hayashiya Shinbei invented roasted stem tea, called bōcha for its shape, and taught it to the Kanazawa tea trade; said to be the origin of stem hojicha."
+  - title: "ほうじ茶 (Hojicha)"
+    author: Wikipedia (ja)
+    url: https://ja.wikipedia.org/wiki/%E3%81%BB%E3%81%86%E3%81%98%E8%8C%B6
+    lang: ja
+    supports: [story, parameters]
+    note: "Kanazawa 1902, citing the company; leaf hojicha said to date from 1920s Kyoto; 2–3 g per 100 ml, hot water, about 30 seconds; roasting lowers astringency."
+  - title: "History of Hojicha"
+    author: "Moé Kishida, Yunomi, 2023"
+    url: https://yunomi.life/blogs/ocha/history-of-hojicha-one-of-japans-favorite-tea
+    lang: en
+    supports: [story]
+    note: "The 1920s Kyoto versions are told as 'the story goes'; no record names a tea as hojicha before then."
+  - title: "特集1 緑茶 (Green tea, feature 1)"
+    author: "MAFF, aff magazine"
+    url: https://www.maff.go.jp/j/pr/aff/1704/spe1_01.html
+    lang: ja
+    primary: true
+    supports: [story]
+    note: "Sencha or bancha roasted over high heat; a toasty aroma and a clean finish."
+  - title: "カフェインの過剰摂取について (On excess caffeine)"
+    author: "MAFF, Food Safety Policy Division"
+    url: https://www.maff.go.jp/j/syouan/seisaku/risk_analysis/priority/hazard_chem/caffeine.html
+    lang: ja
+    primary: true
+    supports: [parameters]
+    note: "From Japan's food composition tables: hojicha 20 mg of caffeine per 100 ml, the same as sencha, though it is often called low in caffeine."
+ingredients:
+  - { id: hojicha, qty: 12, unit: g, role: base }
+brew:
+  water: soft-bottled
+  temp_c: 100
+  ratio_g_per_100ml: 2.2
+  water_ml: 550
+  vessel: teapot
+  preheat: true
+  infusions_s: [30]
+steps:
+  - text: "Bring fresh water to a full boil. Rinse the teapot and the two mugs with a splash of it and empty them."
+    office: "Set the kettle to 100 °C. Rinse the teapot and the two mugs with a splash and empty them."
+  - text: "Put the leaves in the teapot and pour on all the water at a full boil: the time runs from the start of the pour. The water includes a little extra for what the leaves soak up."
+    office: "Put the leaves in the teapot and pour straight from the kettle at 100 °C."
+    infusions: true
+  - text: "Pour into the two mugs in turns, a little at a time, down to the last drop. For a second pot, pour boiling water on the same leaves and pour it out at once."
+    office: "Pour into the two mugs in turns, down to the last drop. For a second pot, refill from the kettle and pour it out at once."

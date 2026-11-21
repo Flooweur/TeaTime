@@ -24,7 +24,9 @@
  *   than 5 minutes on the day;
  * - an ingredient or gear no blend in use uses, a shop neither uses, a shop of theirs that isn't in
  *   shops.yaml or is named twice, a Lyon shop without an address, an online one without a URL;
- * - a `tea` ingredient without a tea type, another with one, and a tea type tea-types.yaml lacks.
+ * - a `tea` ingredient without a tea type, another with one, and a tea type tea-types.yaml lacks;
+ * - `plain` or `plain_brew` on anything but a tea counted in grams, both on one tea, and a
+ *   `plain_brew` whose temperature is outside its range or whose source can't be found.
  */
 import {
   type Blend,
@@ -35,6 +37,7 @@ import {
   type Gear,
   type Guide,
   type Ingredient,
+  type PlainBrew,
   type Range,
   SAFE_DAY_SECONDS,
   SAFE_VESSELS,
@@ -53,12 +56,12 @@ import {
   BlendFile,
   GearFile,
   IngredientFile,
+  type PlainBrewFile,
   SLUG_PATTERN,
   type ShopFile,
   type ShopRefFile,
   ShopsFile,
   type SourceFile,
-  type TeaTypeFile,
   TeaTypesFile,
 } from "./schema.js";
 
@@ -216,6 +219,14 @@ function shopFromFile(shop: ShopFile): Shop {
   };
 }
 
+/** A plain brew's temperature inside its range, and its sources each findable: a tea type's, or a tea's own. */
+function plainBrewProblems(file: string, at: string, brew: PlainBrewFile): Problem[] {
+  return [
+    ...rangeProblems(file, at, brew.temp_c, brew.temp_range),
+    ...sourceProblems(file, brew.sources, `${at}.sources`),
+  ];
+}
+
 /** The tea types by type, or null when tea-types.yaml can't be read (its problems added). */
 function compileTeaTypes(file: ContentFile, problems: Problem[]): Map<string, TeaType> | null {
   const types = new Map<string, TeaType>();
@@ -225,25 +236,22 @@ function compileTeaTypes(file: ContentFile, problems: Problem[]): Map<string, Te
     const at = `tea_types[${i}]`;
     if (types.has(type.type))
       problems.push({ file: file.path, message: `${at}: the tea type "${type.type}" is twice` });
-    problems.push(...rangeProblems(file.path, at, type.temp_c, type.temp_range));
-    problems.push(...sourceProblems(file.path, type.sources, `${at}.sources`));
-    types.set(type.type, teaTypeFromFile(type));
+    problems.push(...plainBrewProblems(file.path, at, type));
+    types.set(type.type, { type: type.type, name: type.name, ...plainBrewFromFile(type) });
   }
   return types;
 }
 
-function teaTypeFromFile(type: TeaTypeFile): TeaType {
+function plainBrewFromFile(brew: PlainBrewFile): PlainBrew {
   return {
-    type: type.type,
-    name: type.name,
-    tempC: type.temp_c,
-    ...range(type.temp_range),
-    ratioGPer100ml: type.ratio_g_per_100ml,
-    waterMl: type.water_ml,
-    infusionsS: type.infusions_s,
-    office: { tempC: type.office.temp_c, method: type.office.method, infusionsS: type.office.infusions_s },
-    ...(type.notes !== undefined ? { notes: type.notes } : {}),
-    sources: type.sources.map(citation),
+    tempC: brew.temp_c,
+    ...range(brew.temp_range),
+    ratioGPer100ml: brew.ratio_g_per_100ml,
+    waterMl: brew.water_ml,
+    infusionsS: brew.infusions_s,
+    office: { tempC: brew.office.temp_c, method: brew.office.method, infusionsS: brew.office.infusions_s },
+    ...(brew.notes !== undefined ? { notes: brew.notes } : {}),
+    sources: brew.sources.map(citation),
   };
 }
 
@@ -268,6 +276,13 @@ function compileIngredients(
     if (ingredients.has(data.id)) add(`the ingredient id "${data.id}" is used twice`);
     if (data.category === "tea" && data.tea_type === undefined) add("a tea needs its tea_type");
     if (data.category !== "tea" && data.tea_type !== undefined) add("only a tea has a tea_type");
+    if ((data.plain !== undefined || data.plain_brew !== undefined) && (data.category !== "tea" || data.unit !== "g")) {
+      add("plain, plain_brew: only a tea counted in grams is ever brewed plain");
+    }
+    if (data.plain === false && data.plain_brew !== undefined) {
+      add("plain_brew: a tea marked plain: false is never brewed plain");
+    }
+    if (data.plain_brew) problems.push(...plainBrewProblems(file.path, "plain_brew", data.plain_brew));
     shopRefProblems(data.shops, shops, add);
     ingredients.set(data.id, {
       id: data.id,
@@ -275,6 +290,8 @@ function compileIngredients(
       category: data.category,
       unit: data.unit,
       ...(data.tea_type !== undefined ? { teaType: data.tea_type } : {}),
+      ...(data.plain === false ? { plain: false } : {}),
+      ...(data.plain_brew !== undefined ? { plainBrew: plainBrewFromFile(data.plain_brew) } : {}),
       perishable: data.perishable,
       shelfLifeDays: data.shelf_life_days,
       storage: data.storage,

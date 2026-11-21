@@ -36,7 +36,16 @@ export {
   seasonOf,
   teaDayType,
 } from "./calendar.js";
-export { MAX_CUPS, MIN_CUPS, type Recipe, isCups, plainTeaRecipe, roundQty, scaleRecipe } from "./recipe.js";
+export {
+  MAX_CUPS,
+  MIN_CUPS,
+  type Recipe,
+  isCups,
+  plainBrewOf,
+  plainTeaRecipe,
+  roundQty,
+  scaleRecipe,
+} from "./recipe.js";
 export {
   type Freshness,
   type Pantry,

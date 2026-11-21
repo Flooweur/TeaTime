@@ -1,0 +1,75 @@
+code: "012"
+slug: earl-grey-lavender
+name: Earl Grey with lavender
+mode: safe
+family: earl-grey
+trust: attested
+source_type: tea-house
+origin: Canada
+story: >
+  TEALEAVES, a tea blender in British Columbia, says it first blended its Lavender Earl Grey in 1998
+  for the New York restaurant of chef Jean-Georges Vongerichten: black tea, bergamot oil and lavender
+  from Provence. Rishi calls the pairing a French twist on an old European habit but cites nothing,
+  so that part is a legend. Vancouver's Murchie's, and Twinings in its French Earl Grey, sell lavender
+  versions too. No tea house gives its share of lavender: this one follows a seller's recipe, about
+  one part lavender to six of tea by volume, and starts low, since lavender can overwhelm.
+difficulty: 1
+flavours: [floral, bergamot]
+caffeine: medium
+scaling: per-cup
+serves: 2
+sources:
+  - title: "Lavender Earl Grey"
+    author: TEALEAVES
+    url: https://tealeaves.com/products/lavender-earl-grey-loose-leaf-tea
+    lang: en
+    primary: true
+    supports: [story, parameters]
+    note: "First blended in 1998 for chef Jean-Georges Vongerichten's New York restaurant; black tea, organic Provence lavender, rose petals, bergamot oil; 1 teaspoon per 240 ml, 99 °C, 2–3 minutes."
+  - title: "Earl Grey Lavender"
+    author: Rishi Tea
+    url: https://www.rishi-tea.com/products/organic-earl-grey-lavender-black-tea
+    lang: en
+    primary: true
+    supports: [parameters, story]
+    note: "Black tea, Greek lavender, Calabrian bergamot oil; 9 g per 350 ml, 93 °C, 4 minutes; calls the pairing a French twist on an old European habit, unsourced."
+  - title: "Lavender tea"
+    author: Murchie's (Vancouver)
+    url: https://murchies.com/product/lavender-tea/
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "Its version of Lavender Earl Grey: Ceylon and Keemun with lavender, cornflowers and a touch of bergamot; 1 level teaspoon (2.5 g) per 180–240 ml, 4–5 minutes."
+  - title: "Recipe: Lavender Earl Grey Latte"
+    author: "Mountain Rose Herbs, 4 April 2016"
+    url: https://blog.mountainroseherbs.com/lavender-earl-grey-latte-recipe
+    lang: en
+    supports: [recipe]
+    note: "1 tablespoon of Earl Grey and ½ teaspoon of lavender flowers in 8 oz of hot water, covered; milk and honey; lavender can be overwhelming."
+  - title: "All about Earl Grey"
+    author: Twinings Australia
+    url: https://twinings.com.au/blogs/all-about-tea/all-about-earl-grey-1
+    lang: en
+    primary: true
+    supports: [story]
+    note: "Twinings' French Earl Grey has notes of vanilla, rose petals and lavender."
+ingredients:
+  - { id: earl-grey, qty: 7.5, unit: g, role: base }
+  - { id: lavender, qty: 0.4, unit: g, role: accent }
+brew:
+  water: tap
+  temp_c: 95
+  temp_range: [93, 99]
+  ratio_g_per_100ml: 1.5
+  water_ml: 500
+  vessel: teapot
+  preheat: true
+  infusions_s: [240]
+steps:
+  - text: "Boil fresh water. Warm the teapot with a swirl of it and pour it away."
+    office: "Set the kettle to 95 °C. Warm the teapot with a swirl of hot water and pour it away."
+  - text: "Put the leaves and the lavender in the teapot, pour the water and put the lid on. The lavender's weight, about half a teaspoon, is an estimate: weigh your spoon once, and add more next time if you like."
+    office: "Put the leaves and the lavender in the teapot, pour the water and put the lid on."
+    infusions: true
+  - text: "Pour into the cups, plain or with a dash of milk."
+    office: "Pour into the two mugs, with a dash of milk from the fridge if you like."

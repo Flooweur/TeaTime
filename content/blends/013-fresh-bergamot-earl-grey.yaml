@@ -1,0 +1,95 @@
+code: "013"
+slug: fresh-bergamot-earl-grey
+name: Fresh-bergamot Earl Grey
+mode: safe
+family: earl-grey
+trust: documented
+source_type: tea-house
+origin: Italy (Calabria)
+story: >
+  Earl Grey's flavour is bergamot, a bitter citrus grown for its rind: about 80% of the world's crop
+  comes from Calabria, almost all of it from the province of Reggio Calabria. The harvest starts with
+  the cold at the end of November and ends around the end of February, and fresh fruit is sold, mostly
+  to France, until about the end of December. A kilo of its oil takes some 200 kg of fruit. In season,
+  the zest itself can scent the tea, as the Herb Society of America suggests: here a few strips of
+  fresh peel with a plain Ceylon black tea. How many strips is an estimate.
+difficulty: 2
+seasons: [winter]
+flavours: [citrus, bergamot]
+caffeine: medium
+scaling: per-cup
+serves: 2
+sources:
+  - title: "Bergamot Oil Italy"
+    author: Givaudan
+    url: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/bergamot-oil-italy
+    lang: en
+    primary: true
+    supports: [story]
+    note: "The harvest begins with the cold days at the end of November and usually ends around the end of February; the fruit turns from green to yellow as it ripens."
+  - title: "Bergamot Oil from Calabria"
+    author: "Stash Tea, 4 October 2019"
+    url: https://www.stashtea.com/blogs/education/bergamot-oil-from-calabria
+    lang: en
+    primary: true
+    supports: [story]
+    note: "The fruit ripens between December and March; the oil is cold-pressed from the rind, about 200 kg of fruit for 1 kg of oil."
+  - title: "Bergamot (Citrus bergamia, Risso): the effects of cultivar and harvest date"
+    author: "A. M. Giuffrè, Antioxidants 8(7):221, 2019"
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC6680538
+    lang: en
+    primary: true
+    supports: [story]
+    note: "Grown almost only on the Ionian and Tyrrhenian coasts of the province of Reggio Calabria; the fruit ripens from October to March."
+  - title: "What is bergamot"
+    author: Twinings
+    url: https://twinings.co.uk/blogs/news/what-is-bergamot
+    lang: en
+    primary: true
+    supports: [story]
+    note: "80% of the world's bergamot comes from Calabria; it is grown for its skin; the fruit is bitter and inedible."
+  - title: "Fresh Calabrian bergamot citrus headed to France"
+    author: "FreshPlaza, 19 October 2020"
+    url: https://www.freshplaza.com/europe/article/9259381/fresh-calabrian-bergamot-citrus-headed-to-france/
+    lang: en
+    supports: [story]
+    note: "A Calabrian farm's season runs from late September or October to early February; fresh fruit is sold until the end of December, mostly to France."
+  - title: "Recipes: Bergamot Orange"
+    author: "The Herb Society of America, 2020"
+    url: https://herbsociety.org/file_download/inline/1f8aaba3-5ba6-4cac-a9fc-5a072b2b9e85
+    lang: en
+    supports: [recipe]
+    note: "Zest a fresh bergamot and infuse the peel in tea for an Earl Grey flavour, dried or fresh; no quantities."
+  - title: "ベルガモット (Bergamot)"
+    author: "Tomoko Sato with the aroma school kukka, Mynavi Agri, 14 March 2026"
+    url: https://agri.mynavi.jp/2026_03_14_472491/
+    lang: ja
+    supports: [recipe]
+    note: "A homemade Earl Grey: 2 teaspoons of tea (about 5 g) with ½ teaspoon of dried bergamot peel for about 2 cups; the fresh fruit keeps 2–3 weeks in the fridge."
+  - title: "Single Region Earl Grey"
+    author: Dilmah
+    url: https://shop.dilmahtea.com.au/products/gourmet-earl-grey-125g-leaf-tea
+    lang: en
+    primary: true
+    supports: [recipe]
+    note: "Dilmah's Earl Grey is pure Ceylon black tea with bergamot: the base chosen here."
+ingredients:
+  - { id: ceylon-black, qty: 6, unit: g, role: base }
+  - { id: fresh-bergamot, qty: 4, unit: pieces, role: accent }
+brew:
+  water: tap
+  temp_c: 95
+  temp_range: [90, 100]
+  ratio_g_per_100ml: 1.2
+  water_ml: 500
+  vessel: teapot
+  preheat: true
+  infusions_s: [240]
+steps:
+  - text: "Wash the bergamot and peel 4 thin strips of zest with a vegetable peeler, leaving the white pith behind. Boil fresh water, warm the teapot with a swirl of it and pour it away."
+    office: "Set the kettle to 95 °C; you peeled the strips and boxed them the evening before. Warm the teapot with a swirl of hot water and pour it away."
+  - text: "Put the leaves and the strips in the teapot, pour the water and put the lid on."
+    office: "Put the leaves and the strips in the teapot, pour the water and put the lid on."
+    infusions: true
+  - text: "Pour into the cups, and twist a used strip over each if you like."
+    office: "Pour into the two mugs, and twist a used strip over each if you like."

@@ -14,7 +14,7 @@ import {
   scaleRecipe,
   stockFor,
 } from "../src/index.js";
-import { blend, brew, brews, catalog, have, pick, state } from "./fixtures.js";
+import { INGREDIENTS, blend, brew, brews, catalog, have, ingredient, pick, state } from "./fixtures.js";
 
 // Sunday evening, drawing Monday's office tea.
 const TODAY = "2026-11-22";
@@ -271,6 +271,26 @@ describe("the fallbacks (SPEC §2.5)", () => {
 
   it("says what to buy when there is no tea at all", () => {
     expect(drawPick(state(), content, TODAY, first)).toEqual({ kind: "nothing", unlock: "mint" });
+  });
+
+  it("never brews a tea marked plain: false, at home or from the office's shelf (self-review of batch 2)", () => {
+    const withMatcha = catalog(
+      [minty("001")],
+      [...INGREDIENTS, ingredient("matcha", { category: "tea", teaType: "green", plain: false })],
+    );
+    const shelf = { atOffice: { value: true, at: 1 } };
+    const s = state({ pantry: { matcha: { ...have(500), ...shelf }, "green-tea": { ...have(10), ...shelf } } });
+    expect(drawPick(s, withMatcha, TODAY, first)).toMatchObject({ kind: "plain", tea: "green-tea" });
+    expect(drawPick(s, withMatcha, MONDAY, { ...first, timing: "same-day" })).toEqual({
+      kind: "no-kit",
+      tea: "green-tea",
+    });
+    const onlyMatcha = state({ pantry: { matcha: { ...have(500), ...shelf } } });
+    expect(drawPick(onlyMatcha, withMatcha, TODAY, first)).toEqual({ kind: "nothing", unlock: "mint" });
+    expect(drawPick(onlyMatcha, withMatcha, MONDAY, { ...first, timing: "same-day" })).toEqual({
+      kind: "no-kit",
+      tea: null,
+    });
   });
 
   it("offers a tea kept at the office when an office day is first drawn on the day, so no kit was packed", () => {

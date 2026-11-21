@@ -1,0 +1,25 @@
+id: silver-needle
+name: Silver needle white tea
+category: tea
+unit: g
+tea_type: white
+perishable: false
+shelf_life_days: 365
+storage: "Dry, in a clean airtight tin, away from strong smells."
+quality: "Bai Hao Yin Zhen from Fujian, ideally Fuding or Zhenghe: unopened spring buds only, plump and covered in silver-white down, with a harvest year. Not Yunnan's Yin Zhen, a different style."
+shops:
+  - shop: dammann-freres-lyon
+    why: "Yin Zhen Pointes blanches, Fujian, Bai Hao cultivar."
+    price: "€59.40 / 100 g"
+    url: https://www.dammann.fr/fr/the-de-chine-yin-zhen-pointes-blanches.html
+    checked: 2026-11-21
+  - shop: teaspring
+    why: "Bai Hao Yin Zhen from Jianyang, Fujian, spring 2025."
+    price: "$27.00 / 50 g"
+    url: https://www.teaspring.com/Bai-Hao-Yin-Zhen.asp
+    checked: 2026-11-21
+  - shop: jardins-de-gaia
+    why: "Organic silver needle from Fujian, 2025; the page shows both Add to cart and Notify me, so check it is in stock."
+    price: "€34.10 / 50 g"
+    url: https://www.jardinsdegaia.com/en/white-teas/933-silver-needle.html
+    checked: 2026-11-21
