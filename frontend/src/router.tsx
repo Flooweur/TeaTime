@@ -11,6 +11,7 @@ import { Library } from "./screens/Library";
 import { Pantry } from "./screens/Pantry";
 import { PantryItem } from "./screens/PantryItem";
 import { Settings } from "./screens/Settings";
+import { Review } from "./review/Review";
 import { Today } from "./today/Today";
 
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
@@ -48,6 +49,17 @@ const todayFromPush = createRoute({
   },
 });
 
+/** The weekly review; the Saturday push links to `/review?date=…&from=push`. */
+const review = createRoute({
+  getParentRoute: () => root,
+  path: "/review",
+  validateSearch: pushSearch,
+  component: function ReviewRoute() {
+    const { date } = review.useSearch();
+    return <Review date={date ?? null} />;
+  },
+});
+
 const blend = createRoute({
   getParentRoute: () => root,
   path: "/blend/$code",
@@ -69,6 +81,7 @@ const pantryItem = createRoute({
 const routeTree = root.addChildren([
   today,
   todayFromPush,
+  review,
   createRoute({ getParentRoute: () => root, path: "/pantry", component: Pantry }),
   pantryItem,
   createRoute({ getParentRoute: () => root, path: "/library", component: Library }),

@@ -3,13 +3,14 @@
  * and the bottom tab bar: Today · Pantry · Library · Guides · Settings. On the PC, the same column,
  * centred (decision of 2026-11-21). It keeps the screen on while a timer runs.
  */
+import { DEFAULT_SETTINGS, isWeekend } from "@teatime/core";
 import { Link, Outlet } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { teaDb } from "../lib/db";
 import { usePushState } from "../lib/push";
 import { kept, syncStatus, useStore } from "../lib/store";
 import { syncNow } from "../lib/sync";
-import { useNow } from "../lib/time";
+import { localAt, useNow } from "../lib/time";
 import { anyRunning, useTimers } from "../lib/timer";
 import { useWakeLock } from "../lib/wakeLock";
 import { UpdateToast } from "./UpdateToast";
@@ -28,6 +29,17 @@ const icon = (path: ReactNode) => (
     {path}
   </svg>
 );
+
+const REVIEW_TAB = {
+  to: "/review",
+  label: "Review",
+  icon: icon(
+    <>
+      <path d="M5 4h14v16H5z" />
+      <path d="m8.5 9 1.5 1.5L13 7.5M8.5 15l1.5 1.5 3-3M15 10h2M15 16h2" />
+    </>,
+  ),
+} as const;
 
 const TABS = [
   {
@@ -151,7 +163,11 @@ export function Shell() {
   const now = useNow(5_000);
   useWakeLock(anyRunning(timers, now));
   // The screens wait for the device's storage: before it answers, the state would be an empty one.
-  const { loaded } = useStore(kept);
+  const { loaded, snapshot } = useStore(kept);
+  // Review joins the tabs on the owner's weekend (SPEC §7).
+  const timeZone = snapshot?.state.settings.timeZone ?? DEFAULT_SETTINGS.timeZone;
+  const weekend = isWeekend(localAt(now, timeZone).date);
+  const tabs = weekend ? [TABS[0], REVIEW_TAB, ...TABS.slice(1)] : TABS;
   return (
     <div className="min-h-dvh">
       <Banners />
@@ -161,8 +177,8 @@ export function Shell() {
         aria-label="Screens"
         className="fixed inset-x-0 bottom-0 z-10 border-t border-line bg-surface pb-[env(safe-area-inset-bottom)]"
       >
-        <ul className="mx-auto grid max-w-[30rem] grid-cols-5">
-          {TABS.map((tab) => (
+        <ul className={`mx-auto grid max-w-[30rem] ${weekend ? "grid-cols-6" : "grid-cols-5"}`}>
+          {tabs.map((tab) => (
             <li key={tab.to}>
               <Link
                 to={tab.to}
