@@ -46,8 +46,9 @@ export async function api<T>(method: "GET" | "POST" | "PUT" | "DELETE", path: st
   }
   if (!response.ok) {
     const { error, code, ...details } = (data ?? {}) as { error?: string; code?: string };
-    // A gateway's own error (the server down behind the dev proxy) is the server being out of reach.
-    const unreachable = !code && response.status >= 502 && response.status <= 504;
+    // A proxy's own error (Tailscale's 502 with the container down, Vite's 500 with the dev server
+    // down) is the server being out of reach: the server's own errors always carry a code.
+    const unreachable = !code && ((response.status >= 502 && response.status <= 504) || response.status === 500);
     throw new ApiError(
       response.status,
       code ?? (unreachable ? "offline" : "server_error"),

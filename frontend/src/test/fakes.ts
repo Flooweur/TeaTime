@@ -45,10 +45,13 @@ export function fakeServer(start: State = initialState()) {
     answerWith: null as "server_error" | "unsupported_version" | null,
     /** The next answer is lost on its way back, after the server applied the commands. */
     loseNextAnswer: false,
+    /** While set, each request waits for it: a slow network. */
+    hold: null as Promise<void> | null,
     requests: [] as { method: string; path: string; body: unknown }[],
   };
   setFetch(async (input, init) => {
     if (server.down) throw new TypeError("Failed to fetch");
+    if (server.hold) await server.hold;
     const path = input.replace(/^\/api\//, "");
     const method = init?.method ?? "GET";
     const body = init?.body ? (JSON.parse(String(init.body)) as unknown) : undefined;

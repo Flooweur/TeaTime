@@ -70,16 +70,29 @@ async function pass(db: TeaDb): Promise<void> {
 }
 
 let running: Promise<void> | null = null;
+/** A sync was asked for while one was running: it may have missed a change made meanwhile. */
+let again = false;
 
-/** Syncs now; a sync already running in this tab is joined. Never throws: `syncStatus` says how it went. */
+/**
+ * Syncs now. A sync already running in this tab is joined, and runs once more when it ends, so a
+ * change made while it was under way isn't left for the next trigger. Never throws: `syncStatus`
+ * says how it went.
+ */
 export function syncNow(): Promise<void> {
-  running ??= (async () => {
+  if (running) {
+    again = true;
+    return running;
+  }
+  running = (async () => {
     syncStatus.update((s) => ({ ...s, running: true }));
     try {
       const db = teaDb();
       const locks = typeof navigator !== "undefined" ? navigator.locks : undefined;
-      if (locks) await locks.request("teatime-sync", () => pass(db));
-      else await pass(db);
+      do {
+        again = false;
+        if (locks) await locks.request("teatime-sync", () => pass(db));
+        else await pass(db);
+      } while (again);
       syncStatus.set({ running: false, lastSyncedAt: Date.now(), error: null });
     } catch (err) {
       const error =
@@ -89,6 +102,7 @@ export function syncNow(): Promise<void> {
       syncStatus.update((s) => ({ ...s, running: false, error }));
     } finally {
       running = null;
+      again = false;
     }
   })();
   return running;

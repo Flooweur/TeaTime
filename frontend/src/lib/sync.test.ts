@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { fakeServer, freshDevice, snapshotOf } from "../test/fakes";
 import { newId, send } from "./commands";
 import { followKept, kept, syncStatus } from "./store";
+import { setFetch } from "./api";
 import { adopt, syncNow } from "./sync";
 import { currentView } from "./view";
 
@@ -121,5 +122,31 @@ describe("the outbox and sync (SPEC §3.3)", () => {
     await new Promise((resolve) => setTimeout(resolve, 50));
     expect(kept.get().outbox).toHaveLength(1);
     stop();
+  });
+});
+
+describe("the self-review of phase 6", () => {
+  it("sends a change made while a sync was under way, without waiting for the next trigger", async () => {
+    const db = freshDevice();
+    const server = fakeServer();
+    let release: () => void = () => {};
+    server.hold = new Promise<void>((resolve) => (release = resolve));
+    await send("blend.marked", { blend: "005", favourite: true });
+    const first = syncNow();
+    await send("blend.marked", { blend: "006", favourite: true });
+    // syncSoon's call, 2 s later, finds the first sync still waiting for its answer.
+    void syncNow();
+    server.hold = null;
+    release();
+    await first;
+    expect(await db.outbox.count()).toBe(0);
+    expect(server.state.marks["006"]?.favourite.value).toBe(true);
+  });
+
+  it("reads a proxy's 500 without a code as the server out of reach", async () => {
+    freshDevice();
+    setFetch(async () => new Response("", { status: 500 }));
+    await syncNow();
+    expect(syncStatus.get().error?.code).toBe("offline");
   });
 });

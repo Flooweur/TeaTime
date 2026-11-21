@@ -4,7 +4,7 @@
  * server's content is newer than the app's (its hash isn't the app's), it says so too.
  */
 import { useRegisterSW } from "virtual:pwa-register/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { bundle } from "../lib/content";
 import { createStore, kept, useStore } from "../lib/store";
 
@@ -35,17 +35,30 @@ export function UpdateToast() {
   } = useRegisterSW({ onRegisteredSW: (_url, registration) => registrationStore.set(registration) });
   useUpdateChecks(useStore(registrationStore));
   const { snapshot } = useStore(kept);
-  const newerContent = snapshot !== null && snapshot.contentHash !== bundle.hash;
+  // The hash this toast was dismissed for: a later difference shows it again.
+  const [dismissedHash, setDismissedHash] = useState<string | null>(null);
+  const otherContent =
+    snapshot !== null && snapshot.contentHash !== bundle.hash && snapshot.contentHash !== dismissedHash;
 
-  if (!needRefresh && !newerContent) return null;
+  if (!needRefresh && !otherContent) return null;
   return (
     <div
       role="status"
       className="fixed right-[max(1rem,env(safe-area-inset-right))] bottom-[calc(5.5rem+env(safe-area-inset-bottom))] left-[max(1rem,env(safe-area-inset-left))] z-20 mx-auto flex max-w-md items-center gap-3 rounded-well bg-fg px-4 py-3 text-bg shadow-card"
     >
       <span className="flex-1 text-sm">
-        {needRefresh ? "A new version is ready." : "The server has newer teas: the app is looking for its update."}
+        {needRefresh
+          ? "A new version is ready."
+          : "The app and the server have different teas: an update is on its way."}
       </span>
+      {!needRefresh && snapshot && (
+        <button
+          className="min-h-tap rounded-control px-3 text-sm"
+          onClick={() => setDismissedHash(snapshot.contentHash)}
+        >
+          Later
+        </button>
+      )}
       {needRefresh && (
         <>
           <button className="min-h-tap rounded-control px-3 text-sm" onClick={() => setNeedRefresh(false)}>

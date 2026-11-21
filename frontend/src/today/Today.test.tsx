@@ -130,3 +130,32 @@ describe("Today (SPEC §7)", () => {
     expect(screen.getByText(/The purchase that would unlock the most blends/)).toBeTruthy();
   });
 });
+
+describe("the self-review of phase 6", () => {
+  it("shows no card before the device's storage has answered", async () => {
+    const now = at("2026-11-23", "09:00");
+    const state = drawnAt({ ...initialState(), pantry: { "earl-grey": have(300) } }, now);
+    await openToday(state, now);
+    kept.set({ loaded: false, snapshot: null, outbox: [], refused: [], storageError: null });
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    expect(screen.queryByText("Today's tea isn't drawn yet")).toBeNull();
+    expect(screen.queryByRole("button", { name: "Made it" })).toBeNull();
+    kept.set({ loaded: true, snapshot: snapshotOf(state, 1), outbox: [], refused: [], storageError: null });
+    expect(await screen.findByRole("button", { name: "Made it" })).toBeTruthy();
+  });
+
+  it("tells when the app's teas differ from the server's, either way, and Later hides it", async () => {
+    const now = at("2026-11-28", "10:00");
+    await openToday(initialState(), now);
+    kept.set({
+      loaded: true,
+      snapshot: { ...snapshotOf(initialState(), 1), contentHash: "another" },
+      outbox: [],
+      refused: [],
+      storageError: null,
+    });
+    expect(await screen.findByText(/have different teas/)).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Later" }));
+    expect(screen.queryByText(/have different teas/)).toBeNull();
+  });
+});

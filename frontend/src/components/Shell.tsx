@@ -138,10 +138,12 @@ export function Shell() {
   const timers = useTimers();
   const now = useNow(5_000);
   useWakeLock(anyRunning(timers, now));
+  // The screens wait for the device's storage: before it answers, the state would be an empty one.
+  const { loaded } = useStore(kept);
   return (
     <div className="min-h-dvh">
       <Banners />
-      <Outlet />
+      {loaded ? <Outlet /> : <div className="min-h-dvh" aria-busy="true" />}
       <UpdateToast />
       <nav
         aria-label="Screens"

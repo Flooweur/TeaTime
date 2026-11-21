@@ -43,6 +43,6 @@ Draws the app icons into `public/` (no dependencies).
 ## Tests
 `src/**/*.test.ts(x)`, in node with an in-memory IndexedDB, and in happy-dom for the screens (`src/test/` holds the setup, a fake server that applies commands with core's reducer, and a stand-in for the PWA plugin's module).
 - `today/model.test.ts`: for any date, time, week and pantry, Today's card is a valid one (a property test); the teaser, the evening and the weekend.
-- `today/Today.test.tsx`: Today rendered: Made it, the ratings and Undo; Peek; a push's link; the weekend; Packed; the missed kit; nothing to make.
-- `lib/sync.test.ts`: the outbox, a lost answer never counting twice, refusals, undecided commands, offline, an older snapshot ignored.
+- `today/Today.test.tsx`: Today rendered: Made it, the ratings and Undo; Peek; a push's link; the weekend; Packed; the missed kit; nothing to make; no card before the storage answers; the different-teas toast.
+- `lib/sync.test.ts`: the outbox, a lost answer never counting twice, refusals, undecided commands, offline (a proxy's 500 included), an older snapshot ignored, a change made mid-sync sent at once.
 - `lib/timer.test.ts`: the timers' arithmetic.
