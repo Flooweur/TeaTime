@@ -15,7 +15,7 @@ The rest of the week works like this:
 It is a personal app: a PWA installed on an iPhone, served from a PC at home through Tailscale.
 
 ## Status
-**Phases 0, 1 and 3–5 are done:** the look (*A · Warm journal*, with its tokens), the foundation (the workspaces, the tooling and CI, the docs, and the content's checks and build), the rules in `packages/core`, the first 10 blends, and the server in `backend/`. **Phase 6, the app in `frontend/`, and phase 7, the phone and the daily container ([docs/runbook.md](docs/runbook.md)), are in review.** See [ROADMAP.md](ROADMAP.md) for what comes next.
+**Phases 0–5 are done:** the look (*A · Warm journal*, with its tokens), the foundation (the workspaces, the tooling and CI, the docs, and the content's checks and build), the rules in `packages/core`, the first 10 blends, and the server in `backend/`. **Phases 6 and 7 are merged:** the app in `frontend/`, and the daily container ([docs/runbook.md](docs/runbook.md)), running on the PC since 2026-11-21. **Phase 8, the review and the rest of Settings, is in review.** See [ROADMAP.md](ROADMAP.md) for what comes next.
 
 ## Read next
 | Document | What |
