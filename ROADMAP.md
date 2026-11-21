@@ -9,12 +9,12 @@ Each phase is a branch and a pull request, merged only after the owner's yes. Ea
 |---|---|---|---|
 | 0 | **Design directions:** three static Today mockups in `docs/design/`; the owner picks one, which becomes the Tailwind tokens | The owner has picked, and `docs/design/README.md` records it | Done: A · Warm journal |
 | 1 | **Foundation:** workspaces, tooling, CI, these docs, the content's schemas, check and build | `npm run check` is green in CI | Done |
-| 2 | **Push spike** (`spikes/001-push-8443`): iOS home-screen push on the `:8443` origin | The owner's iPhone has shown a test push (or the failure is written up with the fallback: a Tailscale container with its own name) | Proposed as its own session |
+| 2 | **Push spike** (`spikes/001-push-8443`): iOS home-screen push on the `:8443` origin | The owner's iPhone has shown a test push (or the failure is written up with the fallback: a Tailscale container with its own name) | Done: the real app instead (2026-11-21) |
 | 3 | **Core domain:** every rule of SPEC §2, with unit and property tests (a simulated year in Europe/Paris, the draw's invariants, the status table, the reducer's order-independence, rounding). The saving-and-loading round trip of the state is phase 5's, with the rows; the Saturday review's lists are phase 8's, built on core's unlock counts and freshness | The tests are green | Done |
 | 4 | **Content batch 1:** 10 blends (about 6 safe and 4 experimental, at least one cold brew, across the families), their ingredients, Lyon and online shops, and the tea types. The owner approves the list before the research | `content:check` is green, and the owner has reviewed the batch | Done |
 | 5 | **Backend:** the state's persistence, the commands, draw and swap, settings and overrides, export, backup and restore, diagnostics | The route and job tests are green (in-memory SQLite, a test clock, a fake push) | Done |
 | 6 | **Frontend core:** the shell, Today with its timers, the library, the blend page, the pantry, the offline store, outbox and sync, and the update toast | For any date and pantry, Today shows a valid card, and the app opens offline | In review |
-| 7 | **Phone and notifications:** the install flow, push on, off and test, the notifier, the Docker image and compose file, `tailscale serve`, the backups, and `docs/runbook.md` | The owner's iPhone has had a week of 8:00 pushes | In review; running since 2026-11-21 (deployed from its branch, on the owner's yes) |
+| 7 | **Phone and notifications:** the install flow, push on, off and test, the notifier, the Docker image and compose file, `tailscale serve`, the backups, and `docs/runbook.md` | The owner's iPhone has had a week of 8:00 pushes | Running since 2026-11-21; the week of pushes is under way |
 | 8 | **Review, settings and export** | The owner has done one real Saturday review | — |
 | 9 | **Polish:** the guides screen and outline, accessibility (44 px taps, contrast, safe areas), diagnostics, the chime's audio session, a full final review | The owner would show it to their colleague without apologising | — |
 
@@ -24,6 +24,9 @@ Phase 4 depends only on phase 1, so it can run alongside phases 3, 5 and 6. Late
 
 ## Decisions log
 Asked of the owner and answered, newest first. The SPEC states each as a rule.
+
+### 2026-11-21: the push spike, by the real app
+- **No spike:** the daily stack went up on the owner's yes, on `:8443` as planned, and the owner's iPhone showed the test push from the installed app. That was phase 2's question, answered by the app itself.
 
 ### 2026-11-21: the app (phase 6)
 The owner took the five recommendations:

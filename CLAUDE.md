@@ -12,7 +12,7 @@ Read the relevant parts before changing anything, and update them in the same co
 - `content/`: the blends, ingredients, shops, tea types and guides as YAML and Markdown, their schemas, the compiler and its checks, and the generated `src/bundle.ts`. [README](content/README.md) has the format and every check.
 - `backend/`: the server: Fastify, SQLite, the jobs and push. It stores the state as rows and changes it only through core's rules. [README](backend/README.md).
 - `frontend/`: the PWA. It shows the server's snapshot with its unsent commands replayed through core's reducer. [README](frontend/README.md).
-- `docs/`: `original-plan.md`, [runbook.md](docs/runbook.md) (the daily stack: start, update, restore), and `design/`: the look (A · Warm journal) and its Tailwind tokens, in both modes, in its [README](docs/design/README.md). `spikes/` (phase 2) is still to come.
+- `docs/`: `original-plan.md`, [runbook.md](docs/runbook.md) (the daily stack: start, update, restore), and `design/`: the look (A · Warm journal) and its Tailwind tokens, in both modes, in its [README](docs/design/README.md).
 - [SERVICES.md](SERVICES.md) lists every outside service and what it learns.
 - **Project EagleEye** (`D:\Git\Project_EagleEye`) is the owner's other app, and the model for TeaTime's patterns (push, PWA shell, content pipeline, tooling, workflow). Port its code, never import across repos.
   - When reading it, never open `packages/content/assessments/**`, `packages/content/src/bundle.ts` or any `dist/`: they are held out from its owner.
