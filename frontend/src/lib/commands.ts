@@ -23,9 +23,16 @@ export interface Sent {
   readonly result: CommandResult;
 }
 
-/** Queues a command made now, unless the app's state refuses it; either way, its result. */
-export async function send<T extends CommandType>(type: T, payload: PayloadOf<T>): Promise<Sent> {
-  const raw = { id: crypto.randomUUID(), v: COMMAND_VERSION, at: Date.now(), type, payload };
+/**
+ * Queues a command, unless the app's state refuses it; either way, its result. It is made now,
+ * unless `at` dates it (a cup the review logs on its own day, decision of 2026-11-21).
+ */
+export async function send<T extends CommandType>(
+  type: T,
+  payload: PayloadOf<T>,
+  at: number = Date.now(),
+): Promise<Sent> {
+  const raw = { id: crypto.randomUUID(), v: COMMAND_VERSION, at, type, payload };
   const parsed = parseCommand(raw);
   // The screens build their commands: one that doesn't parse is the app's bug.
   if (!parsed.ok) throw new Error(`${type}: ${parsed.problem}`);

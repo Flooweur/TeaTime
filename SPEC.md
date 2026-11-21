@@ -171,14 +171,15 @@ In detail:
 - **In core:** `dueNotifications(state, content, now)` gives what is due now, with its tag, window, text and link; the server records what it sent.
 
 ### 2.8 Weekly review (Saturday)
+On Saturday and Sunday, the review covers Monday to Friday just past; the Saturday push opens it.
 - **The week's teas**, side by side, with their ratings.
-  - Pending picks of past days are asked about: made or skipped.
+  - Pending picks of past days are asked about: made or skipped. **Made** logs the cup on its own day, at the morning time, with the pick's cups, so a pantry measured since isn't counted down twice (§3.3's deduction rule; decision of 2026-11-21).
   - Ratings can still be given or changed.
 - **Marks:** ★ favourite and *make again* on any blend, and the colleague's ratings for the office teas.
 - **Three lists:**
-  1. ingredients running low or going stale;
+  1. ingredients running low or going stale. **Running low:** a tracked amount that can't make two more of the blend that takes the most of it, at that blend's default cups. **Going stale:** *use soon* or past its shelf life (§2.6);
   2. the 3 purchases that would unlock the most blends;
-  3. next week's office preview: the office days ahead, how many safe blends could be drawn from the pantry as it is, and what to restock so none runs short.
+  3. next week's office preview: the office days ahead, how many safe blends could be drawn from the pantry as it is, and what to restock so none runs short: each tracked ingredient whose amount is under what those days could take, each day counted as the office blend that takes the most of it, at the office's cups.
 - **The preview draws nothing:** each blend is still drawn the evening before, from the pantry as it is then.
 
 ---

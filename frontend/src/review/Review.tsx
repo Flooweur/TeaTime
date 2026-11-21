@@ -4,10 +4,11 @@
  * for an answer, what is going stale, the purchases that unlock the most, and next week's office
  * days. Everything here works offline: ratings, marks and skips are commands (SPEC §3.3).
  */
-import type { Catalog, PickTea, State } from "@teatime/core";
+import { type Catalog, type PickRecord, type PickTea, type State, instantAt, minutesOf, pickCups } from "@teatime/core";
 import { Link } from "@tanstack/react-router";
 import { Button, Screen, Section, Toggle } from "../components/ui";
-import { send } from "../lib/commands";
+import { newId, send } from "../lib/commands";
+import { qtyText } from "../lib/format";
 import { longDate, localAt, useNow, weekdayOf } from "../lib/time";
 import { useView } from "../lib/view";
 import { Ratings } from "../today/Actions";
@@ -41,6 +42,21 @@ function Marks({ code, state }: { code: string; state: State }) {
   );
 }
 
+/**
+ * A tea still waiting, made after all: logged on its own day, at the morning time, so a pantry
+ * measured since isn't counted down twice (decision of 2026-11-21; SPEC §3.3's deduction rule).
+ */
+function madeThatDay(pick: PickRecord, state: State) {
+  const { tea } = pick;
+  if (tea.kind === "none") return;
+  const at = instantAt(pick.date, minutesOf(state.settings.morningTime), state.settings.timeZone);
+  return send(
+    "brew.logged",
+    { brew: newId(), tea, cups: pickCups(pick, state.settings), date: pick.date, pick: pick.date },
+    at,
+  );
+}
+
 function DayRow({ row, state, catalog, today }: { row: ReviewDay; state: State; catalog: Catalog; today: string }) {
   const { date, day, pick, brew } = row;
   let body;
@@ -61,9 +77,16 @@ function DayRow({ row, state, catalog, today }: { row: ReviewDay; state: State; 
       <>
         <p>{teaName(pick.tea, catalog)}</p>
         <p className="text-sm text-muted">Still waiting for an answer: was it made, or skipped?</p>
-        <Button className="self-start" onClick={() => void send("pick.skipped", { date })}>
-          Skipped
-        </Button>
+        <div className="flex gap-3">
+          {pick.tea.kind !== "none" && (
+            <Button variant="primary" className="flex-1" onClick={() => void madeThatDay(pick, state)}>
+              Made it
+            </Button>
+          )}
+          <Button className="flex-1" onClick={() => void send("pick.skipped", { date })}>
+            Skipped
+          </Button>
+        </div>
       </>
     );
   } else body = <p>{teaName(pick.tea, catalog)}: today's.</p>;
@@ -110,12 +133,24 @@ export function Review({ date }: { date: string | null }) {
       )}
 
       <Section title="To restock">
-        {model.going.length === 0 ? (
-          <p className="text-muted">Nothing is going stale.</p>
+        {model.going.length === 0 && model.low.length === 0 ? (
+          <p className="text-muted">Nothing is running low or going stale.</p>
         ) : (
           <ul className="flex flex-col gap-1">
+            {model.low.map(({ ingredient, left, twoCups }) => (
+              <li key={"low:" + ingredient.id}>
+                <Link
+                  to="/pantry/$id"
+                  params={{ id: ingredient.id }}
+                  className="font-bold underline underline-offset-4"
+                >
+                  {ingredient.name}
+                </Link>
+                : {qtyText(left, ingredient.unit)} left, less than two uses ({qtyText(twoCups, ingredient.unit)})
+              </li>
+            ))}
             {model.going.map(({ ingredient, freshness }) => (
-              <li key={ingredient.id}>
+              <li key={"going:" + ingredient.id}>
                 <Link
                   to="/pantry/$id"
                   params={{ id: ingredient.id }}
@@ -155,6 +190,26 @@ export function Review({ date }: { date: string | null }) {
           The pantry makes {model.preview.safeMakeable} of the office blends now. Each is drawn the evening before, from
           the pantry as it is then.
         </p>
+        {model.preview.restock.length > 0 && (
+          <>
+            <p className="label text-sm">Won't last the week</p>
+            <ul className="flex flex-col gap-1">
+              {model.preview.restock.map(({ ingredient, left, need }) => (
+                <li key={ingredient.id}>
+                  <Link
+                    to="/pantry/$id"
+                    params={{ id: ingredient.id }}
+                    className="font-bold underline underline-offset-4"
+                  >
+                    {ingredient.name}
+                  </Link>
+                  : {qtyText(left, ingredient.unit)} left, the office days may take up to{" "}
+                  {qtyText(need, ingredient.unit)}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </Section>
     </Screen>
   );

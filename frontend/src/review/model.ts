@@ -4,6 +4,7 @@
  * that unlock the most, and next week's office days with how many safe blends the pantry makes now.
  */
 import {
+  type Blend,
   type BrewRecord,
   type Catalog,
   type Day,
@@ -17,11 +18,12 @@ import {
   entryOf,
   freshnessOf,
   isoWeekday,
+  scaleRecipe,
   teaDayType,
   topUnlocks,
   weekOf,
 } from "@teatime/core";
-import { shortfallsNow, unlocksNow } from "../lib/pantryView";
+import { defaultCups, shortfallsNow, unlocksNow } from "../lib/pantryView";
 
 export interface ReviewDay {
   readonly date: string;
@@ -40,9 +42,44 @@ export interface ReviewModel {
   readonly going: readonly { readonly ingredient: Ingredient; readonly freshness: Exclude<Freshness, "fresh"> }[];
   /** The 3 purchases that would unlock the most blends (SPEC §2.6). */
   readonly unlocks: readonly { readonly item: Ingredient | Gear; readonly count: number }[];
-  /** Next week's office days, and how many safe blends the pantry makes now, for the office's cups. */
-  readonly preview: { readonly officeDays: readonly string[]; readonly safeMakeable: number };
+  /**
+   * Ingredients running low (decision of 2026-11-21): what's left can't make two more of the blend
+   * that uses the most of it, at that blend's default cups. Only tracked amounts are judged.
+   */
+  readonly low: readonly { readonly ingredient: Ingredient; readonly left: number; readonly twoCups: number }[];
+  /**
+   * Next week's office days; how many safe blends the pantry makes now, for the office's cups; and
+   * what wouldn't last them (decision of 2026-11-21): each office day counted as the office blend that
+   * needs the most of the ingredient.
+   */
+  readonly preview: {
+    readonly officeDays: readonly string[];
+    readonly safeMakeable: number;
+    readonly restock: readonly { readonly ingredient: Ingredient; readonly left: number; readonly need: number }[];
+  };
 }
+
+/** For each ingredient, the most any of these blends takes of it, at its cups. */
+function mostTaken(blends: readonly Blend[], cupsOf: (blend: Blend) => number): Map<string, number> {
+  const most = new Map<string, number>();
+  for (const blend of blends) {
+    for (const item of scaleRecipe(blend, cupsOf(blend)).ingredients) {
+      most.set(item.id, Math.max(most.get(item.id) ?? 0, item.qty));
+    }
+  }
+  return most;
+}
+
+/** The ingredients you have, with a tracked amount: what the two lists judge. */
+function tracked(state: State, catalog: Catalog): { ingredient: Ingredient; left: number }[] {
+  return catalog.ingredients.flatMap((ingredient) => {
+    const entry = entryOf(state.pantry, ingredient.id);
+    const left = entry.amount.value;
+    return !ingredient.retired && entry.have.value && left !== null ? [{ ingredient, left }] : [];
+  });
+}
+
+const tidy = (qty: number) => Math.round(qty * 10) / 10;
 
 /** The Monday of `date`'s week. */
 export const mondayOf = (date: string): string => addDays(date, 1 - isoWeekday(date));
@@ -74,15 +111,23 @@ export function reviewModel(state: State, catalog: Catalog, date: string, today:
     return item ? [{ item, count }] : [];
   });
 
+  const live = catalog.blends.filter((b) => !b.retired);
+  const most = mostTaken(live, (b) => defaultCups(b, state));
+  const low = tracked(state, catalog).flatMap(({ ingredient, left }) => {
+    const one = most.get(ingredient.id);
+    return one !== undefined && left < 2 * one ? [{ ingredient, left, twoCups: tidy(2 * one) }] : [];
+  });
+
   const nextMonday = addDays(monday, 7);
   const officeDays = [0, 1, 2, 3, 4].map((d) => addDays(nextMonday, d)).filter((d) => teaDayType(d, week) === "office");
-  const safeMakeable = catalog.blends.filter(
-    (b) =>
-      !b.retired &&
-      b.mode === "safe" &&
-      !state.marks[b.code]?.notForMe.value &&
-      shortfallsNow(b, state, catalog, today).length === 0,
-  ).length;
+  const office = live.filter((b) => b.mode === "safe" && !state.marks[b.code]?.notForMe.value);
+  const safeMakeable = office.filter((b) => shortfallsNow(b, state, catalog, today).length === 0).length;
+  const perDay = mostTaken(office, () => state.settings.officeCups);
+  const restock = tracked(state, catalog).flatMap(({ ingredient, left }) => {
+    const one = perDay.get(ingredient.id);
+    const need = one === undefined ? 0 : tidy(one * officeDays.length);
+    return need > 0 && left < need ? [{ ingredient, left, need }] : [];
+  });
 
-  return { days, otherBrews, going, unlocks, preview: { officeDays, safeMakeable } };
+  return { days, otherBrews, going, unlocks, low, preview: { officeDays, safeMakeable, restock } };
 }

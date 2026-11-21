@@ -15,7 +15,7 @@ Each phase is a branch and a pull request, merged only after the owner's yes. Ea
 | 5 | **Backend:** the state's persistence, the commands, draw and swap, settings and overrides, export, backup and restore, diagnostics | The route and job tests are green (in-memory SQLite, a test clock, a fake push) | Done |
 | 6 | **Frontend core:** the shell, Today with its timers, the library, the blend page, the pantry, the offline store, outbox and sync, and the update toast | For any date and pantry, Today shows a valid card, and the app opens offline | In review |
 | 7 | **Phone and notifications:** the install flow, push on, off and test, the notifier, the Docker image and compose file, `tailscale serve`, the backups, and `docs/runbook.md` | The owner's iPhone has had a week of 8:00 pushes | Running since 2026-11-21; the week of pushes is under way |
-| 8 | **Review, settings and export** | The owner has done one real Saturday review | In progress |
+| 8 | **Review, settings and export** | The owner has done one real Saturday review | In review |
 | 9 | **Polish:** the guides screen and outline, accessibility (44 px taps, contrast, safe areas), diagnostics, the chime's audio session, a full final review | The owner would show it to their colleague without apologising | — |
 
 Phase 4 depends only on phase 1, so it can run alongside phases 3, 5 and 6. Later content batches (the other 80 blends, then the two guides) follow the same review, in batches of 15.
@@ -24,6 +24,12 @@ Phase 4 depends only on phase 1, so it can run alongside phases 3, 5 and 6. Late
 
 ## Decisions log
 Asked of the owner and answered, newest first. The SPEC states each as a rule.
+
+### 2026-11-21: the review (phase 8)
+The owner took the three recommendations:
+- **Running low:** a tracked amount that can't make two more of the blend that uses the most of it.
+- **A waiting tea made after all** is logged on its own day, at the morning time, so a pantry measured since isn't counted down twice.
+- **Next week's restock:** each ingredient that wouldn't last the office days ahead, each day counted as the office blend that takes the most of it.
 
 ### 2026-11-21: the push spike, by the real app
 - **No spike:** the daily stack went up on the owner's yes, on `:8443` as planned, and the owner's iPhone showed the test push from the installed app. That was phase 2's question, answered by the app itself.

@@ -4,6 +4,7 @@ import { RouterProvider, createMemoryHistory } from "@tanstack/react-router";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { baseCatalog as catalog } from "../lib/content";
+import { teaDb } from "../lib/db";
 import { followKept, kept } from "../lib/store";
 import { createAppRouter } from "../router";
 import { fakeServer, freshDevice, snapshotOf } from "../test/fakes";
@@ -88,5 +89,36 @@ describe("the review's screen (SPEC §7)", () => {
     expect(waiting).toHaveLength(5);
     fireEvent.click(waiting[0]!);
     await waitFor(() => expect(screen.getAllByRole("button", { name: "Skipped" })).toHaveLength(4));
+  });
+});
+
+describe("the review's rules (decisions of 2026-11-21)", () => {
+  it("calls an ingredient low when it can't make two more of the blend that takes the most of it", () => {
+    // #005 takes 7.5 g of Earl Grey for the office's 2 cups: two uses are 15 g.
+    const state: State = { ...initialState(), pantry: { "earl-grey": entry(10), assam: entry(300) } };
+    const model = reviewModel(state, catalog, "2026-11-28", "2026-11-28");
+    expect(model.low.map((l) => [l.ingredient.id, l.left, l.twoCups])).toEqual([["earl-grey", 10, 15]]);
+  });
+
+  it("lists what won't last next week's office days, each day counted as the blend taking the most", () => {
+    // Monday, Tuesday and Thursday: three days of up to 7.5 g of Earl Grey, 10 g of Assam.
+    const state: State = { ...initialState(), pantry: { "earl-grey": entry(20), assam: entry(30) } };
+    const model = reviewModel(state, catalog, "2026-11-28", "2026-11-28");
+    expect(model.preview.restock.map((r) => [r.ingredient.id, r.left, r.need])).toEqual([["earl-grey", 20, 22.5]]);
+  });
+
+  it("logs a waiting tea made after all on its own day, at the morning time", async () => {
+    const state = drawnWeek();
+    await open(state, at("2026-11-28", "10:05"), "/review");
+    const db = teaDb();
+    fireEvent.click((await screen.findAllByRole("button", { name: "Made it" }))[0]!);
+    await waitFor(async () => expect(await db.outbox.count()).toBe(1));
+    const [queued] = await db.outbox.toArray();
+    expect(queued?.command).toMatchObject({
+      type: "brew.logged",
+      // Wednesday 25 (home, 1 cup): the week's first waiting tea with something to make.
+      at: at("2026-11-25", "08:00"),
+      payload: { date: "2026-11-25", pick: "2026-11-25", cups: 1 },
+    });
   });
 });
