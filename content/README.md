@@ -84,6 +84,9 @@ name: Gunpowder green tea
 category: tea               # tea | herb | spice | citrus | flower | sweetener | dairy | other
 unit: g                     # g | ml | pieces: every quantity of it is in this unit
 tea_type: green             # exactly for category tea: white | green | yellow | oolong | black | dark
+plain: false                # optional, a tea in grams only: never offered as a plain tea (matcha)
+plain_brew: { … }           # optional, a tea in grams only: its own plain brew, in a tea type's shape
+                            #   (temp_c to sources), when its type's defaults don't suit it (genmaicha)
 perishable: false           # fresh mint, milk: past its shelf life it counts as missing
 shelf_life_days: 365        # once opened (or bought, when fresh)
 storage: "Airtight tin, away from light and smells."
@@ -164,7 +167,8 @@ Text, with [links](https://…) or [to a chapter](#bergamot).
 - an ingredient or a piece of gear no blend in use uses;
 - fewer than 2 shops for an ingredient or a piece of gear, a shop not in `shops.yaml` or named twice, or a shop neither names;
 - a Lyon shop without an address, or an online one without a URL;
-- a tea without a tea type, another category with one, or a tea type `tea-types.yaml` lacks.
+- a tea without a tea type, another category with one, or a tea type `tea-types.yaml` lacks;
+- `plain` or `plain_brew` on anything but a tea counted in grams, both on one tea, or a `plain_brew` whose temperature is outside its `temp_range` or whose source has neither a URL nor a reference.
 
 **Guides** (`src/guides.ts`). Until a guide is written, the app shows its chapter outline from docs/original-plan.md, copied in `frontend/src/screens/Guides.tsx` (`OUTLINES`): the batch that writes a guide checks its chapters against it, then removes its outline there.
 - no `# Title` first, or a second one;

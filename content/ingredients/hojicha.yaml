@@ -1,0 +1,55 @@
+id: hojicha
+name: Hojicha
+category: tea
+unit: g
+tea_type: green
+# Brewed like bancha, not like sencha: boiling water and a short steep, as in #015.
+plain_brew:
+  temp_c: 100
+  ratio_g_per_100ml: 2.4
+  water_ml: 250
+  infusions_s: [30]
+  office: { temp_c: 100, method: "Set the kettle to 100 °C: the time runs from the start of the pour.", infusions_s: [30] }
+  notes: "6 g a cup, as in #015."
+  sources:
+    - title: "The proper way to brew Nihoncha"
+      author: "Ministry of Agriculture, Forestry and Fisheries of Japan (MAFF)"
+      url: https://www.maff.go.jp/j/seisan/tokusan/cha/attach/pdf/tea_export-7.pdf
+      lang: en
+      primary: true
+      supports: [parameters]
+      note: "Bancha (genmaicha, houjicha): 2–3 g per 100 ml, boiling water, about 30 seconds."
+    - title: "Basic Bancha (Hojicha, Genmaicha, etc.)"
+      author: Ippodo Tea
+      url: https://global.ippodo-tea.co.jp/blogs/tea-recipe/basic-bancha-hojicha-genmaicha
+      lang: en
+      primary: true
+      supports: [parameters]
+      note: "100 °C, boiling vigorously; serve 30 seconds after you start pouring."
+    - title: "Hojicha (how to brew)"
+      author: "World Green Tea Association (O-CHA NET, Shizuoka)"
+      url: https://www.o-cha.net/english/culture/Japanesetea-hojicha.html
+      lang: en
+      primary: true
+      supports: [parameters]
+      note: "3 g and about 130 ml per person, boiling water, about 30 seconds."
+perishable: false
+shelf_life_days: 180
+storage: "Airtight, cool and dark; once opened, use it soon, and keep it out of the fridge."
+quality: "Roasted Japanese bancha or sencha, brown rather than green: leaves, or stems only (kuki hojicha, Kaga bōcha). It is bulky: 12 g is about 5 tablespoons."
+shops:
+  - shop: palais-des-thes-lyon
+    why: "Bancha Hojicha, organic, roasted Japanese green tea."
+    price: "€12.00 / 100 g"
+    url: https://www.palaisdesthes.com/fr/bancha-hojicha-bio.html
+    checked: 2026-11-21
+  - shop: dammann-freres-lyon
+    why: "Houjicha, roasted, made from bancha."
+    price: "€16.30 / 100 g"
+    url: https://www.dammann.fr/fr/the-du-japon-houjicha.html
+    checked: 2026-11-21
+  - shop: jardins-de-gaia
+    why: "Organic hojicha from Kirishima, Kagoshima."
+    price: "€18.25 / 100 g"
+    url: https://www.jardinsdegaia.com/en/green-tea/140-hojicha.html
+    checked: 2026-11-21

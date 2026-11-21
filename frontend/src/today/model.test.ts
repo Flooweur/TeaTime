@@ -79,7 +79,8 @@ describe("Today's card (SPEC §7)", () => {
             }
           }
           if (card.kind === "plain") {
-            expect(() => plainTeaRecipe(card.tea, card.teaType, pickCups(card.pick, settings))).not.toThrow();
+            expect(card.tea.plain).not.toBe(false);
+            expect(() => plainTeaRecipe(card.tea, card.brew, pickCups(card.pick, settings))).not.toThrow();
           }
           if (card.kind === "teaser") {
             expect(card.pick.type).toBe("home");
@@ -125,6 +126,16 @@ describe("Today's card (SPEC §7)", () => {
       type: "home",
       canDraw: true,
     });
+  });
+
+  it("brews a plain genmaicha its own way, and never offers matcha plain (self-review of batch 2)", () => {
+    // Wednesday 25 November 2026 is a home day; without the bowl and whisk, no blend can be made.
+    const now = at("2026-11-25", "09:00");
+    const both = drawnAt({ ...initialState(), pantry: { genmaicha: entry(100), matcha: entry(200) } }, now);
+    const card = todayModel(both, catalog, now).card;
+    expect(card).toMatchObject({ kind: "plain", tea: { id: "genmaicha" }, brew: { tempC: 100, infusionsS: [30] } });
+    const matchaOnly = drawnAt({ ...initialState(), pantry: { matcha: entry(200) } }, now);
+    expect(todayModel(matchaOnly, catalog, now).card.kind).toBe("nothing");
   });
 
   it("names the next tea day on a weekend", () => {

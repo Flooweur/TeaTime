@@ -1,0 +1,79 @@
+code: "016"
+slug: keemun
+name: Keemun
+mode: safe
+family: tea-master
+trust: documented
+source_type: tea-house
+origin: China (Qimen, Anhui)
+story: >
+  Qimen County, in Anhui, made only green tea until the 1870s. Its first black tea dates from 1875, by
+  Twinings and China's state news agency, or 1876, by the national heritage register. English writing
+  credits Yu Ganchen, an official who had learned to make black tea in Fujian; Chinese sources name Hu
+  Yuanlong; a tea magazine has both at work at the same time. Keemun won gold at the 1915
+  Panama-Pacific Exposition, its making has been national heritage since 2008, and Twinings calls it
+  a key base of English Breakfast.
+difficulty: 1
+flavours: [malty, cocoa, floral]
+caffeine: medium
+scaling: per-cup
+serves: 2
+sources:
+  - title: "Keemun"
+    author: Twinings
+    url: https://twinings.co.uk/world-of-tea/keemun
+    lang: en
+    primary: true
+    supports: [story, parameters]
+    note: "First made in 1875; credits Yu Ganchen, who went to Fujian to learn black-tea making; freshly boiled water, never reboiled; pre-warm the pot; good with or without milk; a base of English Breakfast."
+  - title: "Keemun brewing guide"
+    author: TeaSpring
+    url: https://www.teaspring.com/Keemun.asp?section=brew
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "About 2 g per 150 ml, 95 °C, 1 minute for the first and second brews; rinse the pot and cup with hot water first; milk optional, 10–15 ml."
+  - title: "祁门红茶制作技艺 (The craft of Keemun black tea)"
+    author: China Intangible Cultural Heritage Network
+    url: https://www.ihchina.cn/project_details/14618.html
+    lang: zh
+    primary: true
+    supports: [story]
+    note: "National heritage item Ⅷ-149, listed in 2008; first made in Guangxu 2, 1876; gold medal at the 1915 Panama-Pacific Exposition."
+  - title: "中国故事｜祁门红茶香飘世界 (Keemun's aroma travels the world)"
+    author: "Xinhua, 13 April 2023"
+    url: https://www.news.cn/politics/2023-04/13/c_1129519309.htm
+    lang: zh
+    supports: [story]
+    note: "1875; names Hu Yuanlong of Guixi as the founder; Qimen made only green tea before; 1915 gold medal; part of UNESCO's 2022 listing of China's tea-processing techniques."
+  - title: "Qimen"
+    author: "Global Tea Hut, issue 66, July 2017"
+    url: https://archive.globalteahut.org/article/922
+    lang: en
+    supports: [story]
+    note: "Yu Ganchen began making black tea in 1875 after a posting in Fujian; Hu Yuanlong made the same switch at the same time."
+  - title: "Keemun"
+    author: Les Jardins de Gaïa
+    url: https://www.jardinsdegaia.com/en/black-tea/99-keemun.html
+    lang: en
+    supports: [parameters]
+    note: "2 g per 25 cl, 95 °C, 3–4 minutes; used for the Western ratio only, since this tea is grown in Hubei, not Qimen."
+ingredients:
+  - { id: keemun, qty: 5, unit: g, role: base }
+brew:
+  water: tap
+  temp_c: 95
+  temp_range: [95, 100]
+  ratio_g_per_100ml: 1
+  water_ml: 500
+  vessel: teapot
+  preheat: true
+  infusions_s: [180]
+steps:
+  - text: "Boil fresh water, never reboiled. Warm the teapot with a swirl of it and pour it away."
+    office: "Set the kettle to 95 °C. Warm the teapot with a swirl of hot water and pour it away."
+  - text: "Put the leaves in the teapot, pour the water and put the lid on."
+    office: "Put the leaves in the teapot, pour the water and put the lid on."
+    infusions: true
+  - text: "Pour into the two cups. Taste it plain first; a splash of milk suits it too."
+    office: "Pour into the two mugs, with a splash of milk from the fridge if you like."

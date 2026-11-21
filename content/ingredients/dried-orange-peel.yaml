@@ -1,0 +1,19 @@
+id: dried-orange-peel
+name: Dried orange peel
+category: citrus
+unit: g
+perishable: false
+shelf_life_days: 365
+storage: "Airtight, dry and dark; it keeps a long time, but its scent fades."
+quality: "Dried sweet-orange peel, cut, with nothing added: not candied or semi-candied."
+shops:
+  - shop: ile-aux-epices
+    why: "Dried orange peel from Spain, 100% peel."
+    price: "€2.15 / 50 g"
+    url: https://ileauxepices.com/fruits-secs/395-ecorce-orange.html
+    checked: 2026-11-21
+  - shop: soin-et-nature
+    why: "Sweet orange peel, cut, from an herbalist's range."
+    price: "€10.40 / 100 g"
+    url: https://www.soin-et-nature.com/fr/5203-oranger-doux-ecorce-coupee-iphym-herboristerie-citrus-aurantium-var-dulcis.html
+    checked: 2026-11-21

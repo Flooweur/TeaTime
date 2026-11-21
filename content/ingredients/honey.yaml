@@ -1,0 +1,19 @@
+id: honey
+name: Honey
+category: sweetener
+unit: g
+perishable: false
+shelf_life_days: 3650
+storage: "Closed, at room temperature, away from sun and heat; not in the fridge, where it crystallises faster. Crystals aren't spoilage: warm the jar in water."
+quality: "A mild liquid flower honey, which stirs easily into a mug, with its country of harvest stated."
+shops:
+  - shop: monoprix-lyon-republique
+    why: "Famille Vacher flower honey from France."
+    price: "€6.19 / 375 g"
+    url: https://courses.monoprix.fr/products/famille-vacher-miel-de-fleurs-de-france-375g/MPX_5560109
+    checked: 2026-11-21
+  - shop: auchan-lyon-felix-faure
+    why: "Liquid flower honey in a squeeze bottle, a blend from the Americas and Europe."
+    price: "€4.13 / 500 g"
+    url: https://www.auchan.fr/auchan-miel-de-fleurs-liquide-equilibre-et-fleuri-en-flacon-doseur/pr-C1262889
+    checked: 2026-11-21

@@ -1,0 +1,91 @@
+code: "023"
+slug: matcha-usucha
+name: Matcha, thin (usucha)
+mode: experimental
+family: tea-master
+trust: documented
+source_type: tea-house
+origin: Japan (Uji)
+story: >
+  Tea reached Japan from China by the Nara period, but powdered tea spread after the Zen monk Eisai
+  came back from Song China in 1191 with seeds and the way to grow and prepare it. In 1211 he wrote the
+  Kissa Yōjōki, Japan's first book on tea, which tells how matcha is made. Matcha is tencha, leaf from
+  shaded gardens, stone-ground to a fine powder and whisked, so the whole leaf is drunk; whisking it
+  gave rise to chanoyu, the way of tea, which took its present form with Sen no Rikyū in the 16th
+  century. Usucha is the thin, frothy everyday bowl.
+difficulty: 3
+flavours: [vegetal, creamy]
+caffeine: high
+scaling: per-cup
+serves: 1
+sources:
+  - title: "Basic Usucha (Matcha)"
+    author: Ippodo Tea
+    url: https://global.ippodo-tea.co.jp/blogs/tea-recipe/basic-usucha-matcha
+    lang: en
+    primary: true
+    supports: [recipe, parameters]
+    note: "2 g (1 level teaspoon), sifted; 60 ml at 80 °C; whisk vigorously for 15 seconds."
+  - title: "お茶のおいしい入れ方 抹茶 (How to make good matcha)"
+    author: "Kyoto Prefectural Tea Industry Research Institute"
+    url: https://www.pref.kyoto.jp/chaken/irekata_maccha.html
+    lang: ja
+    primary: true
+    supports: [recipe, parameters]
+    note: "Sift; warm the bowl and the whisk; about 2 g; 70 ml at 70–80 °C; a little water first to whisk out the lumps, then the rest; quick strokes from the wrist; a café au lait bowl and a level teaspoon will do."
+  - title: "Enjoy making a bowl of tea!"
+    author: Marukyu Koyamaen (Uji)
+    url: https://www.marukyu-koyamaen.co.jp/leaflet/enjoy_making_en.pdf
+    lang: en
+    primary: true
+    supports: [recipe, parameters]
+    note: "About 1.5 g sifted into a warm, dry bowl; 70 ml of water that has boiled: 75–85 °C in winter (poured into a cup once), 70–80 °C in summer (twice); whisk back and forth, no swirling, then slow at the surface and lift from the centre; soft water."
+  - title: "Japanese Tea"
+    author: Marukyu Koyamaen (Uji)
+    url: https://www.marukyu-koyamaen.co.jp/leaflet/about_tea_en.pdf
+    lang: en
+    primary: true
+    supports: [story]
+    note: "Tea first came from China in the Nara period; in 1191 Eisai brought seeds and the knowledge to grow and prepare tea, and powdered tea spread; refined under Zen into chanoyu, perfected by Sen no Rikyū."
+  - title: "喫茶養生記 (Kissa Yōjōki)"
+    author: Wikipedia (ja)
+    url: https://ja.wikipedia.org/wiki/%E5%96%AB%E8%8C%B6%E9%A4%8A%E7%94%9F%E8%A8%98
+    lang: ja
+    supports: [story]
+    note: "Written by Eisai in 1211, a fuller version often dated 1214; its first volume tells how matcha is made; Eisai brought seeds from Song China in 1191."
+  - title: "Chanoyu (the art of preparing tea)"
+    author: Japan Tourism Agency (MLIT)
+    url: https://www.mlit.go.jp/tagengo-db/common/001654470.pdf
+    lang: en
+    primary: true
+    supports: [story]
+    note: "Powdered tea arrived in the 12th century, at first for health; the way of tea took shape in the 15th–16th centuries, with Sen Rikyū."
+  - title: "The proper way to brew Nihoncha"
+    author: "Ministry of Agriculture, Forestry and Fisheries of Japan (MAFF)"
+    url: https://www.maff.go.jp/j/seisan/tokusan/cha/attach/pdf/tea_export-7.pdf
+    lang: en
+    primary: true
+    supports: [story]
+    note: "Matcha is tencha from shaded gardens, stone-ground and whisked, so the whole leaf is drunk; this led to chanoyu."
+ingredients:
+  - { id: matcha, qty: 2, unit: g, role: base }
+gear:
+  - { id: chawan }
+  - { id: chasen }
+  - { id: thermometer, optional: true }
+brew:
+  water: soft-bottled
+  temp_c: 80
+  temp_range: [70, 85]
+  ratio_g_per_100ml: 2.9
+  water_ml: 70
+  vessel: chawan
+  preheat: true
+  infusions_s: [15]
+steps:
+  - text: "Boil soft water. Pour a little into the chawan and dip the whisk's tines in it to warm and soften them; empty the bowl and dry it."
+  - text: "Sift the matcha through a fine tea strainer into the bowl: 2 g is a level teaspoon, or two chashaku scoops."
+  - text: "Cool the rest of the water to about 80 °C by pouring it into a cup once (twice in summer), and measure 70 ml. Add a splash to the matcha and whisk it into a smooth paste, then add the rest."
+  - text: "Whisk briskly back and forth from the wrist, the tines just off the bottom, never in circles, until a fine foam covers the tea. Slow down at the surface to burst the big bubbles, then lift the whisk from the centre."
+    infusions: true
+  - text: "Drink it straight away. Rinse the whisk in hot water, no soap, and leave it to dry tines up."

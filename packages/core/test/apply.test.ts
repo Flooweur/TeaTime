@@ -133,10 +133,13 @@ describe("brew.logged: Made it and I made this", () => {
       [
         ingredient("black-tea", { category: "tea", teaType: "black" }),
         ingredient("tea-bags", { category: "tea", teaType: "black", unit: "pieces" }),
+        ingredient("matcha", { category: "tea", teaType: "green", plain: false }),
       ],
     );
-    const command = logged({ pick: undefined, tea: { kind: "plain", tea: "tea-bags" }, cups: 1 });
-    expect(applyCommand(before, command, bags, command.at).result).toEqual({ ok: false, code: "unknown_tea" });
+    for (const tea of ["tea-bags", "matcha"]) {
+      const command = logged({ pick: undefined, tea: { kind: "plain", tea }, cups: 1 });
+      expect(applyCommand(before, command, bags, command.at).result, tea).toEqual({ ok: false, code: "unknown_tea" });
+    }
   });
 
   it("refuses a used brew id, an unknown tea and a date after the day it was logged", () => {

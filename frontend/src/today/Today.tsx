@@ -64,7 +64,7 @@ function CardView({
           key={card.pick.date}
           pick={card.pick}
           tea={card.tea}
-          teaType={card.teaType}
+          brew={card.brew}
           unlock={card.unlock}
           state={state}
           catalog={catalog}

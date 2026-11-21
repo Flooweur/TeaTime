@@ -1,0 +1,71 @@
+code: "018"
+slug: prince-of-wales
+name: Twinings' Prince of Wales
+mode: safe
+family: court
+trust: attested
+source_type: tea-house
+origin: England (London)
+story: >
+  Twinings says it first blended this tea in 1921 for the Prince of Wales, the future Edward VIII, who
+  let it carry his title; other accounts call it his own blend, which he let Twinings sell. Twinings
+  withdrew it from sale in Britain when he became king in 1936, and still sells it abroad. Old British
+  tins named Keemun; today's packs say only China teas. So this is Keemun alone, lighter than #016:
+  less leaf, boiling water and a short steep, for the soft, delicate cup Twinings describes.
+difficulty: 1
+flavours: [light, nutty]
+caffeine: medium
+scaling: per-cup
+serves: 2
+sources:
+  - title: "Prince of Wales Tea"
+    author: Twinings
+    url: https://twinings.co.uk/blogs/news/prince-of-wales-tea
+    lang: en
+    primary: true
+    supports: [story, recipe]
+    note: "First created in 1921 for the then Prince of Wales, later Edward VIII, who let it carry his title; withdrawn from UK sale in 1936, still sold abroad; fine and delicate China teas; nutty, soft and delicate."
+  - title: "How to make a cup of tea perfectly"
+    author: Twinings
+    url: https://twinings.co.uk/blogs/news/how-to-make-a-cup-of-tea-perfectly
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "Freshly drawn cold water; let boiled water rest 2–3 minutes before pouring; about 1 teaspoon (2 g) per person; warm the cup or pot."
+  - title: "Twinings Prince of Wales, 20 bags (pack text)"
+    author: Vitacost
+    url: https://www.vitacost.com/products/twinings-pure-black-tea-prince-of-wales-20-tea-bags-1-41-oz-40-g-34545
+    lang: en
+    supports: [story, parameters]
+    note: "The pack: Stephen Twining's ancestors blended it for the Prince of Wales in 1921; light, velvety and mild; boiling water, 3–5 minutes."
+  - title: "The Great British Cuppa: ten common tea blends and their fascinating histories"
+    author: "John Rabon, Anglotopia, 25 May 2018"
+    url: https://anglotopia.net/british-history/british-empire/great-british-cuppa-ten-common-tea-blends-fascinating-histories/
+    lang: en
+    supports: [story, recipe]
+    note: "Edward let Twinings sell a version of his tea: high-grade Keemun with other Chinese black teas."
+  - title: "Prince of Wales tea blend"
+    author: Wikipedia
+    url: https://en.wikipedia.org/wiki/Prince_of_Wales_tea_blend
+    lang: en
+    supports: [story, recipe]
+    note: "Old UK tins said 'finest Keemun black teas'; the current pack says pure China black tea; no set formula."
+ingredients:
+  - { id: keemun, qty: 4, unit: g, role: base }
+brew:
+  water: tap
+  temp_c: 100
+  temp_range: [95, 100]
+  ratio_g_per_100ml: 0.8
+  water_ml: 500
+  vessel: teapot
+  preheat: true
+  infusions_s: [180]
+steps:
+  - text: "Boil freshly drawn water. Warm the teapot with a swirl of it and pour it away."
+    office: "Set the kettle to 100 °C. Warm the teapot with a swirl of hot water and pour it away."
+  - text: "Put the leaves in the teapot, pour the water and put the lid on."
+    office: "Put the leaves in the teapot, pour the water and put the lid on."
+    infusions: true
+  - text: "Pour into the two cups. It is light enough to take plain; milk is up to you."
+    office: "Pour into the two mugs; a splash of milk from the fridge if you like."

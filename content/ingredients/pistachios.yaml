@@ -1,0 +1,19 @@
+id: pistachios
+name: Shelled pistachios
+category: other
+unit: g
+perishable: false
+shelf_life_days: 180
+storage: "Airtight, cool and dark: their oil turns rancid in the warmth."
+quality: "Shelled, unsalted and unroasted, green inside. Crush them roughly just before you use them."
+shops:
+  - shop: bahadourian-lyon
+    why: "Shelled pistachios from Iran or the USA, nothing added."
+    price: "€11.90 / 200 g"
+    url: https://www.bahadourian.com/les-fruits-secs-dacortiquas/pistaches-dacortiquaes-1368.html
+    checked: 2026-11-21
+  - shop: monoprix-lyon-republique
+    why: "Monoprix shelled pistachios, unroasted, nothing added."
+    price: "€6.60 / 125 g"
+    url: https://courses.monoprix.fr/products/monoprix-pistaches-d%C3%A9cortiqu%C3%A9es-non-grill%C3%A9es-125g/MPX_6618271
+    checked: 2026-11-21

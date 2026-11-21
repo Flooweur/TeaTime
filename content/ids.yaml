@@ -11,30 +11,63 @@ blends:
   - "008 hong-kong-milk-tea"
   - "009 high-mountain-oolong"
   - "010 tibetan-butter-tea"
+  - "011 lady-grey"
+  - "012 earl-grey-lavender"
+  - "013 fresh-bergamot-earl-grey"
+  - "014 genmaicha"
+  - "015 hojicha"
+  - "016 keemun"
+  - "017 royal-blend"
+  - "018 prince-of-wales"
+  - "019 shogayu"
+  - "020 london-fog"
+  - "021 turkish-cay"
+  - "022 noon-chai"
+  - "023 matcha-usucha"
+  - "024 silver-needle"
+  - "025 teh-tarik"
 ingredients:
   - assam
+  - baking-soda
   - black-peppercorns
   - ceylon-black
   - cinnamon-stick
   - cloves
   - darjeeling-first-flush
+  - dried-lemon-peel
+  - dried-orange-peel
   - earl-grey
   - evaporated-milk
+  - fresh-bergamot
   - fresh-ginger
   - fresh-spearmint
+  - genmaicha
   - green-cardamom
   - gunpowder-green
   - high-mountain-oolong
+  - hojicha
+  - honey
   - jam
+  - keemun
+  - lavender
   - lemon
+  - matcha
+  - pistachios
   - pu-erh
+  - rize-black-tea
   - salt
   - sencha
+  - silver-needle
+  - star-anise
   - sugar
+  - sweetened-condensed-milk
   - unsalted-butter
+  - vanilla-extract
   - whole-milk
 gear:
   - blender
+  - chasen
+  - chawan
   - gaiwan
   - tea-sock
   - thermometer

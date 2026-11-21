@@ -1,0 +1,27 @@
+id: matcha
+name: Matcha
+category: tea
+unit: g
+tea_type: green
+# A powder, whisked rather than steeped: never offered as a plain tea, only through #023.
+plain: false
+perishable: false
+shelf_life_days: 45
+storage: "In its tin, closed, in the fridge once opened; let it come to room temperature before opening, or it takes in damp. Use it within about 45 days."
+quality: "Japanese matcha sold for drinking (ceremonial, or for usucha), bright green, in a small tin; not the culinary or baking grade."
+shops:
+  - shop: palais-des-thes-lyon
+    why: "Matcha Kokoro, organic, ceremonial grade, Kagoshima and Shizuoka; in the fridge once opened, within 45 days."
+    price: "€36.00 / 30 g"
+    url: https://www.palaisdesthes.com/fr/matcha-kokoro-30g.html
+    checked: 2026-11-21
+  - shop: dammann-freres-lyon
+    why: "Matcha Ashikubo, Shizuoka, kept cold in its tin. The page gives no size, but its price per kilo means 20 g."
+    price: "€22.00 / 20 g"
+    url: https://www.dammann.fr/fr/the-du-japon-matcha-ashikubo.html
+    checked: 2026-11-21
+  - shop: jardins-de-gaia
+    why: "Matcha Tradition, organic, sold for drinking whisked."
+    price: "€23.40 / 30 g"
+    url: https://www.jardinsdegaia.com/en/matcha/475-matcha-tradition.html
+    checked: 2026-11-21

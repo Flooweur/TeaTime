@@ -1,0 +1,72 @@
+code: "019"
+slug: shogayu
+name: "Shōgayu: ginger, lemon and honey"
+mode: safe
+family: chef
+trust: documented
+source_type: chef
+origin: Japan
+story: >
+  Shōgayu, Japanese for "ginger hot water", is fresh ginger steeped in boiling water, drunk to keep
+  warm through Japan's winters and, as people there believe, against colds. In 2009 a kampo doctor
+  suggested it, with grated ginger juice, honey and starch, at the first shiver of a cold. Marc
+  Matsumoto, a Tokyo food writer who began as a private chef, leaves out the starch and adds lemon:
+  grated ginger steeped just 2 minutes, with lemon and honey stirred in to taste. BBC Good Food makes
+  the same drink in the mug, with sliced ginger, for 3 minutes.
+difficulty: 1
+seasons: [winter]
+flavours: [spicy, citrus, honeyed]
+caffeine: none
+scaling: per-cup
+serves: 2
+sources:
+  - title: "Ginger Lemon Honey Tea (Shogayu)"
+    author: "Marc Matsumoto, No Recipes, updated 22 May 2025"
+    url: https://norecipes.com/ginger-lemon-honey-tea-shogayu/
+    lang: en
+    primary: true
+    supports: [recipe, story]
+    note: "For 4 mugs: 30 g of ginger, washed, unpeeled, grated or finely chopped; about 3 cups of boiling water, 2 minutes; lemon (¼ per serving) and honey (optional) added after, to taste; shōgayu kept people warm in Japan's cold winters."
+  - title: "About"
+    author: "Marc Matsumoto, No Recipes"
+    url: https://norecipes.com/about/
+    lang: en
+    supports: [story]
+    note: "A Tokyo-based food writer and recipe developer, formerly a private chef; Ultimate Bento (Tuttle); NHK World's Bento Expo."
+  - title: "Lemon & ginger tea"
+    author: "Miriam Nice, BBC Good Food (Middle East edition)"
+    url: https://bbcgoodfoodme.com/recipes/lemon-ginger-tea
+    lang: en
+    supports: [recipe]
+    note: "For 2 mugs: the juice of half a lemon and slices of the other half, 2 cm of ginger finely sliced, boiling water, 3 minutes; honey to taste, optional."
+  - title: "木村容子の「季節の漢方手帖」 (Dr Kimura Yoko's seasonal kampo notebook)"
+    author: "Kimura Yoko, imidas (Shueisha), 4 December 2009"
+    url: https://imidas.jp/kanpo/detail/F-51-001-09-12-G100.html
+    lang: ja
+    supports: [story]
+    note: "A kampo doctor suggests shōgayu, grated ginger juice with honey and potato starch, at the first chill of a cold, to warm the body from inside."
+  - title: "Get stuck in: four healing honey recipes"
+    author: "Felicity Cloake, The Irish Times (from the Guardian), 7 September 2018"
+    url: https://www.irishtimes.com/life-and-style/food-and-drink/get-stuck-in-four-healing-honey-recipes-1.3620402
+    lang: en
+    supports: [recipe]
+    note: "Ginger and a strip of lemon peel heated in water; honey and lemon juice stirred in after it cools a little."
+ingredients:
+  - { id: fresh-ginger, qty: 20, unit: g, role: base }
+  - { id: lemon, qty: 4, unit: pieces, role: accent }
+  - { id: honey, qty: 40, unit: g, role: accent, optional: true }
+brew:
+  water: tap
+  temp_c: 100
+  water_ml: 500
+  vessel: teapot
+  preheat: false
+  infusions_s: [120]
+steps:
+  - text: "Wash the ginger well and grate it, skin and all, or chop it finely. Put it in the teapot, and boil the water."
+    office: "Put the ginger you grated and boxed the evening before in the teapot, and set the kettle to 100 °C."
+  - text: "Pour the boiling water over the ginger and put the lid on."
+    office: "Pour from the kettle over the ginger and put the lid on."
+    infusions: true
+  - text: "Put 2 lemon slices and a spoonful of honey (about 20 g) in each mug. Pour the ginger water through a strainer onto them, then stir and press the slices."
+    office: "Put 2 lemon slices and the honey in each mug, pour the ginger water slowly through the teapot's strainer, leaving the last of it and the ginger in the pot, then stir and press the slices."

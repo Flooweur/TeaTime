@@ -1,0 +1,19 @@
+id: lavender
+name: Dried culinary lavender
+category: flower
+unit: g
+perishable: false
+shelf_life_days: 730
+storage: "Airtight, cool, dark and dry: the buds keep a strong scent for 2–3 years."
+quality: "True lavender, Lavandula angustifolia, whole dried buds sold for food or infusion; not ornamental lavender, and not lavandin."
+shops:
+  - shop: greenweez
+    why: "Aromandise organic lavender flowers for eating, Lavandula angustifolia, sold for cooking and tea."
+    price: "€4.90 / 40 g"
+    url: https://www.greenweez.com/produit/fleurs-a-croquer-fleurs-de-lavande-40g/3FLOR0089
+    checked: 2026-11-21
+  - shop: soin-et-nature
+    why: "Lavandula angustifolia flowers for infusion, from an herbalist's range."
+    price: "€15.69 / 100 g"
+    url: https://www.soin-et-nature.com/fr/540-lavande-fleur-paquet-de-250-g.html
+    checked: 2026-11-21
