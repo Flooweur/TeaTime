@@ -171,14 +171,15 @@ In detail:
 - **In core:** `dueNotifications(state, content, now)` gives what is due now, with its tag, window, text and link; the server records what it sent.
 
 ### 2.8 Weekly review (Saturday)
+On Saturday and Sunday, the review covers Monday to Friday just past; the Saturday push opens it.
 - **The week's teas**, side by side, with their ratings.
-  - Pending picks of past days are asked about: made or skipped.
+  - Pending picks of past days are asked about: made or skipped. **Made** logs the cup on its own day, at the morning time, with the pick's cups, so a pantry measured since isn't counted down twice (§3.3's deduction rule; decision of 2026-11-21).
   - Ratings can still be given or changed.
 - **Marks:** ★ favourite and *make again* on any blend, and the colleague's ratings for the office teas.
 - **Three lists:**
-  1. ingredients running low or going stale;
+  1. ingredients running low or going stale. **Running low:** a tracked amount that can't make two more of the blend that takes the most of it, at that blend's default cups. **Going stale:** *use soon* or past its shelf life (§2.6);
   2. the 3 purchases that would unlock the most blends;
-  3. next week's office preview: the office days ahead, how many safe blends could be drawn from the pantry as it is, and what to restock so none runs short.
+  3. next week's office preview: the office days ahead, how many safe blends could be drawn from the pantry as it is, and what to restock so none runs short: each tracked ingredient whose amount is under what those days could take, each day counted as the office blend that takes the most of it, at the office's cups.
 - **The preview draws nothing:** each blend is still drawn the evening before, from the pantry as it is then.
 
 ---
@@ -204,7 +205,7 @@ backend/        Fastify, Drizzle and SQLite, the jobs: src/ (the app, the databa
                 the jobs), drizzle/ (the migrations), scripts/ (vapid, restore)
 frontend/       the PWA: src/ (lib: the offline store, outbox and sync; today: the model and its cards; screens;
                 components; sw: the service worker), scripts/ (icons)
-docs/           original-plan.md, design/, spikes/, runbook.md
+docs/           original-plan.md, design/, runbook.md
 ```
 - **`packages/core` has zero I/O.** It compiles with `lib: ["ES2023"]` and `types: []` (no DOM, no Node), and ESLint refuses Node imports there.
 - **Time and randomness come in as arguments** (§4.2).
@@ -324,7 +325,7 @@ CHECK constraints keep ratings within 1–5, a pick or brew to exactly one of a 
 - **The server serves the built app** (`STATIC_DIR`, set in the image); in dev, Vite does.
 
 ### 3.8 Platform and iOS rules
-(Ported from EagleEye's spike and SPEC §3.12; the push spike on port 8443 confirms them for TeaTime.)
+(Ported from EagleEye's spike and SPEC §3.12; the owner's iPhone confirmed push on port 8443 with the real app, on 2026-11-21.)
 - **Installing:** from Safari → Add to Home Screen. Push only works in the installed app, and permission is asked from a tap. The PC's browser gets no pushes (decision of 2026-11-20): its Settings sends the iPhone a test instead.
 - **Pushes off on the iPhone** (never turned on, or dropped by its push service) show a banner on every screen, checked at launch and when the app comes back to the front. Turning pushes on again forgets the old subscription at the server.
 - **The app's installed name is TeaTime,** which iOS prints above each push and keeps from the first install.

@@ -21,7 +21,7 @@ const REFUSED: Record<string, string> = {
 const messageOf = (code: string, fallback: string) => REFUSED[code] ?? fallback;
 
 /** The ratings of a made pick's brew. */
-function Ratings({ brew }: { brew: BrewRecord }) {
+export function Ratings({ brew }: { brew: BrewRecord }) {
   const rate = (field: "rating" | "colleagueRating") => (value: Rating) =>
     void send("brew.rated", { brew: brew.id, [field]: value === brew[field].value ? null : value });
   return (

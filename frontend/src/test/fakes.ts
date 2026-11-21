@@ -5,11 +5,18 @@
 import {
   type Command,
   type CommandOutcome,
+  type DayType,
+  type OnlineResult,
   type Snapshot,
   type State,
+  addAway,
   applyCommand,
+  drawNow,
   initialState,
   parseCommand,
+  removeAway,
+  setOverride,
+  updateSettings,
 } from "@teatime/core";
 import { setFetch } from "../lib/api";
 import { baseCatalog, bundle } from "../lib/content";
@@ -82,6 +89,35 @@ export function fakeServer(start: State = initialState()) {
       }
       return json({ results, snapshot: snapshotOf(server.state, server.revision) });
     }
+    // The online operations, with core's own functions, as the backend runs them.
+    const [route = "", query = ""] = path.split("?");
+    const confirm = query.includes("confirm=true");
+    const now = Date.now();
+    let result: OnlineResult | null = null;
+    if (method === "PUT" && route === "settings")
+      result = updateSettings(server.state, baseCatalog, now, body, confirm);
+    if (method === "PUT" && route.startsWith("overrides/")) {
+      const type = (body as { type: DayType | null }).type;
+      result = setOverride(server.state, baseCatalog, now, route.slice("overrides/".length), type, confirm);
+    }
+    if (method === "POST" && route === "away") result = addAway(server.state, baseCatalog, now, body, confirm);
+    if (method === "DELETE" && route.startsWith("away/"))
+      result = removeAway(server.state, baseCatalog, now, route.slice(5));
+    if (method === "POST" && /^picks\/[\d-]+\/draw$/.test(route))
+      result = drawNow(server.state, baseCatalog, now, route.split("/")[1]!);
+    if (result?.ok) {
+      server.state = result.state;
+      server.revision++;
+      if (server.loseNextAnswer) {
+        server.loseNextAnswer = false;
+        throw new TypeError("The network dropped the answer");
+      }
+      return json(snapshotOf(server.state, server.revision));
+    }
+    if (result)
+      return new Response(JSON.stringify({ ...result, error: result.code }), {
+        status: result.code === "invalid" ? 400 : 409,
+      });
     return new Response(JSON.stringify({ error: "Not found.", code: "not_found" }), { status: 404 });
   });
   return server;
