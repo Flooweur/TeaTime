@@ -46,6 +46,25 @@ export function Notifications() {
         then <span className="font-bold">Add to Home Screen</span>, and open TeaTime from there.
       </p>
     );
+  } else if (state.support === "iphone-only") {
+    body = (
+      <div className="flex flex-col gap-3">
+        <p>Pushes come to the iPhone, in the installed app: turn them on there.</p>
+        {state.key && (
+          <Button
+            disabled={busy}
+            onClick={() =>
+              void run(async () => {
+                const { sent } = await testPush();
+                return sent ? "Sent: it should show on the iPhone." : "No iPhone has pushes on yet.";
+              })
+            }
+          >
+            Send the iPhone a test
+          </Button>
+        )}
+      </div>
+    );
   } else if (state.support === "unsupported") {
     body = <p className="text-muted">This browser can't get pushes.</p>;
   } else if (state.key === null) {

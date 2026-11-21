@@ -47,4 +47,5 @@ Draws the app icons into `public/` (no dependencies).
 - `today/Today.test.tsx`: Today rendered: Made it, the ratings and Undo; Peek; a push's link; the weekend; Packed; the missed kit; nothing to make; no card before the storage answers; the different-teas toast.
 - `lib/sync.test.ts`: the outbox, a lost answer never counting twice, refusals, undecided commands, offline (a proxy's 500 included), an older snapshot ignored, a change made mid-sync sent at once.
 - `lib/timer.test.ts`: the timers' arithmetic.
+- `lib/push.dom.test.tsx`: pushes on the iPhone only, a replaced subscription forgotten at the server, the pushes-off banner.
 - `lib/push.test.ts`, `sw/push.test.ts`: the VAPID key's bytes and the subscription's key; what a push shows on the PC, and the links it may open.

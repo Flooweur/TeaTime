@@ -28,3 +28,5 @@ jobs:
         env:
           TZ: Pacific/Auckland
       - run: npm run build
+      # The daily stack's image (Dockerfile): a change that breaks it fails here, not on the PC.
+      - run: docker build -t teatime:ci .

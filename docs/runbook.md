@@ -87,6 +87,7 @@ Changes made after the backup's day are gone; a phone's unsent changes still go 
 
 ## When something's wrong
 - **No push came:**
+  - The installed app shows "Pushes are off on this iPhone" when they are: Turn on.
   - Diagnostics' `notifications` say whether it was sent, and `push.subscriptions` whether the phone's subscription is still on.
   - A subscription the push service dropped is off: Settings on the phone → Turn on pushes again.
 - **The phone says the server can't be reached:**

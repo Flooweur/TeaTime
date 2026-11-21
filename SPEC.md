@@ -325,7 +325,8 @@ CHECK constraints keep ratings within 1–5, a pick or brew to exactly one of a 
 
 ### 3.8 Platform and iOS rules
 (Ported from EagleEye's spike and SPEC §3.12; the push spike on port 8443 confirms them for TeaTime.)
-- **Installing:** from Safari → Add to Home Screen. Push only works in the installed app, and permission is asked from a tap.
+- **Installing:** from Safari → Add to Home Screen. Push only works in the installed app, and permission is asked from a tap. The PC's browser gets no pushes (decision of 2026-11-20): its Settings sends the iPhone a test instead.
+- **Pushes off on the iPhone** (never turned on, or dropped by its push service) show a banner on every screen, checked at launch and when the app comes back to the front. Turning pushes on again forgets the old subscription at the server.
 - **The app's installed name is TeaTime,** which iOS prints above each push and keeps from the first install.
 - **Every push displays.** Payloads use the declarative format `{"web_push": 8030, "notification": {title, body, navigate, tag}}`, without `mutable`. iOS shows them itself, without running the service worker; Chromium's service worker shows the same JSON.
 - **A subscription is replaced when needed:** one made with another VAPID key, or one the server disabled after its push service said it's gone (404/410).
