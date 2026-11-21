@@ -3,7 +3,7 @@
  * their quantities, the water row, and the steps with their timers, the infusions chained (each
  * waits for a tap once the one before is done). On an office day, each step's office version.
  */
-import type { Brew, Catalog, Recipe, Stage, Step, TeaType } from "@teatime/core";
+import type { Brew, Catalog, PlainBrew, Recipe, Stage, Step } from "@teatime/core";
 import { qtyText, tempText, waterText } from "../lib/format";
 import { statusOf, useTimers } from "../lib/timer";
 import { useNow } from "../lib/time";
@@ -37,7 +37,7 @@ export function Ingredients({ recipe, catalog }: { recipe: Recipe; catalog: Cata
   );
 }
 
-/** The water row: how much, which, how hot, the ratio, preheating, and the vessel; a plain tea's type gives fewer. */
+/** The water row: how much, which, how hot, the ratio, preheating, and the vessel; a plain tea's brew gives fewer. */
 export function WaterRow({
   waterMl,
   brew,
@@ -115,13 +115,13 @@ export function Steps({
   );
 }
 
-/** A plain tea's steps (SPEC §2.5), from its tea type: hot water, then the infusions. */
-export function plainSteps(teaType: TeaType, office: boolean): Step[] {
-  const temp = office ? teaType.office.tempC : teaType.tempC;
+/** A plain tea's steps (SPEC §2.5), from its brew: hot water, then the infusions. */
+export function plainSteps(brew: PlainBrew, office: boolean): Step[] {
+  const temp = office ? brew.office.tempC : brew.tempC;
   return [
     {
-      text: `Heat the water to ${temp} °C${teaType.tempRange ? ` (${teaType.tempRange.min}–${teaType.tempRange.max})` : ""}.`,
-      office: teaType.office.method,
+      text: `Heat the water to ${temp} °C${brew.tempRange ? ` (${brew.tempRange.min}–${brew.tempRange.max})` : ""}.`,
+      office: brew.office.method,
       infusions: false,
       stage: "day",
     },

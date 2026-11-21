@@ -132,6 +132,9 @@ In detail:
 
 ### 2.5 Fallbacks
 - **No blend left after the rules that always hold** → a **plain tea** from the pantry, brewed with its tea type's parameters (`tea-types.yaml`, with office parameters for office days).
+  - A tea brewed differently from its type has its own plain brew instead: genmaicha and hojicha are greens, but take boiling water for 30 seconds, like bancha (decision of 2026-11-21).
+  - A tea marked `plain: false` is never offered plain: matcha is a powder, whisked rather than steeped, so it comes only through its blend.
+  - Only a tea counted in grams can be brewed plain.
   - The tea is chosen deterministically: one to use soon first, then the one with the most left (an untracked amount after every tracked one), then by id. It must have enough for the day's cups.
   - The card also names **the purchase that would unlock the most blends** of that pool.
   - With no tea in the pantry at all, the card says what to buy.

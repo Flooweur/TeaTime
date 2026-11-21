@@ -3,7 +3,7 @@
 import type { ContentBundle } from "@teatime/core";
 
 export const BUNDLE: ContentBundle = {
-  "format": 2,
+  "format": 3,
   "blends": [
     {
       "code": "001",
@@ -4347,6 +4347,61 @@ export const BUNDLE: ContentBundle = {
       "category": "tea",
       "unit": "g",
       "teaType": "green",
+      "plainBrew": {
+        "tempC": 100,
+        "tempRange": {
+          "min": 80,
+          "max": 100
+        },
+        "ratioGPer100ml": 2.4,
+        "waterMl": 250,
+        "infusionsS": [
+          30
+        ],
+        "office": {
+          "tempC": 100,
+          "method": "Boil the kettle and pour straight onto the leaves: the time runs from the start of the pour.",
+          "infusionsS": [
+            30
+          ]
+        },
+        "notes": "6 g a cup, as in #014; Hibiki-an's 80 °C for a minute is the cooler outlier.",
+        "sources": [
+          {
+            "title": "The proper way to brew Nihoncha",
+            "author": "Ministry of Agriculture, Forestry and Fisheries of Japan (MAFF)",
+            "url": "https://www.maff.go.jp/j/seisan/tokusan/cha/attach/pdf/tea_export-7.pdf",
+            "lang": "en",
+            "primary": true,
+            "supports": [
+              "parameters"
+            ],
+            "note": "Bancha (genmaicha, houjicha): 2–3 g per 100 ml, boiling water, about 30 seconds."
+          },
+          {
+            "title": "Basic Bancha (Hojicha, Genmaicha, etc.)",
+            "author": "Ippodo Tea",
+            "url": "https://global.ippodo-tea.co.jp/blogs/tea-recipe/basic-bancha-hojicha-genmaicha",
+            "lang": "en",
+            "primary": true,
+            "supports": [
+              "parameters"
+            ],
+            "note": "100 °C, boiling vigorously; serve 30 seconds after you start pouring."
+          },
+          {
+            "title": "Brewing – Genmaicha",
+            "author": "Hibiki-an (Ujitawara, Kyoto)",
+            "url": "https://www.hibiki-an.com/contents.php/cnID/34",
+            "lang": "en",
+            "primary": false,
+            "supports": [
+              "parameters"
+            ],
+            "note": "7–8 g in 200 ml at 80 °C for 1 minute: the cooler outlier."
+          }
+        ]
+      },
       "perishable": false,
       "shelfLifeDays": 180,
       "storage": "Airtight, cool and dark; once opened, use it soon, and keep it out of the fridge.",
@@ -4465,6 +4520,57 @@ export const BUNDLE: ContentBundle = {
       "category": "tea",
       "unit": "g",
       "teaType": "green",
+      "plainBrew": {
+        "tempC": 100,
+        "ratioGPer100ml": 2.4,
+        "waterMl": 250,
+        "infusionsS": [
+          30
+        ],
+        "office": {
+          "tempC": 100,
+          "method": "Boil the kettle and pour straight onto the leaves: the time runs from the start of the pour.",
+          "infusionsS": [
+            30
+          ]
+        },
+        "notes": "6 g a cup, as in #015.",
+        "sources": [
+          {
+            "title": "The proper way to brew Nihoncha",
+            "author": "Ministry of Agriculture, Forestry and Fisheries of Japan (MAFF)",
+            "url": "https://www.maff.go.jp/j/seisan/tokusan/cha/attach/pdf/tea_export-7.pdf",
+            "lang": "en",
+            "primary": true,
+            "supports": [
+              "parameters"
+            ],
+            "note": "Bancha (genmaicha, houjicha): 2–3 g per 100 ml, boiling water, about 30 seconds."
+          },
+          {
+            "title": "Basic Bancha (Hojicha, Genmaicha, etc.)",
+            "author": "Ippodo Tea",
+            "url": "https://global.ippodo-tea.co.jp/blogs/tea-recipe/basic-bancha-hojicha-genmaicha",
+            "lang": "en",
+            "primary": true,
+            "supports": [
+              "parameters"
+            ],
+            "note": "100 °C, boiling vigorously; serve 30 seconds after you start pouring."
+          },
+          {
+            "title": "Hojicha (how to brew)",
+            "author": "World Green Tea Association (O-CHA NET, Shizuoka)",
+            "url": "https://www.o-cha.net/english/culture/Japanesetea-hojicha.html",
+            "lang": "en",
+            "primary": true,
+            "supports": [
+              "parameters"
+            ],
+            "note": "3 g and about 130 ml per person, boiling water, about 30 seconds."
+          }
+        ]
+      },
       "perishable": false,
       "shelfLifeDays": 180,
       "storage": "Airtight, cool and dark; once opened, use it soon, and keep it out of the fridge.",
@@ -4643,6 +4749,7 @@ export const BUNDLE: ContentBundle = {
       "category": "tea",
       "unit": "g",
       "teaType": "green",
+      "plain": false,
       "perishable": false,
       "shelfLifeDays": 45,
       "storage": "In its tin, closed, in the fridge once opened; let it come to room temperature before opening, or it takes in damp. Use it within about 45 days.",
@@ -5535,5 +5642,5 @@ export const BUNDLE: ContentBundle = {
     }
   ],
   "guides": [],
-  "hash": "d97f5508622c169d4b166dfbe83796b74d75248fa1b75a3dbb8c319cc1ecdd0a"
+  "hash": "dfc8a67ef88ba7aebcff1fca6591d59becf832dc768f6654fb46785e48808034"
 };

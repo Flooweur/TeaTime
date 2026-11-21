@@ -3,6 +3,8 @@ name: Matcha
 category: tea
 unit: g
 tea_type: green
+# A powder, whisked rather than steeped: never offered as a plain tea, only through #023.
+plain: false
 perishable: false
 shelf_life_days: 45
 storage: "In its tin, closed, in the fridge once opened; let it come to room temperature before opening, or it takes in damp. Use it within about 45 days."

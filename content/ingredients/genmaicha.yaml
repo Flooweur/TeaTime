@@ -3,6 +3,36 @@ name: Genmaicha
 category: tea
 unit: g
 tea_type: green
+# Brewed like bancha, not like sencha: boiling water and a short steep, as in #014.
+plain_brew:
+  temp_c: 100
+  temp_range: [80, 100]
+  ratio_g_per_100ml: 2.4
+  water_ml: 250
+  infusions_s: [30]
+  office: { temp_c: 100, method: "Boil the kettle and pour straight onto the leaves: the time runs from the start of the pour.", infusions_s: [30] }
+  notes: "6 g a cup, as in #014; Hibiki-an's 80 °C for a minute is the cooler outlier."
+  sources:
+    - title: "The proper way to brew Nihoncha"
+      author: "Ministry of Agriculture, Forestry and Fisheries of Japan (MAFF)"
+      url: https://www.maff.go.jp/j/seisan/tokusan/cha/attach/pdf/tea_export-7.pdf
+      lang: en
+      primary: true
+      supports: [parameters]
+      note: "Bancha (genmaicha, houjicha): 2–3 g per 100 ml, boiling water, about 30 seconds."
+    - title: "Basic Bancha (Hojicha, Genmaicha, etc.)"
+      author: Ippodo Tea
+      url: https://global.ippodo-tea.co.jp/blogs/tea-recipe/basic-bancha-hojicha-genmaicha
+      lang: en
+      primary: true
+      supports: [parameters]
+      note: "100 °C, boiling vigorously; serve 30 seconds after you start pouring."
+    - title: "Brewing – Genmaicha"
+      author: Hibiki-an (Ujitawara, Kyoto)
+      url: https://www.hibiki-an.com/contents.php/cnID/34
+      lang: en
+      supports: [parameters]
+      note: "7–8 g in 200 ml at 80 °C for 1 minute: the cooler outlier."
 perishable: false
 shelf_life_days: 180
 storage: "Airtight, cool and dark; once opened, use it soon, and keep it out of the fridge."

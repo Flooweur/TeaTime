@@ -3,6 +3,7 @@ import {
   type PantryEntry,
   catalogOf,
   isMakeable,
+  plainBrewOf,
   scaleRecipe,
   shortfallsOf,
   unlockCounts,
@@ -10,7 +11,8 @@ import {
 import { describe, expect, it } from "vitest";
 import { BUNDLE } from "../src/bundle.js";
 
-// Core's rules on the real content: what the gear in the YAML does to the draw (SPEC §2.3, §2.6).
+// Core's rules on the real content: what the gear and the plain brews in the YAML do to the draw
+// (SPEC §2.3, §2.5, §2.6).
 const catalog = catalogOf(BUNDLE);
 const on = "2026-11-23";
 
@@ -48,6 +50,18 @@ describe("the content's gear in core's rules", () => {
       { kind: "gear", id: "chasen", reason: "missing" },
     ]);
     expect(isMakeable(matcha, { catalog, pantry: pantryWith(["chawan", "chasen"]), on })).toBe(true);
+  });
+
+  it("never brews matcha as a plain tea, and every other tea in grams can be (self-review of batch 2)", () => {
+    const teas = catalog.ingredients.filter((item) => item.category === "tea" && item.unit === "g");
+    expect(teas.filter((tea) => plainBrewOf(tea, catalog) === null).map((tea) => tea.id)).toEqual(["matcha"]);
+  });
+
+  it("brews a plain genmaicha or hojicha at a boil for 30 seconds, as their blends do", () => {
+    for (const id of ["genmaicha", "hojicha"]) {
+      const brew = plainBrewOf(catalog.ingredientById.get(id)!, catalog);
+      expect(brew, id).toMatchObject({ tempC: 100, infusionsS: [30], office: { tempC: 100, infusionsS: [30] } });
+    }
   });
 
   it("counts the required gear among the purchases, and never the optional gear", () => {

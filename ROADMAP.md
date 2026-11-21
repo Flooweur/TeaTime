@@ -33,6 +33,10 @@ Asked of the owner and answered, newest first. The SPEC states each as a rule.
 - **The list** (approved on 2026-11-21), coded 011–025 in this order, forever:
   - safe: 011 Lady Grey, 012 Earl Grey with lavender, 013 Fresh-bergamot Earl Grey, 014 Genmaicha, 015 Hojicha, 016 Keemun, 017 Fortnum & Mason's Royal Blend, 018 Twinings' Prince of Wales, 019 a chef's ginger, lemon and honey (Marc Matsumoto's shōgayu);
   - experimental: 020 London Fog, 021 Turkish çay, 022 Kashmiri noon chai, 023 Matcha, thin (usucha), 024 Silver needle, 025 Teh tarik.
+- **The plain-tea fallback** no longer brews every green alike. A tea may carry its own plain brew: genmaicha and hojicha take boiling water for 30 seconds, as MAFF and Ippodo brew bancha. A tea marked `plain: false` is never offered plain: matcha is whisked, not steeped (SPEC §2.5).
+- **018 Prince of Wales** is Keemun alone, as the old Twinings tins have it, lighter than 016: 4 g, at a boil, 3 minutes. A Keemun and Yunnan blend would need another tea, and only Wikipedia backs it.
+- **019 shōgayu:** the honey is optional, as sugar is everywhere (batch 1), though it is in the name. At the office, the ginger is grated the evening before and boxed in the fridge, as the lemon slices are; no source covers it.
+- **Hojicha's caffeine** is *medium*: Japan's food tables measure it at 20 mg per 100 ml, the same as sencha, though it is often sold as low.
 
 ### 2026-11-21: the review (phase 8)
 The owner took the three recommendations:

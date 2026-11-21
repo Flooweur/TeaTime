@@ -9,7 +9,7 @@ import type { Blend, Ingredient, Mode } from "./content.js";
 import { type BlendHistory, blendHistories } from "./history.js";
 import { compareText } from "./json.js";
 import { type Stock, entryOf, freshnessOf, isMakeable, topUnlocks, unlockCounts } from "./pantry.js";
-import { type Recipe, plainTeaRecipe, scaleRecipe } from "./recipe.js";
+import { type Recipe, plainBrewOf, plainTeaRecipe, scaleRecipe } from "./recipe.js";
 import { type Random, pickOne, randomFrom } from "./rng.js";
 import { type Settings, cupsFor } from "./state/settings.js";
 import { NO_MARKS, type PantryEntry, type PickRecord, type PickTea, type State } from "./state/types.js";
@@ -91,8 +91,8 @@ export function recipeOf(tea: PickTea, cups: number, catalog: Catalog): Recipe |
   }
   if (tea.kind === "plain") {
     const ingredient = catalog.ingredientById.get(tea.tea);
-    const teaType = ingredient?.teaType ? catalog.teaTypeByName.get(ingredient.teaType) : undefined;
-    return ingredient && teaType ? plainTeaRecipe(ingredient, teaType, cups) : null;
+    const brew = ingredient ? plainBrewOf(ingredient, catalog) : null;
+    return ingredient && brew ? plainTeaRecipe(ingredient, brew, cups) : null;
   }
   return null;
 }
@@ -211,11 +211,10 @@ function plainTeas(
 ): string[] {
   const options: TeaOption[] = [];
   for (const ingredient of stock.catalog.ingredients) {
-    if (ingredient.category !== "tea" || ingredient.unit !== "g" || ingredient.retired || !ingredient.teaType) continue;
-    const teaType = stock.catalog.teaTypeByName.get(ingredient.teaType);
-    if (!teaType) continue;
+    const brew = ingredient.retired ? null : plainBrewOf(ingredient, stock.catalog);
+    if (!brew) continue;
     const entry = entryOf(stock.pantry, ingredient.id);
-    if (!usable(ingredient, entry, plainTeaRecipe(ingredient, teaType, cups))) continue;
+    if (!usable(ingredient, entry, plainTeaRecipe(ingredient, brew, cups))) continue;
     const amount = entry.amount.value;
     options.push({
       id: ingredient.id,

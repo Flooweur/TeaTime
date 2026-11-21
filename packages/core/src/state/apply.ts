@@ -6,6 +6,7 @@
 import type { Catalog } from "../catalog.js";
 import { recipeOf } from "../draw.js";
 import { entryOf, plannedTakes } from "../pantry.js";
+import { plainBrewOf } from "../recipe.js";
 import { wallClockAt } from "../time/zone.js";
 import type {
   BlendMarked,
@@ -118,16 +119,11 @@ function stamp<T>(current: Stamped<T>, value: T | undefined, at: number): Stampe
   return value === undefined || at < current.at ? current : { value, at };
 }
 
-/** A blend the content has, or a tea that can be brewed plain: counted in grams, with a known tea type. */
+/** A blend the content has, or a tea that can be brewed plain (`plainBrewOf`). */
 function knownTea(tea: Tea, catalog: Catalog): boolean {
   if (tea.kind === "blend") return catalog.blendByCode.has(tea.code);
   const ingredient = catalog.ingredientById.get(tea.tea);
-  return (
-    ingredient?.category === "tea" &&
-    ingredient.unit === "g" &&
-    ingredient.teaType !== undefined &&
-    catalog.teaTypeByName.has(ingredient.teaType)
-  );
+  return ingredient !== undefined && plainBrewOf(ingredient, catalog) !== null;
 }
 
 /**

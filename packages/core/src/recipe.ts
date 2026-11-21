@@ -2,7 +2,8 @@
  * Recipes scaled to the cups (SPEC §2.4): the quantities and water shown on Today, which are also
  * what Made it deducts. One rounding rule per unit, used for both.
  */
-import type { Blend, BlendGear, BlendIngredient, Ingredient, TeaType, Unit } from "./content.js";
+import type { Catalog } from "./catalog.js";
+import type { Blend, BlendGear, BlendIngredient, Ingredient, PlainBrew, Unit } from "./content.js";
 
 /** The cups selector's range. */
 export const MIN_CUPS = 1;
@@ -72,15 +73,27 @@ export function scaleRecipe(blend: Pick<Blend, "scaling" | "ingredients" | "brew
   };
 }
 
+/** A tea counted in grams and not marked never plain: the only kind the fallback can brew (SPEC §2.5). */
+function brewsPlain(tea: Ingredient): boolean {
+  return tea.category === "tea" && tea.unit === "g" && tea.plain !== false;
+}
+
 /**
- * A plain tea's recipe (SPEC §2.5): its tea type's ratio and water per cup. Only a tea counted in
- * grams can be brewed plain.
+ * How a tea is brewed plain (SPEC §2.5): its own brew, else its tea type's. Null when it isn't:
+ * not a tea counted in grams, a tea never brewed plain (matcha), or a type the content lacks.
  */
-export function plainTeaRecipe(tea: Ingredient, teaType: TeaType, cups: number): Recipe {
+export function plainBrewOf(tea: Ingredient, catalog: Pick<Catalog, "teaTypeByName">): PlainBrew | null {
+  if (!brewsPlain(tea)) return null;
+  if (tea.plainBrew) return tea.plainBrew;
+  return tea.teaType ? (catalog.teaTypeByName.get(tea.teaType) ?? null) : null;
+}
+
+/** A plain tea's recipe (SPEC §2.5): its brew's ratio and water per cup (see `plainBrewOf`). */
+export function plainTeaRecipe(tea: Ingredient, brew: PlainBrew, cups: number): Recipe {
   checkCups(cups);
-  if (tea.category !== "tea" || tea.unit !== "g") throw new RangeError(`${tea.id} isn't a tea counted in grams`);
-  const waterMl = teaType.waterMl * cups;
-  const grams = (teaType.ratioGPer100ml * waterMl) / 100;
+  if (!brewsPlain(tea)) throw new RangeError(`${tea.id} isn't a tea that can be brewed plain`);
+  const waterMl = brew.waterMl * cups;
+  const grams = (brew.ratioGPer100ml * waterMl) / 100;
   return {
     cups,
     sessions: null,

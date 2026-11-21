@@ -7,8 +7,8 @@ import {
   type Catalog,
   type Ingredient,
   type PickRecord,
+  type PlainBrew,
   type State,
-  type TeaType,
   pickCups,
   plainTeaRecipe,
   scaleRecipe,
@@ -18,7 +18,7 @@ import { type ReactNode, useState } from "react";
 import { Ingredients, Steps, WaterRow, plainSteps } from "../components/Recipe";
 import { Button, CupsStepper, Notice, TrustBadge } from "../components/ui";
 import { ApiError } from "../lib/api";
-import { plainBrew } from "../lib/format";
+import { plainTiming } from "../lib/format";
 import { online } from "../lib/sync";
 import { longDate } from "../lib/time";
 import { PickActions } from "./Actions";
@@ -146,7 +146,7 @@ export function UnlockLine({ unlock }: { unlock: Unlock | null }) {
 export function PlainDay({
   pick,
   tea,
-  teaType,
+  brew,
   unlock,
   state,
   catalog,
@@ -154,7 +154,7 @@ export function PlainDay({
 }: {
   pick: PickRecord;
   tea: Ingredient;
-  teaType: TeaType;
+  brew: PlainBrew;
   unlock: Unlock | null;
   state: State;
   catalog: Catalog;
@@ -163,8 +163,8 @@ export function PlainDay({
   const [cups, setCups] = useState(() => pickCups(pick, state.settings));
   const office = pick.type === "office";
   const noKit = pick.source === "no-kit";
-  const recipe = plainTeaRecipe(tea, teaType, cups);
-  const brew = plainBrew(teaType, office);
+  const recipe = plainTeaRecipe(tea, brew, cups);
+  const timing = plainTiming(brew, office);
   return (
     <Page>
       <div>
@@ -174,17 +174,17 @@ export function PlainDay({
       <p className="text-muted">
         {noKit
           ? "The evening draw was missed, so no kit was packed: this is a tea kept at the office."
-          : "No blend can be made from the pantry as it is, so today is a plain tea, brewed by its type."}
+          : "No blend can be made from the pantry as it is, so today is a plain tea, brewed on its own."}
       </p>
       {pick.status === "pending" && <CupsStepper cups={cups} onChange={setCups} />}
       <Ingredients recipe={recipe} catalog={catalog} />
-      <WaterRow waterMl={recipe.waterMl} brew={{ tempC: brew.tempC, ratioGPer100ml: teaType.ratioGPer100ml }} />
+      <WaterRow waterMl={recipe.waterMl} brew={{ tempC: timing.tempC, ratioGPer100ml: brew.ratioGPer100ml }} />
       <Steps
-        steps={plainSteps(teaType, office)}
+        steps={plainSteps(brew, office)}
         stage="day"
         office={office}
         scope={`${pick.date}:${tea.id}`}
-        infusionsS={brew.infusionsS}
+        infusionsS={timing.infusionsS}
       />
       {!noKit && <UnlockLine unlock={unlock} />}
       <PickActions

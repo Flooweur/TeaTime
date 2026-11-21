@@ -1,5 +1,5 @@
 /** How quantities, water and temperatures read on the screens. */
-import type { Brew, TeaType, Unit, Water } from "@teatime/core";
+import type { Brew, PlainBrew, Unit, Water } from "@teatime/core";
 
 /** "7.5 g", "240 ml", "×2". */
 export function qtyText(qty: number, unit: Unit): string {
@@ -20,9 +20,9 @@ export function tempText(brew: Pick<Brew, "tempC" | "tempRange">): string {
   return brew.tempRange ? `${brew.tempC} °C (${brew.tempRange.min}–${brew.tempRange.max})` : `${brew.tempC} °C`;
 }
 
-/** A plain tea's brew, from its tea type (SPEC §2.5). */
-export function plainBrew(teaType: TeaType, office: boolean): { tempC: number; infusionsS: readonly number[] } {
-  return office ? teaType.office : { tempC: teaType.tempC, infusionsS: teaType.infusionsS };
+/** A plain tea's temperature and times, at home or with an office kettle (SPEC §2.5). */
+export function plainTiming(brew: PlainBrew, office: boolean): { tempC: number; infusionsS: readonly number[] } {
+  return office ? brew.office : { tempC: brew.tempC, infusionsS: brew.infusionsS };
 }
 
 /** "1 min", "30 s", for a timer's button. */
