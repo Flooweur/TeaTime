@@ -16,14 +16,23 @@ Each phase is a branch and a pull request, merged only after the owner's yes. Ea
 | 6 | **Frontend core:** the shell, Today with its timers, the library, the blend page, the pantry, the offline store, outbox and sync, and the update toast | For any date and pantry, Today shows a valid card, and the app opens offline | Done |
 | 7 | **Phone and notifications:** the install flow, push on, off and test, the notifier, the Docker image and compose file, `tailscale serve`, the backups, and `docs/runbook.md` | The owner's iPhone has had a week of 8:00 pushes | Running since 2026-11-21; the week of pushes is under way |
 | 8 | **Review, settings and export** | The owner has done one real Saturday review | Merged and deployed; the first review is on 2026-11-28 |
-| 9 | **Polish:** the guides screen and outline, accessibility (44 px taps, contrast, safe areas), diagnostics, the chime's audio session, a full final review | The owner would show it to their colleague without apologising | In review |
+| 9 | **Polish:** the guides screen and outline, accessibility (44 px taps, contrast, safe areas), diagnostics, the chime's audio session, a full final review | The owner would show it to their colleague without apologising | Merged and deployed (v9) |
 
-Phase 4 depends only on phase 1, so it can run alongside phases 3, 5 and 6. Later content batches (the other 80 blends, then the two guides) follow the same review, in batches of 15.
+Phase 4 depends only on phase 1, so it can run alongside phases 3, 5 and 6. Later content batches (the other 80 blends, then the two guides) follow the same review, in batches of 15:
+
+| Batch | Blends | Status |
+|---|---|---|
+| 2 | 011–025 | In review |
 
 **Gear** (decision of 2026-11-20) is in the content from batch 1. Core's pantry and draw learned it in a small PR after phase 3 was merged: a blend whose required gear is missing isn't drawn, and gear counts among the purchases that unlock the most.
 
 ## Decisions log
 Asked of the owner and answered, newest first. The SPEC states each as a rule.
+
+### 2026-11-21: content batch 2
+- **The list** (approved on 2026-11-21), coded 011–025 in this order, forever:
+  - safe: 011 Lady Grey, 012 Earl Grey with lavender, 013 Fresh-bergamot Earl Grey, 014 Genmaicha, 015 Hojicha, 016 Keemun, 017 Fortnum & Mason's Royal Blend, 018 Twinings' Prince of Wales, 019 a chef's ginger, lemon and honey (Marc Matsumoto's shōgayu);
+  - experimental: 020 London Fog, 021 Turkish çay, 022 Kashmiri noon chai, 023 Matcha, thin (usucha), 024 Silver needle, 025 Teh tarik.
 
 ### 2026-11-21: the review (phase 8)
 The owner took the three recommendations:
