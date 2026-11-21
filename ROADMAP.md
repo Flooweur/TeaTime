@@ -25,6 +25,10 @@ Phase 4 depends only on phase 1, so it can run alongside phases 3, 5 and 6. Late
 ## Decisions log
 Asked of the owner and answered, newest first. The SPEC states each as a rule.
 
+### 2026-11-21: the backend (phase 5)
+- **No command counts twice** without the snapshot listing the ids it holds, a list that would only grow: a phone with unsent commands syncs by sending them, and the answer has a result for each, a resend's included (SPEC §3.3).
+- **The CSV export:** one row per cup made, oldest first, with `date`, `time`, `tea`, `name`, `cups`, `place`, `rating` and `colleague_rating` (SPEC §3.4).
+
 ### 2026-11-21: content batch 1 (phase 4)
 - **The list** (approved on 2026-11-20), coded 001–010 in this order, forever:
   - safe: 001 Moroccan mint tea, 002 Sencha brewed right, 003 Mizudashi (the cold brew, started the evening before), 004 First-flush Darjeeling, 005 Earl Grey the classic, 006 Russian zavarka;
