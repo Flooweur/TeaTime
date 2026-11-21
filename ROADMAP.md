@@ -25,6 +25,9 @@ Phase 4 depends only on phase 1, so it can run alongside phases 3, 5 and 6. Late
 ## Decisions log
 Asked of the owner and answered, newest first. The SPEC states each as a rule.
 
+### 2026-11-21: gear in core
+- **What gear can't hold is refused, not ignored:** `pantry.set` for a piece of gear with an amount, an opened date or *kept at the office* is refused with `gear_have_only`. Restating `null` or `false` is accepted (SPEC §3.3).
+
 ### 2026-11-21: content batch 1 (phase 4)
 - **The list** (approved on 2026-11-20), coded 001–010 in this order, forever:
   - safe: 001 Moroccan mint tea, 002 Sencha brewed right, 003 Mizudashi (the cold brew, started the evening before), 004 First-flush Darjeeling, 005 Earl Grey the classic, 006 Russian zavarka;
