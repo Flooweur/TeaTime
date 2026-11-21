@@ -1,6 +1,7 @@
 /**
- * Settings (SPEC §7). For now: this device's pushes, light or dark (this device's own: decision of
- * 2026-11-21), and what this app and the server are. The week, the times and the export join it in phase 8.
+ * Settings (SPEC §7): this device's pushes; the week (office days, overrides, away); the times, pushes
+ * for every device, the cooldown and the cups; light or dark (this device's own: decision of
+ * 2026-11-21); the export; and what this app and the server are.
  */
 import type { ReactNode } from "react";
 import appVersion from "../../../app-version.json";
@@ -9,6 +10,9 @@ import { bundle } from "../lib/content";
 import { kept, syncStatus, useStore } from "../lib/store";
 import { type ThemeChoice, setTheme, useTheme } from "../lib/theme";
 import { Notifications } from "./Notifications";
+import { Export } from "./settings/Export";
+import { Times } from "./settings/Times";
+import { Week } from "./settings/Week";
 
 const THEMES: readonly (readonly [ThemeChoice, string])[] = [
   ["device", "As the device"],
@@ -32,6 +36,8 @@ export function Settings() {
   return (
     <Screen title="Settings">
       <Notifications />
+      <Week />
+      <Times />
       <Section title="Light or dark">
         <div role="radiogroup" aria-label="Light or dark" className="grid grid-cols-3 gap-2">
           {THEMES.map(([value, label]) => (
@@ -51,6 +57,7 @@ export function Settings() {
         </div>
         <p className="text-sm text-muted">This device's own choice: the phone and the PC each keep theirs.</p>
       </Section>
+      <Export />
       <Section title="This app">
         <div className="rounded-well bg-surface px-4 shadow-card">
           <Row label="Version">{appVersion.version}</Row>
