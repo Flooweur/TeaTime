@@ -6,8 +6,8 @@
  *   answer lost on the way back) gets the same result, marked `repeat`, and changes nothing.
  * - **A refusal never blocks the queue:** the commands after it are applied as usual.
  * - **Not recorded, so a resend tries again:** a command from a newer app than this server
- *   (`unsupported_version`), and one whose rows couldn't be written (`server_error`, a bug: its
- *   savepoint is rolled back and the batch goes on without it).
+ *   (`unsupported_version`), and one that couldn't be applied or whose rows couldn't be written
+ *   (`server_error`, a bug: its savepoint is rolled back and the batch goes on without it).
  * - **The answer** holds a result per command, in order, and the snapshot after them all. Every
  *   command it answers is in that snapshot or refused, so the phone drops exactly those from its
  *   outbox and replays the rest on top.
@@ -80,14 +80,16 @@ export function applyBatch(
       }
 
       const { command } = parsed;
-      const applied = applyCommand(state, command, deps.catalog, now);
+      let applied: ReturnType<typeof applyCommand>;
       try {
+        // A rule that throws (a bug) fails this command alone, as a write that fails does.
+        applied = applyCommand(state, command, deps.catalog, now);
         tx.transaction((savepoint) => {
           saveTouched(savepoint, applied.state, applied.touched);
           record(savepoint, command.id, command.type, applied.result, now);
         });
       } catch (err) {
-        log.error({ err: safeError(err), type: command.type }, "a command's rows couldn't be written");
+        log.error({ err: safeError(err), type: command.type }, "a command couldn't be applied");
         return { id: command.id, ok: false, code: "server_error" };
       }
       state = applied.state;

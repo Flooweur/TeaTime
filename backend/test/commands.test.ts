@@ -205,3 +205,18 @@ describe("the server and the phone agree (SPEC §3.3)", () => {
     );
   });
 });
+
+describe("the self-review of phase 5", () => {
+  it("answers server_error for a command whose rule throws, and applies the rest", async () => {
+    const t = await testApp({ now: NOW });
+    // A bug's stand-in: looking a blend up throws.
+    (t.deps.catalog.blendByCode as Map<string, unknown>).get = () => {
+      throw new Error("a rule's bug");
+    };
+    const brew = logged("005", 1);
+    const { results, snapshot } = await t.commands(brew, have("assam", NOW, 40));
+    expect(results[0]).toEqual({ id: brew.id, ok: false, code: "server_error" });
+    expect(results[1]).toMatchObject({ ok: true });
+    expect(snapshot.state.pantry.assam?.amount.value).toBe(40);
+  });
+});

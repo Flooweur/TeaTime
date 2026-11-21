@@ -217,7 +217,7 @@ The owner's state is tiny: the pantry, picks, brews, marks and settings. So the 
   - **No command counts twice:** a phone with unsent commands syncs by sending them (`POST commands`), never by `GET state` alone. The answer has a result for every command sent, a resend's included, and the snapshot after them all, so the phone drops exactly those from its outbox and replays the rest.
 - **On the server:** a batch is applied one command at a time, inside one SQLite transaction with a savepoint each.
   - Each command is accepted or refused with a `code`, and recorded in `applied_commands`, so a resend changes nothing: it gets the same result, marked `repeat`. The same id twice in one batch is a resend too.
-  - Two are not recorded, so a resend tries again: a command from a newer app than the server (`unsupported_version`), and one whose rows couldn't be written (`server_error`, a bug: its savepoint is rolled back, and the batch goes on).
+  - Two are not recorded, so a resend tries again: a command from a newer app than the server (`unsupported_version`), and one that couldn't be applied or stored (`server_error`, a bug: its savepoint is rolled back, and the batch goes on).
   - The answer gives a result per command, in order, and the new snapshot. The batch counts one revision, if anything changed.
   - A refused command is shown on the phone; it never blocks the queue.
 
@@ -257,7 +257,7 @@ A refusal has a `code`: `duplicate`, `future_date`, `unknown_tea`, `unknown_blen
 - **Storage:** Dexie's transactions keep the snapshot and the outbox consistent. The app asks for persistent storage. A failed write shows a banner, never fails silently.
 
 ### 3.4 API
-All routes are under `/api`, and bodies are JSON only (any other type is refused, 415). Errors are `{error, code}`, with any details beside them. Answers are `no-store`.
+All routes are under `/api`, and bodies are JSON only (any other type is refused, 415). A body with an unknown field, or a value of the wrong type, is refused (400), never trimmed or coerced. Errors are `{error, code}`, with any details beside them. Answers are `no-store`.
 - **Same origin:** a write (any method but GET and HEAD) that names its `Origin` must name the app's: `PUBLIC_ORIGIN`, and in dev Vite's preview (`MORE_ORIGINS`). Otherwise it is refused, 403 `cross_origin`. Browsers always send `Origin` on a write, so a write without one isn't a page on another site: a script on the PC, which Tailscale already lets in.
 - `GET health`, `GET state`, `POST commands` (`{commands: [...]}`, at most 500).
 - `POST picks/:date/draw`: idempotent; only for today, for tomorrow's office kit from 17:00 (or the evening time, if earlier), or for any tea day tomorrow once the evening time has come. An early home day is refused (`not_office`).

@@ -29,6 +29,9 @@ const list = (value: string) =>
 /** The app's address: Vite's dev server in dev, the Tailscale name with :8443 on the daily stack. */
 const publicOrigin = env.PUBLIC_ORIGIN ?? "http://localhost:5180";
 
+/** Which stack this is: "dev" or "daily". */
+const environment = env.APP_ENV ?? "dev";
+
 export const config = {
   isTest,
   /** 127.0.0.1 in dev, so nothing on the network reaches it; 0.0.0.0 inside the container. */
@@ -37,14 +40,14 @@ export const config = {
   /** The SQLite file. Dev: the repo's data/, which git ignores. The daily stack: its named volume (SPEC §3.7). */
   databasePath: path.resolve(env.DATABASE_PATH ?? path.join(repoRoot(), "data", "teatime.sqlite")),
   /** Which stack this is, for the health route and the diagnostics: "dev" or "daily". */
-  environment: env.APP_ENV ?? "dev",
+  environment,
   /** The base of every push's link. */
   publicOrigin,
   /**
    * The origins a write may come from (SPEC §3.4): the app's, and in dev Vite's preview too.
-   * `MORE_ORIGINS` replaces the preview's; the daily stack sets it empty.
+   * `MORE_ORIGINS` adds others; by default, Vite's preview in dev, and none elsewhere.
    */
-  origins: [publicOrigin, ...list(env.MORE_ORIGINS ?? "http://localhost:5181")],
+  origins: [publicOrigin, ...list(env.MORE_ORIGINS ?? (environment === "dev" ? "http://localhost:5181" : ""))],
   /** The daily backups' folder (SPEC §3.7). Unset (dev, by default), the backup job doesn't run. */
   backupDir: env.BACKUP_DIR ? path.resolve(env.BACKUP_DIR) : null,
   /**

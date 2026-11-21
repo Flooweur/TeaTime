@@ -132,3 +132,25 @@ describe("PUT settings, PUT overrides/:date, POST|DELETE away (SPEC §3.3)", () 
     expect((await t.call("DELETE", `/api/away/${period.id}`)).body).toMatchObject({ code: "unknown_away" });
   });
 });
+
+describe("the self-review of phase 5", () => {
+  it("swaps a plain-tea fallback for a blend, as its free redraw", async () => {
+    // Only Ceylon, which no safe blend uses: Monday's office kit falls back to it plain.
+    const t = await testApp({ now: SUNDAY_EVENING });
+    await t.commands(have("ceylon-black", SUNDAY_EVENING - 3_600_000, 300));
+    const drawn = pickOf((await t.call("POST", "/api/picks/2026-11-23/draw")).body, "2026-11-23");
+    expect(drawn.tea).toEqual({ kind: "plain", tea: "ceylon-black" });
+    await t.commands(have("earl-grey", SUNDAY_EVENING - 60_000, 300));
+    const swap = await t.call("POST", "/api/picks/2026-11-23/swap", { current: drawn.tea });
+    expect(swap.status).toBe(200);
+    expect(pickOf(swap.body, "2026-11-23").tea).toEqual({ kind: "blend", code: "005" });
+  });
+
+  it("refuses a value of the wrong type instead of coercing it", async () => {
+    const t = await testApp();
+    const res = await t.call("PUT", "/api/overrides/2026-11-26", { type: "" });
+    expect(res.status).toBe(400);
+    const extra = await t.call("PUT", "/api/overrides/2026-11-26", { type: "home", note: "x" });
+    expect(extra.status).toBe(400);
+  });
+});

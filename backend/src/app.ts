@@ -56,6 +56,8 @@ export async function buildApp(appDeps: AppDeps) {
   const serializers = { err: (err: unknown) => safeError(err) as { type: string; message: string; stack: string } };
   const app = Fastify({
     logger: logger === false ? false : { ...(logger === true ? {} : logger), serializers },
+    // A body with a field it shouldn't have is refused, never trimmed, and no value is coerced to another type.
+    ajv: { customOptions: { removeAdditional: false, coerceTypes: false } },
   }).withTypeProvider<TypeBoxTypeProvider>();
 
   const deps: Deps = {

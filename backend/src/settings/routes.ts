@@ -15,12 +15,16 @@ import { Type } from "typebox";
 import type { Deps } from "../deps.js";
 import { runOnline } from "../state/service.js";
 
-const Confirm = Type.Object({ confirm: Type.Optional(Type.Boolean()) }, { additionalProperties: false });
+/** `?confirm=true`, as text: nothing is coerced (app.ts). */
+const Confirm = Type.Object(
+  { confirm: Type.Optional(Type.Union([Type.Literal("true"), Type.Literal("false")])) },
+  { additionalProperties: false },
+);
 
 export const settingsRoutes: FastifyPluginAsyncTypebox<{ deps: Deps }> = async (app, { deps }) => {
   // Core's parseSettingsPatch checks the body, naming every problem.
   app.put("/settings", { schema: { querystring: Confirm, body: Type.Unknown() } }, async (req) =>
-    runOnline(deps, (state, now) => updateSettings(state, deps.catalog, now, req.body, req.query.confirm ?? false)),
+    runOnline(deps, (state, now) => updateSettings(state, deps.catalog, now, req.body, req.query.confirm === "true")),
   );
 
   app.put(
@@ -37,7 +41,7 @@ export const settingsRoutes: FastifyPluginAsyncTypebox<{ deps: Deps }> = async (
     },
     async (req) =>
       runOnline(deps, (state, now) =>
-        setOverride(state, deps.catalog, now, req.params.date, req.body.type, req.query.confirm ?? false),
+        setOverride(state, deps.catalog, now, req.params.date, req.body.type, req.query.confirm === "true"),
       ),
   );
 
@@ -47,7 +51,7 @@ export const settingsRoutes: FastifyPluginAsyncTypebox<{ deps: Deps }> = async (
       const body = req.body as { id?: unknown; from?: unknown; to?: unknown } | null;
       const same = state.away.find((p) => p.id === body?.id && p.from === body?.from && p.to === body?.to);
       if (same && Object.keys(body ?? {}).length === 3) return { ok: true, state, touched: NOTHING_TOUCHED };
-      return addAway(state, deps.catalog, now, req.body, req.query.confirm ?? false);
+      return addAway(state, deps.catalog, now, req.body, req.query.confirm === "true");
     }),
   );
 
