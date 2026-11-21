@@ -203,3 +203,28 @@
     border-bottom: 2px dotted color-mix(in srgb, var(--color-control) 55%, transparent);
   }
 }
+
+@layer components {
+  /* A written guide's text (SPEC §6), rendered from Markdown at build time. */
+  .guide h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    margin-top: var(--spacing-section);
+  }
+  .guide h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+  }
+  .guide a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .guide ul,
+  .guide ol {
+    padding-left: 1.5rem;
+    list-style: revert;
+  }
+}
