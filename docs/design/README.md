@@ -21,7 +21,7 @@
 ## Tokens (A · Warm journal)
 
 ### Colours
-A switch in Settings chooses light or dark (decision of 2026-11-20); the dark values apply under `:root[data-theme="dark"]`. What the switch starts on, before it is first set, is still to be asked (phase 6). In dark mode the primary action turns from tea brown to amber, since a dark brown button would vanish on the dark page.
+A switch in Settings chooses light or dark (decision of 2026-11-20); the dark values apply under `:root[data-theme="dark"]`. Until the switch is first set, the app follows the device's own setting (decision of 2026-11-21): the dark values then also apply under `@media (prefers-color-scheme: dark)` while `data-theme` is unset. In dark mode the primary action turns from tea brown to amber, since a dark brown button would vanish on the dark page.
 
 | Token | Role | Light | Dark |
 |---|---|---|---|
