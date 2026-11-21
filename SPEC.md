@@ -37,7 +37,7 @@ Each date has a **day type**, decided in this order:
 1. A **Saturday or Sunday** has no tea of the day. Saturday holds the weekly review (§2.8); Sunday is free. The pantry and the library stay open.
 2. A date inside an **away period** (Settings: "away from … to …") has no tea and no notification.
 3. Otherwise a per-date **override** ("tomorrow I'm home", "tomorrow I'm at the office") decides.
-4. Otherwise the weekday is an **office day** if it is one of the owner's office days (a setting, 3 by default), and a **home day** if not.
+4. Otherwise the weekday is an **office day** if it is one of the owner's office days (a setting: Monday, Tuesday and Thursday by default), and a **home day** if not.
 
 A weekday that isn't away is a **tea day**.
 
@@ -46,10 +46,10 @@ A weekday that isn't away is a **tea day**.
 - **Every tea day's blend is drawn the evening before**, at the evening time (20:30 by default), Sunday evening included:
   - an office kit has to be packed while its ingredients are still at home;
   - an overnight blend (a cold brew) has to be started that evening.
-- **An office kit can be drawn early**, from 17:00, with "Draw tomorrow's tea now", so the owner can pack before going out.
+- **An office kit can be drawn early**, from 17:00 on the calendar day before (or from the evening time, if it is set earlier), with "Draw tomorrow's tea now", so the owner can pack before going out.
 - **The evening notification** is sent only when the evening needs the owner: an office kit not packed yet, or a blend to start tonight.
 - **A home-day blend stays a surprise** until the morning time (8:00 by default). Before it, Today shows "Tomorrow's tea arrives at 8:00" with a **Peek** button. It shows at once if it has to be started that evening. Opening the app from that day's push reveals it, whatever the phone's clock says.
-- **A draw the server missed** (the PC was off at 20:30) happens as soon as it can: at the next pass of the notifier, or when the app asks. Such a same-day draw never picks an overnight blend.
+- **A draw the server missed** (the PC was off at 20:30) happens as soon as it can: at the next pass of the notifier, or when the app asks. Until midnight it is still the evening before; after it, it is a **same-day draw**, which never picks an overnight blend. A first draw of an office day made on the day itself is the missed kit (§2.5).
 
 ### 2.3 The draw
 The draw is a pure, deterministic function of the date, the day type, the content, the pantry and the history (`drawPick` in core). Its randomness is seeded by the date and the attempt number, so a draw can be replayed and tested.
@@ -73,15 +73,16 @@ The draw is a pure, deterministic function of the date, the day type, the conten
 4. the same three, out of season.
 
 In detail:
+- **The last rating** is the owner's rating on the blend's latest rated brew. Every brew counts, Made it and I made this alike; the colleague's rating never does.
 - **Favourites** are blends last rated 4–5, starred ★, or marked *make again*.
 - **Others** are made blends last rated 3, or never rated.
-- **A blend last rated 1–2 never comes back**, unless it is marked *make again*.
+- **A blend last rated 1–2 never comes back**, unless it is marked *make again* (a ★ alone doesn't bring it back). It leaves the draw with the rules that always hold.
 - **In season** means the date's meteorological season (northern hemisphere: winter is December to February), or a blend with no season tags.
 
 **3. Soft filters, relaxed one level at a time.**
 - **The two filters:**
-  - *the 7-day rest*: a blend skipped or swapped away rests 7 days;
-  - *the cooldown*: a made blend waits a number of days (a setting, 21 by default) before it can come back.
+  - *the 7-day rest*: a blend skipped or swapped away rests 7 days, counted from its pick's date: it can't be drawn for that date or the 6 after it;
+  - *the cooldown*: a made blend waits a number of days (a setting, 21 by default) before it can come back. Made on the 2nd with 21 days, it can come back on the 23rd.
 - **The levels**, tried in this order, with the first non-empty group in order winning at each level:
   1. **strict**: both filters apply;
   2. **no rest**: only the cooldown applies;
@@ -99,7 +100,12 @@ In detail:
   - **Made it** on Today logs the pick's brew.
   - **I made this** on any blend page logs a brew outside the daily pick, weekends included. It is deducted and counts for repeats like any other.
 - **Swap**: one per pick. It draws again from the same pool, and the replaced blend rests 7 days. On an office day it is possible only until the kit is marked **Packed**.
-  - A pick that a pantry change made unmakeable gets a free redraw, which isn't counted as its swap.
+  - A swap lands on another blend, or doesn't happen: it never trades a blend for a plain tea.
+  - A pick that a pantry change made unmakeable gets a free redraw, which isn't counted as its swap. So does a fallback (a plain tea, or nothing), once a blend can be made.
+- **A brew for a pick:**
+  - logged for a pick already made, it is refused (`already_made`): two devices pressed Made it;
+  - logged for a pick that is skipped, it makes the pick, since the real cup wins;
+  - logged for a pick that was cancelled or is gone, it is kept on its own, like I made this.
 - **Skip** marks the pick skipped. Its blend rests 7 days, then goes back in the pool.
 - **Not for me** (on the card and in the library) takes a blend out of the draw for good, until it is unmarked in the library.
 - **Changing a day:**
@@ -108,26 +114,30 @@ In detail:
   - An away period wins over an override.
   - Past dates can't be changed.
 - **Cups:**
-  - Today has a cups selector, set to 2 on office days and 1 at home by default (settings). Quantities and water scale with it.
-  - **Packed** records the cups packed, which Made it then uses by default.
+  - Today has a cups selector, from 1 to 12, set to 2 on office days and 1 at home by default (settings). Quantities and water scale with it.
+  - **Packed** (office picks only) records the cups packed, which Made it then uses by default.
 - **Scaling:**
   - A `per-cup` recipe makes `serves` cups and scales in proportion.
   - A `per-session` recipe (a gaiwan, a kyusu) shares one session's leaves among up to `session_max` people; more people make more sessions.
 - **Rounding:** one rule per unit, in core, used both for what is shown and for what is deducted:
   - grams to the nearest 0.5 g, or 0.1 g under 2 g;
   - millilitres to the nearest 5 ml;
-  - pieces to the nearest whole piece, never fewer than one.
+  - pieces to the nearest whole piece;
+  - halves round up, and a needed quantity never rounds to nothing: at least 0.1 g, 5 ml or one piece.
 - **Deduction:**
   - Made it takes the shown quantities off the pantry: each ingredient whose amount is tracked, and the optional ones only when they are *have*.
   - An amount never goes below 0; reaching 0 sets the ingredient to *don't have*.
   - The brew records what it took, so undoing it (removing the brew) puts back exactly that.
+  - A missed-kit tea (§2.5) is made with the office's tea, so it takes nothing from the pantry.
 
 ### 2.5 Fallbacks
 - **No blend left after the rules that always hold** → a **plain tea** from the pantry, brewed with its tea type's parameters (`tea-types.yaml`, with office parameters for office days).
-  - The tea is chosen deterministically: one to use soon first, then the one with the most left.
+  - The tea is chosen deterministically: one to use soon first, then the one with the most left (an untracked amount after every tracked one), then by id. It must have enough for the day's cups.
   - The card also names **the purchase that would unlock the most blends** of that pool.
   - With no tea in the pantry at all, the card says what to buy.
 - **An office day whose kit was never packed** because the evening draw was missed → the card says so, and offers a plain tea from the teas marked **kept at the office** in the pantry, or nothing.
+  - The office's stock isn't tracked: a tea kept there counts whatever the pantry at home says, unless it is perishable and stale. One to use soon comes first, then by id.
+  - Only a first draw makes this card. A pick redrawn on the day, because its day turned into an office day, draws a safe blend as usual.
 
 ### 2.6 Pantry
 - **Each ingredient has:**
@@ -136,16 +146,16 @@ In detail:
   - the date it was opened;
   - whether it is **kept at the office**.
 - Turning *have* on sets the opened date to today.
-- **Freshness** compares the opened date with the ingredient's shelf life: *fresh*, *use soon* (75 % of it gone), or *stale*. A perishable ingredient that is stale counts as missing for the draw.
+- **Freshness** compares the opened date with the ingredient's shelf life, on the day the tea will be made: *fresh*, *use soon* (75 % of it gone), or *stale* (more days gone than its shelf life). Without an opened date, it can't tell, and never says stale. A perishable ingredient that is stale counts as missing for the draw.
 - **Unlock count:** how many blends that can't be made now would become makeable if this one ingredient were added. An ingredient that is *have* but too low counts as missing. The weekly review lists the 3 purchases with the highest counts.
 - **Gear** (§5.2) is *have* or *don't have*, and nothing else: no amount, no opened date, never deducted. A piece of gear the owner lacks counts like a missing ingredient, in the draw and in the unlock count, so a gaiwan can be the purchase that unlocks the most.
 
 ### 2.7 Notifications
 | Kind | When | Sent when | Grace window |
 |---|---|---|---|
-| `evening` | the calendar day before each tea day, at the evening time (20:30) | the next day is an office day whose kit isn't packed yet, or its blend needs starting that evening | 2 h 30 |
+| `evening` | the calendar day before each tea day, at the evening time (20:30) | the next day is an office day whose kit isn't packed yet, or its blend needs starting that evening. It goes even when that evening is itself away: it is about the next day | 2 h 30 |
 | `morning` | each tea day, at the morning time (8:00) | the pick isn't made, skipped or cancelled yet | 2 h |
-| `review` | Saturday, at the review time (10:00) | always | 3 h |
+| `review` | Saturday, at the review time (10:00) | unless that Saturday is away | 3 h |
 
 - **Settings:** the three times, set between 05:00 and 22:00, so none falls in the hour a clock change skips or repeats (02:00–03:00 in Paris), and notifications on or off.
   - With notifications off, the draws still happen.
@@ -157,7 +167,8 @@ In detail:
   - A send that went stale (`sending` for more than 2 minutes), or `failed`, is retried until its window closes.
   - Each push carries the tag `kind:date`, so a duplicate replaces the first instead of showing twice.
   - Each push's TTL is what's left of its window.
-- **What a push says:** its title and text name the blend (`#017 Moroccan mint`). Its link carries the date and the blend (`/today?date=…&blend=…&from=push`), so a tap opens the right recipe even offline.
+- **What a push says:** its title and text name the blend (`#017 Moroccan mint`), the plain tea, or that there is no kit or nothing to make. Its link carries the date and the blend (`/today?date=…&blend=…&from=push`), so a tap opens the right recipe even offline. The review's opens `/review?date=…&from=push`.
+- **In core:** `dueNotifications(state, content, now)` gives what is due now, with its tag, window, text and link; the server records what it sent.
 
 ### 2.8 Weekly review (Saturday)
 - **The week's teas**, side by side, with their ratings.
@@ -207,21 +218,32 @@ The owner's state is tiny: the pantry, picks, brews, marks and settings. So the 
   - The answer gives a result per command, and the new snapshot.
   - A refused command is shown on the phone; it never blocks the queue.
 
-**Offline commands:**
-- `brew.logged` (Made it, I made this), `brew.rated`, `brew.removed` (undo);
-- `pick.skipped`, `pick.unskipped`, `pick.packed`;
-- `pantry.set`;
-- `blend.marked` (★, *make again*, Not for me).
+**Offline commands** (`packages/core/src/state/commands.ts`; `parseCommand` checks one's shape, with no field missing or unknown):
 
-**What needs the server:**
-- drawing a pick, and swapping one;
-- settings, overrides and away periods. These re-check the pending picks they touch (§2.4) in the same transaction.
+| Command | Payload | Does |
+|---|---|---|
+| `brew.logged` | `brew` (a new UUID), `tea` (`{kind: "blend", code}` or `{kind: "plain", tea}`), `cups`, `date`, `pick?`, `rating?`, `colleagueRating?` | Made it (with `pick`), or I made this; deducts (§2.4) |
+| `brew.rated` | `brew`, `rating?`, `colleagueRating?` (null takes one back) | Last writer wins, per rating |
+| `brew.removed` | `brew` | Undo: puts back what it took where it can, and reopens its pick |
+| `pick.skipped`, `pick.unskipped` | `date` | pending ⇄ skipped |
+| `pick.packed` | `date`, `cups` | An office kit packed for those cups |
+| `pantry.set` | `ingredient`, `have?`, `amount?`, `openedOn?`, `atOffice?` | Last writer wins, per field. `amount` is a measurement: what is left |
+| `blend.marked` | `blend`, `favourite?`, `makeAgain?`, `notForMe?` | Last writer wins, per mark |
+
+A refusal has a `code`: `duplicate`, `future_date`, `unknown_tea`, `unknown_blend`, `unknown_ingredient`, `not_found`, `no_pick`, `already_made`, `cancelled`, `not_pending`, `not_office`, `nothing_to_pack`. An accepted command may carry notes: `no_change` (a more recent change won, or nothing was to do), `pick_gone`, `different_tea`, `not_restored` (with the ingredient).
+
+**What needs the server** (`packages/core/src/state/online.ts`, pure too):
+- `drawDue` (the notifier's draws), `drawNow` (the app's), `swapPick`;
+- `updateSettings`, `setOverride`, `addAway`, `removeAway`. These re-check the pending picks they touch (§2.4) in the same transaction, then draw whatever has become due.
+- **A packed kit** that a change would throw away refuses the change with `packed_kits` and the dates; the app asks the owner, and sends it again with `confirm`.
 
 **Rules:**
-- **The status table** in core lists every allowed change of a pick and a brew. Logging a brew for a pick already made answers `already_made`. A brew for a pending pick is accepted whatever its blend, since the real cup wins, and the pick records the blend it replaced.
-- **`pantry.set` and `blend.marked` are last-writer-wins, field by field,** by the command's time against each field's last change.
-- **A deduction** applies only to amounts last changed before the brew's time: a later measurement already includes it.
-- **An undo** puts amounts back only where nothing changed them since; it says so where it can't.
+- **The status table** in core (`PICK_MOVES`) lists every allowed change of a pick's status; a brew has none, it is logged once and removed once. Logging a brew for a pick already made answers `already_made`. A brew for a pending pick is accepted whatever its tea, since the real cup wins: the pick keeps the tea it drew, its brew the one made, and the answer notes `different_tea`.
+- **`pantry.set`, `blend.marked` and `brew.rated` are last-writer-wins, field by field,** by the command's time against each field's last change.
+- **A deduction** applies only to amounts last measured before the brew's time: a later measurement already includes it. A deduction doesn't count as a measurement.
+- **A measurement that reaches the server after a brew made later than it** still has that brew's share taken off, so the order things reach the server never changes the result.
+- **An undo** puts amounts back only where nothing was measured since; it says so where it can't.
+- **The reducer returns the keys it touched,** so the server writes only those rows; a touched key gone from the new state is a row to delete.
 - **A command time more than a day ahead of the server's clock** is taken as the server's time.
 - **App updates:** commands carry a version `v`, and the server upgrades old ones, so an app update never loses what is queued.
 - **The snapshot carries the full content of every pending pick's blend,** and the content's hash. The phone can always show what was drawn, and a hash it doesn't have shows the update toast.
@@ -234,7 +256,7 @@ The owner's state is tiny: the pantry, picks, brews, marks and settings. So the 
 ### 3.4 API
 All routes are under `/api`, and bodies are JSON only. A write must come from the app's origin (`PUBLIC_ORIGIN`), and errors are `{error, code}`.
 - `GET health`, `GET state`, `POST commands`
-- `POST picks/:date/draw`: idempotent; only for today, or for the next tea day from 17:00.
+- `POST picks/:date/draw`: idempotent; only for today, for tomorrow's office kit from 17:00 (or the evening time, if earlier), or for any tea day tomorrow once the evening time has come. An early home day is refused (`not_office`).
 - `POST picks/:date/swap`: carries the current blend, so a retry after a lost answer returns the current pick.
 - `PUT settings`, `PUT overrides/:date`, `POST|DELETE away`
 - `GET push/key`, `POST|DELETE push/subscriptions`, `POST push/test`

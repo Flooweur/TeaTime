@@ -10,8 +10,8 @@ Each phase is a branch and a pull request, merged only after the owner's yes. Ea
 | 0 | **Design directions:** three static Today mockups in `docs/design/`; the owner picks one, which becomes the Tailwind tokens | The owner has picked, and `docs/design/README.md` records it | Done: A · Warm journal |
 | 1 | **Foundation:** workspaces, tooling, CI, these docs, the content's schemas, check and build | `npm run check` is green in CI | Done |
 | 2 | **Push spike** (`spikes/001-push-8443`): iOS home-screen push on the `:8443` origin | The owner's iPhone has shown a test push (or the failure is written up with the fallback: a Tailscale container with its own name) | Proposed as its own session |
-| 3 | **Core domain:** every rule of SPEC §2, with unit and property tests (a simulated year in Europe/Paris, the draw's invariants, the status table, the reducer's round trip, rounding) | The tests are green | — |
-| 4 | **Content batch 1:** 10 blends (about 6 safe and 4 experimental, at least one cold brew, across the families), their ingredients, Lyon and online shops, and the tea types. The owner approves the list before the research | `content:check` is green, and the owner has reviewed the batch | In review |
+| 3 | **Core domain:** every rule of SPEC §2, with unit and property tests (a simulated year in Europe/Paris, the draw's invariants, the status table, the reducer's order-independence, rounding). The saving-and-loading round trip of the state is phase 5's, with the rows; the Saturday review's lists are phase 8's, built on core's unlock counts and freshness | The tests are green | Done |
+| 4 | **Content batch 1:** 10 blends (about 6 safe and 4 experimental, at least one cold brew, across the families), their ingredients, Lyon and online shops, and the tea types. The owner approves the list before the research | `content:check` is green, and the owner has reviewed the batch | Done |
 | 5 | **Backend:** the state's persistence, the commands, draw and swap, settings and overrides, export, backup and restore, diagnostics | The route and job tests are green (in-memory SQLite, a test clock, a fake push) | — |
 | 6 | **Frontend core:** the shell, Today with its timers, the library, the blend page, the pantry, the offline store, outbox and sync, and the update toast | For any date and pantry, Today shows a valid card, and the app opens offline | — |
 | 7 | **Phone and notifications:** the install flow, push on, off and test, the notifier, the Docker image and compose file, `tailscale serve`, the backups, and `docs/runbook.md` | The owner's iPhone has had a week of 8:00 pushes | — |
@@ -40,6 +40,12 @@ Asked of the owner and answered, newest first. The SPEC states each as a rule.
 - **Gear counts like an ingredient:** each blend names the gear it needs; the pantry holds it as *have* or *don't have*, with 2+ shops each. A blend whose gear is missing isn't drawn, and a piece of gear can be the purchase that unlocks the most (SPEC §2.3, §2.6, §5.2).
 - **When:** the content model, its checks and the SPEC now (content batch 1); core's draw and pantry after phase 3 is merged.
 - **The thermometer** is optional, never required: every step says how to reach its temperature without one.
+
+### 2026-11-20: the core rules (phase 3)
+- **Office days:** Monday, Tuesday and Thursday, the default in Settings.
+- **★ against a low rating:** a blend last rated 1–2 stays out of the draw even when starred; only *make again* brings it back.
+- **The evening push when away:** it still goes the evening before a tea day, even when that evening is away (coming back on Sunday for a Monday office day).
+- **Rounding:** a needed quantity never rounds to nothing: at least 0.1 g, 5 ml or one piece.
 
 ### 2026-11-20: the look (phase 0)
 - **Direction:** of three Today mockups (A · Warm journal, B · Calm minimal, C · Ink & washi), the owner picked **A · Warm journal**, as shown, with nothing mixed in from B or C: cream paper and tea-brown ink, Alegreya for the names and stories, Alegreya Sans for the rest, amber for the running timer.
