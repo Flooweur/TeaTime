@@ -140,7 +140,8 @@ function BlendRow({ blend, missing, notForMe }: { blend: Blend; missing: string[
     <Link
       to="/blend/$code"
       params={{ code: blend.code }}
-      className={`block rounded-well bg-surface px-4 py-3 shadow-card ${greyed ? "opacity-70" : ""}`}
+      // Greyed by its well, not by opacity, which would take its text under 4.5:1.
+      className={`block rounded-well px-4 py-3 ${greyed ? "border-[1.5px] border-dashed border-control bg-sunk" : "bg-surface shadow-card"}`}
     >
       <div className="flex items-baseline justify-between gap-3">
         <span className="font-display text-lg font-semibold">

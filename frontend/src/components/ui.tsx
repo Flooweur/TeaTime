@@ -8,7 +8,7 @@ import { type ButtonHTMLAttributes, type KeyboardEvent, type ReactNode, useRef }
 
 export function Screen({ title, eyebrow, children }: { title: ReactNode; eyebrow?: ReactNode; children: ReactNode }) {
   return (
-    <main className="mx-auto w-full max-w-[30rem] px-[max(var(--spacing-screen),env(safe-area-inset-left))] pt-[max(1.25rem,env(safe-area-inset-top))] pb-28">
+    <main className="mx-auto w-full max-w-[30rem] pt-[max(1.25rem,env(safe-area-inset-top))] pr-[max(var(--spacing-screen),env(safe-area-inset-right))] pb-[calc(7rem+env(safe-area-inset-bottom))] pl-[max(var(--spacing-screen),env(safe-area-inset-left))]">
       {eyebrow && <p className="label text-sm">{eyebrow}</p>}
       <h1 className="font-display text-3xl font-semibold">{title}</h1>
       <div className="mt-section flex flex-col gap-section">{children}</div>
