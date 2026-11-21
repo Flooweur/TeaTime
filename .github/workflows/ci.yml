@@ -22,9 +22,9 @@ jobs:
       - run: npm ci
       # Typecheck, lint, format, the content check and every test (SPEC §4.3).
       - run: npm run check
-      # Core never reads the machine's time zone (SPEC §4.2): its tests pass far from UTC too.
-      - name: Core's tests in another time zone
-        run: npm test -w packages/core
+      # Core and the server never read the machine's time zone (SPEC §4.2): their tests pass far from UTC too.
+      - name: Core's and the server's tests in another time zone
+        run: npm test -w packages/core && npm test -w backend
         env:
           TZ: Pacific/Auckland
       - run: npm run build
