@@ -26,7 +26,7 @@ sources:
     lang: en
     primary: true
     supports: [recipe, story]
-    note: "Her aunt's family method. For 6: 20 g of tea leaves, 4 cardamom pods and star anise in half of 960 ml of ice-cold water, reduced by half; ¼ teaspoon of baking soda, then aerated with a ladle 3 minutes; the rest of the ice water, 15 minutes more, until deep burgundy; with full-fat milk, salt; pistachios on top; drunk in winter and at weddings."
+    note: "Her aunt's family method. For 6: 20 g of tea leaves, 4 cardamom pods and star anise in half of 960 ml of ice-cold water, reduced by half; ¼ teaspoon of baking soda, then aerated with a ladle 3 minutes; the rest of the ice water, 15 minutes more, until deep burgundy; with full-fat milk, salt; 1½ tablespoons of crushed pistachios on top, optional; drunk in winter and at weddings."
   - title: "Recipe for Kashmiri noon chai or pink tea"
     author: "Syed Faiq, Gulf News, updated 9 February 2022"
     url: https://gulfnews.com/food/cooking-cuisines/recipe-for-kashmiri-noon-chai-or-pink-tea-1.1643711381882
@@ -65,6 +65,7 @@ ingredients:
   - { id: green-cardamom, qty: 2, unit: pieces, role: accent }
   - { id: salt, qty: 1, unit: g, role: accent }
   - { id: star-anise, qty: 1, unit: pieces, role: accent, optional: true }
+  - { id: pistachios, qty: 5, unit: g, role: accent, optional: true }
 brew:
   water: tap
   temp_c: 100
@@ -80,4 +81,4 @@ steps:
     timer_s: 180
   - text: "Add the ice-cold water and keep simmering and ladling, until the tea turns a deep burgundy. Then strain it: about a third of the water you started with is left."
     timer_s: 720
-  - text: "Heat the milk in the pan, stir in the concentrate, which turns it pink, and the salt, and bring it just to a simmer. Crushed pistachios or almonds on top, if you have some. The colour can fail: it still tastes right."
+  - text: "Heat the milk in the pan, stir in the concentrate, which turns it pink, and the salt, and bring it just to a simmer. Crush the pistachios roughly and scatter them on top, if you use them. The colour can fail: it still tastes right."

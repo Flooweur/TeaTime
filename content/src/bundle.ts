@@ -3262,7 +3262,7 @@ export const BUNDLE: ContentBundle = {
             "recipe",
             "story"
           ],
-          "note": "Her aunt's family method. For 6: 20 g of tea leaves, 4 cardamom pods and star anise in half of 960 ml of ice-cold water, reduced by half; ¼ teaspoon of baking soda, then aerated with a ladle 3 minutes; the rest of the ice water, 15 minutes more, until deep burgundy; with full-fat milk, salt; pistachios on top; drunk in winter and at weddings."
+          "note": "Her aunt's family method. For 6: 20 g of tea leaves, 4 cardamom pods and star anise in half of 960 ml of ice-cold water, reduced by half; ¼ teaspoon of baking soda, then aerated with a ladle 3 minutes; the rest of the ice water, 15 minutes more, until deep burgundy; with full-fat milk, salt; 1½ tablespoons of crushed pistachios on top, optional; drunk in winter and at weddings."
         },
         {
           "title": "Recipe for Kashmiri noon chai or pink tea",
@@ -3363,6 +3363,13 @@ export const BUNDLE: ContentBundle = {
           "unit": "pieces",
           "optional": true,
           "role": "accent"
+        },
+        {
+          "id": "pistachios",
+          "qty": 5,
+          "unit": "g",
+          "optional": true,
+          "role": "accent"
         }
       ],
       "gear": [],
@@ -3400,7 +3407,7 @@ export const BUNDLE: ContentBundle = {
           "stage": "day"
         },
         {
-          "text": "Heat the milk in the pan, stir in the concentrate, which turns it pink, and the salt, and bring it just to a simmer. Crushed pistachios or almonds on top, if you have some. The colour can fail: it still tastes right.",
+          "text": "Heat the milk in the pan, stir in the concentrate, which turns it pink, and the salt, and bring it just to a simmer. Crush the pistachios roughly and scatter them on top, if you use them. The colour can fail: it still tastes right.",
           "infusions": false,
           "stage": "day"
         }
@@ -4780,6 +4787,33 @@ export const BUNDLE: ContentBundle = {
       "retired": false
     },
     {
+      "id": "pistachios",
+      "name": "Shelled pistachios",
+      "category": "other",
+      "unit": "g",
+      "perishable": false,
+      "shelfLifeDays": 180,
+      "storage": "Airtight, cool and dark: their oil turns rancid in the warmth.",
+      "quality": "Shelled, unsalted and unroasted, green inside. Crush them roughly just before you use them.",
+      "shops": [
+        {
+          "shop": "bahadourian-lyon",
+          "why": "Shelled pistachios from Iran or the USA, nothing added.",
+          "price": "€11.90 / 200 g",
+          "url": "https://www.bahadourian.com/les-fruits-secs-dacortiquas/pistaches-dacortiquaes-1368.html",
+          "checked": "2026-11-21"
+        },
+        {
+          "shop": "monoprix-lyon-republique",
+          "why": "Monoprix shelled pistachios, unroasted, nothing added.",
+          "price": "€6.60 / 125 g",
+          "url": "https://courses.monoprix.fr/products/monoprix-pistaches-d%C3%A9cortiqu%C3%A9es-non-grill%C3%A9es-125g/MPX_6618271",
+          "checked": "2026-11-21"
+        }
+      ],
+      "retired": false
+    },
+    {
       "id": "pu-erh",
       "name": "Pu-erh (dark tea)",
       "category": "tea",
@@ -5642,5 +5676,5 @@ export const BUNDLE: ContentBundle = {
     }
   ],
   "guides": [],
-  "hash": "39ce1c2418b6fcb8783852a5a4f83b4f61a95a0bfa1c8235b91354a7319427a2"
+  "hash": "424795b5b492c0edcd547f40dbab88ad70ada4a825f5a3c6de4fa7e9f6152319"
 };
