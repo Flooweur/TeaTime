@@ -96,3 +96,15 @@ describe("the push routes (SPEC §3.4, §3.8)", () => {
     });
   });
 });
+
+describe("POST push/check (SPEC §3.8)", () => {
+  it("says whether a subscription is still on, so a gone one is made afresh", async () => {
+    const t = await testApp();
+    expect((await t.call("POST", "/api/push/check", { endpoint: APPLE })).body).toEqual({ on: false });
+    await t.call("POST", "/api/push/subscriptions", { endpoint: APPLE, keys });
+    expect((await t.call("POST", "/api/push/check", { endpoint: APPLE })).body).toEqual({ on: true });
+    t.push!.control.failWith = 410;
+    await t.call("POST", "/api/push/test");
+    expect((await t.call("POST", "/api/push/check", { endpoint: APPLE })).body).toEqual({ on: false });
+  });
+});

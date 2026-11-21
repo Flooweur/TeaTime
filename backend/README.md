@@ -34,8 +34,9 @@ Writes a migration into `drizzle/` after a change to `src/db/schema.ts`. A merge
 | `src/state/` | `rows.ts` (core's `State` as rows and back; `saveTouched` writes only what a change touched), `snapshot.ts` (what the server answers), `service.ts` (one transaction per change), `routes.ts` (`GET state`, `POST commands`) |
 | `src/commands/` | The batch of offline commands: each decided once, a refusal never blocking the rest |
 | `src/picks/`, `src/settings/` | The online routes: draw and swap; settings, overrides and away periods |
-| `src/push/` | The VAPID sender, the subscriptions, and their routes (ported from EagleEye) |
+| `src/push/` | The VAPID sender, the subscriptions and their routes, `push/check` included (ported from EagleEye) |
 | `src/jobs/` | `every.ts` (the job runner, ported from EagleEye), `notifier.ts` (draws, then pushes), `backup.ts` |
+| `src/http/static.ts` | Serving the built app (`STATIC_DIR`): immutable assets, `no-cache` pages, the app's page for any page load, and the security headers with the CSP |
 | `src/export/`, `src/diag/` | The JSON and CSV exports; health, diagnostics and running a job by hand |
 | `src/lib/` | The clock, and errors: `HttpError`, and `safeError`, what the log keeps of one (never a value) |
 | `drizzle/` | The migrations, written by drizzle-kit |
@@ -47,4 +48,5 @@ Writes a migration into `drizzle/` after a change to `src/db/schema.ts`. A merge
 - `commands.test.ts` covers resends, refusals, a write that fails, the origin check, and that the server ends on the state core's reducer reaches, however the commands are batched.
 - `online.test.ts` covers draw, swap, settings, overrides and away periods through their routes.
 - `push.test.ts` and `notifier.test.ts` cover subscriptions, the evening, morning and review pushes, retries within the grace window, and a crash mid-send.
-- `backup.test.ts`, `export.test.ts` and `diag.test.ts` cover the rest.
+- `static.test.ts` covers serving the app: caching, the page fallback, a missing asset, the CSP's hash, compression.
+- `backup.test.ts`, `export.test.ts` and `diag.test.ts` cover the rest; a restore counts past the replaced revision.

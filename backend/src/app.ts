@@ -11,6 +11,7 @@
  * - **No HTTP cache** keeps an API answer: `no-store`, unless a route sets its own.
  * - **Errors** are `{ error, code }`: the app checks the code, never the words.
  */
+import compress from "@fastify/compress";
 import type { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
 import { BUNDLE } from "@teatime/content/bundle";
 import { type ContentBundle, catalogOf } from "@teatime/core";
@@ -20,6 +21,7 @@ import type { Db } from "./db/client.js";
 import type { Deps } from "./deps.js";
 import { diagRoutes } from "./diag/routes.js";
 import { exportRoutes } from "./export/routes.js";
+import { isPageLoad, securityHeaders, serveApp } from "./http/static.js";
 import { type Clock, systemClock } from "./lib/clock.js";
 import { HttpError, safeError } from "./lib/errors.js";
 import { pickRoutes } from "./picks/routes.js";
@@ -43,6 +45,8 @@ export interface AppDeps {
   readonly pushKey?: string | null;
   readonly backupDir?: string | null;
   readonly environment?: string;
+  /** The built app (frontend/dist) to serve, or none (dev: Vite serves it). */
+  readonly staticDir?: string | null;
   /** Logs on (the default outside tests), off, or into a stream a test reads. */
   readonly logger?: boolean | { stream: { write(line: string): void } };
 }
@@ -82,7 +86,6 @@ export async function buildApp(appDeps: AppDeps) {
     req.log.error({ err }, "request failed");
     return reply.code(500).send({ error: "Something went wrong on the server.", code: "server_error" });
   });
-  app.setNotFoundHandler((_req, reply) => reply.code(404).send({ error: "Not found.", code: "not_found" }));
   app.addHook("onSend", async (_req, reply, payload) => {
     if (!reply.hasHeader("cache-control")) reply.header("cache-control", "no-store");
     return payload;
@@ -95,6 +98,17 @@ export async function buildApp(appDeps: AppDeps) {
     }
   });
   app.removeContentTypeParser("text/plain");
+  // brotli or gzip for what is worth it: the app's script and styles over Tailscale. Only those two,
+  // which every browser reads (zstd isn't one of them yet).
+  await app.register(compress, { threshold: 1024, encodings: ["br", "gzip"] });
+
+  const served = appDeps.staticDir ? await serveApp(app, appDeps.staticDir) : null;
+  securityHeaders(app, served?.csp ?? null);
+  app.setNotFoundHandler((req, reply) =>
+    served && isPageLoad(req)
+      ? served.fallback(reply)
+      : reply.code(404).send({ error: "Not found.", code: "not_found" }),
+  );
 
   await app.register(
     async (api) => {
