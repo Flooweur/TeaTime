@@ -74,9 +74,9 @@ brew:
   preheat: false
   infusions_s: [300]
 steps:
-  - text: "Put the leaves in a mug, with a cracked cardamom pod if you like. Pour the water just off the boil, cover, and steep: a strong brew, to stand up to the milk."
+  - text: "Put the leaves in a small teapot, or in an infuser in a mug, with a cracked cardamom pod if you like. Pour the water just off the boil, cover, and steep: a strong brew, to stand up to the milk."
     infusions: true
   - text: "While it steeps, heat the milk with the vanilla in a small saucepan over medium heat until it steams, about 5 minutes: 60–68 °C, well short of the boil."
   - text: "Off the heat, whisk the milk hard until it foams."
     timer_s: 120
-  - text: "Take out the leaves, sweeten to taste if you like, pour the milk over the tea and spoon the foam on top."
+  - text: "Strain the tea into your mug, or lift out the infuser, sweeten to taste if you like, pour the milk over the tea and spoon the foam on top."

@@ -73,11 +73,11 @@ brew:
   preheat: false
   infusions_s: [1080]
 steps:
-  - text: "Put 200 ml of the water in the fridge, or add a few ice cubes to it: it must be ice-cold later. Lightly crush the cardamom pods."
-  - text: "In a saucepan, simmer the leaves, the cardamom and the star anise, if you use it, in the other 400 ml of cold water, until it has reduced by half."
+  - text: "Put a third of the water in the fridge, or add a few ice cubes to it: it must be ice-cold later. Lightly crush the cardamom pods."
+  - text: "In a saucepan, simmer the leaves, the cardamom and the star anise, if you use it, in the other two thirds of the water, cold, until it has reduced by half: a smaller pan reduces faster, so watch it."
     infusions: true
   - text: "Stir in the baking soda (a pinch). When it foams, ladle the tea up and pour it back from a height, again and again."
     timer_s: 180
-  - text: "Add the ice-cold water and keep simmering and ladling, until the tea turns a deep burgundy. Then strain it: about 200 ml of concentrate."
+  - text: "Add the ice-cold water and keep simmering and ladling, until the tea turns a deep burgundy. Then strain it: about a third of the water you started with is left."
     timer_s: 720
   - text: "Heat the milk in the pan, stir in the concentrate, which turns it pink, and the salt, and bring it just to a simmer. Crushed pistachios or almonds on top, if you have some. The colour can fail: it still tastes right."

@@ -2209,7 +2209,7 @@ export const BUNDLE: ContentBundle = {
           "stage": "day"
         },
         {
-          "text": "Put the leaves in the teapot and pour on all the water at a full boil: the time runs from the start of the pour. The extra 50 ml is what the leaves soak up.",
+          "text": "Put the leaves in the teapot and pour on all the water at a full boil: the time runs from the start of the pour. The water includes a little extra for what the leaves soak up.",
           "office": "Put the leaves in the teapot and pour straight from the kettle at 100 °C.",
           "infusions": true,
           "stage": "day"
@@ -2367,7 +2367,7 @@ export const BUNDLE: ContentBundle = {
           "stage": "day"
         },
         {
-          "text": "Put the leaves in the teapot and pour on all the water at a full boil: the time runs from the start of the pour. The extra 50 ml is what the leaves soak up.",
+          "text": "Put the leaves in the teapot and pour on all the water at a full boil: the time runs from the start of the pour. The water includes a little extra for what the leaves soak up.",
           "office": "Put the leaves in the teapot and pour straight from the kettle at 100 °C.",
           "infusions": true,
           "stage": "day"
@@ -2917,7 +2917,7 @@ export const BUNDLE: ContentBundle = {
         },
         {
           "text": "Put 2 lemon slices and a spoonful of honey (about 20 g) in each mug. Pour the ginger water through a strainer onto them, then stir and press the slices.",
-          "office": "Put 2 lemon slices and the honey in each mug, pour the ginger water through the teapot's strainer, then stir and press the slices.",
+          "office": "Put 2 lemon slices and the honey in each mug, pour the ginger water slowly through the teapot's strainer, leaving the last of it and the ginger in the pot, then stir and press the slices.",
           "infusions": false,
           "stage": "day"
         }
@@ -3071,7 +3071,7 @@ export const BUNDLE: ContentBundle = {
       },
       "steps": [
         {
-          "text": "Put the leaves in a mug, with a cracked cardamom pod if you like. Pour the water just off the boil, cover, and steep: a strong brew, to stand up to the milk.",
+          "text": "Put the leaves in a small teapot, or in an infuser in a mug, with a cracked cardamom pod if you like. Pour the water just off the boil, cover, and steep: a strong brew, to stand up to the milk.",
           "infusions": true,
           "stage": "day"
         },
@@ -3087,7 +3087,7 @@ export const BUNDLE: ContentBundle = {
           "stage": "day"
         },
         {
-          "text": "Take out the leaves, sweeten to taste if you like, pour the milk over the tea and spoon the foam on top.",
+          "text": "Strain the tea into your mug, or lift out the infuser, sweeten to taste if you like, pour the milk over the tea and spoon the foam on top.",
           "infusions": false,
           "stage": "day"
         }
@@ -3378,12 +3378,12 @@ export const BUNDLE: ContentBundle = {
       },
       "steps": [
         {
-          "text": "Put 200 ml of the water in the fridge, or add a few ice cubes to it: it must be ice-cold later. Lightly crush the cardamom pods.",
+          "text": "Put a third of the water in the fridge, or add a few ice cubes to it: it must be ice-cold later. Lightly crush the cardamom pods.",
           "infusions": false,
           "stage": "day"
         },
         {
-          "text": "In a saucepan, simmer the leaves, the cardamom and the star anise, if you use it, in the other 400 ml of cold water, until it has reduced by half.",
+          "text": "In a saucepan, simmer the leaves, the cardamom and the star anise, if you use it, in the other two thirds of the water, cold, until it has reduced by half: a smaller pan reduces faster, so watch it.",
           "infusions": true,
           "stage": "day"
         },
@@ -3394,7 +3394,7 @@ export const BUNDLE: ContentBundle = {
           "stage": "day"
         },
         {
-          "text": "Add the ice-cold water and keep simmering and ladling, until the tea turns a deep burgundy. Then strain it: about 200 ml of concentrate.",
+          "text": "Add the ice-cold water and keep simmering and ladling, until the tea turns a deep burgundy. Then strain it: about a third of the water you started with is left.",
           "timerS": 720,
           "infusions": false,
           "stage": "day"
@@ -5535,5 +5535,5 @@ export const BUNDLE: ContentBundle = {
     }
   ],
   "guides": [],
-  "hash": "fc988dc85656e57047dcc8fa31219b25e40ebaf438f1765034603584f7b469a5"
+  "hash": "d97f5508622c169d4b166dfbe83796b74d75248fa1b75a3dbb8c319cc1ecdd0a"
 };

@@ -86,7 +86,7 @@ brew:
 steps:
   - text: "Bring fresh water to a full boil. Rinse the teapot and the two mugs with a splash of it and empty them."
     office: "Set the kettle to 100 °C. Rinse the teapot and the two mugs with a splash and empty them."
-  - text: "Put the leaves in the teapot and pour on all the water at a full boil: the time runs from the start of the pour. The extra 50 ml is what the leaves soak up."
+  - text: "Put the leaves in the teapot and pour on all the water at a full boil: the time runs from the start of the pour. The water includes a little extra for what the leaves soak up."
     office: "Put the leaves in the teapot and pour straight from the kettle at 100 °C."
     infusions: true
   - text: "Pour into the two mugs in turns, a little at a time, down to the last drop. For a second pot, pour boiling water on the same leaves and pour it out at once."
