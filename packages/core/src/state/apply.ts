@@ -320,7 +320,8 @@ function packPick(state: State, { payload: p }: PickPacked, at: number): Applied
 function setPantry(state: State, { payload: p }: PantrySet, catalog: Catalog, at: number): Applied {
   const gear = catalog.gearById.has(p.ingredient);
   if (!gear && !catalog.ingredientById.has(p.ingredient)) return refuse(state, "unknown_ingredient");
-  if (gear && (p.amount !== undefined || p.openedOn !== undefined || p.atOffice !== undefined)) {
+  // Gear's amount and opened date stay null and it is never at the office: saying so again is fine.
+  if (gear && ((p.amount ?? null) !== null || (p.openedOn ?? null) !== null || p.atOffice === true)) {
     return refuse(state, "gear_have_only");
   }
   const before = entryOf(state.pantry, p.ingredient);

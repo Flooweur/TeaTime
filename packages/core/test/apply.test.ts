@@ -383,12 +383,19 @@ describe("pantry.set", () => {
   });
 
   it("refuses an amount, an opened date or the office for a piece of gear", () => {
-    for (const payload of [{ amount: 1 }, { amount: null }, { openedOn: MONDAY }, { atOffice: true }]) {
+    for (const payload of [{ amount: 0 }, { amount: 1 }, { openedOn: MONDAY }, { atOffice: true }]) {
       expect(apply(state(), set({ have: true, ...payload }, at(MONDAY), "gaiwan")).result).toEqual({
         ok: false,
         code: "gear_have_only",
       });
     }
+  });
+
+  it("accepts a piece of gear's fixed fields said again: no amount, no date, not at the office", () => {
+    const payload = { have: true, amount: null, openedOn: null, atOffice: false };
+    const bought = apply(state(), set(payload, at(MONDAY), "gaiwan"));
+    expect(bought.result).toEqual({ ok: true, notes: [] });
+    expect(bought.state.pantry["gaiwan"]?.openedOn.value).toBeNull();
   });
 });
 

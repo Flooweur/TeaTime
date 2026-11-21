@@ -13,7 +13,10 @@ export interface Catalog {
   readonly blends: readonly Blend[];
   /** Every ingredient, retired ones included, by id. */
   readonly ingredients: readonly Ingredient[];
-  /** Every piece of gear, retired ones included, by id. No id is both an ingredient's and gear's (SPEC §5.2). */
+  /**
+   * Every piece of gear, retired ones included, by id. No id is both an ingredient's and gear's: the
+   * content's check refuses it (SPEC §5.2), and the pantry relies on it.
+   */
   readonly gear: readonly Gear[];
   readonly blendByCode: ReadonlyMap<string, Blend>;
   readonly ingredientById: ReadonlyMap<string, Ingredient>;
