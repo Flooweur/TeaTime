@@ -1,0 +1,20 @@
+id: high-mountain-oolong
+name: High-mountain oolong (gaoshan)
+category: tea
+unit: g
+tea_type: oolong
+perishable: false
+shelf_life_days: 180
+storage: "Airtight with the air squeezed out, at 10–25 °C, not in the fridge."
+quality: "Taiwanese oolong grown above 1,000 m (Alishan, Lishan, Shan Lin Xi), rolled into balls and lightly oxidised, with its harvest and elevation stated."
+shops:
+  - shop: dammann-freres-lyon
+    why: "High Mountain Jin Xuan, from Taiwan's Guantou mountains."
+    price: "€47.20 / 100 g"
+    url: https://www.dammann.fr/fr/high-mountain-jin-xuan.html
+    checked: 2026-11-21
+  - shop: palais-des-thes-lyon
+    why: "Jin Xuan from Nantou, Taiwan: a rolled Taiwanese oolong, though not sold as high-mountain."
+    price: "€46.00 / 100 g"
+    url: https://www.palaisdesthes.com/fr/jin-xuan-100332.html
+    checked: 2026-11-21

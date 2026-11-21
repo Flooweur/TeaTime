@@ -8,6 +8,7 @@ import type { ContentFiles } from "../src/index.js";
 export interface Fixture {
   blends: Record<string, unknown>[];
   ingredients: Record<string, unknown>[];
+  gear: Record<string, unknown>[];
   shops: Record<string, unknown>[];
   teaTypes: Record<string, unknown>[];
   guides: Record<string, string>;
@@ -89,6 +90,20 @@ export function fixture(): Fixture {
         shops: [shopRef("online-tea"), shopRef("lyon-tea")],
       },
     ],
+    gear: [
+      {
+        id: "gaiwan",
+        name: "Gaiwan",
+        quality: "Thin porcelain, about 120 ml.",
+        shops: [shopRef("online-tea"), shopRef("lyon-tea")],
+      },
+      {
+        id: "thermometer",
+        name: "Kitchen thermometer",
+        quality: "A probe that reads 0–100 °C.",
+        shops: [shopRef("online-tea"), shopRef("lyon-tea")],
+      },
+    ],
     blends: [
       {
         code: "001",
@@ -111,6 +126,7 @@ export function fixture(): Fixture {
           { id: "ceylon-black", qty: 2.5, unit: "g", role: "base" },
           { id: "dried-bergamot", qty: 0.5, unit: "g", role: "accent", optional: true },
         ],
+        gear: [{ id: "thermometer", optional: true }],
         brew: {
           water: "soft-bottled",
           temp_c: 95,
@@ -142,6 +158,7 @@ export function fixture(): Fixture {
         session_max: 3,
         sources: [source("Tea master interview", true), source("Institute notes")],
         ingredients: [{ id: "high-mountain-oolong", qty: 5, unit: "g", role: "base" }],
+        gear: [{ id: "gaiwan" }, { id: "thermometer", optional: true }],
         brew: {
           water: "soft-bottled",
           temp_c: 95,
@@ -165,6 +182,7 @@ export function filesOf(f: Fixture): ContentFiles {
   return {
     blends: f.blends.map((b) => ({ path: `blends/${String(b.code)}-${String(b.slug)}.yaml`, text: stringify(b) })),
     ingredients: f.ingredients.map((i) => ({ path: `ingredients/${String(i.id)}.yaml`, text: stringify(i) })),
+    gear: f.gear.map((g) => ({ path: `gear/${String(g.id)}.yaml`, text: stringify(g) })),
     shops: { path: "shops.yaml", text: stringify({ shops: f.shops }) },
     teaTypes: { path: "tea-types.yaml", text: stringify({ tea_types: f.teaTypes }) },
     guides: Object.entries(f.guides).map(([id, text]) => ({ path: `guides/${id}.md`, text })),

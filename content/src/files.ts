@@ -18,6 +18,8 @@ export interface ContentFiles {
   readonly blends: readonly ContentFile[];
   /** ingredients/<id>.yaml */
   readonly ingredients: readonly ContentFile[];
+  /** gear/<id>.yaml */
+  readonly gear: readonly ContentFile[];
   /** shops.yaml */
   readonly shops: ContentFile;
   /** tea-types.yaml */

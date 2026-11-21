@@ -10,8 +10,8 @@ Each phase is a branch and a pull request, merged only after the owner's yes. Ea
 | 0 | **Design directions:** three static Today mockups in `docs/design/`; the owner picks one, which becomes the Tailwind tokens | The owner has picked, and `docs/design/README.md` records it | Done: A · Warm journal |
 | 1 | **Foundation:** workspaces, tooling, CI, these docs, the content's schemas, check and build | `npm run check` is green in CI | Done |
 | 2 | **Push spike** (`spikes/001-push-8443`): iOS home-screen push on the `:8443` origin | The owner's iPhone has shown a test push (or the failure is written up with the fallback: a Tailscale container with its own name) | Proposed as its own session |
-| 3 | **Core domain:** every rule of SPEC §2, with unit and property tests (a simulated year in Europe/Paris, the draw's invariants, the status table, the reducer's order-independence, rounding). The saving-and-loading round trip of the state is phase 5's, with the rows; the Saturday review's lists are phase 8's, built on core's unlock counts and freshness | The tests are green | In review |
-| 4 | **Content batch 1:** 10 blends (about 6 safe and 4 experimental, at least one cold brew, across the families), their ingredients, Lyon and online shops, and the tea types. The owner approves the list before the research | `content:check` is green, and the owner has reviewed the batch | — |
+| 3 | **Core domain:** every rule of SPEC §2, with unit and property tests (a simulated year in Europe/Paris, the draw's invariants, the status table, the reducer's order-independence, rounding). The saving-and-loading round trip of the state is phase 5's, with the rows; the Saturday review's lists are phase 8's, built on core's unlock counts and freshness | The tests are green | Done |
+| 4 | **Content batch 1:** 10 blends (about 6 safe and 4 experimental, at least one cold brew, across the families), their ingredients, Lyon and online shops, and the tea types. The owner approves the list before the research | `content:check` is green, and the owner has reviewed the batch | Done |
 | 5 | **Backend:** the state's persistence, the commands, draw and swap, settings and overrides, export, backup and restore, diagnostics | The route and job tests are green (in-memory SQLite, a test clock, a fake push) | — |
 | 6 | **Frontend core:** the shell, Today with its timers, the library, the blend page, the pantry, the offline store, outbox and sync, and the update toast | For any date and pantry, Today shows a valid card, and the app opens offline | — |
 | 7 | **Phone and notifications:** the install flow, push on, off and test, the notifier, the Docker image and compose file, `tailscale serve`, the backups, and `docs/runbook.md` | The owner's iPhone has had a week of 8:00 pushes | — |
@@ -20,8 +20,26 @@ Each phase is a branch and a pull request, merged only after the owner's yes. Ea
 
 Phase 4 depends only on phase 1, so it can run alongside phases 3, 5 and 6. Later content batches (the other 80 blends, then the two guides) follow the same review, in batches of 15.
 
+**Gear** (decision of 2026-11-20) is in the content from batch 1. Core's pantry and draw learn it in a small PR once phase 3 is merged, so phase 3's PR isn't reopened.
+
 ## Decisions log
 Asked of the owner and answered, newest first. The SPEC states each as a rule.
+
+### 2026-11-21: content batch 1 (phase 4)
+- **The list** (approved on 2026-11-20), coded 001–010 in this order, forever:
+  - safe: 001 Moroccan mint tea, 002 Sencha brewed right, 003 Mizudashi (the cold brew, started the evening before), 004 First-flush Darjeeling, 005 Earl Grey the classic, 006 Russian zavarka;
+  - experimental: 007 Masala chai, 008 Hong Kong milk tea, 009 High-mountain oolong gongfu style, 010 Tibetan butter tea.
+- **No replacement:** the zavarka stays safe. Pokhlebkin, its primary source, steeps good black tea 3.5–4 minutes, under the 5-minute limit.
+- **At the office** there is a kettle with temperature settings, a teapot, mugs, a fridge and milk. The office steps use them.
+- **A cup** is a 250 ml mug for the Western-style teas. Sencha and the gongfu oolong keep their small traditional cups.
+- **Sugar** is written at the sources' amount, and optional.
+- **Lemon** is counted in slices (about 8 to a lemon).
+
+### 2026-11-20: gear (phase 4)
+- **What the owner has:** no gaiwan, kitchen thermometer, blender or milk frother at home. They will buy what the blends need, from a list in the app.
+- **Gear counts like an ingredient:** each blend names the gear it needs; the pantry holds it as *have* or *don't have*, with 2+ shops each. A blend whose gear is missing isn't drawn, and a piece of gear can be the purchase that unlocks the most (SPEC §2.3, §2.6, §5.2).
+- **When:** the content model, its checks and the SPEC now (content batch 1); core's draw and pantry after phase 3 is merged.
+- **The thermometer** is optional, never required: every step says how to reach its temperature without one.
 
 ### 2026-11-20: the core rules (phase 3)
 - **Office days:** Monday, Tuesday and Thursday, the default in Settings.

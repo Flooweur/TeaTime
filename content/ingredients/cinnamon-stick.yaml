@@ -1,0 +1,19 @@
+id: cinnamon-stick
+name: Cinnamon sticks
+category: spice
+unit: pieces
+perishable: false
+shelf_life_days: 730
+storage: "In an airtight jar."
+quality: "Short sticks of Ceylon cinnamon or cassia: chai takes either."
+shops:
+  - shop: auchan-lyon-felix-faure
+    why: "Cinnamon sticks."
+    price: "€2.75 / 10 g"
+    url: https://www.auchan.fr/ducros-cannelle-en-batons/pr-C1240909
+    checked: 2026-11-21
+  - shop: bahadourian-lyon
+    why: "Short quills, about 6 cm, from Indonesia (probably cassia)."
+    price: "€4.50 / 100 g"
+    url: https://www.bahadourian.com/racines-gousses-ou-batons-de-3a-cannelle-vanille/cannelle-tuyaux-courts-116.html
+    checked: 2026-11-21

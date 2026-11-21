@@ -4,12 +4,15 @@
  * the scripts add the hash (scripts/content.ts).
  *
  * Besides the schemas, it refuses:
- * - a file whose name isn't its id (`blends/017-moroccan-mint.yaml`, `ingredients/<id>.yaml`), and
- *   an id, code or slug used twice;
+ * - a file whose name isn't its id (`blends/017-moroccan-mint.yaml`, `ingredients/<id>.yaml`,
+ *   `gear/<id>.yaml`), and an id, code or slug used twice;
  * - a blend with no primary source, or a source with neither a URL nor a reference;
  * - an ingredient no ingredient file defines (or a retired one, in a blend still in use), a
  *   quantity in another unit than its ingredient's, an ingredient twice in a blend, or a blend
  *   whose every ingredient is optional;
+ * - the same for gear: gear no gear file defines (or retired, in a blend in use), or twice in a
+ *   blend; a blend made in a gaiwan, kyusu or chawan that doesn't need it as gear; and a piece of
+ *   gear with an ingredient's id, since the pantry holds both by id;
  * - `per-cup` without `serves` or with `session_max`, and `per-session` the other way round;
  * - `prep: evening` without an evening step, an evening step without it, or an evening step after
  *   a step of the day;
@@ -17,9 +20,10 @@
  * - a temperature outside its own range;
  * - a guide link to no guide or chapter;
  * - a safe blend that breaks the safe rules (SPEC §5.3): a vessel other than a mug, teapot, glass,
- *   jar or bottle, a step of the day without its office text, or more than 5 minutes on the day;
- * - an ingredient no blend in use uses, a shop no ingredient uses, an ingredient's shop that isn't
- *   in shops.yaml or is named twice, a Lyon shop without an address, an online one without a URL;
+ *   jar or bottle, gear that isn't optional, a step of the day without its office text, or more
+ *   than 5 minutes on the day;
+ * - an ingredient or gear no blend in use uses, a shop neither uses, a shop of theirs that isn't in
+ *   shops.yaml or is named twice, a Lyon shop without an address, an online one without a URL;
  * - a `tea` ingredient without a tea type, another with one, and a tea type tea-types.yaml lacks.
  */
 import {
@@ -27,12 +31,15 @@ import {
   type Citation,
   CONTENT_FORMAT,
   type ContentBundle,
+  GEAR_VESSELS,
+  type Gear,
   type Guide,
   type Ingredient,
   type Range,
   SAFE_DAY_SECONDS,
   SAFE_VESSELS,
   type Shop,
+  type ShopRef,
   TEA_TYPES,
   type TeaType,
   compareText,
@@ -44,9 +51,11 @@ import type { ContentFile, ContentFiles, Problem } from "./files.js";
 import { compileGuide } from "./guides.js";
 import {
   BlendFile,
+  GearFile,
   IngredientFile,
   SLUG_PATTERN,
   type ShopFile,
+  type ShopRefFile,
   ShopsFile,
   type SourceFile,
   type TeaTypeFile,
@@ -65,6 +74,7 @@ export interface Compiled {
 const SLUG = SLUG_PATTERN.slice(1, -1);
 const BLEND_PATH = new RegExp(`^blends/([0-9]{3})-(${SLUG})\\.yaml$`);
 const INGREDIENT_PATH = new RegExp(`^ingredients/(${SLUG})\\.yaml$`);
+const GEAR_PATH = new RegExp(`^gear/(${SLUG})\\.yaml$`);
 
 /** `/steps/0/office` → `steps[0].office`. */
 function readablePath(pointer: string): string {
@@ -258,12 +268,7 @@ function compileIngredients(
     if (ingredients.has(data.id)) add(`the ingredient id "${data.id}" is used twice`);
     if (data.category === "tea" && data.tea_type === undefined) add("a tea needs its tea_type");
     if (data.category !== "tea" && data.tea_type !== undefined) add("only a tea has a tea_type");
-    const named = new Set<string>();
-    for (const [i, ref] of data.shops.entries()) {
-      if (shops && !shops.has(ref.shop)) add(`shops[${i}]: no shop "${ref.shop}" in shops.yaml`);
-      if (named.has(ref.shop)) add(`shops[${i}]: the shop "${ref.shop}" is named twice`);
-      named.add(ref.shop);
-    }
+    shopRefProblems(data.shops, shops, add);
     ingredients.set(data.id, {
       id: data.id,
       name: data.name,
@@ -274,22 +279,74 @@ function compileIngredients(
       shelfLifeDays: data.shelf_life_days,
       storage: data.storage,
       quality: data.quality,
-      shops: data.shops.map((ref) => ({
-        shop: ref.shop,
-        why: ref.why,
-        price: ref.price,
-        ...(ref.url !== undefined ? { url: ref.url } : {}),
-        checked: ref.checked,
-      })),
+      shops: data.shops.map(shopRefFromFile),
       retired: data.retired ?? false,
     });
   }
   return { ingredients, unreadable };
 }
 
+/** An ingredient's or a piece of gear's shops: each one in shops.yaml, and named once. */
+function shopRefProblems(
+  refs: readonly ShopRefFile[],
+  /** Null when shops.yaml can't be read: the references then go unchecked. */
+  shops: ReadonlyMap<string, Shop> | null,
+  add: (message: string) => void,
+): void {
+  const named = new Set<string>();
+  for (const [i, ref] of refs.entries()) {
+    if (shops && !shops.has(ref.shop)) add(`shops[${i}]: no shop "${ref.shop}" in shops.yaml`);
+    if (named.has(ref.shop)) add(`shops[${i}]: the shop "${ref.shop}" is named twice`);
+    named.add(ref.shop);
+  }
+}
+
+function shopRefFromFile(ref: ShopRefFile): ShopRef {
+  return {
+    shop: ref.shop,
+    why: ref.why,
+    price: ref.price,
+    ...(ref.url !== undefined ? { url: ref.url } : {}),
+    checked: ref.checked,
+  };
+}
+
+/** The gear by id, as compileIngredients does the ingredients. */
+function compileGear(
+  files: readonly ContentFile[],
+  shops: ReadonlyMap<string, Shop> | null,
+  problems: Problem[],
+): { gear: Map<string, Gear>; unreadable: Set<string> } {
+  const gear = new Map<string, Gear>();
+  const unreadable = new Set<string>();
+  for (const file of files) {
+    const add = (message: string) => problems.push({ file: file.path, message });
+    const fileId = GEAR_PATH.exec(file.path)?.[1];
+    if (!fileId) add("a piece of gear is gear/<id>.yaml, with a kebab-case id");
+    const data = load<GearFile>(file, GearFile, problems);
+    if (!data) {
+      if (fileId) unreadable.add(fileId);
+      continue;
+    }
+    if (fileId && data.id !== fileId) add(`its id "${data.id}" isn't its file's name "${fileId}"`);
+    if (gear.has(data.id)) add(`the gear id "${data.id}" is used twice`);
+    shopRefProblems(data.shops, shops, add);
+    gear.set(data.id, {
+      id: data.id,
+      name: data.name,
+      quality: data.quality,
+      shops: data.shops.map(shopRefFromFile),
+      retired: data.retired ?? false,
+    });
+  }
+  return { gear, unreadable };
+}
+
 interface BlendContext {
   readonly ingredients: ReadonlyMap<string, Ingredient>;
   readonly unreadable: ReadonlySet<string>;
+  readonly gear: ReadonlyMap<string, Gear>;
+  readonly unreadableGear: ReadonlySet<string>;
   readonly guides: ReadonlyMap<string, Guide>;
   readonly guidesReadable: boolean;
 }
@@ -319,6 +376,24 @@ function blendProblems(file: string, data: BlendFile, context: BlendContext): Pr
     if (item.unit !== ingredient.unit) add(`${at}: "${item.id}" is counted in ${ingredient.unit}, not ${item.unit}`);
   }
   if (data.ingredients.every((item) => item.optional)) add("ingredients: at least one isn't optional");
+
+  const gearUsed = new Set<string>();
+  for (const [i, item] of (data.gear ?? []).entries()) {
+    const at = `gear[${i}]`;
+    if (gearUsed.has(item.id)) add(`${at}: "${item.id}" is in the blend twice`);
+    gearUsed.add(item.id);
+    if (context.unreadableGear.has(item.id)) continue;
+    const piece = context.gear.get(item.id);
+    if (!piece) add(`${at}: no gear "${item.id}" (gear/${item.id}.yaml)`);
+    else if (piece.retired && !data.retired) add(`${at}: "${item.id}" is retired`);
+  }
+  const vessel = data.brew.vessel;
+  if (
+    (GEAR_VESSELS as readonly string[]).includes(vessel) &&
+    !(data.gear ?? []).some((item) => item.id === vessel && !item.optional)
+  ) {
+    add(`gear: a blend made in a ${vessel} needs it as gear: { id: ${vessel} }`);
+  }
 
   if (data.scaling === "per-cup") {
     if (data.serves === undefined) add("serves: a per-cup blend says how many cups the recipe makes");
@@ -364,6 +439,9 @@ function safeRuleProblems(file: string, data: BlendFile): Problem[] {
   const add = (message: string) => problems.push({ file, message });
   if (!(SAFE_VESSELS as readonly string[]).includes(data.brew.vessel)) {
     add(`brew.vessel: a safe blend is made in a ${SAFE_VESSELS.join(", ")}, not a ${data.brew.vessel}`);
+  }
+  for (const [i, item] of (data.gear ?? []).entries()) {
+    if (!item.optional) add(`gear[${i}]: a safe blend needs no special equipment; "${item.id}" can only be optional`);
   }
   // An evening step happens at home: only the day's steps are done at the office.
   for (const [i, step] of data.steps.entries()) {
@@ -417,6 +495,7 @@ function blendFromFile(data: BlendFile): Blend {
       optional: item.optional ?? false,
       role: item.role,
     })),
+    gear: (data.gear ?? []).map((item) => ({ id: item.id, optional: item.optional ?? false })),
     brew: {
       water: data.brew.water,
       tempC: data.brew.temp_c,
@@ -444,6 +523,13 @@ export function compileContent(files: ContentFiles): Compiled {
   const shops = compileShops(files.shops, problems);
   const teaTypes = compileTeaTypes(files.teaTypes, problems);
   const { ingredients, unreadable } = compileIngredients(files.ingredients, shops, problems);
+  const { gear, unreadable: unreadableGear } = compileGear(files.gear, shops, problems);
+  // The pantry holds ingredients and gear under one id each (SPEC §3.6): they can't share one.
+  for (const id of gear.keys()) {
+    if (ingredients.has(id) || unreadable.has(id)) {
+      problems.push({ file: `gear/${id}.yaml`, message: `the id "${id}" is already an ingredient's` });
+    }
+  }
 
   const guides = new Map<string, Guide>();
   let guidesReadable = true;
@@ -475,27 +561,38 @@ export function compileContent(files: ContentFiles): Compiled {
     if (blends.has(data.code)) add(`the code ${data.code} is used twice`);
     if (slugs.has(data.slug)) add(`the slug "${data.slug}" is used twice`);
     slugs.add(data.slug);
-    problems.push(...blendProblems(file.path, data, { ingredients, unreadable, guides, guidesReadable }));
+    problems.push(
+      ...blendProblems(file.path, data, { ingredients, unreadable, gear, unreadableGear, guides, guidesReadable }),
+    );
     blends.set(data.code, blendFromFile(data));
   }
 
   // What nothing uses: only said when every blend could be read, or it would be said wrongly.
-  if (blendsReadable && !unreadable.size) {
-    const inUse = new Set(
-      [...blends.values()].filter((b) => !b.retired).flatMap((b) => b.ingredients.map((i) => i.id)),
-    );
-    for (const ingredient of ingredients.values()) {
-      if (!ingredient.retired && !inUse.has(ingredient.id)) {
+  const inUse = [...blends.values()].filter((b) => !b.retired);
+  const unused = (folder: string, items: Iterable<{ id: string; retired: boolean }>, used: Set<string>) => {
+    for (const item of items) {
+      if (!item.retired && !used.has(item.id)) {
         problems.push({
-          file: `ingredients/${ingredient.id}.yaml`,
+          file: `${folder}/${item.id}.yaml`,
           message: "no blend uses it: remove it, or retire it if it was published (SPEC §5.2)",
         });
       }
     }
-    const shopsInUse = new Set([...ingredients.values()].flatMap((i) => i.shops.map((s) => s.shop)));
+  };
+  if (blendsReadable && !unreadable.size) {
+    unused("ingredients", ingredients.values(), new Set(inUse.flatMap((b) => b.ingredients.map((i) => i.id))));
+  }
+  if (blendsReadable && !unreadableGear.size) {
+    unused("gear", gear.values(), new Set(inUse.flatMap((b) => b.gear.map((g) => g.id))));
+  }
+  // A shop is in use if an ingredient or a piece of gear names it: every one of them must be read.
+  if (blendsReadable && !unreadable.size && !unreadableGear.size) {
+    const shopsInUse = new Set(
+      [...ingredients.values(), ...gear.values()].flatMap((item) => item.shops.map((s) => s.shop)),
+    );
     for (const shop of shops?.values() ?? []) {
       if (!shopsInUse.has(shop.id)) {
-        problems.push({ file: files.shops.path, message: `no ingredient names the shop "${shop.id}"` });
+        problems.push({ file: files.shops.path, message: `no ingredient or gear names the shop "${shop.id}"` });
       }
     }
   }
@@ -518,6 +615,7 @@ export function compileContent(files: ContentFiles): Compiled {
       format: CONTENT_FORMAT,
       blends: [...blends.values()].sort(byText((b) => b.code)),
       ingredients: [...ingredients.values()].sort(byText((i) => i.id)),
+      gear: [...gear.values()].sort(byText((g) => g.id)),
       shops: [...shops.values()].sort(byText((s) => s.id)),
       teaTypes: TEA_TYPES.flatMap((type) => teaTypes.get(type) ?? []),
       guides: [...guides.values()].sort(byText((g) => g.id)),

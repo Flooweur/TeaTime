@@ -1,0 +1,20 @@
+id: gunpowder-green
+name: Gunpowder green tea
+category: tea
+unit: g
+tea_type: green
+perishable: false
+shelf_life_days: 365
+storage: "In its tin or an opaque airtight box, away from light, damp and smells."
+quality: "Chinese gunpowder, ideally grade 3505, China's top export grade: round, tight, heavy, even pellets, with no stems or broken bits."
+shops:
+  - shop: palais-des-thes-lyon
+    why: "Organic Chinese gunpowder, loose."
+    price: "€8.30 / 100 g"
+    url: https://www.palaisdesthes.com/fr/gunpowder-bio.html
+    checked: 2026-11-21
+  - shop: jardins-de-gaia
+    why: "Organic gunpowder from a Hubei cooperative."
+    price: "€7.95 / 100 g"
+    url: https://www.jardinsdegaia.com/en/green-tea/73-146-gunpowder.html
+    checked: 2026-11-21

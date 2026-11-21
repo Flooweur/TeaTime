@@ -1,0 +1,19 @@
+id: unsalted-butter
+name: Unsalted butter
+category: dairy
+unit: g
+perishable: true
+shelf_life_days: 30
+storage: "In the fridge, wrapped."
+quality: "Unsalted (doux) cow's butter. In Tibet it is butter from the dri, the female yak."
+shops:
+  - shop: monoprix-lyon-republique
+    why: "Président unsalted butter."
+    price: "€3.15 / 250 g"
+    url: https://courses.monoprix.fr/products/pr%C3%A9sident-beurre-gastronomique-doux-82-mg-plaquette-250g/MPX_2638867
+    checked: 2026-11-21
+  - shop: auchan-lyon-felix-faure
+    why: "Unsalted butter."
+    price: "€2.49 / 250 g"
+    url: https://www.auchan.fr/auchan-beurre-doux-82-5-mg/pr-C1177952
+    checked: 2026-11-21

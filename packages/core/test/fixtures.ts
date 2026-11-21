@@ -47,6 +47,7 @@ export function blend(code: string, overrides: Partial<Blend> = {}): Blend {
     ingredients: [{ id: "black-tea", qty: 2.5, unit: "g", optional: false, role: "base" }],
     brew: { water: "tap", tempC: 95, waterMl: 250, vessel: "mug", preheat: false, infusionsS: [180] },
     steps: [{ text: "Brew.", office: "Brew in a mug.", infusions: true, stage: "day" }],
+    gear: [],
     ...overrides,
   };
 }

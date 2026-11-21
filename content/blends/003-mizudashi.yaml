@@ -1,0 +1,67 @@
+code: "003"
+slug: mizudashi
+name: Mizudashi, cold-brew sencha
+mode: safe
+family: seasonal
+trust: documented
+source_type: tea-master
+origin: Japan
+story: >
+  Mizudashi is tea brewed in cold water from the start. Cold water still draws out the amino acids
+  that carry umami, Ito En's tasters say, while the bitter catechins come out mostly above about
+  80 °C, so the tea turns sweet and mild. Japan's farm ministry noted in 2017 that cold tea was
+  growing in popularity, and gave a tea instructor's bottle method. JETRO's guide leaves it 8 to 10
+  hours in the fridge: started at bedtime, it is ready in the morning.
+difficulty: 1
+seasons: [summer]
+flavours: [vegetal, sweet]
+caffeine: low
+scaling: per-cup
+serves: 2
+prep: evening
+sources:
+  - title: "Japanese Green Tea: How to serve (How to brew Mizudashi)"
+    author: "JETRO / JFOODO"
+    url: https://japan-food.jetro.go.jp/greentea/business/serving/index.html
+    lang: en
+    primary: true
+    supports: [recipe, parameters]
+    note: "10–15 g in a 1-litre carafe of cold filtered water; mix once after several minutes; 8–10 hours in the fridge; stir, strain; keeps 2–3 days in the fridge."
+  - title: "日本茶インストラクターに聞いた 緑茶のおいしい淹れ方 (A Japanese tea instructor's way to brew green tea)"
+    author: "MAFF, aff magazine, April 2017"
+    url: https://www.maff.go.jp/j/pr/aff/1704/spe1_04.html
+    lang: ja
+    primary: true
+    supports: [recipe, story]
+    note: "10–15 g of leaves in a bottle of about 1 litre, 4–6 hours in the fridge; cold tea growing in popularity; catechins and caffeine come out above 80 °C."
+  - title: "How to Cold Brew Green Tea (and Why You Should Do It)"
+    author: Sugimoto Tea
+    url: https://www.sugimotousa.com/blog/how-to-cold-brew-green-tea-and-why-you-should-do-it
+    lang: en
+    primary: true
+    supports: [parameters, story]
+    note: "Swirl or shake to stir up the leaves; you can leave it in the fridge even overnight; keeps up to three days; especially for summer."
+  - title: "Ito En tea taster interview (水出し: cold brewing)"
+    author: Ito En
+    url: https://shop.itoen.jp/kenkotai/interview_vol93
+    lang: ja
+    supports: [story]
+    note: "Umami amino acids dissolve readily even in water; astringent catechins dissolve readily above 80 °C."
+ingredients:
+  - { id: sencha, qty: 6, unit: g, role: base }
+brew:
+  water: filtered
+  temp_c: 5
+  ratio_g_per_100ml: 1.2
+  water_ml: 500
+  vessel: jar
+  preheat: false
+  infusions_s: [32400]
+steps:
+  - text: "At bedtime, put the leaves in a clean jar and pour in 500 ml of cold filtered water. Close it and swirl, swirl again after a few minutes, then leave it in the fridge for the night: 8 to 10 hours."
+    stage: evening
+    infusions: true
+  - text: "In the morning, stir, then strain through a tea strainer into a bottle."
+    office: "Before leaving home, stir and strain into a bottle. Keep it in the office fridge."
+  - text: "Pour into glasses, cold. Drink it the same day; it keeps 2–3 days in the fridge."
+    office: "Pour into two mugs, cold. Drink it the same day."

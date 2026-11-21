@@ -1,3 +1,112 @@
 # How a plain tea of each type is brewed, at home and with an office kettle (content/README.md):
 # the plain-tea fallback brews by these (SPEC §2.5). Every tea ingredient's tea_type is here.
-tea_types: []
+tea_types:
+  - type: green
+    name: Green tea
+    temp_c: 75
+    temp_range: [70, 80]
+    ratio_g_per_100ml: 2
+    water_ml: 250
+    infusions_s: [120]
+    office: { temp_c: 75, method: "Set the kettle to 75 °C and pour straight onto the leaves.", infusions_s: [120] }
+    notes: "For a Japanese green. Chinese greens such as gunpowder take hotter water, about 90 °C."
+    sources:
+      - title: "Quelle est la différence entre le thé vert et le thé noir ?"
+        author: Palais des Thés
+        url: https://www.palaisdesthes.com/fr/blog/les-couleurs-de-the/quelle-est-la-difference-entre-le-the-vert-et-le-the-noir/
+        lang: fr
+        primary: true
+        supports: [parameters]
+        note: "Green tea: 50 to 75 °C, 2 to 5 min; 3 to 4 g of tea for 20 cl of water."
+      - title: "茶の淹れ方マニュアル (How to brew tea)"
+        author: "Ministry of Agriculture, Forestry and Fisheries of Japan (MAFF)"
+        url: https://www.maff.go.jp/j/seisan/tokusan/cha/attach/pdf/tea_export-4.pdf
+        lang: ja
+        primary: true
+        supports: [parameters]
+        note: "Sencha 2–3 g per 100 ml, 70 °C high grade and 90 °C mid grade; pan-fired green tea takes somewhat hotter water."
+  - type: oolong
+    name: Oolong
+    temp_c: 95
+    temp_range: [85, 100]
+    ratio_g_per_100ml: 2
+    water_ml: 250
+    infusions_s: [180, 240, 300]
+    office: { temp_c: 95, method: "Set the kettle to 95 °C (or 100 °C) and pour onto the leaves; refill the mug twice.", infusions_s: [180, 240, 300] }
+    notes: "No rinse is needed for a mug brew."
+    sources:
+      - title: "La table d'infusion"
+        author: Cha Yuan (Lyon)
+        ref: "www.cha-yuan.com/la_table_d_infusion.php (the site answers over http only)"
+        lang: fr
+        primary: true
+        supports: [parameters]
+        note: "Chinese and Formosa oolongs: 95 °C, 5 minutes in a teapot; exceptional oolongs 95 °C, 1 minute gongfu."
+      - title: "Deep dive into Ali Shan"
+        author: Jing Tea
+        url: https://jingtea.com/journal/deep-dive-into-ali-shan/
+        lang: en
+        primary: true
+        supports: [parameters]
+        note: "In a cup: 4 g per 250 ml, 90–95 °C, 3 minutes per infusion."
+      - title: "台灣好茶沖沖沖 (Brewing Taiwan's teas)"
+        author: "Ministry of Agriculture, Taiwan, 8 October 2019"
+        url: https://kmweb.moa.gov.tw/theme_data.php?theme=news&sub_theme=attention&id=50985
+        lang: zh
+        primary: true
+        supports: [parameters]
+        note: "The standard method: 3 g in 150 cc of boiling water for about 5–6 minutes; rolled tea needs hotter water to open."
+  - type: black
+    name: Black tea
+    temp_c: 95
+    temp_range: [90, 100]
+    ratio_g_per_100ml: 1.2
+    water_ml: 250
+    infusions_s: [240]
+    office: { temp_c: 95, method: "Set the kettle to 95 °C. Milk, if any, goes in after brewing.", infusions_s: [240] }
+    sources:
+      - title: "Slow down to perfect tea pace: 7 expert tips for the ultimate brew"
+        author: "Dr Sharon Hall, UK Tea & Infusions Association, 30 May 2025"
+        url: https://www.tea.co.uk/news/article/slow-down-to-perfect-tea-pace-7-expert-tips-for-the-ultimate-brew
+        lang: en
+        primary: true
+        supports: [parameters]
+        note: "Black tea at 90–98 °C, 3–4 minutes; a rounded teaspoon of loose tea per cup; fresh water, never reboiled; milk after brewing."
+      - title: "Bien préparer son thé (table d'infusion)"
+        author: Palais des Thés
+        url: https://www.palaisdesthes.com/fr/blog/conseils-et-astuces/bien-preparer-son-the/
+        lang: fr
+        primary: true
+        supports: [parameters]
+        note: "Assam 90 °C, 3–4 minutes; Sri Lanka 90 °C, 3–5 minutes; 6 g for 30 cl."
+      - title: "Perfect cup: loose tea"
+        author: Twinings
+        url: https://twiningsusa.com/blogs/articles/perfect-cup-loose-tea
+        lang: en
+        primary: true
+        supports: [parameters]
+        note: "One teaspoon per 8 oz (about 237 ml); black teas take boiling water; 3–5 minutes."
+  - type: dark
+    name: Dark tea (pu-erh)
+    temp_c: 100
+    temp_range: [95, 100]
+    ratio_g_per_100ml: 2
+    water_ml: 250
+    infusions_s: [240, 300]
+    office: { temp_c: 100, method: "Boil the kettle. Pour a little over the leaves and throw it away after 10 seconds, then fill the mug.", infusions_s: [240, 300] }
+    notes: "A quick rinse first wakes the leaves; young raw (sheng) pu-erh takes cooler water, 85–90 °C."
+    sources:
+      - title: "Preparing Pu-erh"
+        author: Thés & Traditions
+        url: https://thes-traditions.com/en/content/preparation-pu-erh
+        lang: en
+        primary: true
+        supports: [parameters]
+        note: "1 g per 50 ml in a Western brew; rinse the leaves with a first 10-second infusion; ripe or aged pu-erh at 95–100 °C, young raw pu-erh 85–90 °C."
+      - title: "La table d'infusion"
+        author: Cha Yuan (Lyon)
+        ref: "www.cha-yuan.com/la_table_d_infusion.php (the site answers over http only)"
+        lang: fr
+        primary: true
+        supports: [parameters]
+        note: "Pu-erh: 100 °C, 3 minutes."

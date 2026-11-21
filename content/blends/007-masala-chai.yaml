@@ -1,0 +1,87 @@
+code: "007"
+slug: masala-chai
+name: Masala chai
+mode: experimental
+family: household
+trust: documented
+source_type: tea-house
+origin: India
+story: >
+  Tea in India began as an export crop: the Assam Tea Company, formed in 1839, sold Assam tea to
+  Europe. Only from 1929, a Mumbai food historian says, was tea pushed to Indians themselves, with
+  tea breaks in factories and tea sold at railway stations. Indians made it their own, boiling it with
+  water, milk, sugar and spices such as cardamom, cinnamon, clove, ginger or black pepper; milk, a
+  chef and author adds, also stretched costly leaves. India's Tea Board names the core today: Indian
+  black tea with cardamom, ginger and cinnamon.
+difficulty: 2
+flavours: [spiced, milky, sweet]
+caffeine: medium
+scaling: per-cup
+serves: 2
+sources:
+  - title: "How to brew Assam CTC chai"
+    author: "Ankit Baid, Namhah Tea (Guwahati), 29 May 2026"
+    url: https://namhah.com/how-to-brew-assam-ctc-chai/
+    lang: en
+    primary: true
+    supports: [recipe, parameters]
+    note: "For 2 cups: 2 heaped teaspoons of Assam CTC, 1 cup water, 1 cup full-fat milk, 2 green cardamom pods, about 1 cm of ginger, a small cinnamon stick, 2 cloves and 2 peppercorns (optional), sugar to taste. Spices in water before the tea, simmer 2 minutes; tea, boil 1–2 minutes; milk, back to the boil, simmer 2–3 minutes on low; sugar; strain. Pan uncovered, or it boils over. Use within 6 months of opening."
+  - title: "Masala Chai"
+    author: Chef Kunal Kapur
+    url: https://www.chefkunalkapur.com/recipe/masala-chai/
+    lang: en
+    primary: true
+    supports: [recipe]
+    note: "Serves 4: 4 teacups water to 2 of milk, tea leaves and sugar, a chai masala of cardamom, cloves, peppercorns and cinnamon; boil a minute after the tea, simmer a minute after the milk."
+  - title: "Masala Chai"
+    author: Chef Sanjeev Kapoor
+    url: https://www.sanjeevkapoor.com/Recipe/Masala-Chai.html
+    lang: en
+    primary: true
+    supports: [recipe]
+    note: "Green cardamom, cinnamon, fennel, peppercorns, cloves and crushed ginger; tea, ginger, sugar, masala and milk brought to the boil; 5–10 minutes in all."
+  - title: "Masala Tea"
+    author: "Swasthi Shreekanth, Indian Healthy Recipes"
+    url: https://www.indianhealthyrecipes.com/masala-tea-chai/
+    lang: en
+    supports: [recipe, parameters]
+    note: "For 2: 4 cardamoms, 2 cloves, cinnamon (cassia or Ceylon), 2 peppercorns, ½ inch ginger; water to milk from 1:1 to 3:1; strong chai with Assam CTC; boiling too long turns it bitter."
+  - title: "Chai is tea, tea is chai: India's love affair with the drink"
+    author: "Nupur Roopa, Al Jazeera, 13 March 2023"
+    url: https://www.aljazeera.com/features/2023/3/13/chai-is-tea-tea-is-chai-indias-love-affair-with-the-drink-2
+    lang: en
+    supports: [story]
+    note: "The Assam Tea Company formed in 1839; from 1929 tea promoted to Indians, with factory tea breaks and railway stations (food historian Mohsina Mukadam); milk added to stretch expensive leaves (chef and author Sadaf Hussain)."
+  - title: "Masala Tea"
+    author: Tea Board of India
+    url: https://www.teaboard.gov.in/TEABOARDCSM/MTE=
+    lang: en
+    supports: [story]
+    note: "Indian black tea with cardamom, ginger and cinnamon."
+ingredients:
+  - { id: assam, qty: 8, unit: g, role: base }
+  - { id: whole-milk, qty: 240, unit: ml, role: base }
+  - { id: green-cardamom, qty: 2, unit: pieces, role: accent }
+  - { id: fresh-ginger, qty: 5, unit: g, role: accent }
+  - { id: cinnamon-stick, qty: 1, unit: pieces, role: accent }
+  - { id: cloves, qty: 2, unit: pieces, role: accent, optional: true }
+  - { id: black-peppercorns, qty: 2, unit: pieces, role: accent, optional: true }
+  - { id: sugar, qty: 12, unit: g, role: accent, optional: true }
+brew:
+  water: tap
+  temp_c: 100
+  ratio_g_per_100ml: 3.3
+  water_ml: 240
+  vessel: saucepan
+  preheat: false
+  infusions_s: [120]
+steps:
+  - text: "Lightly crush the cardamom pods and grate the ginger (a 1 cm piece, about 5 g). Put them in a saucepan with the water, the cinnamon, and the cloves and peppercorns if you use them. Bring to the boil."
+  - text: "Simmer the spices in the water: they always go in before the tea."
+    timer_s: 120
+  - text: "Add the tea (2 heaped teaspoons, about 8 g: weigh your spoon once) and boil."
+    infusions: true
+  - text: "Add the milk and bring it back to the boil, uncovered, watching it: milk rises fast."
+  - text: "Turn the heat down and simmer."
+    timer_s: 150
+  - text: "Stir in the sugar (3 teaspoons for two cups, or to taste), then strain through a fine tea strainer into the cups."

@@ -1,0 +1,20 @@
+id: earl-grey
+name: Earl Grey tea
+category: tea
+unit: g
+tea_type: black
+perishable: false
+shelf_life_days: 365
+storage: "An opaque airtight tin, apart from other teas: its scent carries to them."
+quality: "Black tea scented with bergamot, the citrus grown mostly in Calabria."
+shops:
+  - shop: palais-des-thes-lyon
+    why: "Thé des Lords: black tea from India and Africa with bergamot."
+    price: "€11.20 / 100 g"
+    url: https://www.palaisdesthes.com/fr/the-des-lords-471.html
+    checked: 2026-11-21
+  - shop: jardins-de-gaia
+    why: "Organic black tea with bergamot essential oil."
+    price: "€9.10 / 100 g"
+    url: https://www.jardinsdegaia.com/en/black-tea/173-358-earl-grey.html
+    checked: 2026-11-21

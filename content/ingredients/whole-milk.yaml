@@ -1,0 +1,19 @@
+id: whole-milk
+name: Whole milk
+category: dairy
+unit: ml
+perishable: true
+shelf_life_days: 3
+storage: "In the fridge; a few days once opened. For an unopened UHT carton, set its opened date only when you open it."
+quality: "Full-fat milk (lait entier), fresh or UHT."
+shops:
+  - shop: monoprix-lyon-republique
+    why: "Fresh whole milk."
+    price: "€1.39 / 1 L"
+    url: https://courses.monoprix.fr/products/monoprix-lait-frais-entier-1l/MPX_6601210
+    checked: 2026-11-21
+  - shop: auchan-lyon-felix-faure
+    why: "Whole milk."
+    price: "€1.10 / 1 L"
+    url: https://www.auchan.fr/auchan-lait-entier/pr-C1176627
+    checked: 2026-11-21

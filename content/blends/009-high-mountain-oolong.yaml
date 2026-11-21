@@ -1,0 +1,86 @@
+code: "009"
+slug: high-mountain-oolong
+name: High-mountain oolong, gongfu style
+mode: experimental
+family: tea-master
+trust: documented
+source_type: tea-master
+origin: Taiwan
+story: >
+  Gaoshan cha, "high-mountain tea", is Taiwan's name for oolong grown above about 1,000 metres, on
+  mountains such as Alishan, Lishan and Shan Lin Xi. It descends from Dong Ding, the first tea rolled
+  into the tight balls now typical of Taiwan, and stays lightly oxidised: 12 to 15 % by Taiwan's Tea
+  Research and Extension Station. Gongfu brewing, many short infusions from a small vessel shared
+  among a few cups, is believed to date from around the 18th century. Tea Masters, a Taiwan-based
+  house, brews these leaves with boiling water and gives the first infusion a full minute, so the
+  rolled leaves can open.
+difficulty: 3
+flavours: [floral, creamy, sweet]
+caffeine: medium
+scaling: per-session
+session_max: 3
+sources:
+  - title: "Li Shan Gao Shan Cha"
+    author: Rishi Tea
+    url: https://www.rishi-tea.com/products/li-shan-gao-shan-cha
+    lang: en
+    primary: true
+    supports: [recipe, parameters]
+    note: "7 g per 150 ml gaiwan; water cooled to 200 °F (93 °C); don't rinse; first infusion 45–60 s, second 20–30 s, then repeat several times."
+  - title: "How To Brew Oolong Tea"
+    author: Eco-Cha (Taiwan)
+    url: https://eco-cha.com/pages/how-to-brew-oolong-tea
+    lang: en
+    primary: true
+    supports: [recipe, parameters]
+    note: "8–10 g in a 150 ml pot; a rinse poured off at once; about 50 s for the first brew, 10–15 s more for each after, up to two minutes after the third; 5–8 brews."
+  - title: "First brew of High Mountain Oolong"
+    author: Tea Masters (Taiwan)
+    url: https://teamasters.blogspot.com/2014/10/first-brew-of-high-mountain-oolong.html
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "Preheat well with boiling water; a single layer of leaves on the bottom; at least a minute for the first brew; bring the water back to the boil each time."
+  - title: "Brewing Advice"
+    author: Floating Leaves Tea
+    url: https://floatingleaves.com/blogs/explore/brewing-advice
+    lang: en
+    primary: true
+    supports: [parameters]
+    note: "Boiling-hot water for a full extraction; warm all the teaware first; no rinse needed; for rolled oolongs the first infusion is longer than the second; 7 or 8 infusions."
+  - title: "綠色餐飲研究－台灣生產茶葉之營養與最適沖泡水溫文獻回顧 (Nutrition and optimal brewing temperature of Taiwan teas: a review)"
+    author: "Lee Min-Hsien and Yeh Jim, Journal of Health Management 13(2), 2015"
+    url: https://libap.nhu.edu.tw:8081/Ejournal/AD01130207.pdf
+    lang: zh
+    supports: [parameters, story]
+    note: "The best water for high-mountain tea is 95–100 °C; high-mountain tea is 12–15 % oxidised (citing the Tea Research and Extension Station, 2000); Alishan, Shan Lin Xi, Fushoushan, Lishan."
+  - title: "The Oolong Spectrum"
+    author: Floating Leaves Tea
+    url: https://floatingleaves.com/blogs/explore/the-oolong-spectrum
+    lang: en
+    supports: [story]
+    note: "Dong Ding was the precursor of high-mountain oolong, and the first rolled into Taiwan's characteristic balls."
+  - title: "Gongfu tea"
+    author: Wikipedia
+    url: https://en.wikipedia.org/wiki/Gongfu_tea
+    lang: en
+    supports: [story]
+    note: "Traditionally three cups; it is believed the gongfu approach began around the 18th century."
+ingredients:
+  - { id: high-mountain-oolong, qty: 7, unit: g, role: base }
+gear:
+  - { id: gaiwan }
+brew:
+  water: tap
+  temp_c: 100
+  temp_range: [90, 100]
+  ratio_g_per_100ml: 4.7
+  water_ml: 150
+  vessel: gaiwan
+  preheat: true
+  infusions_s: [60, 30, 40, 50, 65, 80, 100, 120]
+steps:
+  - text: "Bring fresh water to a full boil. Warm the gaiwan, a small jug and three small cups with it, then pour it away."
+  - text: "The leaves are for a 150 ml gaiwan; for another size, keep the same strength: 5 g in a 100 ml gaiwan, 8 g in a 170 ml one. Put the leaves in the hot, empty gaiwan, put the lid on and smell them after a few seconds. A rinse is up to you: Taiwanese houses differ. If you rinse, fill the gaiwan and pour it away at once."
+  - text: "For each infusion, bring the water back to the boil, fill the gaiwan to the rim and put the lid on. When the time is up, pour all of it into the jug, draining the gaiwan, and share it among the three cups. Stop when the taste fades."
+    infusions: true

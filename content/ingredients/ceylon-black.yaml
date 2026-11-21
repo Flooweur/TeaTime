@@ -1,0 +1,25 @@
+id: ceylon-black
+name: Ceylon black tea
+category: tea
+unit: g
+tea_type: black
+perishable: false
+shelf_life_days: 365
+storage: "Airtight, away from light and smells."
+quality: "A strong Sri Lankan black tea in broken grades (BOP, BOPF), which brew dark and fast. Hong Kong's milk-tea blends mix coarse, medium and fine grades."
+shops:
+  - shop: palais-des-thes-lyon
+    why: "Ceylan Breakfast, organic, a strong Sri Lankan black tea."
+    price: "€10.00 / 100 g"
+    url: https://www.palaisdesthes.com/fr/ceylan-breakfast-bio.html
+    checked: 2026-11-21
+  - shop: jardins-de-gaia
+    why: "Highgrown SOFA, FBOP1, a broken grade from Uva; check it is in stock."
+    price: "€7.60 / 100 g"
+    url: https://www.jardinsdegaia.com/en/black-tea/121-249-highgrown-sofa.html
+    checked: 2026-11-21
+  - shop: dammann-freres-lyon
+    why: "Ceylan O.P. Kenilworth: whole leaf, so slower to colour; for when the others are out."
+    price: "€6.60 / 100 g"
+    url: https://www.dammann.fr/fr/ceylan-op-kenilworth.html
+    checked: 2026-11-21

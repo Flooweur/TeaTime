@@ -54,6 +54,12 @@ export type Vessel = (typeof VESSELS)[number];
 /** What a safe blend may be made in: a plain kettle's world, no special equipment (SPEC §5.3). */
 export const SAFE_VESSELS = ["mug", "teapot", "glass", "jar", "bottle"] as const satisfies readonly Vessel[];
 
+/**
+ * The vessels a kitchen may lack: a blend made in one lists it as gear, under the same id, so it
+ * isn't drawn before the owner has one (SPEC §5.2).
+ */
+export const GEAR_VESSELS = ["gaiwan", "kyusu", "chawan"] as const satisfies readonly Vessel[];
+
 /** The most a safe blend may take on the day, in seconds: under 5 minutes (SPEC §5.3). */
 export const SAFE_DAY_SECONDS = 300;
 
@@ -104,6 +110,13 @@ export interface BlendIngredient {
   /** An optional ingredient is used when you have it and never stops the blend being drawn. */
   readonly optional: boolean;
   readonly role: Role;
+}
+
+/** A piece of gear a blend needs, by id. */
+export interface BlendGear {
+  readonly id: string;
+  /** Optional gear helps (a thermometer) but is never needed: the blend is drawn without it. */
+  readonly optional: boolean;
 }
 
 /**
@@ -167,6 +180,8 @@ export interface Blend {
   readonly retired: boolean;
   readonly sources: readonly Citation[];
   readonly ingredients: readonly BlendIngredient[];
+  /** Empty: a kettle and a kitchen's usual things are enough. */
+  readonly gear: readonly BlendGear[];
   readonly brew: Brew;
   readonly steps: readonly Step[];
 }
@@ -194,6 +209,19 @@ export interface Ingredient {
   /** How long it keeps once opened (or bought, when fresh). */
   readonly shelfLifeDays: number;
   readonly storage: string;
+  readonly quality: string;
+  readonly shops: readonly ShopRef[];
+  readonly retired: boolean;
+}
+
+/**
+ * Equipment a kitchen may lack: a gaiwan, a cloth filter, a thermometer. It is bought once, and the
+ * pantry holds it as *have* or *don't have*, never an amount (decision of 2026-11-20).
+ */
+export interface Gear {
+  readonly id: string;
+  readonly name: string;
+  /** What to look for when buying it. */
   readonly quality: string;
   readonly shops: readonly ShopRef[];
   readonly retired: boolean;
@@ -238,8 +266,8 @@ export interface Guide {
   readonly html: string;
 }
 
-/** The bundle's format: raised when its shape changes. */
-export const CONTENT_FORMAT = 1;
+/** The bundle's format: raised when its shape changes (2: gear). */
+export const CONTENT_FORMAT = 2;
 
 export interface ContentBundle {
   readonly format: typeof CONTENT_FORMAT;
@@ -249,6 +277,8 @@ export interface ContentBundle {
   readonly blends: readonly Blend[];
   /** By id. */
   readonly ingredients: readonly Ingredient[];
+  /** By id. */
+  readonly gear: readonly Gear[];
   /** By id. */
   readonly shops: readonly Shop[];
   /** In TEA_TYPES' order. */

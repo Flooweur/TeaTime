@@ -1,3 +1,65 @@
-# The shops the ingredients name (content/README.md): online, or in Lyon with an address.
-# Every shop here is named by at least one ingredient.
-shops: []
+# The shops the ingredients and gear name (content/README.md): online, or in Lyon with an address.
+# Every shop here is named by at least one ingredient or piece of gear.
+shops:
+  - id: palais-des-thes-lyon
+    name: Le Palais des Thés
+    kind: lyon
+    address: "3 place Saint-Nizier, 69001 Lyon"
+    url: https://www.palaisdesthes.com/fr/
+    notes: "Also at Croix-Rousse (69004), La Part-Dieu (69003), avenue Maréchal de Saxe (69006) and avenue des Frères Lumière (69008). The same teas online; the search results show the pack sizes."
+  - id: dammann-freres-lyon
+    name: Dammann Frères
+    kind: lyon
+    address: "5 rue Confort, 69002 Lyon"
+    url: https://www.dammann.fr/fr/
+    notes: "Also at 82 avenue des Frères Lumière, 69008. Online pages offer to reserve for pickup in the shop."
+  - id: monoprix-lyon-republique
+    name: Monoprix Lyon République
+    kind: lyon
+    address: "27 rue de la République, 69002 Lyon"
+    url: https://courses.monoprix.fr
+    notes: "Prices as on Monoprix's online shop; in-store stock not checked."
+  - id: monoprix-lyon-guillotiere
+    name: Monoprix Lyon Guillotière
+    kind: lyon
+    address: "305–307 rue Garibaldi, 69007 Lyon"
+    url: https://courses.monoprix.fr
+    notes: "Prices as on Monoprix's online shop; in-store stock not checked."
+  - id: auchan-lyon-felix-faure
+    name: Auchan Supermarché Lyon Félix Faure
+    kind: lyon
+    address: "87 avenue Félix Faure, 69003 Lyon"
+    url: https://www.auchan.fr/magasins/supermarche/auchan-supermarche-lyon-felix-faure/s-4982
+    notes: "Prices as auchan.fr shows them once this store is chosen; Click & Collect."
+  - id: bahadourian-lyon
+    name: Bahadourian
+    kind: lyon
+    address: "Halles de Lyon Paul Bocuse, 102 cours Lafayette, 69003 Lyon"
+    url: https://www.bahadourian.com
+    notes: "Spices and oriental groceries. Also at 20 rue Villeroy, 69003, and online."
+  - id: boulanger-lyon-cordeliers
+    name: Boulanger Lyon Cordeliers
+    kind: lyon
+    address: "6 place des Cordeliers, 69002 Lyon"
+    url: https://www.boulanger.com
+    notes: "Kitchen appliances; stock per store not checked."
+  - id: jardins-de-gaia
+    name: Les Jardins de Gaïa
+    kind: online
+    url: https://www.jardinsdegaia.com/en/
+    notes: "A French organic tea house; free delivery in France over €50."
+  - id: ile-aux-epices
+    name: L'Île aux Épices
+    kind: online
+    url: https://ileauxepices.com
+    notes: "Spices by the bag; ships to mainland France."
+  - id: ikea
+    name: IKEA
+    kind: online
+    url: https://www.ikea.com/fr/fr/
+    notes: "The nearest store is Grand Parilly, in Vénissieux, outside Lyon."
+  - id: teaspring
+    name: TeaSpring
+    kind: online
+    url: https://www.teaspring.com
+    notes: "Chinese teas, priced in US dollars, shipped worldwide; customs may apply."

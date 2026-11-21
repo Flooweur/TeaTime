@@ -1,0 +1,19 @@
+id: cloves
+name: Whole cloves
+category: spice
+unit: pieces
+perishable: false
+shelf_life_days: 730
+storage: "In an airtight jar."
+quality: "Whole cloves with their heads on."
+shops:
+  - shop: auchan-lyon-felix-faure
+    why: "Whole cloves."
+    price: "€1.17 / 23 g"
+    url: https://www.auchan.fr/auchan-clous-de-girofle/pr-C1688408
+    checked: 2026-11-21
+  - shop: bahadourian-lyon
+    why: "Whole cloves from Madagascar."
+    price: "€4.50 / 100 g"
+    url: https://www.bahadourian.com/racines-gousses-ou-batons-de-3a-cannelle-vanille/clous-de-girofle-entiers-3651.html
+    checked: 2026-11-21

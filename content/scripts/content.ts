@@ -48,6 +48,7 @@ export function readFiles(folder = CONTENT_DIR): ContentFiles {
   return {
     blends: filesUnder(folder, "blends", ".yaml"),
     ingredients: filesUnder(folder, "ingredients", ".yaml"),
+    gear: filesUnder(folder, "gear", ".yaml"),
     shops: read(folder, "shops.yaml"),
     teaTypes: read(folder, "tea-types.yaml"),
     guides: filesUnder(folder, "guides", ".md"),
@@ -125,12 +126,13 @@ export const problemCount = (problems: readonly Problem[]) =>
 
 const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
 
-/** "10 blends (6 safe), 24 ingredients, 9 shops, 6 tea types, 2 guides, hash 3f2a…". */
+/** "10 blends (6 safe), 24 ingredients, 4 pieces of gear, 9 shops, 6 tea types, 2 guides, hash 3f2a…". */
 export function summary(bundle: ContentBundle): string {
   const safe = bundle.blends.filter((blend) => blend.mode === "safe").length;
   return [
     `${plural(bundle.blends.length, "blend")} (${safe} safe)`,
     plural(bundle.ingredients.length, "ingredient"),
+    plural(bundle.gear.length, "piece of gear", "pieces of gear"),
     plural(bundle.shops.length, "shop"),
     plural(bundle.teaTypes.length, "tea type"),
     plural(bundle.guides.length, "guide"),

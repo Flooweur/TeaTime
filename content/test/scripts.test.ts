@@ -15,7 +15,14 @@ afterEach(() => {
 function writeFolder(): string {
   folder = mkdtempSync(path.join(tmpdir(), "teatime-content-"));
   const files = filesOf(fixture());
-  for (const file of [...files.blends, ...files.ingredients, files.shops, files.teaTypes, ...files.guides]) {
+  for (const file of [
+    ...files.blends,
+    ...files.ingredients,
+    ...files.gear,
+    files.shops,
+    files.teaTypes,
+    ...files.guides,
+  ]) {
     const target = path.join(folder, file.path);
     mkdirSync(path.dirname(target), { recursive: true });
     writeFileSync(target, file.text);
