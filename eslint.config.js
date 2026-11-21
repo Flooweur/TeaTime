@@ -1,5 +1,6 @@
 // Lint rules for every workspace. Formatting is Prettier's job (.prettierrc.json): no stylistic rules here.
 import js from "@eslint/js";
+import reactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
@@ -50,8 +51,25 @@ export default tseslint.config(
     },
   },
   {
-    files: ["packages/**/*.ts", "content/**/*.ts", "**/*.config.{js,ts,mjs}", "**/scripts/**/*.{js,mjs,ts}"],
+    files: [
+      "packages/**/*.ts",
+      "content/**/*.ts",
+      "backend/**/*.ts",
+      "**/*.config.{js,ts,mjs}",
+      "**/scripts/**/*.{js,mjs,ts}",
+    ],
     languageOptions: { globals: globals.node },
+  },
+  {
+    // The app: the browser's globals, and the rules of hooks.
+    files: ["frontend/src/**/*.{ts,tsx}"],
+    languageOptions: { globals: globals.browser },
+    plugins: { "react-hooks": reactHooks },
+    rules: reactHooks.configs.recommended.rules,
+  },
+  {
+    files: ["frontend/src/sw/**/*.ts"],
+    languageOptions: { globals: globals.serviceworker },
   },
   {
     files: ["packages/core/src/**/*.ts"],

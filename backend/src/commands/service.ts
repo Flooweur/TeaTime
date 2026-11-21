@@ -12,7 +12,7 @@
  *   command it answers is in that snapshot or refused, so the phone drops exactly those from its
  *   outbox and replays the rest on top.
  */
-import { type CommandResult, applyCommand, isUntouched, parseCommand } from "@teatime/core";
+import { type CommandOutcome, type DecidedResult, applyCommand, isUntouched, parseCommand } from "@teatime/core";
 import { eq } from "drizzle-orm";
 import type { FastifyBaseLogger } from "fastify";
 import type { Conn } from "../db/client.js";
@@ -25,16 +25,7 @@ import { type Snapshot, snapshotOf } from "../state/snapshot.js";
 /** The most commands one batch may carry: a phone offline for weeks has a few dozen. */
 export const MAX_BATCH = 500;
 
-/** What parseCommand refuses: a command that isn't one, or one from a newer app. */
-type ParseRefusal = { readonly ok: false; readonly code: "invalid" | "unsupported_version"; readonly problem: string };
-
-/** A decided result, as `applied_commands` stores it. */
-type Decided = CommandResult | ParseRefusal;
-
-/** A command's outcome as the phone sees it. */
-export type CommandOutcome = { readonly id: string | null; readonly repeat?: true } & (
-  Decided | { readonly ok: false; readonly code: "server_error" }
-);
+export type { CommandOutcome };
 
 /** A stored result's key: the command's own id, when it has a usable one. */
 function idOf(raw: unknown): string | null {
@@ -48,7 +39,7 @@ function typeOf(raw: unknown): string {
   return typeof type === "string" ? type.slice(0, 64) : "?";
 }
 
-function record(conn: Conn, id: string, type: string, result: Decided, now: number) {
+function record(conn: Conn, id: string, type: string, result: DecidedResult, now: number) {
   conn
     .insert(appliedCommands)
     .values({ id, type, receivedAt: now, result: JSON.stringify(result) })
@@ -68,7 +59,7 @@ export function applyBatch(
       const id = idOf(raw);
       if (id !== null) {
         const done = tx.select().from(appliedCommands).where(eq(appliedCommands.id, id)).get();
-        if (done) return { id, ...(JSON.parse(done.result) as Decided), repeat: true };
+        if (done) return { id, ...(JSON.parse(done.result) as DecidedResult), repeat: true };
       }
 
       const parsed = parseCommand(raw);

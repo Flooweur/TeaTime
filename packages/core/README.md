@@ -26,6 +26,7 @@ Pure TypeScript, zero I/O (SPEC §4.2): the code both the app and the server run
 | `src/state/apply.ts` | The reducer, `applyCommand`: one command, a new state, a result, and the keys it touched |
 | `src/state/status.ts` | The status table of a pick, `PICK_MOVES` |
 | `src/state/online.ts` | What needs the server: `drawDue`, `drawNow`, `swapPick`, `updateSettings`, `setOverride`, `addAway`, `removeAway` |
+| `src/wire.ts` | What the server answers, as both sides read it: the snapshot, and each offline command's outcome. Types only |
 | `src/state/touched.ts` | The keys a change touched, so the server writes only those rows |
 
 ## Tests

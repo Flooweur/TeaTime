@@ -3,27 +3,11 @@
  * the content every pending pick needs, so a phone with an older bundle can still show what was
  * drawn (a hash it doesn't have shows the update toast).
  */
-import type { Blend, ContentBundle, Gear, Ingredient, Shop, State, TeaType } from "@teatime/core";
+import type { ContentBundle, PickContent, Snapshot, State } from "@teatime/core";
 import type { Conn } from "../db/client.js";
 import { loadState, readRevision } from "./rows.js";
 
-/** The content of the pending picks: their blends, the ingredients, gear and shops those name, and the tea types. */
-export interface PickContent {
-  readonly blends: readonly Blend[];
-  readonly ingredients: readonly Ingredient[];
-  readonly gear: readonly Gear[];
-  readonly shops: readonly Shop[];
-  readonly teaTypes: readonly TeaType[];
-}
-
-export interface Snapshot {
-  readonly revision: number;
-  readonly contentHash: string;
-  /** The server's clock, in Unix milliseconds: the diagnostics flag a device more than 60 s off it (SPEC §3.8). */
-  readonly serverTime: number;
-  readonly state: State;
-  readonly content: PickContent;
-}
+export type { PickContent, Snapshot };
 
 /** What the pending picks name, from the bundle: a plain tea or an unlock is an ingredient (or gear) too. */
 export function pickContent(state: State, content: ContentBundle): PickContent {

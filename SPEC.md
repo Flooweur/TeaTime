@@ -202,7 +202,8 @@ content/        blends/, ingredients/, gear/, shops.yaml, tea-types.yaml, guides
                 scripts/ (build, check), and the generated src/bundle.ts
 backend/        Fastify, Drizzle and SQLite, the jobs: src/ (the app, the database, the state's rows, the routes, push,
                 the jobs), drizzle/ (the migrations), scripts/ (vapid, restore)
-frontend/       the PWA (phase 6)
+frontend/       the PWA: src/ (lib: the offline store, outbox and sync; today: the model and its cards; screens;
+                components; sw: the service worker), scripts/ (icons)
 docs/           original-plan.md, design/, spikes/, runbook.md
 ```
 - **`packages/core` has zero I/O.** It compiles with `lib: ["ES2023"]` and `types: []` (no DOM, no Node), and ESLint refuses Node imports there.
@@ -424,7 +425,7 @@ Experimental blends can use a gaiwan, precise temperatures, butter or salt, unus
 ## 7. Screens
 **The look** is *A · Warm journal* (decision of 2026-11-20): cream paper, tea-brown ink, Alegreya and Alegreya Sans. Its colours in both modes, fonts, type scale, radii and spacing are in [docs/design/README.md](docs/design/README.md), and become the app's Tailwind `@theme`.
 
-On the phone, a bottom tab bar holds **Today · Pantry · Library · Guides · Settings**; **Review** joins it on weekends.
+On the phone, a bottom tab bar holds **Today · Pantry · Library · Guides · Settings**; **Review** joins it on weekends. On the PC's browser, the same screens sit in a centred column of the phone's width (decision of 2026-11-21).
 
 **Today**
 - **The blend card:**
@@ -433,6 +434,8 @@ On the phone, a bottom tab bar holds **Today · Pantry · Library · Guides · S
   - the water type, temperature, ratio, preheat and vessel;
   - the steps, with the infusions' timers chained: each one moves on to the next, which starts with a tap.
 - **The actions:** Made it with a 1–5 rating, Skip, Swap, Not for me, and the journal code to copy.
+  - **Made it** logs the cup at once, then offers the rating, and the colleague's on an office day. A rating left for later can be given in the Saturday review (decision of 2026-11-21).
+  - **Undo:** after Made it or Skip, Today offers Undo for about 10 seconds.
 - **On office days**, the card shows the office version of the steps.
 - **In the evening:**
   - the next office day's kit, as a checklist of what to weigh and pack for its cups, with **Packed**;
@@ -440,6 +443,7 @@ On the phone, a bottom tab bar holds **Today · Pantry · Library · Guides · S
   - an overnight blend to start.
 - **Before 8:00 on a home day:** the teaser and Peek.
 - **When there's no blend:** the plain-tea, what-to-buy and no-kit cards.
+- **On a weekend:** no tea today, the next tea day (on Sunday evening, Monday's kit), and the Library, for I made this.
 
 **Weekly review:** §2.8.
 
@@ -459,7 +463,7 @@ On the phone, a bottom tab bar holds **Today · Pantry · Library · Guides · S
 - Office days, overrides and away periods.
 - The notification times, notifications on or off, and a test push.
 - The cooldown and the default cups.
-- Light or dark: a switch (decision of 2026-11-20).
+- Light or dark: a switch (decision of 2026-11-20). Until it is first set, the app follows the device's own setting, and the switch can go back to that ("As the device"). Each device keeps its own; it isn't synced (decision of 2026-11-21).
 - Export (JSON and CSV).
 
 **Diagnostics**

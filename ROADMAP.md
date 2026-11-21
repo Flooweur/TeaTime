@@ -12,8 +12,8 @@ Each phase is a branch and a pull request, merged only after the owner's yes. Ea
 | 2 | **Push spike** (`spikes/001-push-8443`): iOS home-screen push on the `:8443` origin | The owner's iPhone has shown a test push (or the failure is written up with the fallback: a Tailscale container with its own name) | Proposed as its own session |
 | 3 | **Core domain:** every rule of SPEC §2, with unit and property tests (a simulated year in Europe/Paris, the draw's invariants, the status table, the reducer's order-independence, rounding). The saving-and-loading round trip of the state is phase 5's, with the rows; the Saturday review's lists are phase 8's, built on core's unlock counts and freshness | The tests are green | Done |
 | 4 | **Content batch 1:** 10 blends (about 6 safe and 4 experimental, at least one cold brew, across the families), their ingredients, Lyon and online shops, and the tea types. The owner approves the list before the research | `content:check` is green, and the owner has reviewed the batch | Done |
-| 5 | **Backend:** the state's persistence, the commands, draw and swap, settings and overrides, export, backup and restore, diagnostics | The route and job tests are green (in-memory SQLite, a test clock, a fake push) | In review |
-| 6 | **Frontend core:** the shell, Today with its timers, the library, the blend page, the pantry, the offline store, outbox and sync, and the update toast | For any date and pantry, Today shows a valid card, and the app opens offline | — |
+| 5 | **Backend:** the state's persistence, the commands, draw and swap, settings and overrides, export, backup and restore, diagnostics | The route and job tests are green (in-memory SQLite, a test clock, a fake push) | Done |
+| 6 | **Frontend core:** the shell, Today with its timers, the library, the blend page, the pantry, the offline store, outbox and sync, and the update toast | For any date and pantry, Today shows a valid card, and the app opens offline | In review |
 | 7 | **Phone and notifications:** the install flow, push on, off and test, the notifier, the Docker image and compose file, `tailscale serve`, the backups, and `docs/runbook.md` | The owner's iPhone has had a week of 8:00 pushes | — |
 | 8 | **Review, settings and export** | The owner has done one real Saturday review | — |
 | 9 | **Polish:** the guides screen and outline, accessibility (44 px taps, contrast, safe areas), diagnostics, the chime's audio session, a full final review | The owner would show it to their colleague without apologising | — |
@@ -24,6 +24,15 @@ Phase 4 depends only on phase 1, so it can run alongside phases 3, 5 and 6. Late
 
 ## Decisions log
 Asked of the owner and answered, newest first. The SPEC states each as a rule.
+
+### 2026-11-21: the app (phase 6)
+The owner took the five recommendations:
+- **Light or dark:** until the switch is first set, the app follows the device's own setting. Each device keeps its own switch; it isn't synced.
+- **Made it and the rating:** Made it logs the cup at once, then offers the 1–5 rating, and the colleague's on office days. A rating left for later can be given in the Saturday review.
+- **Undo:** after Made it or Skip, Today offers Undo for about 10 seconds.
+- **On the PC:** the phone's layout, in a centred column.
+- **Weekends:** Today says there's no tea today, shows the next tea day (Monday's kit on Sunday evening), and links to the Library for I made this.
+- **The cups selector** is a stepper, "− 2 cups +", rather than the design's row of circles (asked after the PR's self-review).
 
 ### 2026-11-21: the backend (phase 5)
 - **No command counts twice** without the snapshot listing the ids it holds, a list that would only grow: a phone with unsent commands syncs by sending them, and the answer has a result for each, a resend's included (SPEC §3.3).
@@ -57,7 +66,7 @@ Asked of the owner and answered, newest first. The SPEC states each as a rule.
 ### 2026-11-20: the look (phase 0)
 - **Direction:** of three Today mockups (A · Warm journal, B · Calm minimal, C · Ink & washi), the owner picked **A · Warm journal**, as shown, with nothing mixed in from B or C: cream paper and tea-brown ink, Alegreya for the names and stories, Alegreya Sans for the rest, amber for the running timer.
 - **Tokens:** its colours in both modes, fonts, type scale, radii and spacing are in [docs/design/README.md](docs/design/README.md), ready to become the Tailwind 4 `@theme` in phase 6.
-- **Light / dark:** a switch in Settings chooses. What it starts on, before the owner first sets it, is still to be asked (phase 6).
+- **Light / dark:** a switch in Settings chooses. What it starts on, before the owner first sets it, was asked in phase 6: the device's own setting.
 
 ### 2026-11-20: the build plan (Q&A before phase 1)
 **Platform and hosting**
