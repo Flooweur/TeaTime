@@ -70,8 +70,16 @@ export function Diagnostics() {
             {worker === undefined ? "…" : worker === null ? "none" : `version ${worker}`}
           </Row>
           <Row label="Content">{bundle.hash.slice(0, 12)}</Row>
-          <Row label="Storage kept" warn={storage === false}>
-            {storage === undefined ? "…" : storage === null ? "unknown" : storage ? "yes" : "no: iOS may clear it"}
+          <Row label="Storage kept" warn={storage === false && push.support === "ok"}>
+            {storage === undefined
+              ? "…"
+              : storage === null
+                ? "unknown"
+                : storage
+                  ? "yes"
+                  : push.support === "ok"
+                    ? "no: iOS may clear it"
+                    : "no"}
           </Row>
           <Row label="Pushes here">
             {push.support === "ok"

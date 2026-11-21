@@ -166,7 +166,7 @@ Text, with [links](https://…) or [to a chapter](#bergamot).
 - a Lyon shop without an address, or an online one without a URL;
 - a tea without a tea type, another category with one, or a tea type `tea-types.yaml` lacks.
 
-**Guides** (`src/guides.ts`):
+**Guides** (`src/guides.ts`). Until a guide is written, the app shows its chapter outline from docs/original-plan.md, copied in `frontend/src/screens/Guides.tsx` (`OUTLINES`): the batch that writes a guide checks its chapters against it, then removes its outline there.
 - no `# Title` first, or a second one;
 - a chapter without its `{#id}`, or an id twice;
 - raw HTML, an image, or a link that is neither `https://` nor `#a-chapter` of the same guide.
