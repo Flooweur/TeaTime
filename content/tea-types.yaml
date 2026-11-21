@@ -8,7 +8,7 @@ tea_types:
     ratio_g_per_100ml: 2
     water_ml: 250
     infusions_s: [120]
-    office: { temp_c: 75, method: "Set the kettle to 75 °C and pour straight onto the leaves.", infusions_s: [120] }
+    office: { temp_c: 75, method: "Set the kettle to 75 °C.", infusions_s: [120] }
     notes: "For a Japanese green. Chinese greens such as gunpowder take hotter water, about 90 °C."
     sources:
       - title: "Quelle est la différence entre le thé vert et le thé noir ?"
@@ -32,7 +32,7 @@ tea_types:
     ratio_g_per_100ml: 2
     water_ml: 250
     infusions_s: [420]
-    office: { temp_c: 80, method: "Set the kettle to 80 °C and pour straight onto the leaves.", infusions_s: [420] }
+    office: { temp_c: 80, method: "Set the kettle to 80 °C.", infusions_s: [420] }
     notes: "A long Western steep: Palais des Thés gives white teas 5 to 10 minutes."
     sources:
       - title: "Thé blanc"
@@ -63,7 +63,7 @@ tea_types:
     ratio_g_per_100ml: 2
     water_ml: 250
     infusions_s: [180, 240, 300]
-    office: { temp_c: 95, method: "Set the kettle to 95 °C (or 100 °C) and pour onto the leaves; refill the mug twice.", infusions_s: [180, 240, 300] }
+    office: { temp_c: 95, method: "Set the kettle to 95 °C (or 100 °C); refill the mug for each infusion.", infusions_s: [180, 240, 300] }
     notes: "No rinse is needed for a mug brew."
     sources:
       - title: "La table d'infusion"
@@ -124,7 +124,7 @@ tea_types:
     ratio_g_per_100ml: 2
     water_ml: 250
     infusions_s: [240, 300]
-    office: { temp_c: 100, method: "Boil the kettle. Pour a little over the leaves and throw it away after 10 seconds, then fill the mug.", infusions_s: [240, 300] }
+    office: { temp_c: 100, method: "Boil the kettle. Pour a little over the leaves and throw it away after 10 seconds.", infusions_s: [240, 300] }
     notes: "A quick rinse first wakes the leaves; young raw (sheng) pu-erh takes cooler water, 85–90 °C."
     sources:
       - title: "Preparing Pu-erh"

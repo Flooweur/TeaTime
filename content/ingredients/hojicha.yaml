@@ -9,7 +9,7 @@ plain_brew:
   ratio_g_per_100ml: 2.4
   water_ml: 250
   infusions_s: [30]
-  office: { temp_c: 100, method: "Boil the kettle and pour straight onto the leaves: the time runs from the start of the pour.", infusions_s: [30] }
+  office: { temp_c: 100, method: "Set the kettle to 100 °C: the time runs from the start of the pour.", infusions_s: [30] }
   notes: "6 g a cup, as in #015."
   sources:
     - title: "The proper way to brew Nihoncha"

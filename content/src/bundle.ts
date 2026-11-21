@@ -4360,7 +4360,7 @@ export const BUNDLE: ContentBundle = {
         ],
         "office": {
           "tempC": 100,
-          "method": "Boil the kettle and pour straight onto the leaves: the time runs from the start of the pour.",
+          "method": "Set the kettle to 100 °C: the time runs from the start of the pour.",
           "infusionsS": [
             30
           ]
@@ -4529,7 +4529,7 @@ export const BUNDLE: ContentBundle = {
         ],
         "office": {
           "tempC": 100,
-          "method": "Boil the kettle and pour straight onto the leaves: the time runs from the start of the pour.",
+          "method": "Set the kettle to 100 °C: the time runs from the start of the pour.",
           "infusionsS": [
             30
           ]
@@ -5387,7 +5387,7 @@ export const BUNDLE: ContentBundle = {
       ],
       "office": {
         "tempC": 80,
-        "method": "Set the kettle to 80 °C and pour straight onto the leaves.",
+        "method": "Set the kettle to 80 °C.",
         "infusionsS": [
           420
         ]
@@ -5444,7 +5444,7 @@ export const BUNDLE: ContentBundle = {
       ],
       "office": {
         "tempC": 75,
-        "method": "Set the kettle to 75 °C and pour straight onto the leaves.",
+        "method": "Set the kettle to 75 °C.",
         "infusionsS": [
           120
         ]
@@ -5492,7 +5492,7 @@ export const BUNDLE: ContentBundle = {
       ],
       "office": {
         "tempC": 95,
-        "method": "Set the kettle to 95 °C (or 100 °C) and pour onto the leaves; refill the mug twice.",
+        "method": "Set the kettle to 95 °C (or 100 °C); refill the mug for each infusion.",
         "infusionsS": [
           180,
           240,
@@ -5608,7 +5608,7 @@ export const BUNDLE: ContentBundle = {
       ],
       "office": {
         "tempC": 100,
-        "method": "Boil the kettle. Pour a little over the leaves and throw it away after 10 seconds, then fill the mug.",
+        "method": "Boil the kettle. Pour a little over the leaves and throw it away after 10 seconds.",
         "infusionsS": [
           240,
           300
@@ -5642,5 +5642,5 @@ export const BUNDLE: ContentBundle = {
     }
   ],
   "guides": [],
-  "hash": "dfc8a67ef88ba7aebcff1fca6591d59becf832dc768f6654fb46785e48808034"
+  "hash": "39ce1c2418b6fcb8783852a5a4f83b4f61a95a0bfa1c8235b91354a7319427a2"
 };

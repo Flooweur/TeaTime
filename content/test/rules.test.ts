@@ -52,6 +52,16 @@ describe("the content's gear in core's rules", () => {
     expect(isMakeable(matcha, { catalog, pantry: pantryWith(["chawan", "chasen"]), on })).toBe(true);
   });
 
+  it("counts the required gear among the purchases, and never the optional gear", () => {
+    const recipes = catalog.blends.map((blend) => scaleRecipe(blend, 1));
+    const counts = unlockCounts(recipes, { catalog, pantry: pantryWith([]), on });
+    // The gaiwan unlocks the oolong and the silver needle. The matcha needs the chawan and the
+    // chasen together, so neither alone unlocks anything.
+    expect(Object.fromEntries(counts)).toEqual({ gaiwan: 2, "tea-sock": 1 });
+  });
+});
+
+describe("the content's teas in the plain-tea fallback", () => {
   it("never brews matcha as a plain tea, and every other tea in grams can be (self-review of batch 2)", () => {
     const teas = catalog.ingredients.filter((item) => item.category === "tea" && item.unit === "g");
     expect(teas.filter((tea) => plainBrewOf(tea, catalog) === null).map((tea) => tea.id)).toEqual(["matcha"]);
@@ -62,13 +72,5 @@ describe("the content's gear in core's rules", () => {
       const brew = plainBrewOf(catalog.ingredientById.get(id)!, catalog);
       expect(brew, id).toMatchObject({ tempC: 100, infusionsS: [30], office: { tempC: 100, infusionsS: [30] } });
     }
-  });
-
-  it("counts the required gear among the purchases, and never the optional gear", () => {
-    const recipes = catalog.blends.map((blend) => scaleRecipe(blend, 1));
-    const counts = unlockCounts(recipes, { catalog, pantry: pantryWith([]), on });
-    // The gaiwan unlocks the oolong and the silver needle. The matcha needs the chawan and the
-    // chasen together, so neither alone unlocks anything.
-    expect(Object.fromEntries(counts)).toEqual({ gaiwan: 2, "tea-sock": 1 });
   });
 });
