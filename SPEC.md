@@ -202,7 +202,8 @@ content/        blends/, ingredients/, gear/, shops.yaml, tea-types.yaml, guides
                 scripts/ (build, check), and the generated src/bundle.ts
 backend/        Fastify, Drizzle and SQLite, the jobs: src/ (the app, the database, the state's rows, the routes, push,
                 the jobs), drizzle/ (the migrations), scripts/ (vapid, restore)
-frontend/       the PWA (phase 6)
+frontend/       the PWA: src/ (lib: the offline store, outbox and sync; today: the model and its cards; screens;
+                components; sw: the service worker), scripts/ (icons)
 docs/           original-plan.md, design/, spikes/, runbook.md
 ```
 - **`packages/core` has zero I/O.** It compiles with `lib: ["ES2023"]` and `types: []` (no DOM, no Node), and ESLint refuses Node imports there.

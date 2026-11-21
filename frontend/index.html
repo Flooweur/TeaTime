@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3ebdd" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#17120d" />
+    <!-- The installed name, which iOS prints above each push (SPEC §3.8). -->
+    <meta name="apple-mobile-web-app-title" content="TeaTime" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="icon" href="/icon-192.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>TeaTime</title>
+    <script>
+      // The light / dark switch, applied before the first paint so the page never flashes (lib/theme.ts).
+      try {
+        var theme = localStorage.getItem("teatime.theme");
+        if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

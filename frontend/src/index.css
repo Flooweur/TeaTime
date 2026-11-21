@@ -1,0 +1,205 @@
+/*
+ * The look: A · Warm journal (docs/design/README.md has every token and why). The fonts are served
+ * by the app itself (each weight's file lists its subsets with their unicode ranges); the service
+ * worker keeps the latin ones for offline (vite.config.ts), and no font request leaves the app.
+ */
+@import "@fontsource/alegreya/400-italic.css";
+@import "@fontsource/alegreya/600.css";
+@import "@fontsource/alegreya-sans/400.css";
+@import "@fontsource/alegreya-sans/500.css";
+@import "@fontsource/alegreya-sans/700.css";
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #f3ebdd;
+  --color-surface: #fbf6ec;
+  --color-sunk: #efe4d1;
+  --color-fg: #2a1c12;
+  --color-muted: #6b5644;
+  --color-line: #e2d4bd;
+  --color-control: #9a7b5c;
+  --color-accent: #6e3f1e;
+  --color-on-accent: #fbf6ec;
+  --color-highlight: #b8781c;
+  --color-on-highlight: #2a1c12;
+  --color-highlight-ink: #8a560f;
+  --color-documented: #3f6b3a;
+  --color-attested: #2f5a85;
+  --color-legend: #8f5410;
+  --color-margin: #dda15e;
+  --color-shadow: #5a3a1c2e;
+  --color-focus: #6e3f1e;
+
+  --font-display: "Alegreya", Georgia, "Times New Roman", serif;
+  --font-sans: "Alegreya Sans", "Segoe UI", system-ui, sans-serif;
+
+  --text-tab: 0.6875rem;
+  --text-tab--line-height: 1.2;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.4;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5;
+  --text-md: 1.125rem;
+  --text-md--line-height: 1.4;
+  --text-story: 1.125rem;
+  --text-story--line-height: 1.75rem;
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 1.25;
+  --text-xl: 1.375rem;
+  --text-xl--line-height: 1.2;
+  --text-2xl: 1.75rem;
+  --text-2xl--line-height: 1.15;
+  --text-3xl: 2.125rem;
+  --text-3xl--line-height: 1.05;
+
+  --radius-card: 18px;
+  --radius-well: 14px;
+  --radius-control: 12px;
+
+  --spacing-screen: 1.25rem;
+  --spacing-section: 1.5rem;
+  --spacing-card: 1.25rem;
+  --spacing-margin: 2.25rem;
+  --spacing-tap: 2.75rem;
+  --spacing-control: 3rem;
+
+  --shadow-card: 0 1px 0 var(--color-line), 0 14px 28px -20px var(--color-shadow);
+}
+
+/*
+ * Dark: the switch in Settings sets data-theme on <html> (lib/theme.ts). Until it is first set, the
+ * device's own setting decides (decision of 2026-11-21). The two blocks hold the same values.
+ */
+:root[data-theme="dark"] {
+  --color-bg: #17120d;
+  --color-surface: #211a13;
+  --color-sunk: #2b2219;
+  --color-fg: #f2e7d5;
+  --color-muted: #bca88f;
+  --color-line: #3a2e22;
+  --color-control: #8c7458;
+  --color-accent: #e2a65a;
+  --color-on-accent: #1e150d;
+  --color-highlight: #e2a65a;
+  --color-on-highlight: #1e150d;
+  --color-highlight-ink: #edb872;
+  --color-documented: #a3c892;
+  --color-attested: #98bce2;
+  --color-legend: #e7b068;
+  --color-margin: #6b4823;
+  --color-shadow: #00000073;
+  --color-focus: #edb872;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --color-bg: #17120d;
+    --color-surface: #211a13;
+    --color-sunk: #2b2219;
+    --color-fg: #f2e7d5;
+    --color-muted: #bca88f;
+    --color-line: #3a2e22;
+    --color-control: #8c7458;
+    --color-accent: #e2a65a;
+    --color-on-accent: #1e150d;
+    --color-highlight: #e2a65a;
+    --color-on-highlight: #1e150d;
+    --color-highlight-ink: #edb872;
+    --color-documented: #a3c892;
+    --color-attested: #98bce2;
+    --color-legend: #e7b068;
+    --color-margin: #6b4823;
+    --color-shadow: #00000073;
+    --color-focus: #edb872;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+@layer base {
+  html {
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    min-height: 100dvh;
+    background: var(--color-bg);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+  /* Inputs at 16 px, so iOS doesn't zoom (SPEC §3.8). */
+  input,
+  select,
+  textarea {
+    font-size: 1rem;
+  }
+}
+
+@layer components {
+  /* Small capitals for labels (docs/design/README.md, Fonts). */
+  .label {
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.07em;
+    color: var(--color-muted);
+  }
+  /* Numbers that line up: grams, timers, water. */
+  .nums {
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  /* The blend's page: a surface card with the notebook's margin rule. */
+  .journal-page {
+    position: relative;
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    padding: var(--spacing-card) var(--spacing-card) var(--spacing-card) var(--spacing-margin);
+  }
+  .journal-page::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 22px;
+    width: 1.5px;
+    background: var(--color-margin);
+  }
+  /* The amber ribbon hanging from the page's top right. */
+  .journal-ribbon {
+    position: absolute;
+    top: -4px;
+    right: 22px;
+    width: 26px;
+    height: 58px;
+    background: var(--color-highlight);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+  }
+  /* The story, written on ruled lines. */
+  .story {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: var(--text-story);
+    line-height: 28px;
+    background-image: linear-gradient(
+      to bottom,
+      transparent 23px,
+      var(--color-line) 23px,
+      var(--color-line) 24.5px,
+      transparent 24.5px
+    );
+    background-size: 100% 28px;
+  }
+  /* Dotted leaders from an ingredient to its quantity. */
+  .leader {
+    flex: 1;
+    min-width: 1rem;
+    margin: 0 0.4rem 0.35rem;
+    border-bottom: 2px dotted color-mix(in srgb, var(--color-control) 55%, transparent);
+  }
+}
