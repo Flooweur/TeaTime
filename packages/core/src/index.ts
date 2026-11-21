@@ -115,3 +115,4 @@ export {
   swapPick,
   updateSettings,
 } from "./state/online.js";
+export type { CommandOutcome, CommandsAnswer, DecidedResult, ParseRefusal, PickContent, Snapshot } from "./wire.js";
