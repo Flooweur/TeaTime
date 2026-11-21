@@ -10,7 +10,7 @@ Each phase is a branch and a pull request, merged only after the owner's yes. Ea
 | 0 | **Design directions:** three static Today mockups in `docs/design/`; the owner picks one, which becomes the Tailwind tokens | The owner has picked, and `docs/design/README.md` records it | Done: A · Warm journal |
 | 1 | **Foundation:** workspaces, tooling, CI, these docs, the content's schemas, check and build | `npm run check` is green in CI | Done |
 | 2 | **Push spike** (`spikes/001-push-8443`): iOS home-screen push on the `:8443` origin | The owner's iPhone has shown a test push (or the failure is written up with the fallback: a Tailscale container with its own name) | Proposed as its own session |
-| 3 | **Core domain:** every rule of SPEC §2, with unit and property tests (a simulated year in Europe/Paris, the draw's invariants, the status table, the reducer's round trip, rounding) | The tests are green | — |
+| 3 | **Core domain:** every rule of SPEC §2, with unit and property tests (a simulated year in Europe/Paris, the draw's invariants, the status table, the reducer's order-independence, rounding). The saving-and-loading round trip of the state is phase 5's, with the rows; the Saturday review's lists are phase 8's, built on core's unlock counts and freshness | The tests are green | In review |
 | 4 | **Content batch 1:** 10 blends (about 6 safe and 4 experimental, at least one cold brew, across the families), their ingredients, Lyon and online shops, and the tea types. The owner approves the list before the research | `content:check` is green, and the owner has reviewed the batch | — |
 | 5 | **Backend:** the state's persistence, the commands, draw and swap, settings and overrides, export, backup and restore, diagnostics | The route and job tests are green (in-memory SQLite, a test clock, a fake push) | — |
 | 6 | **Frontend core:** the shell, Today with its timers, the library, the blend page, the pantry, the offline store, outbox and sync, and the update toast | For any date and pantry, Today shows a valid card, and the app opens offline | — |
@@ -22,6 +22,12 @@ Phase 4 depends only on phase 1, so it can run alongside phases 3, 5 and 6. Late
 
 ## Decisions log
 Asked of the owner and answered, newest first. The SPEC states each as a rule.
+
+### 2026-11-20: the core rules (phase 3)
+- **Office days:** Monday, Tuesday and Thursday, the default in Settings.
+- **★ against a low rating:** a blend last rated 1–2 stays out of the draw even when starred; only *make again* brings it back.
+- **The evening push when away:** it still goes the evening before a tea day, even when that evening is away (coming back on Sunday for a Monday office day).
+- **Rounding:** a needed quantity never rounds to nothing: at least 0.1 g, 5 ml or one piece.
 
 ### 2026-11-20: the look (phase 0)
 - **Direction:** of three Today mockups (A · Warm journal, B · Calm minimal, C · Ink & washi), the owner picked **A · Warm journal**, as shown, with nothing mixed in from B or C: cream paper and tea-brown ink, Alegreya for the names and stories, Alegreya Sans for the rest, amber for the running timer.
