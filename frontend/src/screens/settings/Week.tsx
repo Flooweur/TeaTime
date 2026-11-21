@@ -51,11 +51,14 @@ export function Week() {
   const [overrideType, setOverrideType] = useState<DayType>("home");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+  // The period's id, kept until the server takes it: a retry after a lost answer resends the same
+  // period, which the server answers unchanged instead of adding it twice. New dates, a new period.
+  const [awayId, setAwayId] = useState(() => crypto.randomUUID());
 
   const officeDays = state.settings.officeDays;
   const toggleDay = (day: Weekday) => {
     const next = officeDays.includes(day) ? officeDays.filter((d) => d !== day) : [...officeDays, day];
-    void online.run("PUT", "settings", { officeDays: [...next].sort() });
+    void online.run("PUT", "settings", { officeDays: [...next].sort((a, b) => a - b) });
   };
 
   const overrides = Object.entries(state.overrides)
@@ -159,7 +162,10 @@ export function Week() {
             aria-label="Away from"
             min={today}
             value={from}
-            onChange={(e) => setFrom(e.target.value)}
+            onChange={(e) => {
+              setFrom(e.target.value);
+              setAwayId(crypto.randomUUID());
+            }}
             className={input}
           />
           <input
@@ -167,14 +173,18 @@ export function Week() {
             aria-label="Away to"
             min={from || today}
             value={to}
-            onChange={(e) => setTo(e.target.value)}
+            onChange={(e) => {
+              setTo(e.target.value);
+              setAwayId(crypto.randomUUID());
+            }}
             className={input}
           />
           <Button
             disabled={online.busy || !from || !to}
             onClick={() =>
-              void online.run("POST", "away", { id: crypto.randomUUID(), from, to }).then((ok) => {
+              void online.run("POST", "away", { id: awayId, from, to }).then((ok) => {
                 if (ok) {
+                  setAwayId(crypto.randomUUID());
                   setFrom("");
                   setTo("");
                 }

@@ -63,7 +63,9 @@ export function Times() {
   const s = state.settings;
   const online = useOnline();
   const save = (patch: Partial<Settings>) => void online.run("PUT", "settings", patch);
-  const [cooldown, setCooldown] = useState(String(s.cooldownDays));
+  // The field follows the server's value whenever it changes (another device, a refusal).
+  const [cooldown, setCooldown] = useState({ text: String(s.cooldownDays), of: s.cooldownDays });
+  if (cooldown.of !== s.cooldownDays) setCooldown({ text: String(s.cooldownDays), of: s.cooldownDays });
 
   return (
     <>
@@ -84,11 +86,11 @@ export function Times() {
       <Section title="Brewing">
         <div className="flex items-center justify-between gap-4">
           <span>Office cups</span>
-          <CupsStepper cups={s.officeCups} onChange={(officeCups) => save({ officeCups })} />
+          <CupsStepper cups={s.officeCups} disabled={online.busy} onChange={(officeCups) => save({ officeCups })} />
         </div>
         <div className="flex items-center justify-between gap-4">
           <span>Home cups</span>
-          <CupsStepper cups={s.homeCups} onChange={(homeCups) => save({ homeCups })} />
+          <CupsStepper cups={s.homeCups} disabled={online.busy} onChange={(homeCups) => save({ homeCups })} />
         </div>
         <label className="flex items-center justify-between gap-4">
           <span>
@@ -97,13 +99,13 @@ export function Times() {
           </span>
           <input
             inputMode="numeric"
-            value={cooldown}
-            onChange={(e) => setCooldown(e.target.value)}
+            value={cooldown.text}
+            onChange={(e) => setCooldown({ text: e.target.value, of: s.cooldownDays })}
             onBlur={() => {
-              const days = Number(cooldown);
+              const days = Number(cooldown.text);
               if (Number.isInteger(days) && days >= 0 && days <= MAX_COOLDOWN_DAYS && days !== s.cooldownDays) {
                 save({ cooldownDays: days });
-              } else setCooldown(String(s.cooldownDays));
+              } else setCooldown({ text: String(s.cooldownDays), of: s.cooldownDays });
             }}
             className={`${input} w-20 text-right`}
           />

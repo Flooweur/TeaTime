@@ -96,3 +96,41 @@ describe("Settings: the week and the times (SPEC §7)", () => {
     expect(screen.getByRole("link", { name: "Cups made (CSV)" }).getAttribute("href")).toBe("/api/export.csv");
   });
 });
+
+describe("the self-review of phase 8", () => {
+  it("resends the same away period after a lost answer, so it isn't added twice", async () => {
+    const server = await openSettings(initialState(), at("2026-11-21", "10:00"));
+    fireEvent.change(screen.getByLabelText("Away from"), { target: { value: "2026-12-21" } });
+    fireEvent.change(screen.getByLabelText("Away to"), { target: { value: "2026-12-23" } });
+    server.loseNextAnswer = true;
+    fireEvent.click(screen.getByRole("button", { name: "Add" }));
+    expect(await screen.findByText(/can't be reached/)).toBeTruthy();
+    expect(server.state.away).toHaveLength(1);
+    fireEvent.click(screen.getByRole("button", { name: "Add" }));
+    await waitFor(() => expect(screen.queryByText(/can't be reached/)).toBeNull());
+    expect(server.state.away).toHaveLength(1);
+  });
+
+  it("holds the cups stepper while its change is on the way", async () => {
+    const server = await openSettings(initialState(), at("2026-11-21", "10:00"));
+    let release: () => void = () => {};
+    server.hold = new Promise<void>((resolve) => (release = resolve));
+    const more = screen.getAllByRole("button", { name: "One cup more" })[0]!;
+    fireEvent.click(more);
+    await waitFor(() => expect((more as HTMLButtonElement).disabled).toBe(true));
+    server.hold = null;
+    release();
+    await waitFor(() => expect(server.state.settings.officeCups).toBe(3));
+  });
+
+  it("shows the cooldown the server holds, when it changes elsewhere", async () => {
+    const state = initialState();
+    await openSettings(state, at("2026-11-21", "10:00"));
+    const field = screen.getByDisplayValue("21");
+    kept.set({
+      ...kept.get(),
+      snapshot: snapshotOf({ ...state, settings: { ...state.settings, cooldownDays: 14 } }, 5),
+    });
+    await waitFor(() => expect((field as HTMLInputElement).value).toBe("14"));
+  });
+});

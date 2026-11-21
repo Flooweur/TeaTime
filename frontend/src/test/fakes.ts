@@ -108,6 +108,10 @@ export function fakeServer(start: State = initialState()) {
     if (result?.ok) {
       server.state = result.state;
       server.revision++;
+      if (server.loseNextAnswer) {
+        server.loseNextAnswer = false;
+        throw new TypeError("The network dropped the answer");
+      }
       return json(snapshotOf(server.state, server.revision));
     }
     if (result)

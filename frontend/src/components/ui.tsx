@@ -145,10 +145,13 @@ export function CupsStepper({
   cups,
   onChange,
   unit = "cup",
+  disabled = false,
 }: {
   cups: number;
   onChange: (cups: number) => void;
   unit?: string;
+  /** While a change is on its way to the server: a second tap would send the same value again. */
+  disabled?: boolean;
 }) {
   const round = "size-control rounded-full border-[1.5px] border-control font-display text-xl disabled:opacity-35";
   return (
@@ -156,7 +159,7 @@ export function CupsStepper({
       <button
         type="button"
         className={round}
-        disabled={cups <= 1}
+        disabled={disabled || cups <= 1}
         onClick={() => onChange(cups - 1)}
         aria-label="One cup fewer"
       >
@@ -168,7 +171,7 @@ export function CupsStepper({
       <button
         type="button"
         className={round}
-        disabled={cups >= 12}
+        disabled={disabled || cups >= 12}
         onClick={() => onChange(cups + 1)}
         aria-label="One cup more"
       >
