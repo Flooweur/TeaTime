@@ -15,7 +15,7 @@ The rest of the week works like this:
 It is a personal app: a PWA installed on an iPhone, served from a PC at home through Tailscale.
 
 ## Status
-**Phases 0 and 1 are done:** the look (*A · Warm journal*, with its tokens) and the foundation (the workspaces, the tooling and CI, the docs, and the content's schemas, checks and build). **Phase 3, the rules in `packages/core`, is in review.** See [ROADMAP.md](ROADMAP.md) for what comes next.
+**Phases 0, 1, 3 and 4 are done:** the look (*A · Warm journal*, with its tokens), the foundation (the workspaces, the tooling and CI, the docs, and the content's checks and build), the rules in `packages/core`, and the first 10 blends. **Phase 5, the server in `backend/`, is in review.** See [ROADMAP.md](ROADMAP.md) for what comes next.
 
 ## Read next
 | Document | What |
