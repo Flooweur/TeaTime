@@ -24,15 +24,26 @@ const root = createRootRoute({
   ),
 });
 
-const today = createRoute({
+/** A push's link: the day it is for, and that it came from a push. */
+const pushSearch = (search: Record<string, unknown>): { date?: string; from?: "push" } => ({
+  ...(typeof search.date === "string" && DATE.test(search.date) ? { date: search.date } : {}),
+  ...(search.from === "push" ? { from: "push" as const } : {}),
+});
+
+/** Today, at `/` and at `/today`, which the pushes link to (core's notifications.ts). */
+function TodayRoute() {
+  const { date, from } = today.useSearch();
+  return <Today fromPush={from === "push" && date ? date : null} />;
+}
+
+const today = createRoute({ getParentRoute: () => root, path: "/", validateSearch: pushSearch, component: TodayRoute });
+
+const todayFromPush = createRoute({
   getParentRoute: () => root,
-  path: "/",
-  validateSearch: (search: Record<string, unknown>): { date?: string; from?: "push" } => ({
-    ...(typeof search.date === "string" && DATE.test(search.date) ? { date: search.date } : {}),
-    ...(search.from === "push" ? { from: "push" as const } : {}),
-  }),
-  component: function TodayRoute() {
-    const { date, from } = today.useSearch();
+  path: "/today",
+  validateSearch: pushSearch,
+  component: function TodayLinkRoute() {
+    const { date, from } = todayFromPush.useSearch();
     return <Today fromPush={from === "push" && date ? date : null} />;
   },
 });
@@ -57,6 +68,7 @@ const pantryItem = createRoute({
 
 const routeTree = root.addChildren([
   today,
+  todayFromPush,
   createRoute({ getParentRoute: () => root, path: "/pantry", component: Pantry }),
   pantryItem,
   createRoute({ getParentRoute: () => root, path: "/library", component: Library }),
