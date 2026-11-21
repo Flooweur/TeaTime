@@ -466,7 +466,7 @@ On the phone, a bottom tab bar holds **Today · Pantry · Library · Guides · S
 - **A blend you can't make yet** is greyed out and shows what's missing.
 - **A blend's page** has its recipe and **I made this**.
 
-**Guides:** the two guides, readable offline.
+**Guides:** the two guides, readable offline. Until a guide is written, its chapter outline (docs/original-plan.md).
 
 **Settings**
 - Office days, overrides and away periods.
@@ -475,7 +475,7 @@ On the phone, a bottom tab bar holds **Today · Pantry · Library · Guides · S
 - Light or dark: a switch (decision of 2026-11-20). Until it is first set, the app follows the device's own setting, and the switch can go back to that ("As the device"). Each device keeps its own; it isn't synced (decision of 2026-11-21).
 - Export (JSON and CSV).
 
-**Diagnostics**
+**Diagnostics** (Settings → Diagnostics, `/diag`)
 - The app's and the server's versions, the service worker, push.
 - The outbox and refused commands.
 - The jobs and the recent notifications.

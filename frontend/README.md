@@ -29,10 +29,10 @@ Draws the app icons into `public/` (no dependencies).
 |---|---|
 | `src/main.tsx`, `src/router.tsx` | The start (storage followed, sync started, storage kept) and the screens as routes |
 | `src/index.css` | The Warm journal tokens (docs/design/README.md) as Tailwind's `@theme`, dark by the switch or by the device, and the journal's motifs |
-| `src/lib/` | `api.ts` (JSON calls, `{error, code}`), `db.ts` (Dexie: snapshot, outbox, refused), `store.ts` (small stores, and the storage followed across tabs), `view.ts` (the snapshot with the outbox replayed), `commands.ts` (a change made offline), `sync.ts` (the outbox sent, the snapshot kept, the online operations), `timer.ts`, `chime.ts`, `wakeLock.ts`, `push.ts` (this device's pushes: on from a tap, off, the test), `theme.ts`, `time.ts`, `format.ts`, `content.ts`, `pantryView.ts` |
+| `src/lib/` | `api.ts` (JSON calls, `{error, code}`), `db.ts` (Dexie: snapshot, outbox, refused), `store.ts` (small stores, and the storage followed across tabs), `view.ts` (the snapshot with the outbox replayed), `commands.ts` (a change made offline), `sync.ts` (the outbox sent, the snapshot kept, the online operations), `timer.ts`, `chime.ts`, `wakeLock.ts`, `push.ts` (this device's pushes: on from a tap, off, the test), `theme.ts`, `diagnostics.ts` (the clock check, the worker's version), `time.ts`, `format.ts`, `content.ts`, `pantryView.ts` |
 | `src/review/` | The Saturday review: `model.ts` (the week's days, running low, going stale, unlocks, next week's office days and restock), and its screen |
 | `src/today/` | `model.ts` (which card Today shows, from the state and the time alone), the cards, the actions (Made it, the ratings, Skip, Swap, Not for me, Undo), the evening's kit |
-| `src/screens/` | Library, a blend's page, the Pantry and an item's page, Guides (an outline later), Settings: Notifications, and `settings/` (the week, the times and brewing, the export) |
+| `src/screens/` | Library, a blend's page, the Pantry and an item's page, Guides (each guide's outline until it's written), Diagnostics, Settings: Notifications, and `settings/` (the week, the times and brewing, the export) |
 | `src/components/` | The frame and its tab bar, the banners, the update toast, the recipe with its timers, the small pieces |
 | `src/sw/` | The service worker: the shell precached, every page address opening it offline; on the PC, a push shown and its tap opening the app (`push.ts`) |
 | `scripts/make-icons.mjs` | The icons |
@@ -49,6 +49,8 @@ Draws the app icons into `public/` (no dependencies).
 - `lib/sync.test.ts`: the outbox, a lost answer never counting twice, refusals, undecided commands, offline (a proxy's 500 included), an older snapshot ignored, a change made mid-sync sent at once.
 - `screens/settings/Settings.test.tsx`: office days through the server, a packed kit asked about before it's thrown away, away periods, one day different, the exports.
 - `review/Review.test.tsx`: the week reviewed, running low, next week's restock, a waiting tea made on its own day, the weekend tab, the push's link.
+- `test/a11y.test.tsx`: every screen through axe-core (names, roles, labels; contrast is checked by the design's token table), with a control that it catches a nameless button.
+- `lib/diagnostics.test.ts`: the clock check.
 - `lib/timer.test.ts`: the timers' arithmetic.
 - `lib/push.dom.test.tsx`: pushes on the iPhone only, a replaced subscription forgotten at the server, the pushes-off banner.
 - `lib/push.test.ts`, `sw/push.test.ts`: the VAPID key's bytes and the subscription's key; what a push shows on the PC, and the links it may open.
