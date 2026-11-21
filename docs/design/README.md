@@ -189,7 +189,8 @@ What makes the screen a journal, as drawn in the page's `.j-*` styles:
 - **Trust badges:** a pill with a 1.5 px border in the level's colour and an icon (a page, a person, a speech bubble). *Legend* is always dashed, so it reads as unproven without colour.
 - **Steps:** numbered circles. A done step is muted with a dotted circle; the running one is filled amber, and its timer sits in a `surface` box outlined in amber, with a 6 px progress bar and Pause. The next timer is a dashed button that waits for a tap.
 - **The journal strip:** `#017 Moroccan mint` in Alegreya inside a dashed `control` border, with Copy.
-- **Cups and rating:** 48 px circles, the chosen one filled with `accent`. They are radio groups, so the app gives them arrow keys and a single tab stop (the mockup doesn't).
+- **Rating:** 48 px circles, the chosen one filled with `accent`, as a radio group, so the app gives them arrow keys and a single tab stop (the mockup doesn't).
+- **Cups:** a stepper, "− 2 cups +", its two buttons 48 px circles: twelve choices don't fit as circles (the owner kept it in phase 6, decision of 2026-11-21).
 - **The teaser:** a sealed envelope (a `sunk` flap and an amber wax seal) holding "Tomorrow's tea arrives at 8:00" and Peek.
 
 ## What was checked

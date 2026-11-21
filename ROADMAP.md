@@ -32,6 +32,7 @@ The owner took the five recommendations:
 - **Undo:** after Made it or Skip, Today offers Undo for about 10 seconds.
 - **On the PC:** the phone's layout, in a centred column.
 - **Weekends:** Today says there's no tea today, shows the next tea day (Monday's kit on Sunday evening), and links to the Library for I made this.
+- **The cups selector** is a stepper, "− 2 cups +", rather than the design's row of circles (asked after the PR's self-review).
 
 ### 2026-11-21: the backend (phase 5)
 - **No command counts twice** without the snapshot listing the ids it holds, a list that would only grow: a phone with unsent commands syncs by sending them, and the answer has a result for each, a resend's included (SPEC §3.3).
